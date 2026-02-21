@@ -1,60 +1,58 @@
-# MONDAS — Magic & Drain v0.3
+# MONDAS Magic & Drain v0.3
 
 ## In Two Minutes
 
-All thaumic work drains the caster. Always. Thaumatech devices don't absorb the cost — they replace the technique. The device is a stencil, not a shield. The energy still flows through you.
+All thaumic work drains the caster. Always. Thaumatech devices don't absorb the cost, they replace the technique. The device is a stencil, not a shield. The energy still flows through you.
 
-**Thaumatech** makes magic predictable. A rated device gives you a base die for free — that's what it's designed to do. Want more? Spend Guard. Each point of Guard you burn buys one bonus die. The device keeps the process clean, so the only risk is what happens when you push past its rating.
+**Thaumatech** makes magic predictable. The device enables the action and you roll your stat as normal, no drain cost. Want more? Spend Guard. Each point of Guard you burn buys one bonus die. The device keeps the process clean, so the only risk is what happens when you push past its rating.
 
-**Innate shaping** has no stencil. Every die costs Guard. You shape through your **Domain** (what your magic does) using your **Method** (the personal, idiosyncratic process you developed). After shaping, you make a Nerve save or suffer side effects. And every time you shape without a device, a clock ticks somewhere — something is paying attention.
+**Innate shaping** has no stencil. Every die costs Guard. You shape through your **obsession** (what your magic does, rooted in who you are) using your **Tell** (the personal, idiosyncratic process you developed). On a messy roll, you make a Nerve save or suffer side effects. And every time you shape without a device, a clock ticks somewhere. Something is paying attention.
 
-When a caster drains themselves past their limit — through Guard, into Harm — that's where the system gets dangerous. For innate shapers, that moment can become a **Break**: a character-defining sacrifice where death is on the table and the effect has no ceiling.
+When a caster drains themselves past their limit, through Guard into Harm, that's where the system gets dangerous. For innate shapers, that moment can become a **Break**: a character-defining sacrifice where death is on the table and the effect has no ceiling.
 
 ---
 
 ## Thaumatech
 
-Thaumatech is Mondas's answer to the chaos of raw magic. Devices that channel thaumic energy through engineered pathways — somatic inputs replaced by switches, verbal components replaced by calibrated resonators, material components replaced by standardized catalysts. The result is deterministic: same input, same output, every time.
+Thaumatech is Mondas's answer to the chaos of raw magic. Devices that channel thaumic energy through engineered pathways: somatic inputs replaced by switches, verbal components replaced by calibrated resonators, material components replaced by standardized catalysts. The result is deterministic: same input, same output, every time.
 
-The device IS the Domain and Method. A ward projector wards. A scanner scans. You push the button. No personal quirks, no idiosyncratic technique, no superstition. That's why thaumatech is boring, reliable, universal — and why every government on Mondas promotes it.
+The device IS the scope and technique. A ward projector wards. A scanner scans. You push the button. No personal quirks, no idiosyncratic technique, no superstition. That's why thaumatech is boring, reliable, universal, and why every government on Mondas promotes it.
 
 ### Using Thaumatech
 
-A thaumatech device works like any tool. The device enables the action — you can't scan without a scanner, can't ward without a ward projector. The roll uses your relevant stat (Sharp for precision work, Nerve for channeling, Grit for brute-force applications).
+A thaumatech device works like any tool. The device enables the action: you can't scan without a scanner, can't ward without a ward projector. The roll uses your relevant stat (Sharp for precision work, Nerve for channeling, Grit for brute-force applications).
 
-**Base use is free.** The device gives you a **base die** at its rated output, no drain cost. This is what it's built for. A factory boiler operator running their rig at spec doesn't drain. An inspector scanning for anomalies doesn't drain. Routine thaumatech is infrastructure — it costs nothing because it's designed not to.
+**Base use is free.** Roll your stat as normal. The device enables the action, no drain cost. This is what it's built for. A factory boiler operator running their rig at spec doesn't drain. An inspector scanning for anomalies doesn't drain. Routine thaumatech is infrastructure. It costs nothing because it's designed not to.
 
-**Overcharging costs Guard.** Want more than the rated output? Each point of Guard spent = **+1 bonus die** on the roll. You're pulling more than the device was meant for, faster than is safe. The energy still flows through you — the device doesn't protect you from the cost, it just shaped the channel. Now you're widening that channel past spec.
+**Overcharging costs Guard.** Want more than the rated output? Each point of Guard spent adds **+1 bonus die** on the roll. You're pulling more than the device was meant for, faster than is safe. The energy still flows through you. The device doesn't protect you from the cost, it just shaped the channel. Now you're widening that channel past spec.
 
 ### Careful vs. Rushed Channeling
 
-Time changes the cost.
+Time changes the odds.
 
-**Taking extra time (spend an additional Act — two rounds instead of one):** Reduce drain cost by 1 Guard. Careful, controlled channeling. In combat, that extra round matters — the Danger Clock is ticking, enemies are moving. Out of combat, taking your time is almost always the right call, which means everyday thaumatech is naturally low-drain.
+**Taking extra time (spend an additional Act, two rounds instead of one):** Gain a **Boon (+1d)** on the roll. Careful, controlled channeling. You still pay full drain cost, but the extra time gives you better odds. In combat, that extra round matters: the Danger Clock is ticking, enemies are moving. Out of combat, it's almost always worth taking.
 
-**Rushed (default in combat):** Full drain cost. No reduction. You're pulling fast and hard because you don't have a choice.
+**Rushed (default in combat):** No Boon. You're pulling fast and hard because you don't have a choice.
 
-This applies to both thaumatech overcharging and innate shaping. The time/cost trade is universal.
-
-> **P15:** One modifier, no tracking. You either took your time or you didn't. The system naturally makes out-of-combat casting cheaper (you can always take your time) and combat casting expensive (you rarely can). No "spell preparation" rules needed — the pacing of the fiction does the work.
+This applies to both thaumatech overcharging and innate shaping. The time/odds trade is universal.
 
 ### Thaumatech in Combat
 
 When used as a weapon, thaumatech follows the standard attack rules:
 
-- Roll the device's **weapon dice** (same categories as mundane weapons — a thaumatech wrench is 1d8, a discharge rod is 1d6, a heavy pulse emitter is 2d6)
-- Sacrifice dice 4+ for **Gambits** (device-appropriate: overload, flash, redirect, suppress — in addition to standard shove/trip/disarm)
+- Roll the device's **weapon dice** (same categories as mundane weapons: a thaumatech wrench is 1d8, a discharge rod is 1d6, a heavy pulse emitter is 2d6)
+- Sacrifice dice 4+ for **Gambits** (device-appropriate: overload, flash, redirect, suppress, in addition to standard shove/trip/disarm)
 - Overcharge by spending Guard for bonus dice, same as any thaumic use
 
 The base attack die is free. Drain only for overcharging.
 
 ### Device Consequences Through Stakes
 
-Device failure is handled through the existing Stakes system. Before any thaumatech roll, the GM includes device consequences in the stakes based on what makes fictional sense:
+Device failure is handled through the existing Stakes system. Before any thaumatech roll, the GM includes device consequences in the stakes based on what makes sense:
 
 **Consumer / standard-rated gear:**
-- Partial (4–5): Reduced effect, device runs hot
-- Consequence (1–3): Device disabled until end of scene, needs recalibration
+- Partial (4-5): Reduced effect, device runs hot
+- Consequence (1-3): Device disabled until end of scene, needs recalibration
 
 **Professional / industrial gear:**
 - Partial: Device strains, -1d on next use with this device
@@ -62,14 +60,12 @@ Device failure is handled through the existing Stakes system. Before any thaumat
 
 **Military / black-ops gear:**
 - Partial: Device destabilizes, minor collateral effect
-- Consequence: Device breaks catastrophically — explosion, feedback surge, targeting locks onto the nearest neural signature (yours), rune activates inside the barrel
+- Consequence: Device breaks catastrophically. Explosion, feedback surge, targeting locks onto the nearest neural signature (yours), rune activates inside the barrel.
 
 **Jury-rigged / improvised gear:**
 - Stakes are always harsh. The GM puts the worst plausible outcome on the table. Improvised thaumatech is a gamble every time.
 
-The more powerful the device, the more dangerous the failure. A consumer scanner overheating is an inconvenience. A black-ops brain-staker misfiring is a horror show. No separate degradation mechanic — the GM sets Stakes based on the fiction, same as everything else.
-
-> **P3, P7:** Dangerous gear means dangerous consequences. A player choosing to use a military-grade device in a crowded area is choosing to put "civilian casualties" on the stakes table. The world responds to thaumic violence (P7), and the consequences scale with the tool (P3).
+The more powerful the device, the more dangerous the failure. A consumer scanner overheating is an inconvenience. A black-ops brain-staker misfiring is a horror show. No separate degradation mechanic. The GM sets Stakes based on the fiction, same as everything else.
 
 ---
 
@@ -77,126 +73,165 @@ The more powerful the device, the more dangerous the failure. A consumer scanner
 
 The Boom didn't create two kinds of people. It created a spectrum.
 
-Twenty years of elevated BTC changed everyone a little. Most people never notice — they use thaumatech, pay their utility bills, and don't think about it. But some people got touched deeper. The system recognizes four tiers, each an Edge (or chain of Edges):
+Twenty years of elevated BTC changed everyone a little. Most people never notice. They use thaumatech, pay their utility bills, and don't think about it. But some people got touched deeper. The system recognizes four tiers, each an Edge or chain of Edges. They aren't separate conditions. They're one thing deepening.
+
+It starts with an **obsession.** Not a magical one. A human one. The thing you can't stop thinking about. The work that defines you. The fear that shaped you. The loss that never healed. Everyone has obsessions. Most of them stay ordinary forever. But the Boom gave some obsessions a frequency. And for a few people, that frequency started humming back.
 
 ### Mundane
 
-No innate thaumic ability. Uses thaumatech or doesn't interact with magic at all. This is most people on Mondas. There's no shame in it and no disadvantage — thaumatech exists precisely so that everyone can interact with the thaumic world safely.
+No innate thaumic ability. Uses thaumatech or doesn't interact with magic at all. This is most people on Mondas. There's no shame in it and no disadvantage. Thaumatech exists so that everyone can access the thaumic world safely. You don't need to be special. You need the right tool.
 
 ### Knack
 
-A minor innate trick. Not shaping. Not a Domain. Just one small, specific thing you can do that's a little bit supernatural. It emerged sometime after the Boom — maybe when you were a kid, maybe last year. You've learned to do it reliably. You don't talk about it.
+The obsession's first thaumic expression. The spark. Small, specific, hidden. You might not even recognize it as magic. The nurse who always felt her patients' pain thinks she's just empathetic. The mechanic who knows when a machine is about to break thinks he has good instincts. The arsonist's kid who always knows where the heat is just thinks he's careful.
 
-**Example Knacks:**
-- You can warm things by touching them
-- You always know when someone's lying (gut feeling, not telepathy)
-- Small electronics glitch when you're angry
-- You heal a bit faster than you should
-- Animals trust you on instinct
-- You can hold your breath way too long
-- Your voice carries when you need it to
-- You always know which direction is north
-- You can see better in the dark than you should
-- Your hands are unnaturally steady
+A knack is the Boom giving your obsession a voice. Quiet. Almost imperceptible. But real.
 
-**Mechanically:** A Knack is an Edge. It grants a **Boon in a specific situation.** No drain. No Guard cost. No heat clock. No Domain, no Method. One sentence, one Boon condition. Always on.
+**Example Knacks** (propose your own, subject to GM approval, must connect to your obsession):
+- You feel when someone's lying. Gut-level, not telepathy. (Obsession: trust, betrayal, reading people.)
+- Small electronics glitch when you're stressed. (Obsession: machines, control, things breaking.)
+- You heal faster than you should. (Obsession: survival, endurance, refusing to stay down.)
+- Animals trust you on instinct. (Obsession: connection, empathy, being understood.)
+- You always know which direction is north. (Obsession: navigation, escape routes, never being lost.)
+- Your hands are unnaturally steady. (Obsession: precision, craft, getting it right.)
+- You can feel the structural weak point in anything you touch. (Obsession: building, breaking, how things hold together.)
+- Metal warms slightly when you hold it. (Obsession: the factory floor, the furnace, the work.)
+- You always wake up exactly when you intend to. (Obsession: time, routine, discipline.)
+- You know when someone in the room is hurt, even if they're hiding it. (Obsession: caretaking, pain, protection.)
 
-**Socially:** Knacks aren't illegal. But you don't divulge them freely. You don't party-trick with your knack at work. Your close friends might know. Your employer doesn't. Because the line between "harmless quirk" and "person of interest" is one overzealous DPA field agent having a bad day. Getting caught showing off a knack — even an innocent one — can earn you a trip to a DPA holding cell for testing. Most people learn early: keep it to yourself.
+The list is examples, not a menu. Your knack should grow from your character's obsession. If it fits the fiction and the GM agrees, it's valid.
 
-**At the table:** Using a Knack when others can see is a Stakes consequence the GM can always reach for. "On a 4–5, you feel the lie, but your eyes did that thing they do and the target noticed." "On 1–3, you feel it, but the DPA agent across the room just clocked you."
+**Mechanically:** A Knack is an Edge. It grants a **Boon in a specific situation.** No drain. No Guard cost. No heat clock. One sentence, one Boon condition. Always on.
 
-> Knacks are maybe 15–20% of the population. Common enough that everyone knows someone with one. Rare enough that it's not polite conversation.
+**Socially:** Knacks aren't illegal. But you don't divulge them freely. You don't show off at work. Your close friends might know. Your employer doesn't. The line between "harmless quirk" and "person of interest" is one overzealous DPA field agent having a bad day. Getting caught demonstrating a knack, even an innocent one, can earn you a trip to a DPA holding cell for testing. Most people learn early: keep it to yourself.
+
+**At the table:** Using a Knack where others can see is a Stakes consequence the GM can always reach for. "On a 4-5, you feel the lie, but your eyes did that thing and the target noticed." "On 1-3, you feel it, but the DPA agent across the room clocked you."
+
+> Knacks are maybe 15-20% of the population. Common enough that everyone knows someone with one. Rare enough that it's not polite conversation.
 
 ### Sensitive
 
-You can feel thaumic energy. Leyline currents give you headaches. High-BTC zones make your skin crawl. You sense shaping nearby — not what it is, but that it's happening. You can assist thaumatech use in ways most people can't, because you feel the channel.
+The spark gets louder. You start feeling BTC directly. Leyline currents give you headaches. High-BTC zones make your skin crawl. You sense shaping nearby, not what it is, but that it's happening. You realize your knack is part of something bigger.
 
-**Mechanically:** An Edge (requires a Knack Edge). Grants a **Boon on thaumic-related rolls** — detecting shaping, assisting thaumatech overcharges, navigating BTC anomalies, sensing entities. Still no free-form shaping. No Domain, no Method. You're an antenna, not a transmitter.
+This is usually the moment of fear. Because now you know. And you can't unknow it.
+
+**Mechanically:** An Edge (requires a Knack Edge). Grants a **Boon on thaumic-related rolls**: detecting shaping, assisting thaumatech overcharges, navigating BTC anomalies, sensing entities. Still no free-form shaping. You're an antenna, not a transmitter.
 
 **Socially:** Sensitives are monitored loosely. They show up on BTC scans, they're flagged in medical records. The DPA knows they exist. Most are left alone unless they start doing something more.
 
-### Innate Shaper
+### Shaper
 
-Full thaumic shaping. Domain + Method. The real thing. Rare. Dangerous. Feared.
+You reach. The obsession becomes a channel. You stop passively expressing and start actively pulling. What was a knack, a small thing, becomes something you can direct. Something you can push into the world.
 
-**Mechanically:** An Edge with a **gate.** Prerequisites: Sensitive Edge + a **narrative catalyst** — a traumatic event, prolonged leyline exposure, a Thaumic Mark from a Break you witnessed, contact with an unbound entity, or something else the GM and player agree changed you fundamentally. Alternatively: explicit GM approval at character creation for campaigns where shaping is central.
+Your shaping is the thaumic amplification of your obsession. It is not a category picked from a list. It is who you've always been, given teeth. The nurse who felt pain her whole career doesn't have "somatic resonance." She has a lifetime of empathy that the Boom turned into something real. Her shaping is narrow: living systems, sensation, biological empathy. The steelworker doesn't have "material resonance." He has twenty years on the factory floor and hands that learned to feel metal's breaking point before the BTC gave that feeling teeth.
+
+**Scope** is determined collaboratively between player and GM. Start narrow. Stay grounded in the obsession. What can you affect? How far can you reach? What's clearly within your scope, what's at the edge, and what's beyond you? Two shapers who both affect heat are not the same type. One grew up next to a furnace and adjusts ambient temperature through a piece of coal he holds. The other survived a fire and spits flame from their hands when the fear takes over. Same BTC reading. Completely different magic, because the magic is the person.
+
+**Mechanically:** An Edge with a **gate.** Prerequisites: Sensitive Edge + a **narrative catalyst.** A traumatic event. Prolonged leyline exposure. A Thaumic Mark from a Break you witnessed. Contact with an unbound entity. Something the GM and player agree changed you fundamentally. Alternatively: explicit GM approval at creation for campaigns where shaping is central.
 
 You do not casually pick this at session one. You earn it, or the story demands it.
 
-**Socially:** Shapers are where the line is. Registered, monitored, sometimes disappeared. The gap between "I have a knack" and "I can shape reality" is the gap between "interesting" and "threat." The DPA doesn't leave shapers alone. Ever.
+**Socially:** The DPA barely knows shapers exist. Their files are cryptid-level. Grainy photos. Incident reports that contradict each other. Competing internal theories. A black site that half the agency doesn't know about, holding someone who might be a kinetic or might be something else entirely. The DPA's "shaper classification system" is a grad student's thesis that got adopted as internal vocabulary because nobody had anything better. It's not science. It's the best guess of people working with almost nothing.
+
+### Expansion
+
+This is the part nobody talks about.
+
+A shaper's obsession has depth. The steelworker starts with metal. Then he realizes he can feel concrete too. Then glass. Then structure itself. He's not learning new abilities. The territory was always there. He's becoming aware of how deep his obsession goes.
+
+Each step deeper is terrifying. Not just for the DPA. For the shaper. You're not picking up new tricks. You're realizing the thing you thought was small is actually very, very large, and you've been standing on the edge of it your whole life.
+
+Expansion is represented by **Edges** gained through play. Each one widens the scope of your shaping. Each one should be a character moment, not a shopping trip. And each one should feel like stepping closer to something you can't come back from.
+
+The theoretical endpoint of full expansion, where someone's obsession opens all the way, has never been reached. A fully expanded shaper wouldn't be a person with powers. They'd be a natural force wearing a person's face. The steelworker wouldn't shape metal anymore. He'd shape the concept of structure. The nurse wouldn't feel pain. She'd feel every living system in the room. Every heartbeat. Every nerve firing.
+
+Nobody has gotten there. The Break mechanic is the closest anyone comes. A Break is a moment of uncontrolled expansion. For one second, you touch something deeper than your obsession can contain. The Thaumic Mark is the scar from that contact. It changes you permanently because you briefly became more than your narrow focus could hold, and a piece of that stuck.
+
+### Example Shapers
+
+These are illustrations, not categories. Every shaper is unique because every obsession is unique.
+
+**Fen, the furnace worker.** Twenty years next to industrial heat. His knack: metal warms in his hands. His sensitivity: he can feel energy flowing through machines. As a shaper, he adjusts ambient temperature. Redirects heat through pipes. Makes a gun barrel glow until the shooter drops it. He holds a piece of coal when he shapes. That's his Tell. When the coal glows and crumbles, something is happening. His scope is precise, environmental, industrial. He doesn't throw fire. He manages energy the way he always has.
+
+**Ria, the arsonist's daughter.** A house fire at age seven. The obsession: fire as violence, fire as the thing that takes. Her knack: she always knows where the heat is in a room. Her sensitivity: flames feel like they're watching her back. As a shaper, fire comes from her hands when she's afraid or angry. Raw. Directional. Not controlled, not industrial. Her Tell is involuntary projection: visible flame on her hands. The enemy can see it coming. She can't fake calm to trigger it on demand, and she can't hide it when it activates. The DPA would call her and Fen the same type. They'd be wrong about everything that matters.
+
+**Cole, the mechanic.** Machines talk to him. Not literally. He just knows what's wrong before he opens the hood. His knack: he feels when something mechanical is about to fail. His sensitivity: BTC fluctuations in thaumatech devices are like a sound only he can hear. As a shaper, he can feel the structure of inorganic matter. Weaken a bolt. Strengthen a beam. Reshape a lock by understanding how it wants to move. His Tell: his hands have to be on the thing, or close to it. He works by touch. Always has.
+
+**Delia, the night-shift nurse.** Thirty years of other people's pain. Her knack: she knows when someone in the room is hurting, even if they hide it. Her sensitivity: she can feel heartbeats and breathing patterns without contact. As a shaper, she reaches into living systems. Encourages a wound to close. Eases a fever. Could, if she chose, make someone's lungs forget how to breathe. She doesn't choose that. Her Tell: she has to lay hands. Skin contact. The old-fashioned nursing instinct made literal. Her scope is intimate. Close. Personal. The opposite of a weapon, until it isn't.
+
+**Asa, the insomniac.** Counting keeps the panic away. Has since childhood. Specific numbers, specific sequences, always in the right order. His knack: he always wakes up exactly when he intends to. His sensitivity: he feels patterns in things. Rhythms. Sequences that repeat. As a shaper, the counting does something. Probability bends. Not much. Not dramatically. But the dice fall slightly differently when Asa is counting under his breath. A coin flip goes his way more often than it should. A guard turns left instead of right. His Tell: the counting. Always the counting. Interrupt it and the shaping breaks. He can't explain what he does. Nobody can. The DPA doesn't have a category for it because they're not sure it's real.
 
 ### The Spectrum at the Table
 
 | Tier | Prevalence | Mechanic | Social Status | Edge Chain |
 |-|-|-|-|-|
-| Mundane | ~80% | Thaumatech only | Normal | — |
-| Knack | ~15% | Boon in one situation | Hidden but tolerated | Knack: [specific] |
+| Mundane | ~80% | Thaumatech only | Normal | None |
+| Knack | ~15% | Boon in one situation | Hidden, keep it quiet | Knack: [from obsession] |
 | Sensitive | ~4% | Boon on thaumic rolls | Flagged, monitored | Requires Knack |
-| Shaper | <1% | Full Domain + Method + drain | Registered or hunted | Requires Sensitive + narrative gate |
+| Shaper | <1% | Obsession + Tell + drain | Cryptid. Files, not science. | Requires Sensitive + narrative gate |
 
-A party of four might include all four tiers. That's four different relationships with magic — all grounded, all low-magic, all interesting. Nobody needs to be a "mage" to have a magical identity on Mondas.
+A party of four might include all four tiers. That's four different relationships with magic. All grounded. All low-magic. All interesting.
 
-> **P10:** Every tier has something to contribute in every scene. The mundane character's thaumatech scanner is the reliable option. The knack gives a social edge. The sensitive detects the trap. The shaper is the nuclear option nobody wants to use. No dead weight, no "I have nothing to do in this scene."
+### GM Guidance: Choosing Your Spectrum Ceiling
+
+The spectrum is a dial, not a ladder. Before your campaign starts, decide how far up it goes. This is the single biggest decision you make about tone.
+
+**Most campaigns: Knacks only.** The default After the Boom experience. Characters have hidden quirks, use thaumatech for real work, and the magical world is something they interact with through tools, not through their bodies. A knack adds flavor and the occasional boon. Nobody is shaping raw thaumic energy. Nobody needs to. The DPA is a bureaucracy, not a threat. This is the sweet spot for campaigns about people, politics, and the grind of life on Mondas.
+
+**Some campaigns: Early shaper.** One character, maybe two, with a narrow scope. The steelworker who can warm metal. The empath who knows when you're lying. Their shaping is limited, costly, and hidden. Every use is a choice with consequences: drain eats Guard, the heat clock ticks, the Nerve save might betray them. This adds tension without breaking the grounded feel. But understand what comes with it: DPA attention becomes a real thread. The campaign gains a layer of paranoia. NPCs react to what they see. The shaper player will draw focus. Make sure the non-shaper players have equally interesting things going on. A thaumatech specialist with the right gear and edges is just as capable, maybe more reliable. The shaper's edge is flexibility. The thaumatech user's edge is safety.
+
+**Few campaigns: Active shaping, multiple shapers, expansion.** This is where the game tilts. Death is close on every shaping. DPA field teams, CSS death squads, or worse. Unknown entities that felt the shaping and came looking. The campaign is about being hunted, being feared, and deciding what your power is worth. This is the high-level game. Don't default to it. Choose it deliberately, and make sure every player at the table is ready for the stakes it brings.
+
+**No campaign should assume full expansion.** That's endgame territory for a long-running campaign where the fiction has earned it. If a shaper begins to expand, that expansion should be the story, not a side benefit. Each step deeper changes the character, the world's reaction to them, and the kind of threats that show up. A fully expanded shaper is theoretical. Nobody has gotten there. If your campaign reaches that point, you'll know, and the rules will be the least of your concerns.
+
+The thaumatech master and the early shaper should feel equally viable at the table. If the shaper is consistently outshining the thaumatech specialist, something is wrong. Either the shaper's scope is too broad, the drain costs aren't biting hard enough, or the GM isn't making the thaumatech user's gear feel as interesting as the shaper's raw talent. The system is balanced around limitations, not output. Thaumatech is safe, reliable, and cheap. Shaping is flexible, costly, and dangerous. Both are powerful. Neither should feel like the lesser choice.
 
 ---
 
 ## Innate Shaping
 
-Innate shaping is thaumic manipulation without a device. No stencil, no engineered pathway. The caster IS the conduit — their body, their will, their nervous system channels raw thaumic energy directly.
+Innate shaping is thaumic manipulation without a device. No stencil, no engineered pathway. The caster IS the conduit: their body, their will, their nervous system channels raw thaumic energy directly.
 
 This is **extremely rare, extremely dangerous, and extremely feared.** Most people on Mondas have never seen innate shaping. Those who can do it hide it. Those who don't hide it get visits from regulatory agencies. The system treats innate magic the way the world treats it: with wariness, consequences, and respect for what it costs.
 
-### Domain & Method
+### Obsession & Tell
 
 Every innate shaper has two defining traits:
 
-**Domain** — what your magic *does*. A broad category, not a spell list:
+**Obsession** determines your scope (see The Thaumic Spectrum > Shaper for how obsession shapes magic). This section covers the mechanical procedure.
 
-- Fire, Cold, Lightning
-- Kinesis (moving things with your mind)
-- Telepathy (sensing and communicating with minds)
-- Warding (barriers, shields, protection)
-- Entropy (decay, weakening, unmaking)
-- Time (slowing, sensing, minor distortion)
-- Shaping (physical matter manipulation)
-- Sensing (perceiving thaumic fields, auras, hidden things)
+Attempting something **outside your scope** is either impossible (you can't read minds if your obsession is metal) or costs **double drain** with **harsher Stakes** if the GM rules it's adjacent (using heat manipulation to cauterize a wound is adjacent to biological work, possible but expensive and ugly).
 
-A Domain is intentionally broad. "Fire" means anything fire-related — ignite, extinguish, shape flames, heat metal, read the warmth signature of a room. The player and GM determine what's plausible within the Domain.
-
-Attempting something **outside your Domain** is either impossible (you can't do telepathy if your Domain is fire) or costs **double drain** with **harsher Stakes** if the GM rules it's adjacent (using fire to cauterize a wound is fire-adjacent healing — possible but expensive and ugly).
-
-**Method** — *how* you do it. The personal, idiosyncratic technique you developed or were taught. This is the heart of what makes every innate shaper unique.
+**Tell** is how you do it. The personal, idiosyncratic technique you developed or were taught. And the thing that gives you away.
 
 Mondas is twenty years post-Boom. There are no academies for innate magic, no standardized curriculum, no agreed-upon theory. Every shaper is self-taught, or learned from someone who was self-taught, or was trained by a tradition that mixed thaumic intuition with religion, superstition, folk practice, or sheer desperation. Everyone thinks their technique is essential. Everyone thinks the other person is doing it wrong. Maybe they're all right. Nobody on Mondas knows for sure.
 
-**The Method is a fictional constraint with mechanical teeth:**
+Every Tell must have a clear, observable trigger that an enemy could block or a GM could deny. If someone watching you long enough could figure out how to stop you, it's a valid Tell. If it's internal and unverifiable, it's not.
 
-| Method | How It Looks | Limitation |
+| Tell | How It Looks | Limitation |
 |-|-|-|
 | Vocalization | Singing, chanting, prayer, specific words | Can't shape silently. Snag if gagged or whispering. |
 | Gesture | Hand signs, drawing symbols in the air, dance | Can't shape with bound hands. |
-| Emotional state | Anger, grief, ecstasy, intense focus | Can't shape when suppressed, calm, or emotionally flat. |
+| Breath control | Specific breathing patterns, hyperventilation, held breath | Blocked by suffocation, smoke, or sustained exertion. |
 | Physical contact | Touching the target, laying hands | Must be Close to target. No ranged shaping. |
 | Focus object | Rosary, lighter, coin, grandmother's ring | Lose it = can't shape, or Snag without it. |
 | Pain / blood | Self-harm, biting lip, drawing blood | Take 1 extra Guard damage on top of drain cost. |
-| Ritual counting | Specific numbers, sequences, patterns | Takes extra time (always counts as "careful channeling"). Can be interrupted. |
+| Ritual counting | Specific numbers, sequences, patterns | Takes extra time (always counts as careful channeling). Can be interrupted. |
 | Somatic routine | Tai chi forms, boxing stance, yoga poses | Requires space and freedom of movement. Snag in tight quarters. |
 
-A character chooses their Method at creation. It's not a menu to optimize — it's a statement about who this person is and how they discovered magic. The kid who prays learned from a grandmother who thought it was divine. The one who needs pain discovered shaping during trauma. The one with the focus object found it humming after the Boom. Every Method is a backstory.
+A character's Tell is not a menu to optimize. It's a statement about who this person is and how they discovered magic. The kid who prays learned from a grandmother who thought it was divine. The one who needs pain discovered shaping during trauma. The one with the focus object found it humming after the Boom. Every Tell is a backstory. And every Tell is a vulnerability. Someone watching long enough can learn your Tell, and that means they can stop you.
 
-**Methods can be refined through Edges** (see WS5): "Silent Shaping" removes the vocalization limitation. "Remote Touch" extends physical contact to Near range. "Cold Channel" lets you shape without the emotional trigger (but costs +1 drain). The Method is the starting point, not the ceiling.
+**Tells can be refined through Edges** (see WS5): "Silent Shaping" removes the vocalization limitation. "Remote Touch" extends physical contact to Near range. "Controlled Breath" lets you shape without the breathing pattern (but costs +1 drain). The Tell is the starting point, not the ceiling.
 
 ### The Innate Shaping Roll
 
 When an innate shaper channels:
 
-1. **Declare the effect.** Must be within your Domain. The GM and player agree on scope.
-2. **Engage your Method.** If you can't perform your Method (gagged, bound, emotionally suppressed, missing focus object), you can't shape. Period. Or you shape with a Snag if it's partially impaired.
-3. **Spend Guard for dice.** There is no free die. Every die costs 1 Guard. The caster chooses how many dice to buy — more dice = better odds but higher drain.
-4. **Roll.** Read highest die: 6 = full success, 4–5 = partial, 1–3 = consequence, double 6 = critical. Standard rules.
-5. **Stakes are always escalated.** The GM includes thaumic side effects in the stakes. A partial success doesn't just mean reduced effect — it means something leaked, something flickered, someone felt it. A consequence means the magic did something you didn't intend, or something noticed.
-6. **Nerve save.** After shaping, roll Nerve. On a consequence (1–3), suffer a thaumic side effect — nosebleed, involuntary discharge, sensory distortion, brief loss of motor control. The GM determines severity based on how much was channeled.
-7. **Tick the Heat clock.** Every act of innate shaping ticks a background clock. The number of ticks depends on **how visible the magic was:**
+1. **Declare effect + Tell.** Must be within your obsession's scope. The GM and player agree on what's plausible. If you can't perform your Tell (gagged, bound, missing focus object), you can't shape. Partially impaired Tell = Snag. Stakes are always escalated: the GM includes thaumic side effects in the consequences.
+2. **Spend Guard for dice.** There is no free die. Every die costs 1 Guard. These dice are your entire pool. You do not add a stat. The cost IS the roll. Boons and Snags apply as normal: a Boon from an ally assist, clever positioning, or careful channeling (extra Act) adds +1d without additional Guard cost. A Snag from injury, Tell impairment, or hostile conditions removes 1d (Guard already spent is not refunded).
+3. **Roll.** Read highest die. 6 = full success, 4-5 = partial, 1-3 = consequence, double 6 = critical.
+4. **On partial or consequence: Nerve save.** Roll Nerve. On a consequence (1-3), suffer a thaumic side effect: nosebleed, involuntary discharge, sensory distortion, brief loss of motor control. On a full success or critical, the shaping went clean. No save needed.
+5. **Tick the Heat clock.** The number of ticks depends on **how visible the magic was:**
 
 | Visibility | Ticks | Examples |
 |-|-|-|
@@ -204,9 +239,11 @@ When an innate shaper channels:
 | Overt | 2 | Throwing a person, igniting a fire from nothing, visible barrier |
 | Undeniable | 3 | Stopping a car, crushing metal, visible time distortion |
 
-Thaumatech generates **0 ticks** — it's supposed to look like technology. That's the entire point of regulation.
+Thaumatech generates **0 ticks**. It's supposed to look like technology. That's the entire point of regulation.
 
 The clock size depends on the environment (4 segments in a high-BTC zone with sensors everywhere, 6 in a city with normal monitoring, 8 in the deep wilderness where nobody's watching). When it fills, the consequence arrives: agents at your door, an entity following you, a leyline surge attracted to your frequency.
+
+The heat clock is tracked by the GM. It persists across scenes within the same fictional timeframe. It resets when the shaper moves to a new area or enough time passes that the trail goes cold (GM call, typically days). The clock should be visible on the table so the shaper's player knows where they stand.
 
 ### Thaumic Bargains
 
@@ -216,29 +253,29 @@ Before any thaumic roll (thaumatech overcharge or innate shaping), the GM may of
 "You get the extra die, but your nose bleeds and everyone in the room sees it."
 "The wrench hits harder, but the device emits a whine that won't stop for an hour."
 
-The player can accept or refuse. If accepted, the bargain consequence fires whether you roll a critical or a consequence — it's the price of the extra die, not a failure state.
+The player can accept or refuse. If accepted, the bargain consequence fires whether you roll a critical or a consequence. It's the price of the extra die, not a failure state.
+
+Bargain consequences should have mechanical weight, not just narrative color. Good Bargains: +1 heat tick, 1 Guard lost, device overheats (-1d next use), an NPC's attitude shifts permanently, you owe someone. Bad Bargains: "your nose bleeds" (no mechanical effect). The consequence should matter whether you succeed or fail.
+
+The GM should not offer Bargains every roll. They're for moments where the magic wants to give you something and take something back.
 
 Bargains are different from Stakes: Stakes are tied to roll results (partial = this, consequence = that). Bargains are guaranteed side effects offered before the roll. They add a negotiation layer to magic that doesn't exist for mundane actions.
-
-> **P2:** Bargains reward players who accept narrative complications for mechanical advantage. The player chooses. The GM offers. It's a conversation with teeth.
 
 ### Why Innate Is Feared
 
 | Layer | Thaumatech | Innate Shaping |
 |-|-|-|
-| Domain | Determined by device | Chosen by character (1 Domain) |
-| Method | Push the button | Personal, idiosyncratic, limited |
-| Base cost | Device gives free die | No free die — all dice cost Guard |
-| Uncertainty | None — deterministic | Nerve save after every use |
+| Scope | Determined by device | Shaped by obsession, agreed with GM |
+| Technique | Push the button | Tell: personal, idiosyncratic, limited |
+| Base cost | Device gives free die | No free die. All dice cost Guard. |
+| Uncertainty | None. Deterministic. | Nerve save on partial/consequence |
 | Stakes | Normal | Always escalated (thaumic side effects) |
-| Background heat | 0 ticks (regulated, expected) | 1–3 ticks per use (visibility-scaled) |
-| Scope | Limited to device function | Anything within Domain |
+| Background heat | 0 ticks (regulated, expected) | 1-3 ticks per use (visibility-scaled) |
+| Flexibility | Limited to device function | Anything within obsession scope |
 | Bargains | Available on overcharge | Available always |
-| Pre-engagement | Free (device handles interface) | Raw thaumic phenomena may cost Guard to safely approach |
+| Vulnerability | Device breaks | Tell can be identified, countered, suppressed |
 
-Innate is worse in every efficiency metric. The only advantage: no device limits your imagination within your Domain. You can shape anything the fiction supports. That freedom is the power — and the reason every authority on Mondas wants it controlled.
-
-> **P12:** Innate magic is embedded in narrative consequence. The side effects, the heat clock, the escalated stakes, the Method limitations — none of these are abstract resource management. They're fictional events. The nosebleed is real. The DPA file is real. The thing that noticed you is real. The singing your character can't stop is real.
+The only advantage of innate: no device limits your imagination within your obsession's scope. You can shape anything the fiction supports. That freedom is the power, and the reason every authority on Mondas wants it controlled.
 
 ---
 
@@ -246,41 +283,37 @@ Innate is worse in every efficiency metric. The only advantage: no device limits
 
 Drain is not a separate track. It's **self-inflicted Guard damage** from thaumic channeling.
 
-When you spend Guard to fuel magic (overcharging thaumatech or any innate shaping), the points come off your Guard total. When Guard hits 0, further drain becomes Harm — following the standard damage overflow rules:
+When you spend Guard to fuel magic (overcharging thaumatech or any innate shaping), the points come off your Guard total. When Guard hits 0, further drain becomes Harm, following the standard damage overflow rules:
 
 | Overflow | Harm Level |
 |-|-|
-| 1–2 | Level 1 (Hurt) — nosebleed, shaking hands, ringing ears |
-| 3–4 | Level 2 (Wounded) — burst capillaries, nerve damage, blackout risk |
-| 5+ | Level 3 (Critical) — hemorrhage, seizure, system shutdown |
+| 1-2 | Level 1 (Hurt): nosebleed, shaking hands, ringing ears |
+| 3-4 | Level 2 (Wounded): burst capillaries, nerve damage, blackout risk |
+| 5+ | Level 3 (Critical): hemorrhage, seizure, system shutdown |
 
 This is the same pipeline as combat damage. No new mechanics. The only difference: you chose this. You decided how much to spend. The wrench operator who overcharged by 2 chose to risk a nosebleed. The shaper who spent everything chose to risk death.
 
 ### The Caster's Dilemma
 
-In combat, a caster's Guard is being eaten from **two directions** — enemy attacks and their own casting. A thaumatech user who overcharges in round 1 has less Guard when the enemy swings in round 2. An innate shaper who buys 4 dice for a big effect might have no Guard left at all.
+In combat, a caster's Guard is being eaten from **two directions**: enemy attacks and their own casting. A thaumatech user who overcharges in round 1 has less Guard when the enemy swings in round 2. An innate shaper who buys 4 dice for a big effect might have no Guard left at all.
 
-This is the low-magic feel. Not "you can't cast" — but every cast makes you more vulnerable to the mundane. The bullet doesn't care that you just shaped a ward. Your Guard is gone either way.
+This is the low-magic feel. Not "you can't cast," but every cast makes you more vulnerable to the mundane. The bullet doesn't care that you just shaped a ward. Your Guard is gone either way.
 
 ### Burnout
 
-Everyday burnout is real. A factory worker who overcharges their rated device to meet quotas goes home with less Guard. Do that every day and you're walking around at half capacity — one bad moment from Harm. Burnout isn't dramatic. It's erosion. Managing drain is a real-world skill on Mondas, taught in trade schools and measured in workplace safety audits.
-
-> **P13:** No drain track. No mana pool. No spell slots. Guard is the resource. It already exists. It already has rules for depletion, overflow, and recovery. Adding a parallel track would violate P13 and P17 for no mechanical gain.
+Everyday burnout is real. A factory worker who overcharges their rated device to meet quotas goes home with less Guard. Do that every day and you're walking around at half capacity, one bad moment from Harm. Burnout isn't dramatic. It's erosion. Managing drain is a real-world skill on Mondas, taught in trade schools and measured in workplace safety audits.
 
 ---
 
 ## Sustained Effects
 
-Some thaumic effects persist beyond the initial action — a ward holding, a scan running, a shaping maintaining its form.
+Some thaumic effects persist beyond the initial action: a ward holding, a scan running, a shaping maintaining its form.
 
 **Sustaining costs your Act each round.** While maintaining a thaumic effect, you can Move but cannot Act (attack, use abilities, interact). You can drop the effect as a free action on your turn.
 
-If you take Harm while sustaining, make a **Nerve save.** On a consequence (1–3), the effect collapses. On a partial (4–5), it holds but flickers — reduced effectiveness until your next turn.
+If you take Harm while sustaining, make a **Nerve save.** On a consequence (1-3), the effect collapses. On a partial (4-5), it holds but flickers, reduced effectiveness until your next turn. This applies whether you're sustaining through a device or through innate shaping.
 
 Sustaining does not cost additional Guard per round. The initial cost is paid; sustaining is concentration, not channeling.
-
-> **P6:** Sustained effects create a real tactical choice: keep the ward up or fight back? Heal or shoot? This prevents "set and forget" magic and ensures every round in combat involves a decision.
 
 ---
 
@@ -288,75 +321,72 @@ Sustaining does not cost additional Guard per round. The initial cost is paid; s
 
 A Break is the most dangerous thing a person can do on Mondas.
 
-When an innate shaper pushes past every limit — through Guard, through Harm, past the point where the body should stop — they can choose to **Break**. The thaumic energy doesn't flow through them anymore. It flows *as* them. For one moment, the boundary between caster and magic disappears.
+When an innate shaper pushes past every limit, through Guard, through Harm, past the point where the body should stop, they can choose to **Break**. The thaumic energy doesn't flow through them anymore. It flows *as* them. For one moment, the boundary between caster and magic disappears.
 
-A Break transcends Domain. It transcends Method. In that moment, the shaper isn't channeling through their idiosyncratic technique — they ARE the channel. The singing stops. The hand signs drop. There's just the person and the magic and the thing they're willing to spend themselves to accomplish.
+A Break transcends obsession scope. It transcends the Tell. In that moment, the shaper isn't channeling through their idiosyncratic technique. They ARE the channel. The singing stops. The hand signs drop. There's just the person and the magic and the thing they're willing to spend themselves to accomplish.
 
 ### Declaring a Break
 
 A Break is always voluntary. The player declares it. The GM cannot force a Break.
 
-The player states what they want to happen. There are no Domain limits, no Method requirements, no rated outputs, no scope restrictions. Shield the whole crowd. Push the nightmare back. Slow time for three seconds. Whatever the moment demands.
+The player states what they want to happen. There are no obsession limits, no Tell requirements, no rated outputs, no scope restrictions. Shield the whole crowd. Push the nightmare back. Slow time for three seconds. Whatever the moment demands.
 
 ### The Rules
 
-1. **The effect succeeds.** Full success, guaranteed. No roll for the primary effect. The dice you roll (all remaining Guard + any overflow dice) determine bonus effects — Gambits, collateral benefit, spectacle. But the core effect happens. Period.
+1. **The effect succeeds.** Full success, guaranteed. No roll. The Break is not about rolling well. It's about paying everything. The GM and player narrate the result based on what was sacrificed and what the moment demands.
 
-2. **Harm — minimum Level 2.** All Guard overflow becomes Harm as normal, with a floor of Level 2 (Wounded). If the overflow reaches Level 3, you're Critical. If your Harm track is already occupied, new Harm bumps up. If both Level 3 slots are full: **you die.** Death is always on the table with a Break.
+2. **Harm, minimum Level 2.** All Guard overflow becomes Harm as normal, with a floor of Level 2 (Wounded). If the overflow reaches Level 3, you're Critical. If your Harm track is already occupied, new Harm bumps up. If both Level 3 slots are full: **you die.** Death is always on the table with a Break.
 
 3. **Thaumic Mark.** Something permanent changes. Player and GM collaborate on what it is, based on what the magic was doing:
    - Physical: eyes shift color, skin marks where the energy flowed, temperature around you is always wrong
    - Sensory: you see thaumic resonance now, you hear frequencies you shouldn't, machines react to your presence
    - Relational: an entity knows your name, a leyline recognizes your signature, the DPA has a file on you
-   - Capability: you can do something new — but something else about you is different
+   - Capability: you can do something new, but something else about you is different
 
    Marks are permanent. They don't heal. They accumulate with each Break and get more severe. A character with three Marks is barely passing as normal. Authorities notice. Entities notice. The world treats you differently.
 
-4. **You're out.** Incapacitated for the rest of the **session** — not the scene. Your character is unconscious, catatonic, hospitalized. The other players carry you, leave you, or guard you. You don't wake up until next session at the earliest, and recovery from a Break requires serious downtime, medical intervention, or both.
+4. **You're out.** Incapacitated for the rest of the **session**, not the scene. Your character is unconscious, catatonic, hospitalized. The other players carry you, leave you, or guard you. You don't wake up until next session at the earliest, and recovery from a Break requires serious downtime, medical intervention, or both.
 
 ### The Lethal Break
 
 A player can declare: **"This is how it ends."**
 
-A lethal Break has no ceiling on effect. The character dies — guaranteed, no saves, no recovery. In exchange, the effect is absolute. The GM and player narrate something that changes the scene, the encounter, possibly the campaign. No dice. No limits. The cost is total, so the effect is total.
+A lethal Break has no ceiling on effect. The character dies. Guaranteed, no saves, no recovery. In exchange, the effect is absolute. The GM and player narrate something that changes the scene, the encounter, possibly the campaign. No dice. No limits. The cost is total, so the effect is total.
 
 A lethal Break is the biggest moment the system can produce. It is a character's final act, chosen freely.
 
 ### Why Breaks Are Rare
 
-- **Minimum Level 2 Harm** that persists for sessions (requires downtime + treatment to recover)
-- **Death is possible** from Harm overflow, even if you didn't choose a lethal Break
-- **Session-long knockout** — you lose your character for the rest of the session. That's a real table-level cost
-- **Escalating Marks** — each Break makes the next one more visible, more dangerous, more noticed by the world
-- **Innate only** — thaumatech users don't Break. Their devices break. Only innate shapers can Break, and innate shaping is already rare
+Nobody Breaks twice on purpose. The first time teaches you what it costs. You wake up days later in a hospital bed you don't remember reaching. Something about your face is different. The DPA has a file now. And the people who saw it look at you differently, not with admiration, with the careful distance you keep from something that might go off again.
 
-A Break is not a tactic. It is not an ability to optimize around. It is a moment where a character decides that what they're protecting is worth more than what they're spending. The system gives that moment maximum weight.
+That's the best case. The Harm persists for sessions. Death is possible even on a standard Break, if your track is already occupied. You lose your character for the rest of the session. Each Mark makes the next one more visible, more dangerous, more noticed by the world. And only innate shapers can Break at all. Their devices are specifically designed to prevent it.
 
-> **P3, P9, P12:** A Break is desperate (P3), cinematic (P9), and entirely narrative-embedded (P12). The mechanics exist to give the moment structure, not to make it routine. If a Break doesn't make the table go quiet, something went wrong.
+A Break is a moment where a character decides that what they're protecting is worth more than what they're spending.
 
 ---
 
 ## Quick Reference
 
 ### The Spectrum
-- Mundane (~80%) → Knack (~15%) → Sensitive (~4%) → Shaper (<1%)
+- Mundane (~80%), Knack (~15%), Sensitive (~4%), Shaper (<1%)
 - Each tier is an Edge. Shaper requires Sensitive + narrative gate.
 - Knacks: Boon in one situation, no drain, no heat. Keep it hidden.
 - Sensitive: Boon on thaumic rolls, no shaping. Flagged in records.
+- **GM sets spectrum ceiling before campaign.** Most games: knacks only. Some: early shaper. Few: active shaping. None assume full expansion.
 
 ### Thaumatech
-- Base use: free (device gives rated die, roll stat for effect)
+- Base use: free (roll stat, device enables action)
 - Overcharge: spend Guard for +1d per point
-- Careful channeling (extra Act): -1 drain cost
+- Careful channeling (extra Act): Boon (+1d)
 - Failure: device consequences through Stakes (scales with gear danger)
 - Sustained: costs Act each round
 - Heat clock: 0 ticks (it's supposed to look like technology)
 
 ### Innate Shaping
-- Domain determines what you can do; Method determines how
-- Every die costs 1 Guard (no free die)
-- Careful channeling (extra Act): -1 drain cost
-- Nerve save after shaping (consequence = side effect)
+- Obsession scope determines what you can affect; Tell determines how
+- Every die costs 1 Guard (no free die, no stat added)
+- Careful channeling (extra Act): Boon (+1d)
+- Nerve save on partial/consequence only (clean shaping = no save)
 - Heat clock: 1-3 ticks per use (visibility-scaled)
 - Stakes always escalated (thaumic side effects)
 - Sustained: costs Act each round
@@ -366,14 +396,14 @@ A Break is not a tactic. It is not an ability to optimize around. It is a moment
 - Player can refuse. Not the same as Stakes.
 
 ### Drain
-- Guard is the resource. Overflow → Harm (1–2 = L1, 3–4 = L2, 5+ = L3)
+- Guard is the resource. Overflow to Harm (1-2 = L1, 3-4 = L2, 5+ = L3)
 - No separate drain track
 
 ### Break (Innate Only)
-- Player declares. Effect succeeds fully. Transcends Domain and Method.
+- Player declares. Effect succeeds fully. Transcends obsession scope and Tell.
 - Lethal Break = no ceiling on effect, character dies.
 - Cost: Harm (min L2, death possible) + Thaumic Mark (permanent) + out for session
-- Marks escalate. Three Marks = barely human.
+- Marks escalate. Three Marks = barely passing as normal.
 
 ---
 
@@ -383,35 +413,47 @@ A Break is not a tactic. It is not an ability to optimize around. It is a moment
 
 | # | Decision | Answer | Laws |
 |-|-|-|-|
-| D5 | Magic cost model | Drain = Guard. No separate track. Overflow → Harm. | P13, P17 |
-| D6 | Thaumatech vs Innate | Same underlying mechanic (Guard for dice), different risk profile. Thaumatech: free base die, device consequences. Innate: no free die, Nerve save, heat clock, escalated stakes. Domain & Method for innate identity. | P10, P12 |
-| D7 | How shaping works | Free-form within Domain, constrained by Method. Buy dice with Guard, roll. No spell list. | P2, P16 |
-| — | Thaumic Spectrum | Four tiers: Mundane → Knack → Sensitive → Shaper. Each an Edge (chain). Shaper gated behind Sensitive + narrative catalyst. Knacks are hidden, not freely shown. | P10, P17 |
-| — | Domain & Method | Innate shapers choose 1 Domain (what) + 1 Method (how). Method = fictional constraint with mechanical teeth. Edges expand/refine both. | P14, P17 |
-| — | Time/drain trade | Extra Act = -1 drain. Universal (thaumatech + innate). | P15 |
-| — | Thaumic Bargains | GM offers free +1d for guaranteed narrative consequence. Player can refuse. | P2 |
-| — | Heat clock visibility | Subtle = 1 tick, Overt = 2, Undeniable = 3. Thaumatech = 0. | P12 |
-| — | Sustained effects | Costs Act each round. Nerve save to maintain when hit. | P6 |
-| — | Break mechanic | Innate only. Transcends Domain/Method. Guaranteed success + min L2 Harm + Thaumic Mark + session KO. Death on table. Lethal Break = total sacrifice, no ceiling. | P3, P9, P12 |
-| — | Device failure | Through Stakes, not separate degradation. Severity scales with gear danger. | P7, P13 |
+| D5 | Magic cost model | Drain = Guard. No separate track. Overflow to Harm. | P13, P17 |
+| D6 | Thaumatech vs Innate | Same underlying mechanic (Guard for dice), different risk profile. Thaumatech: base use free (roll stat), device consequences. Innate: no free die, Nerve save on partial/consequence, heat clock, escalated stakes. | P10, P12 |
+| D7 | How shaping works | Free-form within obsession scope, constrained by Tell. Buy dice with Guard, roll. No spell list. | P2, P16 |
+| - | Thaumic Spectrum | Four tiers (Mundane, Knack, Sensitive, Shaper) as Edge chain. Obsession-based, not category-based. | P10, P17 |
+| - | Obsession & Tell | Scope from character obsession, not a list. Tell = technique + vulnerability. Edges refine both. | P14, P17 |
+| - | Time/odds trade | Extra Act = Boon (+1d). Universal (thaumatech + innate). | P15 |
+| - | Thaumic Bargains | GM offers free +1d for guaranteed consequence. Player can refuse. | P2 |
+| - | Heat clock | Subtle 1, Overt 2, Undeniable 3. Thaumatech 0. GM-tracked, table-visible. | P12 |
+| - | Sustained effects | Costs Act each round. Nerve save to maintain when hit. Both device and innate. | P6 |
+| - | Break mechanic | Innate only. Guaranteed success, no roll. Min L2 Harm + Mark + session KO. Death possible. | P3, P9, P12 |
+| - | Device failure | Through Stakes, not separate degradation. Scales with gear danger. | P7, P13 |
+| - | Spectrum ceiling | GM decides before campaign. Default: knacks only. Balanced through limitations, not output. | P3, P10 |
 
 ### Open Questions for Future Workstreams
 
 - **WS4 (Combat):** How do thaumatech weapons interact with cover? Thaumatech-specific Gambit list. Gambit resistance guidance for high-Threat enemies. Positioning/zones.
 - **WS2 (Creation):** How do Backgrounds interact with thaumatech proficiency? Starting spectrum tier: most PCs start at Knack or Mundane. Sensitive at creation requires narrative justification. Shaper at creation requires explicit GM approval.
-- **WS5 (Edges):** Knack Edges (~10–15 specific knacks). Sensitive Edge. Innate Shaper Edge (gated). Method refinement Edges (Silent Shaping, Remote Touch, Cold Channel). Domain expansion Edges (Cross-Domain). Resonance Edges (Boon for specific use within Domain). Drain reduction Edges. Thaumatech-specific Edges. Flashback Edge: "Prepared Caster — once per session, declare retroactive thaumatic preparation. Spend 1 Push."
+- **WS5 (Edges):** Knack Edges (~10-15 examples tied to obsessions). Sensitive Edge. Innate Shaper Edge (gated). Tell refinement Edges (Silent Shaping, Remote Touch, Cold Channel). Scope expansion Edges (deepening the obsession). Drain reduction Edges. Thaumatech-specific Edges. Flashback Edge: "Prepared Caster, once per session, declare retroactive thaumatic preparation. Spend 1 Push."
 - **WS6 (Equipment):** Thaumatech device catalog. Rated outputs, weapon dice, device-specific effects. Legality tiers. Black-market gear. Device quality as fictional modifier to Stakes.
 
 ### Design Notes
 
-**Why Domain + Method instead of a spell list?** Spell lists create optimization puzzles that pull players out of the fiction and into the character sheet. Domain + Method grounds magic in character identity. "I do fire by singing" is memorable and distinctive. "I prepared Fireball, Scorching Ray, and Shield" is a loadout. MONDAS wants the former. The mechanics (drain, Stakes, Domain scope) constrain power; the Method constrains approach; the fiction constrains everything else. That's enough structure without a catalog.
+**Obsession + Tell vs. spell list:** Spell lists create optimization puzzles. Obsession + Tell grounds magic in character identity. Drain, Stakes, and scope constrain power; the Tell constrains approach.
 
-**Why are Methods mechanically limiting?** Because limitations create gameplay. "We need to be stealthy but my Method is singing" is a *scene*. "My hands are bound and I can't gesture" is a *problem to solve*. "I need to be angry but everyone's being reasonable" is *character drama*. Every Method limitation is a story hook. The system rewards creative problem-solving (P2) while keeping magic grounded in who the character is (P12).
+**Tell limitations:** Limitations create gameplay. "We need stealth but my Tell is singing" is a scene. Tells can be identified and countered, making shapers dangerous to be, not just to face.
 
-**Why does innate shaping need three extra costs (Nerve save, heat clock, escalated stakes)?** Because the fiction demands it. Innate magic on Mondas is terrifying — not because it's more powerful per die, but because using it without a device is like performing surgery without gloves. The three costs create the feel at the table: the immediate risk (Nerve save), the accumulating attention (heat clock), and the narrative weight (escalated stakes). For a player, these three things make every innate cast a genuine decision. That's the intended experience. (P15: crunch is fun when it serves the moment.)
+**Three innate costs (Nerve save, heat clock, escalated stakes):** Each creates a different pressure: immediate risk, accumulating attention, narrative weight. Together they make every cast a genuine decision.
 
-**Why is Break innate-only?** Thaumatech exists specifically to prevent Breaks. The device is the safety valve — it channels energy through engineered pathways so the caster never has to become the conduit. When a thaumatech device fails catastrophically, the device breaks. When an innate shaper fails catastrophically, the *person* breaks. That's the entire social argument for thaumatech regulation on Mondas, and the system should reflect it mechanically. A Break transcends Domain and Method because in that moment, the shaper isn't using their technique — they've become something else entirely.
+**Break is innate-only:** Thaumatech exists to prevent Breaks. The device is the safety valve. Device fails catastrophically, the device breaks. Shaper fails catastrophically, the person breaks.
 
-**Why Thaumic Bargains?** Because magic should feel like a negotiation with consequence, not just a resource spend. Bargains add a moment of player choice that Stakes alone don't cover — Stakes are roll-dependent, Bargains are guaranteed. A player who accepts a Bargain is saying "yes, I'll pay this price for better odds." That's a character moment, not a math moment.
+**Bargains:** Player choice that Stakes alone don't cover. Stakes are roll-dependent. Bargains are guaranteed. Accepting a Bargain is a character moment, not math.
 
-**Why the four-tier spectrum?** Because "mundane or mage" is a binary that doesn't match the world. Twenty years of elevated BTC changed everyone a little. Knacks give every player a magical identity without breaking low-magic. Sensitives bridge the gap. Shapers are the rare, dangerous end of the scale. The progression (Knack → Sensitive → Shaper) is a character arc spanning sessions or entire campaigns — not a build choice at session zero. And critically: Knacks are *hidden*. They're not powers you show off. They're secrets you keep. That social pressure — the DPA, the neighbors, the employer who doesn't need to know — is the low-magic feel expressed through character behavior, not just mechanical cost.
+**Four-tier spectrum:** "Mundane or mage" is a binary that doesn't match the world. Knacks give magical identity without breaking low-magic. Progression from Knack to Shaper is a character arc, not a build choice.
+
+### Design Principles Index
+
+Notes moved here from body text.
+
+- **P3, P7 (Device failure):** Dangerous gear means dangerous consequences. The world responds to thaumic violence.
+- **P10 (Spectrum):** Every tier has something to contribute in every scene.
+- **P12 (Innate magic):** Side effects, heat clock, escalated stakes, Tell limitations. All fictional events, not abstract resource management.
+- **P13 (Drain):** No drain track. Guard already exists with depletion, overflow, and recovery rules.
+- **P6 (Sustained):** Sustaining creates a real tactical choice: keep the ward up or fight back?
+- **P3, P9, P12 (Break):** Desperate, cinematic, narrative-embedded. Structure for the moment, not routine use.
