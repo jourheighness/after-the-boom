@@ -38,7 +38,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Nerve Cut.** Target takes Snag on their next Grit check. The wound looks minor but hurts badly. Close. Requires: Subtle weapon.
 
-**Slip Through.** Move to Close with any target in the scene as a free action immediately after this attack, without triggering free attacks. Requires: Subtle weapon.
+**Slip Through.** Move to Close with any target in the scene immediately after this attack, without provoking a response. Requires: Subtle weapon.
 
 **Pocket Pick.** Lift a small item from the target during the exchange. They do not notice until their next turn. Close. Requires: Subtle weapon, free hand.
 
@@ -86,7 +86,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Pistol Whip.** Use the weapon as a melee strike: deal the sacrificed die's value as damage instead of a ranged attack. Target is staggered and can only Move or Act next turn. Close. Requires: Sidearm.
 
-**Point Blank.** Ignore the Snag from firing a Sidearm at Close range. Add 1 damage to the attack. Close. Requires: Sidearm, target at Close.
+**Point Blank.** Press the barrel against the target. +2 damage on this attack. Close. Requires: Sidearm, target at Close.
 
 **Spray.** Split the attack between two adjacent targets at Near. Each takes damage equal to the highest die minus 2 (minimum 1). Neither can be the subject of a Gambit sacrifice from this attack. Near. Requires: Sidearm.
 
@@ -154,7 +154,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Water Main.** Burst a pressurized water main. Water floods the zone at Near over the next two rounds, creating difficult terrain everywhere at Close and Near. Any electrical hazard in the area becomes lethal. Near. Requires: water main or large pressurized pipe, Strong (8+).
 
-**Use the Walls.** Bounce off a wall to redirect your approach. Move to Close with any target in the room without crossing the most direct path, bypassing targets who could take a free attack. Requires: enclosed space with solid walls.
+**Use the Walls.** Bounce off a wall to redirect your approach. Move to Close with any target in the room without crossing the most direct path, bypassing targets who could respond. Requires: enclosed space with solid walls.
 
 **Smash the Intercom.** Destroy a communication panel or radio. Enemies cannot call for reinforcements or coordinate with off-screen allies for the rest of the scene. Near. Requires: visible communication device.
 
@@ -172,11 +172,11 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Catch and Throw.** Deflect a thrown weapon back at its origin point. Roll 1d6 damage against the thrower. Close/Near. Requires: free hand, Thrown weapon incoming.
 
-**Guard Stance.** Deal 0 damage this attack. In exchange, gain a Boon on all defensive rolls until your next turn. Requires: any weapon.
+**Guard Stance.** Deal 0 damage this attack. In exchange, gain a Boon on all defense rolls until your next turn. Requires: any weapon. (The Defensive Fighter Edge grants this effect without the damage sacrifice.)
 
 **Object Block.** Shove a large rigid object (riot shield, car door, dumpster lid) between you and the attacker. Push them back one band and interrupt their approach. Deals no damage. Close. Requires: large rigid object in hand.
 
-**Covering Retreat.** An adjacent ally may immediately move one band away from the fight without triggering free attacks. You remain in place. Requires: any weapon, ally at Close.
+**Covering Retreat.** An adjacent ally may immediately move one band away from the fight without provoking a response. You remain in place. Requires: any weapon, ally at Close.
 
 **Hunker Down.** Drop to a braced position. Gain +1 Armor until you move. You take Snag on attack rolls while hunkered. Requires: any cover or hard surface nearby.
 
@@ -198,7 +198,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Weapon Catch.** Grab the enemy's weapon with your free hand. Neither of you can attack with it until one spends an Act to break free or yields. Close. Requires: free hand, enemy using a melee weapon.
 
-**Deflect and Step.** Redirect a melee attack past you and immediately reposition to Near without triggering free attacks. You deal 0 damage. Close. Requires: any melee weapon.
+**Deflect and Step.** Redirect a melee attack past you and immediately reposition to Near without provoking a response. You deal 0 damage. Close. Requires: any melee weapon.
 
 **Interpose.** Throw a nearby object, piece of furniture, or ally's dropped gear between you and incoming fire. Gain partial cover until your next turn. Near. Requires: loose object at Close.
 
@@ -228,7 +228,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Feinting Withdrawal.** Appear to retreat one band. If the target follows, your next attack this scene gets a Boon. The retreat is real: you end the round one band further away. Requires: target must be able to see you.
 
-**Hit and Run.** Attack and immediately disengage. No target may make a free attack against you this round. You must move at least one band. Requires: any weapon.
+**Hit and Run.** Attack and immediately disengage. No target may respond to your movement this round. You must move at least one band. Requires: any weapon.
 
 **Drag.** Move one band while keeping a grappled or Pinned target at Close. They move with you. Close. Requires: target is grappled, Pinned, or otherwise unable to break free.
 
@@ -242,7 +242,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Charge.** Move a full band toward the target as part of this attack. If you moved the full band, gain a Boon on the roll. Take Snag on defensive rolls until your next turn. Requires: you started at Near.
 
-**Crowd Surf.** Move through a group of mooks or bystanders without stopping. None may block you or take free attacks this round. Requires: three or more non-elite enemies or civilians between you and destination.
+**Crowd Surf.** Move through a group of mooks or bystanders without stopping. None may block you or respond this round. Requires: three or more non-elite enemies or civilians between you and destination.
 
 **Wall Push.** Use a wall, vehicle, or solid surface behind the target to pin them in place. They cannot reposition this round. Close. Requires: solid surface directly behind target.
 
@@ -258,7 +258,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Thread the Gap.** Slip through a narrow opening or between two enemies without triggering a response. Move one extra band this turn. Close. Requires: a gap or opening of at least partial width.
 
-**Commanding Stride.** Walk forward without hesitation. Enemies in your path must step aside or commit to blocking you. Move one band toward a target without drawing a free attack. Close.
+**Commanding Stride.** Walk forward without hesitation. Enemies in your path must step aside or commit to blocking you. Move one band toward a target without provoking a response. Close.
 
 ---
 

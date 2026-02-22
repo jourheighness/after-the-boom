@@ -322,7 +322,7 @@ Combat uses three abstract ranges. These describe relationships between people, 
 
 Movement shifts you one range band per Move: Close to Near, Near to Far, or the reverse. You can also reposition laterally at the same range (behind cover, toward a different target, out of a doorway) when the fiction supports it.
 
-**Disengaging:** Moving away from an enemy at Close costs your Move as normal. There are no free attacks. If the enemy hasn't acted yet this round, the GM may have them respond immediately: pursue, attack, or grab. If the enemy already acted, you walk away clean.
+**Disengaging:** Moving away from an enemy at Close costs your Move. If the enemy hasn't acted yet this round, the GM may have them respond: pursue, attack, or grab. If the enemy already acted, you leave clean. Several Gambits and Edges let you disengage without provoking this response.
 
 Ranges are always relative. You can be Close to one enemy and Far from another. There is no shared map to argue about. The GM describes the space, players describe their movement, and the ranges follow.
 
