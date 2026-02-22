@@ -169,7 +169,7 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 - *Both Barrels.* **(Strong)** Fire everything at one target. Roll double dice. Weapon empty until reloaded (1 Act). Close/Near.
 - *Sawed Spread.* Fire one barrel wide. Deal 1d4 to every target at Close. Close.
 
-**Sawed-off shotgun** | 2d6 | Loud, Brutal | Illegal barrel length. Devastating at Close, useless past Near. Under-coat carry.
+**Sawed-off shotgun** | 2d6 | Sidearm, Loud, Brutal | Illegal barrel length. Devastating at Close, useless past Near. Under-coat carry.
 - *Both Barrels.* **(Strong)** Fire everything at once. Roll double dice. Weapon empty until reloaded (1 Act). Close.
 - *Crowd Scatter.* Fire into the floor in front of a group. All targets at Close must make a Nerve save or flee to Near. Close.
 

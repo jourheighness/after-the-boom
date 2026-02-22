@@ -34,6 +34,14 @@ When the outcome is uncertain and the stakes matter, a player rolls.
 
 The GM never calls for a roll when there's no risk. If it's safe, you just do it. If it's impossible, no roll helps.
 
+### Saves
+
+When an effect forces you to resist, roll the specified stat. "Grit save" means roll Grit. "Nerve save" means roll Nerve. Read the highest die on the same table: 6 = you resist fully, 4-5 = partial (reduced effect), 1-3 = the full effect hits you.
+
+The triggering effect defines the consequences, not the GM. If a Gambit says "target makes a Nerve save or is stunned for 1 round," the consequence is built in. On a partial (4-5), the effect lands at reduced intensity: stunned for one action instead of a full round, forced movement goes half distance, a Snag lasts one action instead of a turn.
+
+Saves use the same Boon and Snag rules as any other roll. Threat level does not impose Snags on saves (Threat affects defense rolls, not saves).
+
 ---
 
 ## Stats
@@ -236,6 +244,18 @@ Recovery is a **scene**, not a mechanic. The fiction determines what healing loo
 
 ---
 
+## Conditions
+
+Some effects impose named conditions. When a condition is referenced (by a Gambit, weapon effect, or thaumic consequence), use these definitions.
+
+**Stunned.** You can't act. No Move, no Act, no reaction. Lasts for the stated duration (usually 1 round). On your turn you do nothing. Attacks against you still trigger your defense roll, but you roll 0d (2d6, take lowest). Ends at the start of your next turn after the duration expires.
+
+**Shaken.** Rattled, panicked, or reeling. Snag on all rolls until the condition clears. Shaken is imposed by certain Psychological Gambits and thaumic effects. It clears at the end of the scene, or earlier through an ally's help (Presence Anchor Gambit, Adrenaline Shot, or any comparable intervention the GM accepts).
+
+**Prone.** On the ground. Standing up costs your Move for the turn. Melee attacks against you get a Boon. Ranged attacks against you get a Snag. You can crawl at Close range on your turn without standing.
+
+---
+
 ## Turns
 
 ### Out of Combat
@@ -377,6 +397,8 @@ This works with any combination: two knives, two pistols, a knife and a pistol. 
 ### Gambits
 
 Any die showing **4 or higher** can be sacrificed for a tactical effect instead of contributing to damage. Each sacrificed die = one Gambit.
+
+**Gambit Sources:** Your available Gambits come from three places. (1) The **standard list** below, available to everyone. (2) **Weapon Gambits** specific to your weapon (1-3 per weapon, listed on its entry in `rules/EQUIPMENT.md`). (3) **Property-category Gambits** from `rules/GAMBITS.md`, available to any weapon with the matching property (Melee, Ranged, Subtle, etc.). All three sources stack. A knife that's Subtle gets the standard Gambits, its weapon-specific Gambits, AND all Subtle-category and Melee-category Gambits.
 
 **Standard Gambits (die 4+):**
 - **Bolster:** +1 to total damage per die spent. Any range. Always works.
@@ -598,6 +620,12 @@ Clocks are visible to all players. They exist on the table, drawn on paper or in
 ### The Roll (non-combat & defense)
 Roll [stat]d6, read highest. 6 = full, 4-5 = partial, 1-3 = consequence. Double 6 = critical.
 
+### Saves
+Roll the specified stat, same table. Effect defines the consequence. Partial = reduced intensity. Threat does not impose Snags on saves.
+
+### Conditions
+Stunned = can't act, defense at 0d. Shaken = Snag on all rolls, clears end of scene or by intervention. Prone = stand costs Move, melee Boon against, ranged Snag against.
+
 ### Stats
 Grit (body), Sharp (senses), Nerve (will). Rated 1-4.
 
@@ -669,6 +697,15 @@ Damage, subtract Armor, subtract Guard, overflow = Harm.
 | D22 | Gambit potency | Attacker's stat (from description) sets potency: 1 = reduced, 2 = standard, 3+ = ignore one Threat level. Zero extra rolls. Fighting style emerges from stat spread. | P2, P6, P14 |
 | D23 | Weapon Gambits | Each weapon carries 1-3 specific Gambits on its entry. Loadout = tactical identity. | P6, P17 |
 | D24 | Social Plays | 8 structured social actions (Pressure, Read, Endure, Deflect, Appeal, Stonewall, Undercut, Leak) with stat and outcome. Not Gambits. Same roll system. | P1, P6 |
+
+### Decisions Made (Mesh Pass)
+
+| # | Decision | Answer | Laws |
+|-|-|-|-|
+| D28 | Saves | Roll specified stat, same table. Triggering effect defines consequence, not GM. Partial = reduced intensity. Threat does not impose Snags on saves. | P4, P15 |
+| D29 | Conditions | Three named conditions (Stunned, Shaken, Prone) with mechanical definitions. Referenced by Gambits and equipment effects. | P4, P6 |
+| D30 | Gambit sources | Three stacking layers: standard list, weapon-specific, property-category. All available simultaneously. | P6, P9 |
+| D31 | Shaping effect output | Standard roll, not auto-hit. GM sets damage in stakes by scale (Focused/Broad/Devastating). Differentiates weapons (reliable) from shaping (flexible). | P10, P16 |
 
 ### Decisions Made (WS2)
 

@@ -33,7 +33,7 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Long-Range Patience.** Boon on Far-range attacks when you haven't moved this round. You hold still. Most people can't.
 
-**Dual Carry.** You can wield two Sidearms without the defense Snag that dual wielding normally imposes. Firing both in one action still costs a Push.
+**Dual Carry.** You can wield two Sidearms without the defense Snag that dual wielding normally imposes. You still roll both weapons' dice and allocate freely.
 
 **Improvised Weapons.** Boon on attacks with chairs, bottles, pipes, or whatever isn't meant to be a weapon. You grew up in rooms full of them.
 
@@ -463,7 +463,7 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 ## Thaumatech [Positive only unless noted]
 
-**Overcharge Efficient.** When you overcharge, the first additional die costs 1 fewer Guard (minimum 1). After that, standard pricing. [Requires regular thaumatech use]
+**Overcharge Efficient.** When you overcharge, the first additional die costs 0 Guard instead of 1. After that, standard pricing. One free die per overcharge. [Requires regular thaumatech use]
 
 **Device Whisperer.** You have a feel for what a device needs. Boon on all thaumatech repair, maintenance, and diagnosis.
 

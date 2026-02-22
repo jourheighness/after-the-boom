@@ -259,7 +259,7 @@ When an innate shaper channels:
 
 1. **Declare effect + Tell.** Must be within your obsession's scope. The GM and player agree on what's plausible. If you can't perform your Tell (gagged, bound, missing focus object), you can't shape. Partially impaired Tell = Snag. Stakes are always escalated: the GM includes thaumic side effects in the consequences.
 2. **Spend Guard for dice, up to your Nerve.** There is no free die. Every die costs 1 Guard. Your maximum dice purchased per shaping attempt equals your **Nerve** stat. A Nerve 3 shaper can buy up to 3 dice (spending 3 Guard). A Nerve 1 shaper can buy 1 die (spending 1 Guard). Your body is the conduit, and Nerve is its bandwidth. Boons and Snags apply after the purchase: a Boon from an ally assist, clever positioning, or careful channeling (extra Act) adds +1d without additional Guard cost and CAN exceed the Nerve cap (external support widens what your body alone limits). A Snag from injury, Tell impairment, or hostile conditions removes 1d (Guard already spent is not refunded). If Snags reduce the pool below 1, follow the standard 0-dice rule: roll 2d6, take lowest. No criticals.
-3. **Roll.** Read highest die. 6 = full success, 4-5 = partial, 1-3 = consequence, double 6 = critical.
+3. **Roll.** Read highest die. 6 = full success, 4-5 = partial, 1-3 = consequence, double 6 = critical. (See Effect Output below for what the result means.)
 4. **On partial or consequence: Nerve save.** Roll Nerve. On a consequence (1-3), suffer a thaumic side effect: nosebleed, involuntary discharge, sensory distortion, brief loss of motor control. On a full success or critical, the shaping went clean. No save needed.
 5. **Tick the Heat clock.** The number of ticks depends on **how visible the magic was:**
 
@@ -272,6 +272,24 @@ When an innate shaper channels:
 Thaumatech generates **0 ticks**. It's supposed to look like technology. That's the entire point of regulation.
 
 The clock size depends on the environment (4 segments in a high-BTC zone with sensors everywhere, 6 in a city with normal monitoring, 8 in the deep wilderness where nobody's watching). When it fills, the consequence arrives: agents at your door, an entity following you, a leyline surge attracted to your frequency.
+
+### Effect Output
+
+Innate shaping uses the **standard roll** (success/partial/consequence), not the attack roll. The shaping does not auto-hit. It succeeds or fails based on the highest die.
+
+The GM sets the effect magnitude as part of the stakes before the roll. For non-combat shaping, the tiers work like any other roll: full success = the declared effect happens, partial = reduced effect or cost, consequence = failure or backfire.
+
+For combat shaping that deals damage, the GM sets damage as part of the stakes using the scale of the declared effect as a guide:
+
+| Scale | Full Success | Partial | Example |
+|-|-|-|-|
+| Focused (single target, Close) | 4-6 damage | 2-3 | Superheating a gun barrel. Crushing a joint. |
+| Broad (area or Near range) | 2-4 damage | 1-2 | Force burst across a room. Heat wave pushing a group back. |
+| Devastating (3+ dice, escalated stakes) | 6-8+ damage | 3-4 | Collapsing a wall segment. Igniting everything in a corridor. |
+
+On a consequence, no damage. The GM's stated consequence fires instead.
+
+This is the core difference between weapons and shaping. Weapons auto-hit and roll damage dice. Shaping succeeds or fails, with damage negotiated through stakes. Thaumatech is reliable. Shaping is flexible but uncertain. Both cost Guard when pushed. The shaper's edge is versatility. The weapon user's edge is consistency.
 
 The heat clock is tracked by the GM. It persists across scenes within the same fictional timeframe. It resets when the shaper moves to a new area or enough time passes that the trail goes cold (GM call, typically days). The clock should be visible on the table so the shaper's player knows where they stand.
 
@@ -425,6 +443,7 @@ A Break is a moment where a character decides that what they're protecting is wo
 - Heat clock: 1-3 ticks per use (visibility-scaled)
 - Stakes always escalated (thaumic side effects)
 - Sustained: costs Act each round
+- **Effect output:** Standard roll (not auto-hit). GM sets damage in stakes: Focused 4-6, Broad 2-4, Devastating 6-8+. Partial = half. Consequence = no damage.
 
 ### Thaumic Bargains
 - GM offers free +1d for a guaranteed consequence (fires regardless of roll)
