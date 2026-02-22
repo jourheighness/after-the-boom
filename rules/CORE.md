@@ -165,6 +165,8 @@ Push recovers during **downtime**, the time between dangerous situations. It doe
 
 **Guard** is your readiness: awareness, positioning, luck, the instinct that keeps you alive. It's a small number (typically 3-8) that absorbs incoming damage before it touches you.
 
+**Starting Guard = 2 + your highest stat.** A tough character (Grit 3) has Guard 5 because they absorb hits. A quick character (Sharp 3) has Guard 5 because they dodge and reposition. A composed character (Nerve 3) has Guard 5 because they read threats before they arrive. Your Guard reflects your best survival instinct, whatever form it takes.
+
 Guard refreshes when the danger has passed and you have a moment to collect yourself. If threats are continuous (combat follows a tense negotiation, a chase follows a break-in), Guard does not refresh between them. The GM determines when a genuine moment of safety occurs. If in doubt: if the characters would feel safe enough to sit down and breathe, Guard refreshes. Routine scenes (shopping, travel, conversation in a safe place) always refresh Guard. A tense social scene where violence is possible does not.
 
 Guard is **not HP.** It doesn't represent health. When your Guard drops, you haven't been hurt. You've been pushed, rattled, forced into worse positions. The first real injury comes when Guard breaks.
@@ -337,6 +339,24 @@ If something solid stands between you and a ranged attacker, you have cover.
 Cover does not help against Close-range attacks. If they're in your face, the wall behind you doesn't matter.
 
 A **Strong Gambit** (8+) can destroy cover: punch through the drywall, blow the barricade apart, shatter the window someone is hiding behind. This gives heavy weapons a tactical role beyond raw damage.
+
+### Tactics
+
+These are situations you create through positioning and coordination. They're available to everyone. No Edges required, no dice sacrificed. The Gambit catalog includes ways to achieve some of these while also dealing damage (Flanking Rush, Covering Retreat, etc.), but the basic versions below cost your Act or arise naturally from the fiction.
+
+**Flanking.** When two allies are at Close range with the same enemy from different angles, both attackers get a **Boon** on attacks against that target. The GM judges "different angles" from the fiction, not a grid. Flanking breaks when the target Repositions (Gambit) or Moves away. You don't need to spend anything to flank. Just get two people on opposite sides of someone.
+
+**Ambush.** Attack from concealment or surprise. Roll Sharp to set it up (before combat starts). On a 6: perfect position, Boon on your opening attack. On 4-5: you're in place, attack normally. On 1-3: they spotted you, no ambush, combat starts on their terms. When the ambush triggers, ambushing characters act first (before the GM's turn) and the target does not get a defense roll against the first attack. After the opening round, combat proceeds normally.
+
+**Suppressing Fire.** Spend your Act firing at an area (Near or Far) instead of a target. No damage. Every enemy in that area who moves or acts before your next turn takes a **Snag**. Requires a Ranged or Sidearm weapon. Uses ammunition. This is the "keep their heads down while we move" play.
+
+**Tactical Retreat.** Spend your Act to withdraw safely. Move **two range bands** instead of one, and enemies at Close do not get a response. You deal no damage this turn. This is expensive (you lose your attack) but clean. The default disengage (spend Move, one band, possible response) is faster but riskier.
+
+**Covering an Ally.** Spend your Act to protect a specific ally you can see (Near or closer). Until your next turn, when that ally is attacked, the attacker takes a **Snag** on damage. Describe how: shouting a warning, firing near the enemy, stepping between them. You don't deal damage. You keep someone alive.
+
+**Holding Ground.** Spend your Act to brace at your current position. Until your next turn, gain **+1 Armor** and you cannot be Shoved or Tripped. Good for blocking doorways, holding choke points, protecting someone behind you.
+
+**De-escalation.** Spend your Act to try to end the fight. Roll Nerve. On a 6: one enemy stops fighting (drops weapon, backs off, surrenders). On 4-5: they hesitate, lose their next action, but their allies keep going. On 1-3: they ignore you, and their next attack targets you specifically. Only works on enemies with Morale. Fanatics, machines, and entities don't listen. You must be visible and audible. This is the civilian option, the "nobody needs to die here" play, and sometimes it's the smartest move in the room.
 
 ---
 
@@ -653,6 +673,9 @@ Pressure (Nerve), Read (Sharp), Endure (Grit), Deflect (Nerve), Appeal (Nerve), 
 ### Positioning
 Close (melee), Near (across a room), Far (across a lot). Move = shift one band. Cover: partial +1 Armor, full +2 Armor (ranged only).
 
+### Tactics
+Flanking (two allies, different angles, Boon on attacks). Ambush (Sharp roll to set up, target gets no defense on first attack). Suppressing Fire (Act, no damage, Snag on enemies in area). Tactical Retreat (Act, move two bands, no response). Covering (Act, Snag on damage to ally's attacker). Holding Ground (Act, +1 Armor, can't be Shoved/Tripped). De-escalation (Act, Nerve roll, stop one enemy, Morale targets only).
+
 ### Attacking
 Auto-hit. Roll weapon dice. Sacrifice dice 4+ for Gambits. Highest remaining die = damage. Strong Gambits need 8+. Dual wield: both weapons' dice, Snag on defense.
 
@@ -718,13 +741,15 @@ Damage, subtract Armor, subtract Guard, overflow = Harm.
 | D29 | Conditions | Three named conditions (Stunned, Shaken, Prone) with mechanical definitions. Referenced by Gambits and equipment effects. | P4, P6 |
 | D30 | Gambit sources | Three stacking layers: standard list, weapon-specific, property-category. All available simultaneously. | P6, P9 |
 | D31 | Shaping effect output | Standard roll, not auto-hit. GM sets damage in stakes by scale (Focused/Broad/Devastating). Differentiates weapons (reliable) from shaping (flexible). | P10, P16 |
+| D32 | Tactics | Seven universal tactical options (Flanking, Ambush, Suppressing Fire, Tactical Retreat, Covering, Holding Ground, De-escalation). Situations, not Gambits. Available to everyone. Gambits can create these situations while attacking. | P6, P9 |
+| D33 | Guard = highest stat | Guard changed from Grit+2 to 2+highest stat. Guard is readiness (dodge, composure, toughness), not just body. All stat builds viable for survival. Range unchanged (3-6). | P13, P14 |
 
 ### Decisions Made (WS2)
 
 | # | Decision | Answer | Laws |
 |-|-|-|-|
 | D16 | Background system | Universal Boon domain from Background. Separate from Edges. | P2, P14 |
-| D17 | Starting Guard | Grit + 2 (range 3-6) | P13, P15 |
+| D17 | Starting Guard | 2 + highest stat (range 3-6). Guard reflects best survival instinct, not just toughness. | P13, P14, P15 |
 | D18 | Stat permanence | Fixed at creation. No stat growth. | P14 |
 | D19 | Species mechanics | Purely narrative. No stat bonuses. | P17 |
 | D20 | Zero/positive balance | Zeroes: 4 Edges + Thaumic Null. Positives: 3 Edges + thaumic access. | P10, P17 |

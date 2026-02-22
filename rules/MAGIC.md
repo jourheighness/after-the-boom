@@ -345,7 +345,7 @@ This is the same pipeline as combat damage. No new mechanics. The only differenc
 
 ### The Caster's Dilemma
 
-In combat, a caster's Guard is being eaten from **two directions**: enemy attacks and their own casting. Nerve caps the dice, Grit-derived Guard fuels them. A thaumatech user who overcharges in round 1 has less Guard when the enemy swings in round 2. An innate shaper with Nerve 3 who buys 3 dice has spent 3 Guard on a single shaping. With Guard 3 (Grit 1), that's everything. With Guard 5 (Grit 3), they've got 2 Guard left for defense but can't channel more than 3 dice at a time. Nerve is the bandwidth. Guard is the fuel tank. Both matter, but for different reasons.
+In combat, a caster's Guard is being eaten from **two directions**: enemy attacks and their own casting. Nerve caps the dice, Guard fuels them. A thaumatech user who overcharges in round 1 has less Guard when the enemy swings in round 2. An innate shaper with Nerve 3 who buys 3 dice has spent 3 Guard on a single shaping. With Guard 3 (highest stat 1), that's everything. With Guard 5 (highest stat 3), they've got 2 Guard left for defense but can't channel more than 3 dice at a time. Nerve is the bandwidth. Guard is the fuel tank. Both matter, but for different reasons.
 
 You can spend Guard you don't have to fuel shaping or overcharging. The overflow becomes Harm, following the standard damage overflow rules. This is a deliberate choice: the factory worker who pushes past zero Guard to meet a quota takes the Hurt. The shaper who empties themselves to save someone takes the Wounded. The system doesn't prevent self-destruction. It prices it.
 

@@ -79,7 +79,7 @@ Stats are **permanent.** They don't grow. Your character gets better through Edg
 **Thaumic implications of stats (Positives only):**
 - **Nerve** caps innate shaping dice. A Nerve 1 shaper can only channel 1 die per shaping attempt. Nerve 3 channels 3 dice. Nerve is your channeling bandwidth.
 - **Each thaumatech device has an overcharge stat** (Sharp, Nerve, or Grit). Your stat caps how many bonus dice you can push through that device. A Sharp 3 character overcharges a scanner by up to 3 dice. A Grit 1 character barely pushes a kinetic amp.
-- **Grit** determines your Guard (fuel tank for both shaping and overcharging), but doesn't make you a better caster. A Grit 3 / Nerve 1 character has plenty of Guard but can only channel 1 die at a time.
+- **Your highest stat** determines your starting Guard (the buffer that absorbs damage). A Grit 3 character has Guard 5 from toughness. A Sharp 3 character has Guard 5 from reflexes. A Nerve 3 character has Guard 5 from threat awareness. Guard also serves as fuel for shaping and overcharging.
 
 This means stat choices matter differently for every build. Zeroes pick stats for rolls and Guard. Positives also pick stats for which devices they excel with and how much channeling they can handle.
 
@@ -87,7 +87,7 @@ This means stat choices matter differently for every build. Zeroes pick stats fo
 
 ## Step 3: Derived Values
 
-**Guard = Grit + 2.** This is your readiness, the buffer that absorbs damage before real injuries start. Starting Guard ranges from 3 (Grit 1) to 6 (Grit 4). Guard refreshes when the danger has genuinely passed and you have a moment to collect yourself. The GM calls it. Not between scenes if danger persists. Not during a lull in combat. When you could sit down, breathe, and feel safe. If the chase follows the firefight, Guard stays where it is.
+**Guard = 2 + your highest stat.** This is your readiness, the buffer that absorbs damage before real injuries start. Starting Guard ranges from 3 (highest stat 1) to 6 (highest stat 4). A tough character has Guard from endurance. A quick character has Guard from reflexes. A composed character has Guard from reading threats before they land. Guard refreshes when the danger has genuinely passed and you have a moment to collect yourself. The GM calls it. Not between scenes if danger persists. Not during a lull in combat. When you could sit down, breathe, and feel safe. If the chase follows the firefight, Guard stays where it is.
 
 **Push: 4 boxes.** Your reserve for digging deep. Recovers during downtime.
 
@@ -216,12 +216,12 @@ Progression is slow, lateral, and character-driven. After ten sessions, a charac
 
 **Stats:** Grit 2, Sharp 3, Nerve 1.
 
-**Guard:** 4 (Grit 2 + 2). **Push:** 4. **Armor:** 1 (surplus tactical vest).
+**Guard:** 5 (Sharp 3 + 2, highest stat). **Push:** 4. **Armor:** 1 (surplus tactical vest).
 
 **Edges (4):**
 1. Field Medic: Can treat Hurt injuries without medical supplies.
 2. Dead Eye: Boon on ranged attacks at Far range.
-3. Hard to Kill: +1 starting Guard (Guard becomes 5).
+3. Hard to Kill: +1 maximum Guard (Guard becomes 6).
 4. Connected [VA Hospital Network]: Know someone inside. Once per session, call a favor.
 
 **Trait:** Thaumic Null. Invisible to thaumic detection, BTC scans, ward triggers, thaumic targeting.
@@ -240,7 +240,7 @@ Kara is competent, quiet, and invisible to the systems that track everyone else.
 
 **Stats:** Grit 3, Sharp 2, Nerve 1.
 
-**Guard:** 5 (Grit 3 + 2). **Push:** 4. **Armor:** 0.
+**Guard:** 5 (Grit 3 + 2, highest stat). **Push:** 4. **Armor:** 0.
 
 **Edges (3):**
 1. Knack: Metal warms slightly in his hands. Boon when working with metal or detecting metal stress/fatigue. (Obsession: the factory floor, the furnace, how things hold together.)
@@ -263,7 +263,7 @@ Tomasz is blue-collar Mondas. His knack is subtle enough that most people think 
 1. **Table conversation:** Spectrum ceiling, premise, group composition.
 2. **Who are you:** Name, species, age, look, Background (one sentence, Boon domain).
 3. **Stats:** Grit, Sharp, Nerve. 6 points, min 1 each.
-4. **Derived values:** Guard = Grit + 2. Push = 4. Harm = empty. Armor = from gear.
+4. **Derived values:** Guard = 2 + highest stat. Push = 4. Harm = empty. Armor = from gear.
 5. **Edges:** Zero: 4 free + Thaumic Null. Knack: 1 Knack + 2 free. Sensitive: 1 Knack + 1 Sensitive + 1 free. Shaper: 1 Knack + 1 Sensitive + 1 Shaper.
 6. **Bonds & Gear:** 2-3 Bonds (1 PC, 1+ NPC). Gear from Background.
 
@@ -278,7 +278,7 @@ Tomasz is blue-collar Mondas. His knack is subtle enough that most people think 
 
 ### Starting Guard
 
-| Grit | Guard |
+| Highest Stat | Guard |
 |-|-|
 | 1 | 3 |
 | 2 | 4 |
@@ -297,7 +297,7 @@ If the Boon applies more than half the time, narrow it.
 | # | Decision | Answer | Laws |
 |-|-|-|-|
 | D16 | Background system | Universal Boon domain from one-sentence Background. GM confirms scope. Separate from Edges. | P2, P14 |
-| D17 | Starting Guard | Grit + 2 (range 3-6). Fits CORE.md "typically 3-8." | P13, P15 |
+| D17 | Starting Guard | 2 + highest stat (range 3-6). Guard reflects best survival instinct: toughness, reflexes, or composure. | P13, P14, P15 |
 | D18 | Stat permanence | Stats fixed at creation. Growth through Edges, Scars, narrative. No convergence to max. | P14 |
 | D19 | Species mechanics | Purely narrative. No stat bonuses. Displaced face social systems, not mechanical ones. | P17 |
 | D20 | Zero/positive balance | Zeroes: 4 Edges + Thaumic Null. Positives: 3 Edges + thaumic access. Asymmetric but viable. | P10, P17 |
