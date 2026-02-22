@@ -61,6 +61,21 @@ Modified D&D 5e (homebrew rules TBD — will be added to `rules/`). Currently us
 7. **Swedish notes** in character files are from the players. Preserve them; they're player voice.
 8. **BTC, not BMC.** The unit is Background Thaumic Count. Always.
 
+## Agent Delegation
+
+| Task | Agent | Model |
+|-|-|-|
+| Rules lookup, name check, terminology, simple roll | Inline | — |
+| NPC dialogue, lore question, single-file lookup | Inline or haiku subagent | haiku |
+| Session recap, encounter balance, creative writing | Subagent | sonnet |
+| Session prep, consistency check, multi-file research | Subagent | opus |
+
+**Rules:**
+- Under 5 tool calls → work inline
+- Multi-file reads, large generation → delegate to subagent
+- Subagent output constraint: "Final response under 2000 characters. List outcomes, not process."
+- During live sessions, prefer speed (haiku/inline) over depth
+
 ## Workflow Commands
 When the DM says:
 - **"Prep next session [campaign]"** → Read last session log + active threads + GM notes. Generate scene beats, NPC prep, contingencies.
