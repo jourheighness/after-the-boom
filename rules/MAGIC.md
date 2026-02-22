@@ -18,6 +18,22 @@ Thaumatech is Mondas's answer to the chaos of raw magic. Devices that channel th
 
 The device IS the scope and technique. A ward projector wards. A scanner scans. You push the button. No personal quirks, no idiosyncratic technique, no superstition. That's why thaumatech is boring, reliable, universal, and why every government on Mondas promotes it.
 
+### Personal vs. Grid-Powered
+
+Not all thaumatech works the same way. The distinction matters.
+
+**Personal thaumatech** operates through **contact plates**: small panels built into the device that rest against the user's skin. The plate draws thaumic potential directly from the operator. A thaumic pistol has a thumb plate on the grip. Body armor has plates on the inside, against the chest and spine. A healing patch has a plate you charge before applying. A thaumic grenade has a plate you charge before throwing. The energy comes from you. The device just shapes it.
+
+This means **only positives can operate personal thaumatech.** A zero picks up a thaumic pistol and the contact plate reads nothing. The trigger pulls. Nothing happens. The device is inert. It needs a source, and zeroes have nothing to give.
+
+Personal thaumatech includes: weapons, body armor, scanners, grenades, healing patches, field equipment, portable wards. Anything you carry and power with your body.
+
+**Grid-powered thauma-ware** is different. Powered by the thaumic grid (CTE boilers, siphon plants, municipal infrastructure), these devices have buttons and switches like conventional electronics. The energy comes from the grid, not from the operator. Anyone can use them. Your thaumic fridge doesn't care who opens it. The office heating system doesn't check your BTC.
+
+Grid-powered thauma-ware includes: home appliances, heating systems, industrial equipment, municipal infrastructure, building wards, public transit systems. The infrastructure of daily life on Mondas.
+
+**The old grid still exists.** Gasoline cars. Conventional electronics. Non-thaumic refrigerators. Twenty years after the Boom, this infrastructure is declining. Fewer gas stations every year. Brownouts in neighborhoods the thaumic grid hasn't reached. Parts getting harder to find. Poor communities and zeroes who can't afford the transition try to keep conventional tech running. It works. It's just getting lonelier.
+
 ### Using Thaumatech
 
 A thaumatech device works like any tool. The device enables the action: you can't scan without a scanner, can't ward without a ward projector. The roll uses your relevant stat (Sharp for precision work, Nerve for channeling, Grit for brute-force applications).
@@ -41,7 +57,7 @@ This applies to both thaumatech overcharging and innate shaping. The time/odds t
 When used as a weapon, thaumatech follows the standard attack rules:
 
 - Roll the device's **weapon dice** (same categories as mundane weapons: a thaumatech wrench is 1d8, a discharge rod is 1d6, a heavy pulse emitter is 2d6)
-- Sacrifice dice 4+ for **Gambits** (device-appropriate: overload, flash, redirect, suppress, in addition to standard shove/trip/disarm)
+- Sacrifice dice 4+ for **Gambits** (device-appropriate: Overload, Flash, Redirect, Dampen, in addition to standard Gambits. See CORE.md Gambits.)
 - Overcharge by spending Guard for bonus dice, same as any thaumic use
 
 The base attack die is free. Drain only for overcharging.
@@ -79,7 +95,9 @@ It starts with an **obsession.** Not a magical one. A human one. The thing you c
 
 ### Mundane
 
-No innate thaumic ability. Uses thaumatech or doesn't interact with magic at all. This is most people on Mondas. There's no shame in it and no disadvantage. Thaumatech exists so that everyone can access the thaumic world safely. You don't need to be special. You need the right tool.
+No thaumic potential. Cannot operate personal thaumatech (contact plates read nothing, the device stays inert in your hands). Benefits from grid-powered thauma-ware: appliances, heating, industrial equipment that runs on buttons and switches, powered by the thaumic grid, not by you. The 80% of Mondas that the Boom passed over.
+
+There's no shame in it. Zeroes have survived twenty years in a world that changed around them by being better at everything else. More trained, more connected, more resourceful. A zero with a rifle and good positioning is deadly. They just don't glow.
 
 ### Knack
 
@@ -165,7 +183,7 @@ These are illustrations, not categories. Every shaper is unique because every ob
 
 | Tier | Prevalence | Mechanic | Social Status | Edge Chain |
 |-|-|-|-|-|
-| Mundane | ~80% | Thaumatech only | Normal | None |
+| Mundane | ~80% | Grid thauma-ware only. No personal thaumatech. | Normal (zero) | None |
 | Knack | ~15% | Boon in one situation | Hidden, keep it quiet | Knack: [from obsession] |
 | Sensitive | ~4% | Boon on thaumic rolls | Flagged, monitored | Requires Knack |
 | Shaper | <1% | Obsession + Tell + drain | Cryptid. Files, not science. | Requires Sensitive + narrative gate |
@@ -370,11 +388,14 @@ A Break is a moment where a character decides that what they're protecting is wo
 ### The Spectrum
 - Mundane (~80%), Knack (~15%), Sensitive (~4%), Shaper (<1%)
 - Each tier is an Edge. Shaper requires Sensitive + narrative gate.
+- Mundane (zero): no personal thaumatech. Grid thauma-ware works normally.
 - Knacks: Boon in one situation, no drain, no heat. Keep it hidden.
 - Sensitive: Boon on thaumic rolls, no shaping. Flagged in records.
 - **GM sets spectrum ceiling before campaign.** Most games: knacks only. Some: early shaper. Few: active shaping. None assume full expansion.
 
 ### Thaumatech
+- **Personal thaumatech** (weapons, armor, scanners): contact plates, positives only
+- **Grid thauma-ware** (appliances, heating, infrastructure): buttons and switches, anyone
 - Base use: free (roll stat, device enables action)
 - Overcharge: spend Guard for +1d per point
 - Careful channeling (extra Act): Boon (+1d)
@@ -418,6 +439,7 @@ A Break is a moment where a character decides that what they're protecting is wo
 | D7 | How shaping works | Free-form within obsession scope, constrained by Tell. Buy dice with Guard, roll. No spell list. | P2, P16 |
 | - | Thaumic Spectrum | Four tiers (Mundane, Knack, Sensitive, Shaper) as Edge chain. Obsession-based, not category-based. | P10, P17 |
 | - | Obsession & Tell | Scope from character obsession, not a list. Tell = technique + vulnerability. Edges refine both. | P14, P17 |
+| - | Contact plate system | Personal thaumatech powered through contact plates on skin. Positives only. Grid thauma-ware has buttons/switches, anyone operates. | P10, P17 |
 | - | Time/odds trade | Extra Act = Boon (+1d). Universal (thaumatech + innate). | P15 |
 | - | Thaumic Bargains | GM offers free +1d for guaranteed consequence. Player can refuse. | P2 |
 | - | Heat clock | Subtle 1, Overt 2, Undeniable 3. Thaumatech 0. GM-tracked, table-visible. | P12 |
@@ -428,8 +450,8 @@ A Break is a moment where a character decides that what they're protecting is wo
 
 ### Open Questions for Future Workstreams
 
-- **WS4 (Combat):** How do thaumatech weapons interact with cover? Thaumatech-specific Gambit list. Gambit resistance guidance for high-Threat enemies. Positioning/zones.
-- **WS2 (Creation):** How do Backgrounds interact with thaumatech proficiency? Starting spectrum tier: most PCs start at Knack or Mundane. Sensitive at creation requires narrative justification. Shaper at creation requires explicit GM approval.
+- **WS4 (Combat):** Complete. Positioning (Close/Near/Far), cover (+Armor), thaumatech Gambits (Overload/Flash/Redirect/Suppress), Gambit resistance table integrated into `rules/CORE.md`.
+- **WS2 (Creation):** Complete. See `rules/CHARACTER.md`. Backgrounds provide Boon domains. Zeroes get 4 Edges + Thaumic Null trait. Positives get 3 Edges. Contact plate system restricts personal thaumatech to positives.
 - **WS5 (Edges):** Knack Edges (~10-15 examples tied to obsessions). Sensitive Edge. Innate Shaper Edge (gated). Tell refinement Edges (Silent Shaping, Remote Touch, Cold Channel). Scope expansion Edges (deepening the obsession). Drain reduction Edges. Thaumatech-specific Edges. Flashback Edge: "Prepared Caster, once per session, declare retroactive thaumatic preparation. Spend 1 Push."
 - **WS6 (Equipment):** Thaumatech device catalog. Rated outputs, weapon dice, device-specific effects. Legality tiers. Black-market gear. Device quality as fictional modifier to Stakes.
 
