@@ -455,7 +455,7 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Controlled Break.** Once, ever, you can reduce the Harm from a Break by one level. The Mark still happens. The unconsciousness still happens. You just come through a little less destroyed. [Requires Sensitive]
 
-**Precision Shaping.** Use Sharp instead of Nerve as your shaping cap when the effect requires fine control, targeting, or reading a situation. The nurse feeling for a specific nerve cluster. The mechanic adjusting a single bolt inside a machine. [Requires Sensitive]
+**Precision Shaping.** Use Sharp instead of Nerve as your shaping cap when the effect is precise manipulation of a single target or object at Close range. The nurse feeling for a specific nerve cluster. The mechanic adjusting a single bolt inside a machine. Does not apply to area effects, sustained effects, or shaping at Near or beyond. [Requires Sensitive]
 
 **Brute Channel.** Use Grit instead of Nerve as your shaping cap when the effect is raw physical force, structural change, or environmental manipulation. The steelworker bending a beam. Costs 1 extra Guard per shaping attempt on top of normal purchase cost. [Requires Sensitive]
 

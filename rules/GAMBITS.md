@@ -30,7 +30,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 ### Subtle Weapons
 
-**Backstab.** Deal damage equal to the full sum of all rolled dice instead of the highest. Requires: Subtle weapon, target is unaware of you this round.
+**Backstab.** Deal damage equal to the sum of your two highest dice instead of the single highest. Requires: Subtle weapon, target is unaware of you this round.
 
 **Precise Cut.** Name a held item, garment, or strap. You sever or disable it without dealing wound damage. Close. Requires: Subtle weapon.
 
@@ -280,7 +280,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Cage.** Drive the target against a wall, corner, or obstacle. They cannot reposition this round and take Snag on any Move action until they spend an Act forcing their way out. Close. Requires: wall, corner, or large obstacle behind the target.
 
-**Stagger.** The target can only Move or Act next turn, not both. Close.
+**Stagger.** The target can only Move or Act next turn, not both. Close. Requires: melee weapon.
 
 **Hamstring.** Strike or cut the back of the target's leg. Their movement costs double (two Acts per band) for the rest of the scene until treated. Close. Requires: edged melee weapon. Strong Gambit only.
 
@@ -372,7 +372,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Leapfrog.** You move to a new position while an ally holds attention on the enemy; you do not draw response on your movement this round. Any range. Requires: an ally is currently in melee with or threatening the enemy.
 
-**Combat Handoff.** You pass your remaining Act this round to an ally who has already used theirs; they take one additional action. Close. Requires: ally is within reach and has not already received this Gambit this combat.
+**Combat Handoff.** Act replacement. You give up your attack this round. An ally at Close who has already acted takes one additional action. Once per combat. Requires: ally is within reach.
 
 **Meat Shield.** You yank a mook or low-Threat enemy into the path of an incoming attack targeting an ally; redirect one attack this round. Close. Requires: a grabbable enemy at Close range.
 

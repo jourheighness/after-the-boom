@@ -26,6 +26,8 @@ Not all thaumatech works the same way. The distinction matters.
 
 This means **only positives can operate personal thaumatech.** A zero picks up a thaumic pistol and the contact plate reads nothing. The trigger pulls. Nothing happens. The device is inert. It needs a source, and zeroes have nothing to give.
 
+**Detectability:** Active contact plates emit a low-level thaumic signature. Sensitives can feel it at Close range. BTC scanners can read it at Near. Carrying active personal thaumatech in a social situation is like carrying a visible weapon: people who know what to look for will notice. The DPA definitely notices. Mundane weapons have no signature. A knife is just a knife. Sometimes that matters more than overcharge potential.
+
 Personal thaumatech includes: weapons, body armor, scanners, grenades, healing patches, field equipment, portable wards. Anything you carry and power with your body.
 
 **Grid-powered thauma-ware** is different. Powered by the thaumic grid (CTE boilers, siphon plants, municipal infrastructure), these devices have buttons and switches like conventional electronics. The energy comes from the grid, not from the operator. Anyone can use them. Your thaumic fridge doesn't care who opens it. The office heating system doesn't check your BTC.

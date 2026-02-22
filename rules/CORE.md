@@ -42,6 +42,8 @@ The triggering effect defines the consequences, not the GM. If a Gambit says "ta
 
 Saves use the same Boon and Snag rules as any other roll. Threat level does not impose Snags on saves (Threat affects defense rolls, not saves).
 
+When a partial save result feels ambiguous, default to: the effect lasts one action instead of a full round, or the target resists but is momentarily distracted (Snag on their very next roll).
+
 ---
 
 ## Stats
@@ -163,7 +165,7 @@ Push recovers during **downtime**, the time between dangerous situations. It doe
 
 **Guard** is your readiness: awareness, positioning, luck, the instinct that keeps you alive. It's a small number (typically 3-8) that absorbs incoming damage before it touches you.
 
-Guard refreshes when the danger has passed and you have a moment to collect yourself. If threats are continuous (combat follows a tense negotiation, a chase follows a break-in), Guard does not refresh between them. The GM determines when a genuine moment of safety occurs. If in doubt: if the characters would feel safe enough to sit down and breathe, Guard refreshes.
+Guard refreshes when the danger has passed and you have a moment to collect yourself. If threats are continuous (combat follows a tense negotiation, a chase follows a break-in), Guard does not refresh between them. The GM determines when a genuine moment of safety occurs. If in doubt: if the characters would feel safe enough to sit down and breathe, Guard refreshes. Routine scenes (shopping, travel, conversation in a safe place) always refresh Guard. A tense social scene where violence is possible does not.
 
 Guard is **not HP.** It doesn't represent health. When your Guard drops, you haven't been hurt. You've been pushed, rattled, forced into worse positions. The first real injury comes when Guard breaks.
 
@@ -319,6 +321,8 @@ Combat uses three abstract ranges. These describe relationships between people, 
 | **Far** | Across a parking lot. Rifle range, rooftop to street, out of easy reach. |
 
 Movement shifts you one range band per Move: Close to Near, Near to Far, or the reverse. You can also reposition laterally at the same range (behind cover, toward a different target, out of a doorway) when the fiction supports it.
+
+**Disengaging:** Moving away from an enemy at Close costs your Move as normal. There are no free attacks. If the enemy hasn't acted yet this round, the GM may have them respond immediately: pursue, attack, or grab. If the enemy already acted, you walk away clean.
 
 Ranges are always relative. You can be Close to one enemy and Far from another. There is no shared map to argue about. The GM describes the space, players describe their movement, and the ranges follow.
 
