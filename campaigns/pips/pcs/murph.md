@@ -23,5 +23,22 @@ His mother was destroyed by Stabil-Tabs — designed by his own father's company
 - **C&S / Pax Life Connection:** Discovered C&S wants to acquire Pax Life. His father's world and his patron's world are converging.
 - **The Patron Debt:** Every favor from The Chairman costs something. The bill is growing.
 
+## Combat Stats
+| MUS | REF | GRI | SMA | SEN | PRE |
+|-|-|-|-|-|-|
+| 8 (-1) | 14 (+2) | 12 (+1) | 14 (+2) | 10 (+0) | 16 (+3) |
+
+**AC** 13 (barrier charm) | **HP** 24 (3d8+3) | **Speed** 30 ft | **Prof** +2 | **Drain** 4/12
+
+**Saves:** SEN +2, PRE +5
+**Skills:** Deception +5, Persuasion +5, Arcana +4, Intimidation +1
+
+### Attacks
+| Attack | Hit | Damage | Notes |
+|-|-|-|-|
+| Eldritch Blast | +5 | 1d10+3 | 120 ft, force |
+| Hex + Blast | +5 | 1d10+1d6+3 | Requires concentration, 1 drain |
+| Patron's Demand | DC 13 PRE | 2d8 psychic | 60 ft, 2 drain, target frightened 1 round |
+
 ## Player Notes (Swedish)
 Delger inte sitt riktiga namn. Snorrik familj, exploatering av arbetare, resten av familjen är akademiker. En onkel jobbar på PIPS, är på skolan för krav uppifrån, hatar den sidan, skäms över sitt ekonomiska arv. Är thiefling mamma är fattig och nergågna, svåra allergier mot magi, tar droger för det. Pappa är rik. Rebell, tar warlock tracket för att komma åt sin far.

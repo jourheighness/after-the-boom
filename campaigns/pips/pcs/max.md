@@ -24,6 +24,24 @@ THE mission. Lena is the one who can be saved. Max went from easygoing skater-yo
 - **The Scrying Device:** They have it. Can Max use it to contact her? At what cost?
 - **Uffe:** What does his father know? How will he react?
 
+## Combat Stats
+| MUS | REF | GRI | SMA | SEN | PRE |
+|-|-|-|-|-|-|
+| 12 (+1) | 16 (+3) | 12 (+1) | 10 (+0) | 14 (+2) | 10 (+0) |
+
+**AC** 15 (unarmored: REF + SEN) | **HP** 24 (3d8+3) | **Speed** 40 ft | **Prof** +2 | **Drain** 3/10
+
+**Saves:** MUS +3, REF +5
+**Skills:** Acrobatics +5, Athletics +3, Insight +4, Medicine +4
+
+### Attacks
+| Attack | Hit | Damage | Notes |
+|-|-|-|-|
+| Unarmed strike | +5 | 1d6+3 | Martial arts die |
+| Flurry of Blows | +5 | 1d6+3 (x2) | Bonus action, 1 drain |
+| Deflect Missiles | -- | -1d10+5 | Reaction, can return for 1 drain |
+| Skateboard | +5 | 1d6+3 | Improvised, counts as monk weapon |
+
 ## Tells
 - Reacts to stress by tightening his ponytail
 - Makes eye contact like he's reading your soul
