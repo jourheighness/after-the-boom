@@ -76,11 +76,18 @@ Common spreads:
 
 Stats are **permanent.** They don't grow. Your character gets better through Edges, Guard growth (Scars), and narrative change. The numbers you pick now are the numbers you keep.
 
+**Thaumic implications of stats (Positives only):**
+- **Nerve** caps innate shaping dice. A Nerve 1 shaper can only channel 1 die per shaping attempt. Nerve 3 channels 3 dice. Nerve is your channeling bandwidth.
+- **Each thaumatech device has an overcharge stat** (Sharp, Nerve, or Grit). Your stat caps how many bonus dice you can push through that device. A Sharp 3 character overcharges a scanner by up to 3 dice. A Grit 1 character barely pushes a kinetic amp.
+- **Grit** determines your Guard (fuel tank for both shaping and overcharging), but doesn't make you a better caster. A Grit 3 / Nerve 1 character has plenty of Guard but can only channel 1 die at a time.
+
+This means stat choices matter differently for every build. Zeroes pick stats for rolls and Guard. Positives also pick stats for which devices they excel with and how much channeling they can handle.
+
 ---
 
 ## Step 3: Derived Values
 
-**Guard = Grit + 2.** This is your readiness, the buffer that absorbs damage before real injuries start. Starting Guard ranges from 3 (Grit 1) to 6 (Grit 4).
+**Guard = Grit + 2.** This is your readiness, the buffer that absorbs damage before real injuries start. Starting Guard ranges from 3 (Grit 1) to 6 (Grit 4). Guard refreshes when the danger has genuinely passed and you have a moment to collect yourself. The GM calls it. If you'd feel safe enough to sit down and breathe, Guard refreshes.
 
 **Push: 4 boxes.** Your reserve for digging deep. Recovers during downtime.
 

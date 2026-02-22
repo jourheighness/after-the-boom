@@ -683,7 +683,7 @@ Damage, subtract Armor, subtract Guard, overflow = Harm.
 
 ### Open Questions for Future Workstreams
 
-- **WS3 (Magic):** Complete. See `rules/MAGIC.md`.
+- **WS3 (Magic):** Complete. See `rules/MAGIC.md`. Nerve caps innate shaping pool. Device overcharge capped by device-specific stat (Sharp/Nerve/Grit).
 - **WS4 (Combat):** Complete. Integrated into this document.
 - **WS2 (Creation):** Complete. See `rules/CHARACTER.md`. Guard = Grit + 2 (range 3-6). Backgrounds as Boon domains. Zeroes: 4 Edges + Thaumic Null. Positives: 3 Edges. No XP, no levels, no stat growth.
 - **WS5 (Edges):** Edges that grant bonus attack dice, modify Gambits, add new Gambit options, change stat usage, or interact with Push. "Fortifier" Edge (Create Cover produces full cover). Thaumatech ward-barrier Edge. Weapon property interaction Edges (e.g., "Quick Draw" removes Slow).

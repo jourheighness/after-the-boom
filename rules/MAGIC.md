@@ -6,7 +6,7 @@ All thaumic work drains the caster. Always. Thaumatech devices don't absorb the 
 
 **Thaumatech** makes magic predictable. The device enables the action and you roll your stat as normal, no drain cost. Want more? Spend Guard. Each point of Guard you burn buys one bonus die. The device keeps the process clean, so the only risk is what happens when you push past its rating.
 
-**Innate shaping** has no stencil. Every die costs Guard. You shape through your **obsession** (what your magic does, rooted in who you are) using your **Tell** (the personal, idiosyncratic process you developed). On a messy roll, you make a Nerve save or suffer side effects. And every time you shape without a device, a clock ticks somewhere. Something is paying attention.
+**Innate shaping** has no stencil. Every die costs Guard, capped at your Nerve (your body's bandwidth for raw channeling). You shape through your **obsession** (what your magic does, rooted in who you are) using your **Tell** (the personal, idiosyncratic process you developed). On a messy roll, you make a Nerve save or suffer side effects. And every time you shape without a device, a clock ticks somewhere. Something is paying attention.
 
 When a caster drains themselves past their limit, through Guard into Harm, that's where the system gets dangerous. For innate shapers, that moment can become a **Break**: a character-defining sacrifice where death is on the table and the effect has no ceiling.
 
@@ -40,7 +40,19 @@ A thaumatech device works like any tool. The device enables the action: you can'
 
 **Base use is free.** Roll your stat as normal. The device enables the action, no drain cost. This is what it's built for. A factory boiler operator running their rig at spec doesn't drain. An inspector scanning for anomalies doesn't drain. Routine thaumatech is infrastructure. It costs nothing because it's designed not to.
 
-**Overcharging costs Guard.** Want more than the rated output? Each point of Guard spent adds **+1 bonus die** on the roll. You're pulling more than the device was meant for, faster than is safe. The energy still flows through you. The device doesn't protect you from the cost, it just shaped the channel. Now you're widening that channel past spec.
+**Overcharging costs Guard.** Want more than the rated output? Each point of Guard spent adds **+1 bonus die** on the roll, up to the device's **overcharge stat** (listed on the device entry). A scanner overcharges on Sharp. A ward projector overcharges on Nerve. A heavy emitter overcharges on Grit. Your stat is the cap: a Sharp 2 character can overcharge a scanner by 2 dice maximum, spending 2 Guard. You're pulling more than the device was meant for, faster than is safe. The energy still flows through you. The device doesn't protect you from the cost, it just shaped the channel. Now you're widening that channel past spec.
+
+### Overcharge Stats
+
+Each thaumatech device lists its overcharge stat. This determines which stat caps your bonus dice when pushing past rated output.
+
+| Overcharge Stat | Device Types | Examples |
+|-|-|-|
+| **Sharp** | Precision instruments, scanners, targeting systems | BTC scanner, resonance scanner, diagnostic kit, thaumic recorder, sniper-class discharge rifle |
+| **Nerve** | Channeling devices, wards, medical, control | Ward projector, dampening field, healing patch, containment unit, suppressor, nerve stabilizer |
+| **Grit** | Brute-force emitters, heavy hardware, physical amplifiers | Pulse emitter, discharge rod, gravity clamp, thaumic welder, reactive armor plates |
+
+A character with Sharp 3 / Nerve 1 gets maximum overcharge from scanners and precision weapons but barely pushes a ward projector. Gear choices mirror character identity. The same stat that makes you good at aiming makes you good at overcharging aiming devices.
 
 ### Careful vs. Rushed Channeling
 
@@ -246,7 +258,7 @@ A character's Tell is not a menu to optimize. It's a statement about who this pe
 When an innate shaper channels:
 
 1. **Declare effect + Tell.** Must be within your obsession's scope. The GM and player agree on what's plausible. If you can't perform your Tell (gagged, bound, missing focus object), you can't shape. Partially impaired Tell = Snag. Stakes are always escalated: the GM includes thaumic side effects in the consequences.
-2. **Spend Guard for dice.** There is no free die. Every die costs 1 Guard. These dice are your entire pool. You do not add a stat. The cost IS the roll. Boons and Snags apply as normal: a Boon from an ally assist, clever positioning, or careful channeling (extra Act) adds +1d without additional Guard cost. A Snag from injury, Tell impairment, or hostile conditions removes 1d (Guard already spent is not refunded).
+2. **Spend Guard for dice, up to your Nerve.** There is no free die. Every die costs 1 Guard. Your maximum dice purchased per shaping attempt equals your **Nerve** stat. A Nerve 3 shaper can buy up to 3 dice (spending 3 Guard). A Nerve 1 shaper can buy 1 die (spending 1 Guard). Your body is the conduit, and Nerve is its bandwidth. Boons and Snags apply after the purchase: a Boon from an ally assist, clever positioning, or careful channeling (extra Act) adds +1d without additional Guard cost and CAN exceed the Nerve cap (external support widens what your body alone limits). A Snag from injury, Tell impairment, or hostile conditions removes 1d (Guard already spent is not refunded).
 3. **Roll.** Read highest die. 6 = full success, 4-5 = partial, 1-3 = consequence, double 6 = critical.
 4. **On partial or consequence: Nerve save.** Roll Nerve. On a consequence (1-3), suffer a thaumic side effect: nosebleed, involuntary discharge, sensory distortion, brief loss of motor control. On a full success or critical, the shaping went clean. No save needed.
 5. **Tick the Heat clock.** The number of ticks depends on **how visible the magic was:**
@@ -285,7 +297,7 @@ Bargains are different from Stakes: Stakes are tied to roll results (partial = t
 |-|-|-|
 | Scope | Determined by device | Shaped by obsession, agreed with GM |
 | Technique | Push the button | Tell: personal, idiosyncratic, limited |
-| Base cost | Device gives free die | No free die. All dice cost Guard. |
+| Base cost | Device gives free die | No free die. All dice cost Guard, capped at Nerve. |
 | Uncertainty | None. Deterministic. | Nerve save on partial/consequence |
 | Stakes | Normal | Always escalated (thaumic side effects) |
 | Background heat | 0 ticks (regulated, expected) | 1-3 ticks per use (visibility-scaled) |
@@ -313,7 +325,7 @@ This is the same pipeline as combat damage. No new mechanics. The only differenc
 
 ### The Caster's Dilemma
 
-In combat, a caster's Guard is being eaten from **two directions**: enemy attacks and their own casting. A thaumatech user who overcharges in round 1 has less Guard when the enemy swings in round 2. An innate shaper who buys 4 dice for a big effect might have no Guard left at all.
+In combat, a caster's Guard is being eaten from **two directions**: enemy attacks and their own casting. A thaumatech user who overcharges in round 1 has less Guard when the enemy swings in round 2. An innate shaper with Nerve 3 who buys 3 dice has spent 3 Guard on a single shaping. With Guard 3 (Grit 1), that's everything. With Guard 5 (Grit 3), they've got 2 Guard left but can't channel more than 3 dice anyway. Nerve is the bottleneck. Guard is the fuel tank. Both matter, but for different reasons.
 
 This is the low-magic feel. Not "you can't cast," but every cast makes you more vulnerable to the mundane. The bullet doesn't care that you just shaped a ward. Your Guard is gone either way.
 
@@ -397,7 +409,7 @@ A Break is a moment where a character decides that what they're protecting is wo
 - **Personal thaumatech** (weapons, armor, scanners): contact plates, positives only
 - **Grid thauma-ware** (appliances, heating, infrastructure): buttons and switches, anyone
 - Base use: free (roll stat, device enables action)
-- Overcharge: spend Guard for +1d per point
+- Overcharge: spend Guard for +1d per point, capped at device's overcharge stat
 - Careful channeling (extra Act): Boon (+1d)
 - Failure: device consequences through Stakes (scales with gear danger)
 - Sustained: costs Act each round
@@ -405,7 +417,7 @@ A Break is a moment where a character decides that what they're protecting is wo
 
 ### Innate Shaping
 - Obsession scope determines what you can affect; Tell determines how
-- Every die costs 1 Guard (no free die, no stat added)
+- Every die costs 1 Guard, max dice = Nerve (your channeling bandwidth)
 - Careful channeling (extra Act): Boon (+1d)
 - Nerve save on partial/consequence only (clean shaping = no save)
 - Heat clock: 1-3 ticks per use (visibility-scaled)
@@ -435,8 +447,10 @@ A Break is a moment where a character decides that what they're protecting is wo
 | # | Decision | Answer | Laws |
 |-|-|-|-|
 | D5 | Magic cost model | Drain = Guard. No separate track. Overflow to Harm. | P13, P17 |
-| D6 | Thaumatech vs Innate | Same underlying mechanic (Guard for dice), different risk profile. Thaumatech: base use free (roll stat), device consequences. Innate: no free die, Nerve save on partial/consequence, heat clock, escalated stakes. | P10, P12 |
-| D7 | How shaping works | Free-form within obsession scope, constrained by Tell. Buy dice with Guard, roll. No spell list. | P2, P16 |
+| D6 | Thaumatech vs Innate | Same underlying mechanic (Guard for dice), different risk profile. Thaumatech: base use free (roll stat), overcharge capped by device stat. Innate: no free die, dice capped at Nerve, Nerve save on partial/consequence, heat clock, escalated stakes. | P10, P12 |
+| D7 | How shaping works | Free-form within obsession scope, constrained by Tell. Buy dice with Guard (max = Nerve), roll. No spell list. | P2, P16 |
+| D25 | Nerve caps shaping | Innate shaping dice limited to Nerve stat. Grit determines Guard (fuel tank), Nerve determines channeling bandwidth. Boons from external sources can exceed cap. Prevents high-Grit characters from being the best casters. | P10, P14 |
+| D26 | Device overcharge stat | Each thaumatech device lists an overcharge stat (Sharp/Nerve/Grit). Overcharge dice capped at that stat. Creates build-relevant equipment choices. | P6, P17 |
 | - | Thaumic Spectrum | Four tiers (Mundane, Knack, Sensitive, Shaper) as Edge chain. Obsession-based, not category-based. | P10, P17 |
 | - | Obsession & Tell | Scope from character obsession, not a list. Tell = technique + vulnerability. Edges refine both. | P14, P17 |
 | - | Contact plate system | Personal thaumatech powered through contact plates on skin. Positives only. Grid thauma-ware has buttons/switches, anyone operates. | P10, P17 |

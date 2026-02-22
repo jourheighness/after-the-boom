@@ -212,75 +212,77 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 
 ## Thaumatech Weapons [Contact plate, Positive only]
 
-**Discharge rod** | 1d6 | Sidearm | Contact plate on the grip. Channels a focused thaumic pulse. Standard DPA field issue. Feels like grabbing a live wire on the receiving end.
+*Each thaumatech weapon lists an Overcharge stat. This is the stat that caps bonus dice when you spend Guard to push past rated output. See `rules/MAGIC.md` for overcharge rules.*
+
+**Discharge rod** | 1d6 | Sidearm | Overcharge: Nerve | Contact plate on the grip. Channels a focused thaumic pulse. Standard DPA field issue. Feels like grabbing a live wire on the receiving end.
 - *Nerve Jolt.* The pulse hits the nervous system. Target takes Snag on their next Grit check. Close.
 - *Feedback Loop.* Target's next thaumatech use deals 1d4 damage to them. Close.
 
-**Heavy discharge pistol** | 1d8 | Sidearm, Loud | DPA tactical variant. Full-size frame, two-hand grip plate, capacitor pack in the magazine well. The pulse is visible. Paperwork required.
+**Heavy discharge pistol** | 1d8 | Sidearm, Loud | Overcharge: Nerve | DPA tactical variant. Full-size frame, two-hand grip plate, capacitor pack in the magazine well. The pulse is visible. Paperwork required.
 - *Overcharge Burst.* Spend 1 Guard for +2 damage on this hit. Device needs a cooldown (Snag on next attack with it). Close/Near.
 - *System Crash.* **(Strong)** The target's thaumatech weapon is disabled for 1 round. Close/Near.
 
-**Pulse emitter** | 1d8 | Ranged, Loud | Shoulder-mounted. Industrial pest-control repurposed. The beam is visible and leaves scorch marks on concrete.
+**Pulse emitter** | 1d8 | Ranged, Loud | Overcharge: Grit | Shoulder-mounted. Industrial pest-control repurposed. The beam is visible and leaves scorch marks on concrete.
 - *Frequency Match.* Bypass one point of thaumic ward protection on this hit. Near.
 - *Wide Beam.* Spread the emitter cone. Deal 1d4 to every target at Close/Near in a cone. Near.
 
-**Resonance blade** | 1d8 | Subtle | Contact plate in the hilt. The blade hums at a frequency you feel in your teeth. Rare. Illegal in most jurisdictions.
+**Resonance blade** | 1d8 | Subtle | Overcharge: Sharp | Contact plate in the hilt. The blade hums at a frequency you feel in your teeth. Rare. Illegal in most jurisdictions.
 - *Disruption Cut.* The resonance frequency collapses one sustained thaumic effect the target is maintaining. Close.
 - *Harmonic Edge.* The blade cuts through thaumic armor as easily as conventional. Ignore 1 Armor from thaumic sources on this hit. Close.
 - *Singing Blade.* The hum intensifies to a pitch that makes teeth ache. All enemies at Close take Snag on their next action. Close.
 
-**Thaumic baton** | 1d6 | -- | Standard baton shape with a contact plate along the shaft. Carries a charge through the strike. DPA crowd-control issue. Security firms pay well for these.
+**Thaumic baton** | 1d6 | -- | Overcharge: Nerve | Standard baton shape with a contact plate along the shaft. Carries a charge through the strike. DPA crowd-control issue. Security firms pay well for these.
 - *Charged Strike.* Discharge the full charge on contact. +1 damage, but the baton needs 1 round to recharge. Close.
 - *Compliance Arc.* The charge jumps to a second target at Close. They take 1 damage. Close.
 
-**Arc gloves** | 1d6 | Subtle | Contact plates on both palms. The discharge fires on impact. Looks like padded work gloves until it doesn't.
+**Arc gloves** | 1d6 | Subtle | Overcharge: Grit | Contact plates on both palms. The discharge fires on impact. Looks like padded work gloves until it doesn't.
 - *Double Palm.* Hit with both hands. Make a second attack roll with 1d4 against the same target. Close.
 - *Contact Discharge.* Grab a metal surface the target is touching. The charge travels through it. Near (if connected by conductive surface).
 
-**Kinetic amp** | 1d8 | -- | Forearm-mounted brace with contact plate at the wrist. Multiplies strike force. Used in union halls by people who take structural disagreements personally.
+**Kinetic amp** | 1d8 | -- | Overcharge: Grit | Forearm-mounted brace with contact plate at the wrist. Multiplies strike force. Used in union halls by people who take structural disagreements personally.
 - *Shockwave Punch.* The kinetic pulse extends past the target. A second target directly behind the first takes 1d4 damage. Close.
 - *Wall Breaker.* Punch through a wall, door, or light barricade. The obstacle is destroyed. Close.
 
-**Suppression field projector** | -- | Ranged | Handheld emitter the size of a flashlight. Creates a localized thaumic null field in a Close radius. Positives in the field cannot shape. No damage. DPA specialist equipment.
+**Suppression field projector** | -- | Ranged | Overcharge: Nerve | Handheld emitter the size of a flashlight. Creates a localized thaumic null field in a Close radius. Positives in the field cannot shape. No damage. DPA specialist equipment.
 - *Targeted Shutdown.* Focus the field on a single device instead of an area. One thaumatech item is disabled for 2 rounds instead of 1. Near.
 
-**Thermal lance** | 2d6 | Ranged, Loud, Slow | Industrial cutting tool with a contact plate trigger. Designed for demolition. Cuts through plate steel. The person pointing it at you made a decision.
+**Thermal lance** | 2d6 | Ranged, Loud, Slow | Overcharge: Grit | Industrial cutting tool with a contact plate trigger. Designed for demolition. Cuts through plate steel. The person pointing it at you made a decision.
 - *Cutting Beam.* Draw a line through a wall, floor, or ceiling section. Creates a new opening. Close/Near.
 - *Sustained Burn.* **(Strong)** Hold the beam on target. Ignore all Armor on this hit. Close/Near.
 
-**Resonance shotgun** | 2d6 | Ranged, Loud | Contact plate stock. Fires a broad-spectrum thaumic burst. Close range. Conventional armor provides no protection. Thaumic armor reduces damage normally.
+**Resonance shotgun** | 2d6 | Ranged, Loud | Overcharge: Grit | Contact plate stock. Fires a broad-spectrum thaumic burst. Close range. Conventional armor provides no protection. Thaumic armor reduces damage normally.
 - *Pulse Scatter.* The burst hits every target at Close for 1d4 each. Close.
 - *Resonance Lock.* **(Strong)** The target cannot activate or use thaumatech devices for 1 round. Close/Near.
 
-**Stun rod** | 1d4 | Subtle | Rubber-insulated grip. Hits the nervous system. Target makes a Grit save or loses their next Act. Security guard standard. Also available through industrial supply catalogs.
+**Stun rod** | 1d4 | Subtle | Overcharge: Nerve | Rubber-insulated grip. Hits the nervous system. Target makes a Grit save or loses their next Act. Security guard standard. Also available through industrial supply catalogs.
 - *Arc Jump.* Touch the stun rod to a metal surface the target is holding or standing on. The charge travels through. Near (if connected).
 - *Sustained Contact.* **(Strong)** Hold the rod against the target. They lose their next 2 Acts instead of 1. Close.
 
-**Thaumic bolt pistol** | 1d6 | Ranged, Loud | Compact emitter in a pistol frame. Fires coherent bolts at Near range. Slower to recharge than it fires. Police detectives carry these in cities with high Positive population.
+**Thaumic bolt pistol** | 1d6 | Ranged, Loud | Overcharge: Sharp | Compact emitter in a pistol frame. Fires coherent bolts at Near range. Slower to recharge than it fires. Police detectives carry these in cities with high Positive population.
 - *Scanner Ping.* On hit, read the target's thaumic signature. Learn their current Guard value. Near.
 - *Calibrated Strike.* Tune the bolt frequency. Ignore 1 Armor on this hit. Near.
 
-**Resonance rifle** | 1d8 | Ranged, Loud | Long-frame thaumic emitter, contact plate at the grip and cheek rest. Military development, never fully adopted. About forty units exist. Accurate. Recognizable.
+**Resonance rifle** | 1d8 | Ranged, Loud | Overcharge: Sharp | Long-frame thaumic emitter, contact plate at the grip and cheek rest. Military development, never fully adopted. About forty units exist. Accurate. Recognizable.
 - *Overwatch.* Declare a zone. First enemy to enter it takes your attack as a free action. Far.
 - *Frequency Match.* Bypass one point of thaumic ward protection on this hit. Near/Far.
 - *Resonance Spike.* **(Strong)** The target's next shaping or device use costs 1 additional Guard. Near/Far.
 
-**Drain siphon** | 1d6 | Sidearm | Contact plate on grip. On a hit against a Positive, target loses one Guard and attacker regains one Push. DPA black site equipment. Not in any catalog you've seen.
+**Drain siphon** | 1d6 | Sidearm | Overcharge: Nerve | Contact plate on grip. On a hit against a Positive, target loses one Guard and attacker regains one Push. DPA black site equipment. Not in any catalog you've seen.
 - *Deep Draw.* **(Strong)** Drain 2 Guard from the target instead of 1. Close.
 - *Feedback Sting.* The siphon process is painful. Target takes Snag on their next shaping roll. Close.
 
-**Pulse grenade** | 1d8 | Thrown, Loud | Contact plate on the activation tab. Primes on touch, throws like any grenade. Anyone in Close range at detonation takes the dice. Grid-powered version exists for anyone with a wall outlet and time.
+**Pulse grenade** | 1d8 | Thrown, Loud | Overcharge: Grit | Contact plate on the activation tab. Primes on touch, throws like any grenade. Anyone in Close range at detonation takes the dice. Grid-powered version exists for anyone with a wall outlet and time.
 - *Airburst.* Detonate the grenade above the targets. Ignores cover. Close/Near.
 - *Rolling Toss.* Roll it along the floor under a door or barrier. Reaches targets behind obstacles. Close/Near.
 
-**Kinetic burst gauntlet** | 1d8 | -- | Heavy contact plate along the entire palm and fingers. Fires a kinetic pulse on a closed-fist strike. The punch lands before anyone hears the charge.
+**Kinetic burst gauntlet** | 1d8 | -- | Overcharge: Grit | Heavy contact plate along the entire palm and fingers. Fires a kinetic pulse on a closed-fist strike. The punch lands before anyone hears the charge.
 - *Shockwave.* The pulse sends the target flying. Knock them back one band and prone. Close.
 - *Concussive Clap.* **(Strong)** Clap both gauntlets together. All targets at Close take 1d4 damage and are staggered. Close.
 
-**Null emitter (backpack)** | -- | Ranged | Experimental DPA equipment. Not commercially available. Backpack-mounted generator, handheld projector. Creates a thaumic suppression cone out to Far range. Anyone in the cone (Positive or not) cannot activate thaumatech. Requires a Positive to operate the contact plate trigger, but affects everyone. Drains its power cell after 3 uses per scene.
+**Null emitter (backpack)** | -- | Ranged | Overcharge: Nerve | Experimental DPA equipment. Not commercially available. Backpack-mounted generator, handheld projector. Creates a thaumic suppression cone out to Far range. Anyone in the cone (Positive or not) cannot activate thaumatech. Requires a Positive to operate the contact plate trigger, but affects everyone. Drains its power cell after 3 uses per scene.
 - *Focused Beam.* Narrow the cone to a single target. Suppression lasts 2 rounds instead of 1 for that target. Far.
 
-**Concussive lance** | 2d6 | Ranged, Loud | Military prototype. Fires a focused kinetic pulse. Loud, heavy, obviously military. Carrying one in public means the DPA is either with you or coming for you.
+**Concussive lance** | 2d6 | Ranged, Loud | Overcharge: Grit | Military prototype. Fires a focused kinetic pulse. Loud, heavy, obviously military. Carrying one in public means the DPA is either with you or coming for you.
 - *Knockback Pulse.* The pulse sends the target flying backward one band and prone. Near.
 - *Collateral Blast.* **(Strong)** The pulse expands on impact. All targets at Close to the point of impact take 1d4. Near.
 
@@ -330,34 +332,36 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 
 ## Thaumatech Devices [Contact plate, Positive only]
 
-**BTC Scanner (handheld)** | Thumb plate. Reads ambient Background Thaumic Count in a 10-meter radius. Standard DPA and industrial tool. Every field agent and building inspector has one.
+*Active devices list an Overcharge stat. Passive devices (comms, monitors, torches) operate at rated output and don't benefit from overcharging.*
 
-**BTC Scanner (industrial)** | Palm plate on the back panel. Commercial-grade unit the size of a briefcase. Reads BTC across a 50-meter radius with logged output. Requires a Positive to operate; everyone else reads the paper printout.
+**BTC Scanner (handheld)** | Overcharge: Sharp | Thumb plate. Reads ambient Background Thaumic Count in a 10-meter radius. Standard DPA and industrial tool. Every field agent and building inspector has one.
 
-**Resonance Tracker** | Wrist plate. Detects and broadly classifies thaumic resonance signatures within Near range. Useful for tracking innate shapers. DPA standard issue. Consumer versions are tuned down and require a permit.
+**BTC Scanner (industrial)** | Overcharge: Sharp | Palm plate on the back panel. Commercial-grade unit the size of a briefcase. Reads BTC across a 50-meter radius with logged output. Requires a Positive to operate; everyone else reads the paper printout.
 
-**Entity Detector** | Thumb plate on a wand-style housing. Identifies non-human thaumic presence. Distinguishes spirits, bound entities, and ambient manifestations. Often smells faintly of ozone after use.
+**Resonance Tracker** | Overcharge: Sharp | Wrist plate. Detects and broadly classifies thaumic resonance signatures within Near range. Useful for tracking innate shapers. DPA standard issue. Consumer versions are tuned down and require a permit.
 
-**Structural Scanner** | Two-handed grip with dual palm plates. Pulses thaumic energy and reads the return. Maps structural integrity and hidden cavities inside walls. Construction and DPA demolitions teams use these.
+**Entity Detector** | Overcharge: Sharp | Thumb plate on a wand-style housing. Identifies non-human thaumic presence. Distinguishes spirits, bound entities, and ambient manifestations. Often smells faintly of ozone after use.
 
-**Diagnostic Scanner (medical)** | Finger plate on a probe tip. Reads physiological thaumic interference, nerve damage, and drain saturation. Emergency rooms use these. Tells you what's wrong. Doesn't fix it.
+**Structural Scanner** | Overcharge: Sharp | Two-handed grip with dual palm plates. Pulses thaumic energy and reads the return. Maps structural integrity and hidden cavities inside walls. Construction and DPA demolitions teams use these.
 
-**Nerve Stabilizer** | Index finger plate. Suppresses active thaumic discharge in an overloaded nervous system. Used on shapers mid-Break or post-Crack. Buys time. Requires medical training to use correctly.
+**Diagnostic Scanner (medical)** | Overcharge: Sharp | Finger plate on a probe tip. Reads physiological thaumic interference, nerve damage, and drain saturation. Emergency rooms use these. Tells you what's wrong. Doesn't fix it.
+
+**Nerve Stabilizer** | Overcharge: Nerve | Index finger plate. Suppresses active thaumic discharge in an overloaded nervous system. Used on shapers mid-Break or post-Crack. Buys time. Requires medical training to use correctly.
 
 **Healing Patch** | Single-use adhesive backed with a micro-plate. Charge and apply to wound. Clears a Hurt condition immediately. Cannot treat Wounded or Critical. Sold in boxes of four at any pharmacy.
 
-**Trauma Kit (thaumic)** | Hard-shell case with forearm plate on the lid. Field-surgery kit that channels accelerated clotting and tissue response. Clears Hurt. On a Strong result, downgrades Wounded to Hurt. Heavy. Takes a full round to deploy.
+**Trauma Kit (thaumic)** | Overcharge: Nerve | Hard-shell case with forearm plate on the lid. Field-surgery kit that channels accelerated clotting and tissue response. Clears Hurt. On a Strong result, downgrades Wounded to Hurt. Heavy. Takes a full round to deploy.
 
-**Field Cauterizer** | Grip plate on a pen-shaped tool. Seals wounds fast with a controlled thaumic heat discharge. Stops bleeding from Wounded. Hurts a great deal. Common in rural areas where the hospital is an hour out.
+**Field Cauterizer** | Overcharge: Nerve | Grip plate on a pen-shaped tool. Seals wounds fast with a controlled thaumic heat discharge. Stops bleeding from Wounded. Hurts a great deal. Common in rural areas where the hospital is an hour out.
 
-**Ward Projector (personal)** | Palm plate. Projects a small thaumic barrier across one doorway or window. Sustain rules apply. Consumer model. Anyone trying to cross makes a Nerve save or is repelled.
+**Ward Projector (personal)** | Overcharge: Nerve | Palm plate. Projects a small thaumic barrier across one doorway or window. Sustain rules apply. Consumer model. Anyone trying to cross makes a Nerve save or is repelled.
 - *Snap Ward.* Throw up a barrier as a reaction to an incoming attack. Reduce damage by 2 for one hit, but the ward collapses after. Close.
 
-**Ward Projector (commercial)** | Two-hand plate housing the size of a car battery. Projects a barrier across a large opening, up to 3 meters wide. Used by security firms and licensed facilities. Not subtle.
+**Ward Projector (commercial)** | Overcharge: Nerve | Two-hand plate housing the size of a car battery. Projects a barrier across a large opening, up to 3 meters wide. Used by security firms and licensed facilities. Not subtle.
 
-**Dampening Field Unit** | Shoulder-mounted with a back plate strap. Creates a localized field that reduces ambient BTC in a Close radius. Shapers inside roll with a Snag. Used in DPA containment work.
+**Dampening Field Unit** | Overcharge: Nerve | Shoulder-mounted with a back plate strap. Creates a localized field that reduces ambient BTC in a Close radius. Shapers inside roll with a Snag. Used in DPA containment work.
 
-**Shielding Unit (personal)** | Chest plate worn under clothing. Spend 1 Guard to activate. Incoming attack damage reduced by 2 for one hit. Single use per scene. Recharges between scenes.
+**Shielding Unit (personal)** | Overcharge: Nerve | Chest plate worn under clothing. Spend 1 Guard to activate. Incoming attack damage reduced by 2 for one hit. Single use per scene. Recharges between scenes.
 
 **Thaumic Comm Unit** | Ear plate behind a small earpiece housing. Sends and receives thaumic-encoded voice communication. Short range, about two blocks. Encrypted by default. Battery-free, which is the point.
 
@@ -367,30 +371,30 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 
 **Thaumic Torch** | Grip plate. Produces light. In thaumically saturated areas (BTC above 3), reveals otherwise invisible thaumic residue. Runs off the user's ambient thaumic potential. Used by utility workers and anyone who doesn't want to explain the batteries.
 
-**Lockbreaker (thaumic)** | Finger plate on a flat probe. Interfaces with thaumic lock mechanisms and attempts to read the key-signature. Makes a Sharp roll. Boon if the lock is a consumer model. Useless on mechanical locks.
+**Lockbreaker (thaumic)** | Overcharge: Sharp | Finger plate on a flat probe. Interfaces with thaumic lock mechanisms and attempts to read the key-signature. Makes a Sharp roll. Boon if the lock is a consumer model. Useless on mechanical locks.
 
-**Welding Tool (thaumic)** | Full-palm plate on a heavy glove. Fuses metal and other materials using a focused heat discharge. Industrial use. Makes a distinctive hum.
+**Welding Tool (thaumic)** | Overcharge: Grit | Full-palm plate on a heavy glove. Fuses metal and other materials using a focused heat discharge. Industrial use. Makes a distinctive hum.
 - *Weld Shut.* Fuse a door, hatch, or panel shut. Cannot be opened without cutting tools or destroying the frame. Close.
 
-**Gravity Clamp** | Back-of-hand plate. Increases surface adhesion between two objects dramatically. Used in construction and salvage. The military version holds a car to a wall.
+**Gravity Clamp** | Overcharge: Grit | Back-of-hand plate. Increases surface adhesion between two objects dramatically. Used in construction and salvage. The military version holds a car to a wall.
 - *Anchor.* Clamp a target's foot to the floor. They cannot move until they spend an Act breaking the bond. Close.
 
-**Calibration Tool** | Fingertip plate on a slender wand. Boon on Sharp rolls to diagnose thaumatech malfunctions. Useless without training. Every tech carries one. An out-of-calibration device is either useless or dangerous.
+**Calibration Tool** | Overcharge: Sharp | Fingertip plate on a slender wand. Boon on Sharp rolls to diagnose thaumatech malfunctions. Useless without training. Every tech carries one. An out-of-calibration device is either useless or dangerous.
 
-**Containment Unit (portable)** | Two hand plates on a case with pressure seals. Creates a thaumic suppression field inside the case interior. Used to transport confiscated items, trapped spirits, or unstable thaumic objects. DPA issue.
+**Containment Unit (portable)** | Overcharge: Nerve | Two hand plates on a case with pressure seals. Creates a thaumic suppression field inside the case interior. Used to transport confiscated items, trapped spirits, or unstable thaumic objects. DPA issue.
 
 **Safety Monitor** | Back plate on a vest-mounted unit. Continuously reads the wearer's drain saturation and triggers an alarm if they approach unsafe levels. Standard issue at leyline work sites.
 
-**Thaumic Suppressor (industrial)** | Full-palm plate on a wand with a wide emitter. Used to shut down uncontrolled thaumic discharge in an area. Think fire extinguisher, but for a shaper mid-Break. Requires professional training.
+**Thaumic Suppressor (industrial)** | Overcharge: Nerve | Full-palm plate on a wand with a wide emitter. Used to shut down uncontrolled thaumic discharge in an area. Think fire extinguisher, but for a shaper mid-Break. Requires professional training.
 - *Emergency Shutdown.* Aim at a malfunctioning thaumatech device and kill it instantly. The device is disabled for the rest of the scene. Near.
 
-**Spirit Anchor** | Palm plate on a ceramic disk the size of a dinner plate. Binds a non-corporeal entity to a fixed location. Used by licensed spirit-wranglers and utility companies.
+**Spirit Anchor** | Overcharge: Nerve | Palm plate on a ceramic disk the size of a dinner plate. Binds a non-corporeal entity to a fixed location. Used by licensed spirit-wranglers and utility companies.
 
 **Thaumic Relay Tap** | Wrist plate on a device the size of a deck of cards. Plugs into a municipal leyline junction and draws power directly. Illegal for civilian use. Every scrapper knows where to find one.
 
 **Resonance Jammer (personal)** | Chest plate worn close to the skin. Masks the user's thaumic signature from passive detection. Does not fool an active scan. Duration is one scene before the plate needs to rest.
 
-**Thaumic Recorder** | Index finger plate on a device that looks like a modified cassette recorder. Captures thaumic discharge events as readable waveform data. Used in forensics and research.
+**Thaumic Recorder** | Overcharge: Sharp | Index finger plate on a device that looks like a modified cassette recorder. Captures thaumic discharge events as readable waveform data. Used in forensics and research.
 
 **Remote Activation Unit** | Thumb plate on a transmitter housing. Remotely activates or depresses a contact plate on a paired device at up to Near range. Used in demolitions and industrial automation.
 
@@ -711,7 +715,7 @@ If you want armor that doesn't exist in the catalog, pick the Armor value and na
 
 ### Thaumatech and Gear
 
-For thaumatech devices, describe what it does in one sentence and how the contact plate works. The GM sets the mechanical effect. All thaumatech requires Positive status (contact plate activation).
+For thaumatech devices, describe what it does in one sentence, how the contact plate works, and assign an **Overcharge stat** (Sharp for precision/detection, Nerve for channeling/control/medical, Grit for brute-force/physical). The GM sets the mechanical effect. All thaumatech requires Positive status (contact plate activation).
 
 For mundane gear, describe what it does and what Boon it provides. One item, one benefit. A climbing harness gives Boon on climbing rolls. It doesn't also give Boon on falling, stealth, and intimidation.
 
