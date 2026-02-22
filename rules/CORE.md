@@ -730,13 +730,16 @@ Damage, subtract Armor, subtract Guard, overflow = Harm.
 | D20 | Zero/positive balance | Zeroes: 4 Edges + Thaumic Null. Positives: 3 Edges + thaumic access. | P10, P17 |
 | D21 | Progression model | No XP, no levels. Edges through play. Guard from Scars. | P12, P14 |
 
-### Open Questions for Future Workstreams
+### Workstream Status
 
-- **WS3 (Magic):** Complete. See `rules/MAGIC.md`. Nerve caps innate shaping pool. Device overcharge capped by device-specific stat (Sharp/Nerve/Grit).
+- **WS1 (Core):** Complete. This document.
+- **WS2 (Creation):** Complete. See `rules/CHARACTER.md`.
+- **WS3 (Magic):** Complete. See `rules/MAGIC.md`.
 - **WS4 (Combat):** Complete. Integrated into this document.
-- **WS2 (Creation):** Complete. See `rules/CHARACTER.md`. Guard = Grit + 2 (range 3-6). Backgrounds as Boon domains. Zeroes: 4 Edges + Thaumic Null. Positives: 3 Edges. No XP, no levels, no stat growth.
-- **WS5 (Edges):** Edges that grant bonus attack dice, modify Gambits, add new Gambit options, change stat usage, or interact with Push. "Fortifier" Edge (Create Cover produces full cover). Thaumatech ward-barrier Edge. Weapon property interaction Edges (e.g., "Quick Draw" removes Slow).
-- **WS6 (Equipment):** Full weapon catalog with properties. Thaumatech device catalog. Armor items. Legality tiers, costs, availability.
+- **WS5 (Edges):** Complete. See `rules/EDGES.md` (212+ Edges).
+- **WS6 (Equipment):** Complete. See `rules/EQUIPMENT.md`.
+- **WS8 (Backgrounds):** Complete. See `rules/BACKGROUNDS.md` (194 entries).
+- **WS7 (Player Materials):** Pending. Character sheet, reference cards, one-pagers.
 
 ### Design Principles Index
 

@@ -138,24 +138,11 @@ Requires **explicit GM approval.** A Shaper at creation means the campaign is ab
 
 The Shaper Edge defines your obsession's scope and your Tell. Work this out with the GM before play. (See MAGIC.md, Shaper and Innate Shaping.)
 
-### Placeholder Edge Examples
+### Edge Selection
 
-These are representative, not exhaustive. The full Edge catalog comes in WS5.
+The full Edge catalog is in `rules/EDGES.md` (212+ Edges across Combat, Survival, Social, Professional, Thaumatech, Sensitive, and Shaper categories). Pick Edges that match your character's Background and stat spread.
 
-| Edge | Effect | Notes |
-|-|-|-|
-| Street Fighter | Boon on unarmed Close combat | |
-| Union Trained | Boon when negotiating with institutions | |
-| Field Medic | Can treat Hurt injuries without medical supplies | |
-| Thaumatech Certified | Boon operating professional-grade devices | Positive only |
-| Connected [org] | Know someone inside. Once per session, call a favor. | Name the organization |
-| Hard to Kill | +1 maximum Guard (raises both starting and cap) | |
-| Quick Hands | Boon on sleight of hand and concealment | |
-| Intimidating | Boon on Nerve rolls to threaten | |
-| Dead Eye | Boon on ranged attacks at Far range | |
-| Jury-Rigger | Improvise thaumatech from scrap. Always jury-rigged tier. | Positive only |
-
-Players can always propose custom Edges. The principle: one Edge, one specific benefit. If it applies to every roll, it's too broad. If it never applies, it's flavor, not an Edge. The GM approves.
+Players can always propose custom Edges not in the catalog. The principle: one Edge, one specific benefit. If it applies to every roll, it's too broad. If it never applies, it's flavor, not an Edge. The GM approves. See the "Build Your Own" section in `rules/EDGES.md` for guidelines.
 
 ---
 
@@ -318,13 +305,6 @@ If the Boon applies more than half the time, narrow it.
 | D22 | Contact plate restriction | Personal thaumatech requires positive operator. Contact plates draw thaumic potential from skin. Zeroes read as inert. | P10, P17 |
 | D23 | Thaumic Null trait | Zeroes invisible to thaumic detection, BTC scans, wards, thaumic targeting. Baseline trait, not an Edge. | P10, P12 |
 
-### Open Questions for Future Workstreams
-
-- **WS5 (Edges):** Full catalog of 30-40 Edges. Knack Edges tied to obsessions. Tell refinement Edges. Scope expansion Edges. Drain reduction Edges. Thaumatech Edges. Tactical Edges.
-- **WS6 (Equipment):** Weapon catalog with properties. Thaumatech device catalog. Armor items. Starter loadouts. Legality tiers. Black-market gear.
-- **WS8 (Backgrounds & Quick-Start Packages):** 20-30 pre-built Backgrounds with Boon domains. 6-8 complete character packages (Background + Edges + gear loadout, ready to play with a name swap).
-- **WS7 (Player Materials):** Character sheet, reference cards, one-pagers.
-
 ### Workstream Order (Updated)
 
 | WS | Content | Status |
@@ -333,9 +313,9 @@ If the Boon applies more than half the time, narrow it.
 | WS3 | Magic & Drain | Complete (MAGIC.md) |
 | WS4 | Combat | Complete (integrated into CORE.md) |
 | WS2 | Character Creation | Complete (this document) |
-| WS5 | Edges Catalog | Next |
-| WS6 | Equipment Catalog | Pending |
-| WS8 | Backgrounds & Quick-Start Packages | Pending |
+| WS5 | Edges Catalog | Complete (EDGES.md, 212+ Edges) |
+| WS6 | Equipment Catalog | Complete (EQUIPMENT.md) |
+| WS8 | Backgrounds Catalog | Complete (BACKGROUNDS.md, 194 entries) |
 | WS7 | Player Materials | Pending |
 
 ### Design Notes

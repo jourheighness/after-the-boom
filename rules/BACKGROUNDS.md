@@ -2,7 +2,7 @@
 
 A Background is where your character comes from. Not a class, not a race. A job, a life, a set of scars. Each Background gives a **Boon domain**: a broad area where your experience gives you an edge. When a situation falls inside your domain, you roll with a Boon. The GM decides if it applies, but the default is generous. People who spent fifteen years doing a thing know things about that thing.
 
-Characters start with **one Background**. Additional Backgrounds can be gained through play when the fiction supports it. See `rules/CHARACTER.md` for details.
+Characters start with **one Background**. Additional Backgrounds can be gained through play when the fiction supports it. See `rules/CHARACTER.md`, Step 1 for details.
 
 ---
 
