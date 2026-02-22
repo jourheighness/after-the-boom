@@ -73,6 +73,12 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Sustained Pressure.** Boon on attack rolls against a target you attacked on your immediately previous turn. Lose the Boon if you switch targets or skip a round.
 
+**Fortifier.** Your Create Cover Gambit produces full cover (+2 Armor vs ranged) instead of partial. You know how to stack furniture, kick a table the right way, make a wall out of nothing.
+
+**Quick Draw.** Removes the Slow property from one weapon you own. You've drilled the reload until it's muscle memory.
+
+**Ward Breaker.** When attacking a sustained thaumic effect (ward, barrier, shield), your attack counts as a Strong Gambit for the purpose of breaking it. You know where the field is thin.
+
 ---
 
 ## Survival
@@ -104,6 +110,12 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 **Escape Route.** When you enter a building, you note the exits without thinking about it. Boon on Sharp rolls to find a way out of an unfamiliar structure under pressure.
 
 **Strong Swimmer.** Boon on all rolls in water: swimming, diving, holding position in current, underwater search. You don't panic when the ground disappears.
+
+**Immovable.** When an enemy Gambit would move you (Shove, Trip, Pull, knockback), make a Grit check. On a 4+, you don't move. You planted your feet and the physics disagreed.
+
+**Load Bearer.** No Snag penalties from carrying heavy equipment or wearing bulky armor. Years of hauling taught your body to compensate.
+
+**Pain Fuel.** When you take Harm, gain a Boon on your next action. The hit wakes something up. Once per scene.
 
 ---
 
@@ -415,6 +427,8 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Resonance Read.** When you focus on a thaumatech device, you can tell whether it's running clean or approaching failure. Boon on assessing device condition without diagnostic tools. [Requires Knack]
 
+**Grit Resonance.** Boon on Grit saves to resist thaumic environmental effects: BTC saturation, leyline proximity, entity presence. Your body learned to absorb what your mind can't block. [Requires Knack]
+
 ---
 
 ## Shaper [Requires Sensitive]
@@ -441,6 +455,10 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Controlled Break.** Once, ever, you can reduce the Harm from a Break by one level. The Mark still happens. The unconsciousness still happens. You just come through a little less destroyed. [Requires Sensitive]
 
+**Precision Shaping.** Use Sharp instead of Nerve as your shaping cap when the effect requires fine control, targeting, or reading a situation. The nurse feeling for a specific nerve cluster. The mechanic adjusting a single bolt inside a machine. [Requires Sensitive]
+
+**Brute Channel.** Use Grit instead of Nerve as your shaping cap when the effect is raw physical force, structural change, or environmental manipulation. The steelworker bending a beam. Costs 1 extra Guard per shaping attempt on top of normal purchase cost. [Requires Sensitive]
+
 ---
 
 ## Thaumatech [Positive only unless noted]
@@ -464,6 +482,14 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 **EMP Hardened.** Your conventional gear is shielded against thaumic disruption. DPA pulse events and thaumic interference that would disable unshielded equipment don't affect your kit. [Zero allowed]
 
 **Scavenger.** When a thaumatech device is destroyed or burned out, you can extract one usable component before it's gone. That component is still functional and can be incorporated into another device or used in a Jury Rig attempt.
+
+**Overcharge Specialist.** Choose one overcharge stat (Sharp, Nerve, or Grit) when you take this Edge. Your overcharge cap with devices using that stat increases by 1.
+
+**Grid Fluency.** Boon when operating, troubleshooting, or jury-rigging grid-powered thaumaware: boiler systems, siphon feeds, factory lines. Anyone can push a button. You can make the grid do tricks.
+
+**Thaumic Appraiser.** Boon on Sharp rolls to assess thaumatech provenance, legality, modification, and black-market value. You know a military scanner from a civilian one by the weight of the housing.
+
+**Plate Conditioner.** Boon on your first thaumatech use each scene. Your contact plates are broken in, re-seated, cleaned. The difference between a tech who maintains their gear and one who doesn't.
 
 ---
 
@@ -530,8 +556,8 @@ A player said: "She's been lying to cops since she was fourteen." That became: *
 
 | Category | Count |
 |-|-|
-| Combat | 28 |
-| Survival | 14 |
+| Combat | 31 |
+| Survival | 17 |
 | Social | 25 |
 | Professional | 26 |
 | Criminal | 15 |
@@ -539,10 +565,10 @@ A player said: "She's been lying to cops since she was fourteen." That became: *
 | Physical | 14 |
 | Mental | 15 |
 | Knack | 20 |
-| Sensitive | 7 |
-| Shaper | 10 |
-| Thaumatech | 10 |
-| **Total** | **199** |
+| Sensitive | 8 |
+| Shaper | 12 |
+| Thaumatech | 14 |
+| **Total** | **212** |
 
 ### Edge Allocation by Tier
 

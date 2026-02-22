@@ -4,6 +4,8 @@ All Gambits cost one die showing 4+ (Standard) or 8+ (Strong) sacrificed from an
 
 Gambits are not a menu you memorize. They're a toolbox. If a player describes a reasonable tactical action that isn't listed here, the GM sets a cost (Standard or Strong) and a result. The catalog exists to make combat faster, not to limit it.
 
+**Gear Gambits** (Flash, Obscure, Deafen, Mark, Restrain, Slow, Barrier, Pull, Overload, Redirect, Dampen, Jam) are defined in `rules/CORE.md` and tied to specific equipment in `rules/EQUIPMENT.md`. They are not duplicated here because they are item-driven, not action-driven.
+
 ---
 
 ## Weapon-Specific Gambits
@@ -33,6 +35,8 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 **Nerve Cut.** Target takes Snag on their next Grit check. The wound looks minor but hurts badly. Close. Requires: Subtle weapon.
 
 **Slip Through.** Move to Close with any target in the scene as a free action immediately after this attack, without triggering free attacks. Requires: Subtle weapon.
+
+**Pocket Pick.** Lift a small item from the target during the exchange. They do not notice until their next turn. Close. Requires: Subtle weapon, free hand.
 
 ### Brutal Weapons
 
@@ -69,6 +73,10 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 **Suppression Zone.** All targets at Near who try to move toward you this round take Snag on every action they take during that move. Lasts until your next turn. Near. Requires: Ranged weapon.
 
 **Snap Shot.** Attack a target you haven't spotted this round, reacting to sound or motion. The attack takes Snag. If damage is dealt, Gambit effects still apply. Near. Requires: Ranged weapon.
+
+**Ricochet Read.** Bank a shot off a hard surface to hit a target behind partial cover. Ignores one level of cover on this attack. Near. Requires: Ranged weapon.
+
+**Timing Exploit.** Read the target's rhythm and fire during their commitment. Target's next defensive roll takes Snag. Close/Near. Requires: Ranged weapon.
 
 ### Sidearm
 
@@ -148,6 +156,10 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Improvised Barricade.** Shove furniture or debris into a doorway or corridor during the attack. The path is blocked: anyone trying to pass must spend 2 Acts to clear it. Close. Requires: moveable furniture or debris, a chokepoint.
 
+**Cable Snip.** Sever a wire, hose, or cable the target depends on. One piece of their equipment stops working until repaired. Close. Requires: a wire, hose, or cable in use by the target.
+
+**Weak Point.** Identify a structural flaw in the target's gear or position. Your next attack against this target ignores 1 Armor. Close/Near.
+
 ---
 
 ## Defensive Gambits
@@ -192,6 +204,12 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Steel Yourself.** Shake off a condition (Snag from a Gambit, prone, disarmed). You clear one current condition instead of dealing damage. Requires: your next action immediately follows this sacrifice.
 
+**Counter Read.** You saw the attack coming before it landed. Gain a Boon on your next action against this attacker. Close.
+
+**Unblinking.** Absorb a hit without flinching. The attacker takes Snag on their next action. Something about your composure is wrong. Close.
+
+**Presence Anchor.** Your calm stabilizes an ally. One ally who can see you clears the Shaken condition or recovers 1 Push. Near. Requires: ally has line of sight to you.
+
 ---
 
 ## Movement Gambits
@@ -233,6 +251,10 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 **Dead Sprint.** Move two full bands instead of one. You cannot attack this round. At the end of the move, the attack you sacrificed the die for is made at your destination. Requires: no Slow weapon, no heavy armor.
 
 **Sweep the Leg and Roll.** Trip a target and use the momentum to roll past them to the other side. You end at Close on the opposite side of the target from where you started. Close. Requires: Unarmed or melee weapon.
+
+**Thread the Gap.** Slip through a narrow opening or between two enemies without triggering a response. Move one extra band this turn. Close. Requires: a gap or opening of at least partial width.
+
+**Commanding Stride.** Walk forward without hesitation. Enemies in your path must step aside or commit to blocking you. Move one band toward a target without drawing a free attack. Close.
 
 ---
 
@@ -277,6 +299,10 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 **Hand on the Throat.** Without choking, seize the target by the collar or throat. They must obey one instruction or you apply pressure for 1d4 damage. Close. Requires: Unarmed, free hand, target is not larger than you by more than one size.
 
 **Pain Compliance.** Apply a joint lock that causes escalating pain without damage. Target must move in the direction you push or take 1 damage per round. Close. Requires: Unarmed, target is already Pinned or adjacent.
+
+**Cold Command.** Issue a one-word order in a tone that expects obedience. A Threat 0-1 target follows for one action or makes a Nerve save to resist. Close/Near. Requires: target can hear you.
+
+**Line in the Sand.** Declare a space yours. Enemies who try to cross it take Snag on all actions until they commit a full round to push through. Close.
 
 ---
 
@@ -375,6 +401,16 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 **Resonance Lock.** The target cannot activate or use thaumatech devices for one round; the lock disrupts the contact plate interface. Near. Requires: thaumatech weapon. Strong Gambit only.
 
 **Cascade Failure.** If the target is carrying two or more thaumatech devices, you disable all of them for one round simultaneously. Near. Requires: thaumatech weapon. Strong Gambit only, Threat 0-1 only.
+
+**Grid Tap.** Plug into a municipal leyline junction mid-fight. Recover 2 Guard but tick 2 on any active heat clock. Close. Requires: proximity to grid infrastructure, thaumatech weapon.
+
+**Contact Plate Jam.** Coat the target's contact plate with conductive debris or force a current through it. Their next thaumatech use or overcharge attempt deals 1d4 self-damage instead. Close. Requires: thaumatech weapon.
+
+**Spectral Ping.** Pulse your device to reveal all active thaumatech and Positives in the area. All current thaumic effects become visible for 1 round. Information, no damage. Near. Requires: thaumatech weapon with sensor capability.
+
+**Emergency Vent.** Discharge your device's stored energy as an uncontrolled shockwave. Deal 1d4 to all targets at Close. Your device is disabled for 1 round. Close. Requires: thaumatech weapon. Strong Gambit only.
+
+**Sympathetic Lock.** Tune your weapon's frequency to match the target's device. While you sustain, their device echoes your output instead of its own. Near. Requires: thaumatech weapon. Strong Gambit only.
 
 ### Innate Shaping Gambits
 
