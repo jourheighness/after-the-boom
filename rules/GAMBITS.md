@@ -500,7 +500,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Shin Kick.** A sharp kick to the shin; the target's movement costs double for one round. Close. Unarmed.
 
-**Collar Grab.** You grab the target by their collar or lapel and haul them into a clinch; neither of you can leave Close range this round without a Grit save. Close. Requires: your hand is free.
+**Collar Grab.** You grab the target by their collar or lapel and haul them into a clinch; neither of you can leave Close range this round. Breaking free requires a Grit save on your turn (failure: you stay clinched, wasting your Move). Close. Requires: your hand is free.
 
 **Fake Surrender.** You drop your weapon, raise your hands, and say something conciliatory; when the target lowers their guard, you attack with whatever you have left, dealing damage with a Boon. Close. This works exactly once ever per campaign against the same person, and NPCs remember.
 
