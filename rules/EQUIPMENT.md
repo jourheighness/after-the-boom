@@ -218,7 +218,7 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 - *Nerve Jolt.* The pulse hits the nervous system. Target takes Snag on their next Grit check. Close.
 - *Feedback Loop.* Target's next thaumatech use deals 1d4 damage to them. Close.
 
-**Heavy discharge pistol** | 1d8 | Sidearm, Loud | Overcharge: Nerve | DPA tactical variant. Full-size frame, two-hand grip plate, capacitor pack in the magazine well. The pulse is visible. Paperwork required.
+**Heavy discharge pistol** | 1d8 | Sidearm, Loud | Overcharge: Grit | DPA tactical variant. Full-size frame, two-hand grip plate, capacitor pack in the magazine well. The pulse is visible. Paperwork required.
 - *Overcharge Burst.* Spend 1 Guard for +2 damage on this hit. Device needs a cooldown (Snag on next attack with it). Close/Near.
 - *System Crash.* **(Strong)** The target's thaumatech weapon is disabled for 1 round. Close/Near.
 
@@ -271,7 +271,7 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 - *Deep Draw.* **(Strong)** Drain 2 Guard from the target instead of 1. Close.
 - *Feedback Sting.* The siphon process is painful. Target takes Snag on their next shaping roll. Close.
 
-**Pulse grenade** | 1d8 | Thrown, Loud | Overcharge: Grit | Contact plate on the activation tab. Primes on touch, throws like any grenade. Anyone in Close range at detonation takes the dice. Grid-powered version exists for anyone with a wall outlet and time.
+**Pulse grenade** | 1d8 | Thrown, Loud | Overcharge: Nerve | Contact plate on the activation tab. Primes on touch, throws like any grenade. Anyone in Close range at detonation takes the dice. Grid-powered version exists for anyone with a wall outlet and time.
 - *Airburst.* Detonate the grenade above the targets. Ignores cover. Close/Near.
 - *Rolling Toss.* Roll it along the floor under a door or barrier. Reaches targets behind obstacles. Close/Near.
 

@@ -87,7 +87,7 @@ This means stat choices matter differently for every build. Zeroes pick stats fo
 
 ## Step 3: Derived Values
 
-**Guard = Grit + 2.** This is your readiness, the buffer that absorbs damage before real injuries start. Starting Guard ranges from 3 (Grit 1) to 6 (Grit 4). Guard refreshes when the danger has genuinely passed and you have a moment to collect yourself. The GM calls it. If you'd feel safe enough to sit down and breathe, Guard refreshes.
+**Guard = Grit + 2.** This is your readiness, the buffer that absorbs damage before real injuries start. Starting Guard ranges from 3 (Grit 1) to 6 (Grit 4). Guard refreshes when the danger has genuinely passed and you have a moment to collect yourself. The GM calls it. Not between scenes if danger persists. Not during a lull in combat. When you could sit down, breathe, and feel safe. If the chase follows the firefight, Guard stays where it is.
 
 **Push: 4 boxes.** Your reserve for digging deep. Recovers during downtime.
 
