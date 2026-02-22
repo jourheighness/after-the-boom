@@ -124,9 +124,19 @@ The player hears the stakes. Then they can:
 
 No labels to memorize, no categories to assess. The GM describes what's at risk. The player decides how much risk they want.
 
-### Default Combat Stakes
+### Stakes in Combat
 
-In combat, standard attacks use default stakes: partial = half effect, consequence = full enemy damage + a complication. The GM only calls out custom stakes when something unusual is on the table (environmental hazard, collateral risk, device failure). This keeps combat rounds fast.
+Combat has its own resolution for attacks and defense (see Attacking and Defense below). The stakes model doesn't apply to standard attacks. You don't negotiate consequences before swinging a pipe wrench. You swing it and deal with what happens.
+
+But combat isn't only attacks. When a PC wants to do something in a fight that isn't hitting someone, the GM decides:
+
+**It's trivial.** Kick a table over, shout a warning, draw a weapon, toss your keys to an ally. Just do it. No roll. Some actions cost your Act but need no roll either (Suppressing Fire, Covering an Ally, Holding Ground). Those trade your attack for a guaranteed effect. See Tactics.
+
+**It's risky.** Climb a fire escape under fire, sprint across an open lot, hack a security terminal while the alarm blares. The GM states what goes wrong on a failure. Roll the appropriate stat (same rules as any other stat roll: 6 = clean, 4-5 = partial, 1-3 = consequence). Push still works (spend a box for +1d). The push-harder and play-safe trades from the standard stakes model don't apply in combat. The GM sets terms once, you roll or change approach. If the action creates an advantage on success, the GM tells you what you gain: a Boon on your next action, or a free Gambit effect on your next attack.
+
+**If you're attacking *and* want a tactical effect, that's a Gambit.** Sacrifice a die from your attack roll. If you're skipping your attack entirely to do something else, use the categories above.
+
+The boundary: **trying to hurt someone? Roll weapon dice. Everything else? Roll stat dice, or just do it.**
 
 ---
 
@@ -464,7 +474,7 @@ The principle: if it costs you a die and produces a single tactical effect of si
 
 Specific equipment unlocks Gambits beyond the standard list. Mundane gear and thaumatech alike. What you bring to a fight defines what you can do in it.
 
-During a gear-up scene, players choose their loadout. If you know the enemy relies on sight for a special attack, bring flashbangs. If you're raiding a thaumatech-heavy site, bring an EMP rod. If you expect a chase, bring caltrops. Preparation is a tactical advantage, and since you can't carry everything, your choices matter.
+During a gear-up scene, players choose their loadout. If you know the enemy relies on sight for a special attack, bring flashbangs. If you're raiding a thaumatech-heavy site, bring a deadfield rod. If you expect a chase, bring caltrops. Preparation is a tactical advantage, and since you can't carry everything, your choices matter.
 
 Gear Gambits follow the same rule: sacrifice a die showing 4+ during your attack to get the effect alongside your damage. You can also use the item as your Act without attacking (throw just the smoke grenade, deploy just the barricade). Either way, the item is consumed or needs recovery/reloading after use.
 
@@ -490,8 +500,8 @@ Gear Gambits follow the same rule: sacrifice a die showing 4+ during your attack
 
 | Gambit | Effect | Range | Example Gear |
 |-|-|-|-|
-| **Overload** | Suppress all thaumatech within Close range for 1 round | Close | EMP rod, pulse emitter, surge grenade |
-| **Redirect** | Change a sustained thaumic effect's target | Near | Resonance tuner, thaumic scanner |
+| **Overload** | Suppress all thaumatech within Close range for 1 round | Close | Deadfield rod, heavy discharge rig, surge grenade |
+| **Redirect** | Change a sustained thaumic effect's target | Near | Frequency tuner, thaumic scanner |
 | **Dampen** | Reduce target's damage output by 2 for 1 round | Near | Ward projector, dampener field |
 | **Jam** | Block communications and remote signals in the area for 1 round | Near | Signal scrambler, thaumic jammer, white noise generator |
 
@@ -674,7 +684,7 @@ Grit (body), Sharp (senses), Nerve (will). Rated 1-4.
 Boon = +1d. Snag = -1d. Cancel 1-for-1. Max 5d, min 0d (2d6 take lowest).
 
 ### Stakes
-GM states consequences before any roll. Player can push harder (+1d, worse stakes) or play safe (-1d, softer stakes).
+GM states consequences before any roll. Player can push harder (+1d, worse stakes), play safe (-1d, softer stakes), change approach, or back off. In combat: trivial non-attack actions just happen, risky ones get a stat roll (GM sets terms, no back-and-forth). Attacks use weapon dice, not the stakes model. Tactical effects during attacks = Gambits.
 
 ### Social Plays
 Pressure (Nerve), Read (Sharp), Endure (Grit), Deflect (Nerve), Appeal (Nerve), Stonewall (Grit), Undercut (Sharp), Leak (Sharp). Same roll rules. Edges and Backgrounds add Boons.
