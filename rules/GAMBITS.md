@@ -30,7 +30,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 ### Subtle Weapons
 
-**Backstab.** Deal damage equal to the sum of your two highest dice instead of the single highest. Requires: Subtle weapon, target is unaware of you this round.
+**Backstab.** Deal damage equal to the sum of your two highest dice instead of the single highest. This stacks with Brutal on a critical (sum all three highest). Requires: Subtle weapon, target is unaware of you this round.
 
 **Precise Cut.** Name a held item, garment, or strap. You sever or disable it without dealing wound damage. Close. Requires: Subtle weapon.
 
@@ -348,7 +348,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Set Up.** Your next ally to attack this target gets a Boon on that attack; the setup must be narrated (you feinted, called the shot, drew their guard high). Any range.
 
-**Covering Fire.** One ally can move one range band without drawing enemy response. Near/Far. Requires: ranged weapon.
+**Suppressive Escort.** One ally can move one range band without drawing enemy response. Near/Far. Requires: ranged weapon.
 
 **Call the Shot.** You tell an ally exactly where to aim; their next attack on this target deals +1 damage if it hits. Any range. Requires: your ally can hear you and has line of sight.
 

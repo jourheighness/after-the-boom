@@ -18,7 +18,7 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 - *Skull Ringer.* Hit the head. Target makes a Grit save or is stunned for 1 round. Close/Near.
 - *Pavement Scatter.* Smash the brick on the ground near a group. Fragments hit all targets at Close for 1 damage. Close.
 
-**Pipe wrench** | 1d4 | Slow | Fourteen-inch Stillson from a maintenance cart. You didn't come here to fight, but here you are.
+**Pipe wrench** | 1d6 | Slow | Fourteen-inch Stillson from a maintenance cart. You didn't come here to fight, but here you are.
 - *Jaw Clamp.* Clamp it around a limb or weapon. Target cannot move or use that limb until they spend an Act wrenching free. Close.
 - *Torque Swing.* Wind up and swing with the full weight. +1 damage, but you're off-balance: Snag on your next defensive roll. Close.
 
@@ -37,7 +37,7 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 
 **Switchblade** | 1d6 | Subtle | Illegal in nine states. Rides in a jeans pocket. The click is the warning.
 - *Hidden Strike.* Draw and attack in one motion from concealment. Target doesn't get a defensive reaction. Close.
-- *Nerve Cut.* Target takes Snag on their next Grit check from a wound that hurts more than it shows. Close.
+- *Tendon Nick.* Target takes Snag on their next Grit check from a wound that hurts more than it shows. Close.
 
 **Hunting knife** | 1d6 | Subtle | Ka-Bar style, six-inch blade. Half the people carrying one were in the service. The other half wish they were.
 - *Field Strip.* Cut a strap, belt, or sling. Target loses access to one piece of worn gear until repaired. Close.
@@ -322,10 +322,10 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 
 **Kinetic dampener vest** | Armor 2 | [Contact plate] Positive only. No bulk. Absorbs kinetic energy on impact and vents it as low-grade heat. Designed for industrial accident prevention. Security forces noticed.
 
-**Thaumic shield** | Armor 1 | [Contact plate] Positive only. Held in one hand, blocks one attack per round for full armor value. A circular plate the size of a hubcap. The DPA riot unit carries these.
-- *Shield Slam.* Ram the shield plate into a target. The thaumic discharge adds +1 damage and pushes them back one step. Close.
+**Thaumic ward plate** | Armor 1 | [Contact plate] Positive only. Held in one hand, blocks one attack per round for full armor value. A circular plate the size of a hubcap. The DPA riot unit carries these.
+- *Plate Slam.* Ram the ward plate into a target. The thaumic discharge adds +1 damage and pushes them back one step. Close.
 
-**Improvised riot shield** | Armor 1 | Plexiglass or aluminum sheet with a handle bolted on. Anyone can carry one. Blocks line-of-sight to attacker as well as impacts. Imposes Snag on attack rolls while held.
+**Improvised barrier plate** | Armor 1 | Plexiglass or aluminum sheet with a handle bolted on. Anyone can carry one. Blocks line-of-sight to attacker as well as impacts. Imposes Snag on attack rolls while held.
 - *Battering Ram.* Charge forward with the shield. Target is knocked back one band and prone. Close.
 
 ---
@@ -697,7 +697,7 @@ Then add properties that fit. Properties are not bonuses. They describe how the 
 - **Thrown:** Can be thrown at Near range. You don't have it anymore after.
 - **Long:** Reach advantage at Close. Disadvantage in tight spaces.
 - **Loud:** Everyone nearby hears it. Attracts attention.
-- **Brutal:** Extra messy. Consequences hit harder.
+- **Brutal:** On a critical, damage equals the sum of the two highest dice instead of the single highest.
 - **Subtle:** Quiet. Easy to miss.
 - **Slow:** Takes time between uses. Bolt-action rifles, crossbows.
 

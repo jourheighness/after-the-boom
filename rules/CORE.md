@@ -402,7 +402,7 @@ This works with any combination: two knives, two pistols, a knife and a pistol. 
 
 Any die showing **4 or higher** can be sacrificed for a tactical effect instead of contributing to damage. Each sacrificed die = one Gambit.
 
-**Gambit Sources:** Your available Gambits come from three places. (1) The **standard list** below, available to everyone. (2) **Weapon Gambits** specific to your weapon (1-3 per weapon, listed on its entry in `rules/EQUIPMENT.md`). (3) **Property-category Gambits** from `rules/GAMBITS.md`, available to any weapon with the matching property (Melee, Ranged, Subtle, etc.). All three sources stack. A knife that's Subtle gets the standard Gambits, its weapon-specific Gambits, AND all Subtle-category and Melee-category Gambits. Your full pool may be large. In practice, range and situation narrow it to a handful of relevant options.
+**Gambit Sources:** Your available Gambits come from three places. (1) The **standard list** below, available to everyone. (2) **Weapon Gambits** specific to your weapon (1-3 per weapon, listed on its entry in `rules/EQUIPMENT.md`). (3) **Property-category Gambits** from `rules/GAMBITS.md`, available to any weapon with the matching property (Melee, Ranged, Subtle, etc.). All three sources stack. A knife that's Subtle gets the standard Gambits, its weapon-specific Gambits, AND all Subtle-category and Melee-category Gambits. Your full pool may be large. In practice, range and situation narrow it to a handful of relevant options. If the same Gambit name appears in both your weapon entry and a property category, you have it once, not twice.
 
 **Standard Gambits (die 4+):**
 - **Bolster:** +1 to total damage per die spent. Any range. Always works.
@@ -498,7 +498,11 @@ The target's side. How well they absorb or resist a Gambit depends on their Thre
 
 "Reduced effect" means: the shove moves them one step instead of across the room, the pin lasts one action instead of a full turn, the disarm loosens their grip but doesn't fully remove the weapon. The GM narrates the degree based on the fiction.
 
-Potency and Resistance combine. A Grit 3 character's Shove against a Threat 2 enemy: Enhanced potency drops the resistance by one step (Threat 2 becomes Threat 1 for this Gambit), so it lands at full effect instead of reduced. A Grit 1 character's Shove against the same enemy: Reduced potency meets Threat 2 resistance. It barely registers.
+Potency and Resistance combine.
+
+**Example:** Bex (Grit 3) attacks a CSS Operator (Threat 2) with a shotgun, rolls 2d6 and gets 6, 4. She keeps the 6 for damage and spends the 4 on a Shove. "I slam the stock into his chest and drive him back." That's Grit, so her potency is Enhanced (Grit 3+). The Operator is Threat 2, which normally reduces Standard Gambits. But Enhanced potency ignores one Threat level: Threat 2 drops to Threat 1 for this Gambit. Full effect. He goes flying.
+
+If Asa (Grit 1) tried the same Shove: Reduced potency meets Threat 2 resistance. It barely registers. The Operator doesn't move.
 
 ---
 

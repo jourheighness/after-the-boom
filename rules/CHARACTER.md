@@ -149,7 +149,7 @@ These are representative, not exhaustive. The full Edge catalog comes in WS5.
 | Field Medic | Can treat Hurt injuries without medical supplies | |
 | Thaumatech Certified | Boon operating professional-grade devices | Positive only |
 | Connected [org] | Know someone inside. Once per session, call a favor. | Name the organization |
-| Hard to Kill | +1 starting Guard | |
+| Hard to Kill | +1 maximum Guard (raises both starting and cap) | |
 | Quick Hands | Boon on sleight of hand and concealment | |
 | Intimidating | Boon on Nerve rolls to threaten | |
 | Dead Eye | Boon on ranged attacks at Far range | |
@@ -180,6 +180,8 @@ You start with what your life gave you. No shopping list. No gold pieces. Look a
 **Positives** may have personal thaumatech appropriate to their background. A thaumatech-certified electrician has a calibrated scanner. A discharged soldier might have kept a sidearm with a thumb plate. Personal thaumatech operates through contact plates and draws from your thaumic potential.
 
 **Zeroes** carry conventional kit. A rifle, a lockpick set, a first-aid kit, a flashlight, binoculars. Mundane equipment that works every time without asking anything of you. The old grid is declining, but it hasn't died yet.
+
+Weapon stats (dice, properties like Ranged/Sidearm/Brutal) are in `rules/CORE.md` under Weapon Dice and Weapon Properties. The full catalog with individual entries is in `rules/EQUIPMENT.md`.
 
 Everyone has everyday items. Clothes, a wallet, keys, a phone. Don't list them unless they matter to the fiction.
 
