@@ -683,7 +683,18 @@ Auto-hit. Roll weapon dice. Sacrifice dice 4+ for Gambits. Highest remaining die
 Ranged (Near/Far, Snag at Close), Sidearm (Close/Near, Snag at Far), Thrown (Near, lost), Long (Close+Near, Boon at reach), Loud (ticks clocks), Brutal (crit = two dice), Subtle (concealable), Slow (no Move+attack).
 
 ### Gambits
-Standard (4+): Bolster, Reposition, Create Cover (any range). Shove, Trip, Disarm, Pin (Close). Suppress (Near/Far). Defensive (Parry, Guard Stance): sacrifice die on your turn, effect lasts until next turn. Act Replacements (Brace, Predator Patience): forgo attack for the effect. Weapon Gambits (1-3 per weapon, see equipment entry). Gear Gambits (requires kit): Flash, Obscure, Deafen, Mark, Restrain, Slow, Barrier, Pull, Overload, Redirect, Dampen, Jam. Strong (8+): greater effect, destroys cover. Potency: stat 1 = reduced, stat 2 = standard, stat 3+ = ignore one Threat level of resistance. Sources stack: standard + weapon-specific + property-category.
+
+| Type | Cost | Examples |
+|-|-|-|
+| Standard | Die 4+ | Bolster, Reposition, Create Cover (any range). Shove, Trip, Disarm, Pin (Close). Suppress (Near/Far). |
+| Defensive | Die 4+ on your turn | Parry, Guard Stance. Effect lasts until your next turn. |
+| Act Replacement | Forgo attack | Brace for Impact, Predator Patience. No die cost. |
+| Weapon-specific | Die 4+ | 1-3 per weapon, see `rules/EQUIPMENT.md`. |
+| Gear | Die 4+ or Act | Flash, Obscure, Deafen, Mark, Restrain, Slow, Barrier, Pull, Overload, Redirect, Dampen, Jam. Requires gear. |
+| Strong | Die 8+ | Greater effect, destroys cover. Only possible with d8+ weapons. |
+
+**Potency:** Stat 1 = reduced, Stat 2 = standard, Stat 3+ = ignore one Threat level.
+**Sources stack:** Standard + weapon-specific + property-category. Same name = have once.
 
 ### Defense
 Roll [stat]d6 vs. enemy attack. 6 = no damage, 4-5 = half, 1-3 = full. Enemy Threat imposes Snags.

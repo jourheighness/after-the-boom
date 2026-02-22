@@ -646,6 +646,17 @@ A player said: "She's been lying to cops since she was fourteen." That became: *
 | Archetype: Unwitting Channel | 5 |
 | **Total** | **232** |
 
+### Stat-Gated Edges
+
+| Gate | Edges |
+|-|-|
+| **Grit 3** | Heavy Handler, Sustained Pressure, Fortifier, Pain Gate, Righteous Strike, Brute Channel |
+| **Sharp 3** | Knife Work, Counter-Puncher, Flurry, Body as Shield, Somatic Flow, Redirecting Counter, Precision Shaping |
+| **Nerve 3** | Command Presence, Calm Core, Borrowed Strength, Debt Leverage, Rally the Line, Resonance Magnet |
+| **Chosen stat 3** | Overcharge Specialist |
+| **Prerequisite Edge** | All Sensitive, Shaper, and Thaumatech Edges (see individual entries) |
+| **No gate** | Everything else (available at creation) |
+
 ### Edge Allocation by Tier
 
 | Tier | Edges | Restriction |

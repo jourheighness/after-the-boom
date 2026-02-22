@@ -151,6 +151,15 @@ This is usually the moment of fear. Because now you know. And you can't unknow i
 
 **Socially:** Sensitives are monitored loosely. They show up on BTC scans, they're flagged in medical records. The DPA knows they exist. Most are left alone unless they start doing something more.
 
+**At the Table:** Sensitives are the information advantage. They're the one who feels the ward before the team walks into it. The one who knows the scanner is about to fail. The one who can tell that the person across the table is running hot because they're channeling something under the surface. Play examples:
+
+- *The team is about to enter a warehouse. The Sensitive rolls Sharp with a Boon. "There's shaping inside. Active. At least two sources." Now the team knows it's not empty. The ambush fails.*
+- *An NPC says they're not a positive. The Sensitive shakes their hand (Empathic Press knack) and rolls Sharp with a Boon. "Their BTC is elevated. They're lying." Now the negotiation shifts.*
+- *The thaumatech specialist needs to overcharge a scanner. The Sensitive assists (costs their Act). "I can feel where the leyline current is strongest. Aim it there." Boon on the overcharge roll. The Sensitive didn't shape anything. They just knew.*
+- *A BTC anomaly zone is fluctuating. Everyone else takes a Snag from disorientation. The Sensitive has BTC Tolerance (Sensitive Edge). No Snag. They guide the team through by feel.*
+
+Sensitives don't cast. They don't shape. But they turn every thaumic situation from blind guesswork into informed decisions. In a world where magic is hidden, monitored, and feared, the person who can feel it coming is invaluable.
+
 ### Shaper
 
 You reach. The obsession becomes a channel. You stop passively expressing and start actively pulling. What was a knack, a small thing, becomes something you can direct. Something you can push into the world.
