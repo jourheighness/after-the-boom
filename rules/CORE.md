@@ -398,7 +398,7 @@ This works with any combination: two knives, two pistols, a knife and a pistol. 
 
 Any die showing **4 or higher** can be sacrificed for a tactical effect instead of contributing to damage. Each sacrificed die = one Gambit.
 
-**Gambit Sources:** Your available Gambits come from three places. (1) The **standard list** below, available to everyone. (2) **Weapon Gambits** specific to your weapon (1-3 per weapon, listed on its entry in `rules/EQUIPMENT.md`). (3) **Property-category Gambits** from `rules/GAMBITS.md`, available to any weapon with the matching property (Melee, Ranged, Subtle, etc.). All three sources stack. A knife that's Subtle gets the standard Gambits, its weapon-specific Gambits, AND all Subtle-category and Melee-category Gambits.
+**Gambit Sources:** Your available Gambits come from three places. (1) The **standard list** below, available to everyone. (2) **Weapon Gambits** specific to your weapon (1-3 per weapon, listed on its entry in `rules/EQUIPMENT.md`). (3) **Property-category Gambits** from `rules/GAMBITS.md`, available to any weapon with the matching property (Melee, Ranged, Subtle, etc.). All three sources stack. A knife that's Subtle gets the standard Gambits, its weapon-specific Gambits, AND all Subtle-category and Melee-category Gambits. Your full pool may be large. In practice, range and situation narrow it to a handful of relevant options.
 
 **Standard Gambits (die 4+):**
 - **Bolster:** +1 to total damage per die spent. Any range. Always works.
@@ -417,6 +417,10 @@ Any die showing **4 or higher** can be sacrificed for a tactical effect instead 
 - *Pull:* yank someone toward you or drag yourself to them. Close, or any range with the right gear (grappling hook, cable).
 
 The principle: if it costs you a die and produces a single tactical effect of similar weight to the standard list, it's probably a fair Gambit.
+
+**Defensive Gambits:** Some Gambits protect you instead of affecting the enemy. Sacrifice a die 4+ from your attack roll on your turn. The defensive effect persists until the start of your next turn. You're trading offense for protection. See `rules/GAMBITS.md` for the full list (Parry, Guard Stance, Brace for Impact, etc.).
+
+**Act Replacements:** A few special actions replace your attack entirely rather than costing a sacrificed die. You give up your attack for the round and gain the stated effect. These are marked in the Gambit catalog.
 
 **Weapon Gambits:** Your weapon comes with 1-3 Gambits specific to it, listed on the weapon entry in `rules/EQUIPMENT.md`. A sawed-off can fire both barrels. A crowbar can pry a door. A hunting rifle can hold an overwatch position. Same rule: sacrifice a die 4+ (or 8+ for Strong effects) to trigger the Gambit instead of dealing damage with that die. Custom weapons get custom Gambits (see Equipment: Make Your Own).
 
@@ -648,7 +652,7 @@ Auto-hit. Roll weapon dice. Sacrifice dice 4+ for Gambits. Highest remaining die
 Ranged (Near/Far, Snag at Close), Sidearm (Close/Near, Snag at Far), Thrown (Near, lost), Long (Close+Near, Boon at reach), Loud (ticks clocks), Brutal (crit = two dice), Subtle (concealable), Slow (no Move+attack).
 
 ### Gambits
-Standard (4+): Bolster, Reposition, Create Cover (any range). Shove, Trip, Disarm, Pin (Close). Suppress (Near/Far). Weapon Gambits (1-3 per weapon, see equipment entry). Gear Gambits (requires kit): Flash, Obscure, Deafen, Mark, Restrain, Slow, Barrier, Pull, Overload, Redirect, Dampen, Jam. Strong (8+): greater effect, destroys cover. Potency: stat 1 = reduced, stat 2 = standard, stat 3+ = ignore one Threat level of resistance.
+Standard (4+): Bolster, Reposition, Create Cover (any range). Shove, Trip, Disarm, Pin (Close). Suppress (Near/Far). Defensive (Parry, Guard Stance): sacrifice die on your turn, effect lasts until next turn. Act Replacements (Brace, Predator Patience): forgo attack for the effect. Weapon Gambits (1-3 per weapon, see equipment entry). Gear Gambits (requires kit): Flash, Obscure, Deafen, Mark, Restrain, Slow, Barrier, Pull, Overload, Redirect, Dampen, Jam. Strong (8+): greater effect, destroys cover. Potency: stat 1 = reduced, stat 2 = standard, stat 3+ = ignore one Threat level of resistance. Sources stack: standard + weapon-specific + property-category.
 
 ### Defense
 Roll [stat]d6 vs. enemy attack. 6 = no damage, 4-5 = half, 1-3 = full. Enemy Threat imposes Snags.

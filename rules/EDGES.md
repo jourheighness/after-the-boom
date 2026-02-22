@@ -27,7 +27,7 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Heavy Handler.** Boon on attack rolls with Heavy or Devastating weapons when you haven't moved this round. You let the weight do the work, but you have to plant your feet.
 
-**Point-Blank Specialist.** Boon on ranged attacks against targets at Close range. You've practiced shooting in rooms that were too small to miss in.
+**Point-Blank Specialist.** When you attack with a Ranged-property weapon at Close range, the Snag from the Ranged property is canceled. You've practiced shooting in rooms that were too small to miss in.
 
 **Pistol Discipline.** Boon on attacks made with a Sidearm when you have no other weapon drawn. One gun, both hands, full attention.
 
@@ -45,7 +45,7 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Riot Control.** Boon on defense rolls against attacks from groups of three or more. You learned crowd geometry at a police academy or a union hall.
 
-**Close-Quarters Rifleman.** When you attack with a Long weapon at Close range, it doesn't count as improvised. You trained for hallway distances.
+**Close-Quarters Rifleman.** When you attack with a Long weapon at Close range, you get the reach advantage Boon that Long weapons normally only get at Near. You trained to use the full length even in tight quarters.
 
 **Combat Medic.** Once per scene, spend a Push and a full round to stabilize a Critical (L3) ally, preventing them from worsening. They remain Critical but can act with Push.
 

@@ -2,6 +2,10 @@
 
 All Gambits cost one die showing 4+ (Standard) or 8+ (Strong) sacrificed from an attack roll. The highest remaining die sets damage after any sacrifice. If no die remains, damage is 0. Gambits marked "Strong (8+)" require a die showing 8 or higher. See `rules/CORE.md` for the full Gambit rules.
 
+**Defensive Gambits** are declared on your turn as part of your attack. Sacrifice a die 4+ as normal. The defensive effect persists until the start of your next turn. You're trading offense for protection.
+
+**Act Replacements** (marked below) replace your attack entirely rather than costing a sacrificed die. You perform the action instead of attacking. No dice are rolled.
+
 Gambits are not a menu you memorize. They're a toolbox. If a player describes a reasonable tactical action that isn't listed here, the GM sets a cost (Standard or Strong) and a result. The catalog exists to make combat faster, not to limit it.
 
 **Gear Gambits** (Flash, Obscure, Deafen, Mark, Restrain, Slow, Barrier, Pull, Overload, Redirect, Dampen, Jam) are defined in `rules/CORE.md` and tied to specific equipment in `rules/EQUIPMENT.md`. They are not duplicated here because they are item-driven, not action-driven.
@@ -22,11 +26,11 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Wrist Twist.** Target drops one held item of your choice. If they were two-handing a weapon, they drop it entirely. Close. Requires: Unarmed, two free hands.
 
-**Gut Punch.** Target cannot defend against the next attack this round (no Parry, no Catch). Close. Requires: Unarmed.
+**Gut Punch.** Target cannot benefit from defensive Gambits or Boons on defense rolls against the next attack they receive this round. Close. Requires: Unarmed.
 
 ### Subtle Weapons
 
-**Backstab.** Deal damage equal to the full sum of all rolled dice instead of the highest. Requires: Subtle weapon, target is unaware of you this round. Strong Gambit only.
+**Backstab.** Deal damage equal to the full sum of all rolled dice instead of the highest. Requires: Subtle weapon, target is unaware of you this round.
 
 **Precise Cut.** Name a held item, garment, or strap. You sever or disable it without dealing wound damage. Close. Requires: Subtle weapon.
 
@@ -100,7 +104,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 ### Slow Weapons
 
-**Anchored Fire.** You plant and aim. You cannot move this round. Gain a Boon on attack rolls with this weapon until your next turn. Requires: Slow weapon.
+**Anchored Fire.** You plant and aim. You cannot move this round. Gain +1d to your weapon dice until your next turn. Requires: Slow weapon.
 
 **Thunderclap.** The report of the weapon deafens all targets at Close for 1 round. Deafened targets take Snag on any action that relies on hearing commands or sounds. Close. Requires: Slow ranged weapon, Loud property.
 
@@ -164,7 +168,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 ## Defensive Gambits
 
-**Parry.** Reduce incoming damage from the next attack against you by the sacrificed die's value. Close. Requires: melee weapon.
+**Parry.** On your turn, sacrifice a die. Its value becomes bonus Armor against the next attack before your next turn. Close. Requires: melee weapon.
 
 **Catch and Throw.** Deflect a thrown weapon back at its origin point. Roll 1d6 damage against the thrower. Close/Near. Requires: free hand, Thrown weapon incoming.
 
@@ -190,7 +194,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Field Dressing.** Use this attack slot to stabilize an adjacent ally instead of dealing damage. The ally stops losing Guard from an ongoing effect (bleeding, poison, held choke). Close. Requires: basic medical supplies or strips of cloth.
 
-**Reactive Parry.** When an enemy attacks you at Close, sacrifice one die from your last attack roll to reduce that attack's damage by 3. Close. Requires: melee weapon. Once per round.
+**Defensive Read.** On your turn, sacrifice a die. You gain Boon on your next defense roll before your next turn. Close. Requires: melee weapon.
 
 **Weapon Catch.** Grab the enemy's weapon with your free hand. Neither of you can attack with it until one spends an Act to break free or yields. Close. Requires: free hand, enemy using a melee weapon.
 
@@ -198,7 +202,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Interpose.** Throw a nearby object, piece of furniture, or ally's dropped gear between you and incoming fire. Gain partial cover until your next turn. Near. Requires: loose object at Close.
 
-**Brace for Impact.** Absorb a hit you know is coming. The next attack against you deals half damage (round down). You cannot Parry or react after this. Requires: Grit-based stance, declare before the attack roll.
+**Brace for Impact.** Act replacement. Forgo attacking this turn. The next attack against you before your next turn deals half damage (round down). You cannot use other defensive Gambits while bracing. Requires: Grit-based stance.
 
 **Suppressive Warning.** Fire into the ground or wall near an enemy who has not yet acted this round. They take Snag on their action if they advance or attack. Near. Requires: Ranged weapon.
 
@@ -322,7 +326,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **False Tell.** You make a deliberate shaping gesture you have no intention of following through on; all non-Mundane enemies at Close flinch and lose a step of positioning. Close. Requires: you are at least Knack on the thaumic spectrum.
 
-**Predator Patience.** You do not attack this round. Instead, the weight of your silent attention forces the target to make a Nerve save or take a Snag on their next action. Close. This does not require a die sacrifice; it replaces your attack entirely.
+**Predator Patience.** Act replacement. You do not attack this round. Instead, the weight of your silent attention forces the target to make a Nerve save or take a Snag on their next action. Close.
 
 **Berserker Rush.** You scream and charge without breaking stride; mooks at Close scatter or freeze and must make a Nerve save before they can engage you. Close. Requires: you moved this round.
 
@@ -368,7 +372,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Leapfrog.** You move to a new position while an ally holds attention on the enemy; you do not draw response on your movement this round. Any range. Requires: an ally is currently in melee with or threatening the enemy.
 
-**Combat Handoff.** You pass your remaining Act this round to an ally who has already used theirs; they take one additional action. Close. Requires: ally is within reach and has not already received this Gambit this combat. Strong Gambit only.
+**Combat Handoff.** You pass your remaining Act this round to an ally who has already used theirs; they take one additional action. Close. Requires: ally is within reach and has not already received this Gambit this combat.
 
 **Meat Shield.** You yank a mook or low-Threat enemy into the path of an incoming attack targeting an ally; redirect one attack this round. Close. Requires: a grabbable enemy at Close range.
 
@@ -422,9 +426,9 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Focus Shatter.** You hit the object the target uses to anchor their shaping; they cannot use innate shaping until they recover composure (one full round without acting). Close. Requires: innate shaping or thaumatech weapon, target has an identifiable focus object.
 
-**Ward Burn.** You pour raw shaping into a thaumic ward and dissolve it. The ward is gone for the rest of the scene. Close. Requires: innate shaping (Shaper). This costs 2 Guard dice spent directly (not sacrificed from an attack roll). No roll needed.
+**Ward Burn.** Act replacement. You pour raw shaping into a thaumic ward and dissolve it. The ward is gone for the rest of the scene. Close. Requires: innate shaping (Shaper). Costs 2 Guard (shaping cost, not a die sacrifice). No roll needed.
 
-**Instinct Channel.** When you are hit, you shape as an immediate reaction before your attacker's action resolves; costs double Guard dice but fires before damage lands. Close/Near. Requires: innate shaping (Shaper). Reaction, not your Act. Once per combat.
+**Instinct Channel.** Act replacement. On your turn, spend double Guard dice to shape a defensive ward. If you take damage before your next turn, the shaping effect fires first (absorb, redirect, or counterattack per your obsession scope). Close/Near. Requires: innate shaping (Shaper). Once per combat.
 
 **Primal Shout.** You release a vocalization tied to your Tell; every enemy at Close takes a Snag on their next action. Close. Requires: innate shaping with vocalization Tell. 1 heat tick.
 
