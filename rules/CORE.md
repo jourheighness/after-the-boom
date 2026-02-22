@@ -258,6 +258,8 @@ Some effects impose named conditions. When a condition is referenced (by a Gambi
 
 **Prone.** On the ground. Standing up costs your Move for the turn. Melee attacks against you get a Boon. Ranged attacks against you get a Snag. You can crawl at Close range on your turn without standing.
 
+**Staggered.** Applies to enemies when their Guard breaks. Something changes: they stumble, panic, shift tactics, or expose a vulnerability. The GM describes the shift based on the fiction and the enemy's Behavior line. Staggered is not mechanical for players. It signals that the enemy is now fighting hurt, and the fight is turning.
+
 ---
 
 ## Turns
@@ -422,7 +424,13 @@ This works with any combination: two knives, two pistols, a knife and a pistol. 
 
 Any die showing **4 or higher** can be sacrificed for a tactical effect instead of contributing to damage. Each sacrificed die = one Gambit.
 
-**Gambit Sources:** Your available Gambits come from three places. (1) The **standard list** below, available to everyone. (2) **Weapon Gambits** specific to your weapon (1-3 per weapon, listed on its entry in `rules/EQUIPMENT.md`). (3) **Property-category Gambits** from `rules/GAMBITS.md`, available to any weapon with the matching property (Melee, Ranged, Subtle, etc.). All three sources stack. A knife that's Subtle gets the standard Gambits, its weapon-specific Gambits, AND all Subtle-category and Melee-category Gambits. Your full pool may be large. In practice, range and situation narrow it to a handful of relevant options. If the same Gambit name appears in both your weapon entry and a property category, you have it once, not twice.
+**Gambit Sources:** Your available Gambits come from three places that all stack:
+
+1. **Standard list** (below). Available to everyone, every weapon.
+2. **Weapon Gambits** (1-3 per weapon, listed on its entry in `rules/EQUIPMENT.md`).
+3. **Property-category Gambits** (from `rules/GAMBITS.md`). Any weapon with the Melee property gets all Melee Gambits, any Ranged weapon gets all Ranged Gambits, etc.
+
+A knife that's Subtle gets: the standard Gambits + its weapon-specific Gambits + all Subtle-category and Melee-category Gambits. In practice, range and situation narrow your options to a handful. If the same Gambit name appears in both your weapon entry and a property category, you have it once, not twice.
 
 **Standard Gambits (die 4+):**
 - **Bolster:** +1 to total damage per die spent. Any range. Always works.
@@ -566,10 +574,11 @@ When an enemy attacks you, your defense roll IS your reaction. There is no separ
 
 The GM doesn't roll dice. Enemies have static profiles:
 
-- **Threat** (0–3): Imposes Snags on defense rolls.
-- **Damage** (2–10): Flat damage dealt on their attacks.
-- **Guard** (0–8): Buffer against player attacks.
-- **Armor** (0–3): Flat damage reduction.
+- **Threat** (0-3): Imposes Snags on defense rolls.
+- **Damage** (2-10): Flat damage dealt on their attacks.
+- **Guard** (0-8): Buffer against player attacks.
+- **Armor** (0-3): Flat damage reduction.
+- **Morale** (yes/no): Whether they can be de-escalated or will break when losing. Most enemies: yes. Fanatics, machines, entities: no.
 - **Behavior:** Priority list telling the GM what the enemy does.
 
 When an enemy's Guard breaks, they're **Staggered**: something changes (they stumble, panic, shift tactics). When they take enough Harm, they're out: dead, fled, surrendered, or incapacitated depending on the fiction.
@@ -589,22 +598,22 @@ This reduces GM cognitive load. The behavior tells you what the enemy wants; the
 ### Example Stat Blocks
 
 **Street Tough**
-Threat 0 | Damage 3 | Guard 2 | Armor 0
+Threat 0 | Damage 3 | Guard 2 | Armor 0 | Morale: yes
 *Weapon: Knife (1d6, Subtle) or bat (1d6)*
 Behavior: Threaten first. Flee if Hurt. Won't fight alone.
 
 **DPA Field Agent**
-Threat 1 | Damage 4 | Guard 5 | Armor 1
+Threat 1 | Damage 4 | Guard 5 | Armor 1 | Morale: yes
 *Weapon: Service pistol (1d6, Sidearm, Loud), thaumatech scanner*
 Behavior: Contain and call backup. Identify targets. Withdraw if outgunned. Never engages a confirmed shaper alone.
 
 **CSS Kill-Team Operator**
-Threat 2 | Damage 6 | Guard 6 | Armor 2
+Threat 2 | Damage 6 | Guard 6 | Armor 2 | Morale: yes (on signal)
 *Weapon: Assault rifle (1d8, Ranged, Loud, Brutal), combat knife (1d6, Subtle)*
 Behavior: Eliminate primary target. Suppress others. Ignore wounded. Retreat on signal only.
 
 **Unbound Thaumic Entity**
-Threat 3 | Damage 8 | Guard 8 | Armor 0
+Threat 3 | Damage 8 | Guard 8 | Armor 0 | Morale: no
 *Attack: Thaumic discharge (2d8, ignores mundane Armor)*
 Behavior: Drawn to the highest BTC source. Passes through mundane obstacles. Retreats from sustained thaumatech suppression. Does not negotiate.
 
@@ -656,7 +665,7 @@ Roll [stat]d6, read highest. 6 = full, 4-5 = partial, 1-3 = consequence. Double 
 Roll the specified stat, same table. Effect defines the consequence. Partial = reduced intensity. Threat does not impose Snags on saves.
 
 ### Conditions
-Stunned = can't act, defense at 0d. Shaken = Snag on all rolls, clears end of scene or by intervention. Prone = stand costs Move, melee Boon against, ranged Snag against.
+Stunned = can't act, defense at 0d. Shaken = Snag on all rolls, clears end of scene or by intervention. Prone = stand costs Move, melee Boon against, ranged Snag against. Staggered = enemies only, Guard broke, fight is turning.
 
 ### Stats
 Grit (body), Sharp (senses), Nerve (will). Rated 1-4.
