@@ -67,7 +67,7 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 - *Deniable Force.* The hit doesn't look like a weapon strike to witnesses. Boon on any social roll to explain the altercation afterward. Close.
 - *Lead Tap.* A short punch to the temple. Target takes Snag on their next action from disorientation. Close.
 
-**Baseball bat** | 1d8 | -- | Aluminum or ash. The weapon of choice for people who want it on record they bought it at a sporting goods store.
+**Baseball bat** | 1d8 | Long | Aluminum or ash. The weapon of choice for people who want it on record they bought it at a sporting goods store.
 - *Home Run.* Full-power swing. Target is knocked back one band. Close.
 - *Kneecap.* Low swing to the legs. Target's movement costs double for the rest of the scene until treated. Close.
 - *Bat Crack.* The sound of aluminum on something hard. All enemies at Close must make a Nerve save or flinch, losing their next reaction. Close.
@@ -235,7 +235,7 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 - *Charged Strike.* Discharge the full charge on contact. +1 damage, but the baton needs 1 round to recharge. Close.
 - *Compliance Arc.* The charge jumps to a second target at Close. They take 1 damage. Close.
 
-**Arc gloves** | 1d6 | Subtle | Overcharge: Grit | Contact plates on both palms. The discharge fires on impact. Looks like padded work gloves until it doesn't.
+**Arc gloves** | 1d6 | Subtle | Overcharge: Nerve | Contact plates on both palms. The discharge fires on impact. Looks like padded work gloves until it doesn't.
 - *Double Palm.* Hit with both hands. Make a second attack roll with 1d4 against the same target. Close.
 - *Contact Discharge.* Grab a metal surface the target is touching. The charge travels through it. Near (if connected by conductive surface).
 
@@ -254,7 +254,7 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 - *Pulse Scatter.* The burst hits every target at Close for 1d4 each. Close.
 - *Resonance Lock.* **(Strong)** The target cannot activate or use thaumatech devices for 1 round. Close/Near.
 
-**Stun rod** | 1d4 | Subtle | Overcharge: Nerve | Rubber-insulated grip. Hits the nervous system. Target makes a Grit save or loses their next Act. Security guard standard. Also available through industrial supply catalogs.
+**Stun rod** | 1d6 | Subtle | Overcharge: Nerve | Rubber-insulated grip. Hits the nervous system. Target makes a Grit save or loses their next Act. Security guard standard. Also available through industrial supply catalogs.
 - *Arc Jump.* Touch the stun rod to a metal surface the target is holding or standing on. The charge travels through. Near (if connected).
 - *Sustained Contact.* **(Strong)** Hold the rod against the target. They lose their next 2 Acts instead of 1. Close.
 
@@ -692,14 +692,14 @@ Pick a damage die based on size and lethality:
 
 Then add properties that fit. Properties are not bonuses. They describe how the weapon works and what it costs you.
 
-- **Ranged:** Can hit targets at Near or Far. Most firearms.
-- **Sidearm:** Can be concealed on your person. Small enough to hide.
-- **Thrown:** Can be thrown at Near range. You don't have it anymore after.
-- **Long:** Reach advantage at Close. Disadvantage in tight spaces.
-- **Loud:** Everyone nearby hears it. Attracts attention.
+- **Ranged:** Attacks at Near and Far. Snag at Close (too unwieldy to aim).
+- **Sidearm:** Attacks at Close and Near without Snag. Snag at Far.
+- **Thrown:** Can attack at Near. Weapon is lost after the attack unless recovered.
+- **Long:** Attacks at Close and Near. Boon at Near vs Close-only attackers (reach advantage).
+- **Loud:** Heard at Far. Ticks attention clocks, heat clocks, or both.
 - **Brutal:** On a critical, damage equals the sum of the two highest dice instead of the single highest.
-- **Subtle:** Quiet. Easy to miss.
-- **Slow:** Takes time between uses. Bolt-action rifles, crossbows.
+- **Subtle:** Concealable. Drawing it in a social situation doesn't raise alarms.
+- **Slow:** Cannot attack and Move in the same turn.
 
 **The rule:** more properties means more interesting, not more powerful. A weapon with Loud and Brutal is dramatic and attention-grabbing, not strictly better than one with Subtle.
 
