@@ -13,6 +13,16 @@ Characters start with **3 Edges** (positives) or **4 Edges** (zeroes). Edges are
 
 Players should propose custom Edges. The catalog below is a starting point, not a cage. See **Build Your Own** at the end of this document for how.
 
+### Progression
+
+Some Edges have **stat gates**: a minimum stat value you need before you can take them. These are marked with tags like `[Requires Grit 3]` or `[Requires Sharp 3]`. You can't take a gated Edge at creation unless your starting stats meet the requirement. As you gain Edges through play, gated options represent the kind of expertise that only comes with an already-strong foundation.
+
+Stats don't grow. But stat gates still matter because they shape your build from the start: a Grit 3 character can take Righteous Strike at session one. A Sharp 3 character can take Flurry. You chose your stats knowing what they'd unlock.
+
+Some Edges also require **prerequisite Edges** (marked with `[Requires: Edge Name]`). You earn the prerequisite through play, then the next tier opens. The Knack > Sensitive > Shaper chain already works this way. These chains give your character a sense of deepening rather than just widening.
+
+The result: early characters feel competent. Later characters feel powerful. A session-20 character with eight Edges, including two or three gated ones, fights differently than a fresh character with three. Not because the numbers are bigger, but because the options are deeper.
+
 ---
 
 ## Combat
@@ -23,9 +33,9 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Brawler's Instinct.** Boon on unarmed defense rolls. You read a punch better than most read a book.
 
-**Knife Work.** With a Subtle weapon at Close range, your Gambits count as one threat level higher for resistance purposes.
+**Knife Work.** With a Subtle weapon at Close range, your Gambits count as one threat level higher for resistance purposes. [Requires Sharp 3]
 
-**Heavy Handler.** Boon on attack rolls with Heavy or Devastating weapons when you haven't moved this round. You let the weight do the work, but you have to plant your feet.
+**Heavy Handler.** Boon on attack rolls with Heavy or Devastating weapons when you haven't moved this round. You let the weight do the work, but you have to plant your feet. [Requires Grit 3]
 
 **Point-Blank Specialist.** When you attack with a Ranged-property weapon at Close range, the Snag from the Ranged property is canceled. You've practiced shooting in rooms that were too small to miss in.
 
@@ -37,7 +47,7 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Improvised Weapons.** Boon on attacks with chairs, bottles, pipes, or whatever isn't meant to be a weapon. You grew up in rooms full of them.
 
-**Counter-Puncher.** When an enemy misses you at Close range, you may immediately make an unarmed attack as a free action. Once per round.
+**Counter-Puncher.** When an enemy misses you at Close range, you may immediately make an unarmed attack as a free action. Once per round. [Requires Sharp 3]
 
 **Grappler.** When you establish a hold on an enemy, they take Snag on all rolls to break free. You've trained for this specific problem.
 
@@ -71,9 +81,9 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Threat Display.** Once per scene, draw a weapon as a free action. The next ally who acts this round gains a Boon on their action. The gesture does the work.
 
-**Sustained Pressure.** Boon on attack rolls against a target you attacked on your immediately previous turn. Lose the Boon if you switch targets or skip a round.
+**Sustained Pressure.** Boon on attack rolls against a target you attacked on your immediately previous turn. Lose the Boon if you switch targets or skip a round. [Requires Grit 3]
 
-**Fortifier.** Your Create Cover Gambit produces full cover (+2 Armor vs ranged) instead of partial. You know how to stack furniture, kick a table the right way, make a wall out of nothing.
+**Fortifier.** Your Create Cover Gambit produces full cover (+2 Armor vs ranged) instead of partial. You know how to stack furniture, kick a table the right way, make a wall out of nothing. [Requires Grit 3]
 
 **Quick Draw.** Removes the Slow property from one weapon you own. You've drilled the reload until it's muscle memory.
 
@@ -129,7 +139,7 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Interrogator.** Boon on Nerve rolls to extract information from an unwilling subject through pressure, not violence. You know how long to let the silence run.
 
-**Command Presence.** When you give a direct order in a crisis, NPCs in earshot who have no faction loyalty against you will follow it unless they roll Nerve. You sound like someone who knows what they're doing.
+**Command Presence.** When you give a direct order in a crisis, NPCs in earshot who have no faction loyalty against you will follow it unless they roll Nerve. You sound like someone who knows what they're doing. [Requires Nerve 3]
 
 **Street Preacher.** When addressing a crowd in a public place, Boon on Nerve rolls to shift their mood. Works for anger or calm, not specific demands.
 
@@ -307,7 +317,7 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Marathon Legs.** You can run at sustained pace for hours without accumulating fatigue penalties. Boon on extended chase and endurance rolls.
 
-**Pain Gate.** You can keep functioning through L1 Hurt without the die penalty. The injury is still there. You just don't slow down.
+**Pain Gate.** You can keep functioning through L1 Hurt without the die penalty. The injury is still there. You just don't slow down. [Requires Grit 3]
 
 **Light Sleeper.** You wake at the first meaningful sound in your environment. You are never surprised while sleeping.
 
@@ -339,7 +349,7 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Mental Arithmetic.** You perform complex calculations without tools. Boon on Sharp rolls involving numbers, odds, or financial analysis under time pressure.
 
-**Calm Core.** When everyone else is losing their heads, you don't. Boon on Nerve rolls when the scene is chaotic, loud, or panicked.
+**Calm Core.** When everyone else is losing their heads, you don't. Boon on Nerve rolls when the scene is chaotic, loud, or panicked. [Requires Nerve 3]
 
 **Compartmentalization.** You can set an emotional experience aside and function normally. It has to go somewhere eventually, but not right now.
 
@@ -483,13 +493,75 @@ Players should propose custom Edges. The catalog below is a starting point, not 
 
 **Scavenger.** When a thaumatech device is destroyed or burned out, you can extract one usable component before it's gone. That component is still functional and can be incorporated into another device or used in a Jury Rig attempt.
 
-**Overcharge Specialist.** Choose one overcharge stat (Sharp, Nerve, or Grit) when you take this Edge. Your overcharge cap with devices using that stat increases by 1.
+**Overcharge Specialist.** Choose one overcharge stat (Sharp, Nerve, or Grit) when you take this Edge. Your overcharge cap with devices using that stat increases by 1. [Requires chosen stat at 3]
 
 **Grid Fluency.** Boon when operating, troubleshooting, or jury-rigging grid-powered thaumaware: boiler systems, siphon feeds, factory lines. Anyone can push a button. You can make the grid do tricks.
 
 **Thaumic Appraiser.** Boon on Sharp rolls to assess thaumatech provenance, legality, modification, and black-market value. You know a military scanner from a civilian one by the weight of the housing.
 
 **Plate Conditioner.** Boon on your first thaumatech use each scene. Your contact plates are broken in, re-seated, cleaned. The difference between a tech who maintains their gear and one who doesn't.
+
+---
+
+## Archetype Clusters
+
+These Edges support specific character concepts that arise in play. They're not classes. They're clusters of related Edges that reinforce a particular identity. A character might take one or two from a cluster, or build their whole arc around one. Mix and match freely.
+
+### Patron Bond
+
+*For characters who draw power from something they don't fully understand. A deal struck in desperation, a voice that whispers in bad moments, borrowed strength with a price tag. On Mondas, nobody knows what patrons are. The DPA doesn't have a classification. Theologians argue. The patron doesn't explain.*
+
+**Borrowed Strength.** Once per scene, add +2d to any roll. Immediately tick a **Debt clock** (4 segments). When the clock fills, your patron collects: the GM determines the price (a service, a secret, a piece of yourself). The clock resets after collection. [Requires Nerve 3]
+
+**Patron Whisper.** You hear your patron's voice when danger approaches. Boon on Sharp rolls to detect threats and ambushes. The voice is accurate. It is never kind.
+
+**Dark Bargain.** When a Thaumic Bargain is offered, you may accept it twice: two free dice, two guaranteed consequences. Your patron always encourages excess.
+
+**Debt Leverage.** When your Debt clock is at 3+ segments, gain Boon on Nerve rolls. The closer you are to collection, the more power bleeds through. You feel sharper, more confident. That's the trap.
+
+**Patron's Mark.** Your patron's influence becomes visible under stress. When you Crack (Push track empties), instead of a standard Crack condition, your patron takes partial control for the rest of the scene. The GM describes what it looks like. You are terrifying and effective. You are not fully yourself.
+
+### Oath-Bound
+
+*For characters who draw strength from conviction. An oath sworn over a union card, a promise made to someone who didn't come home, a line drawn that you will not let the world cross. The power isn't magic. It's certainty. Mondas has a word for people like this: stubborn.*
+
+**Righteous Strike.** Once per scene, when you attack a target that has harmed someone you've sworn to protect, spend 2 Guard to roll an additional 1d8 with your weapon dice. The blow lands like it means something. [Requires Grit 3]
+
+**Shielding Presence.** Once per round, when an ally at Close range takes damage after their defense roll, you may absorb up to 2 points of that damage to your own Guard instead. You step between them. That's what you do.
+
+**Oath Sense.** You feel when someone in your presence breaks a promise. Not mind reading. The weight of a broken word. Boon on detecting deception when the lie contradicts a stated commitment.
+
+**Rally the Line.** Once per scene, spend a Push. All allies who can hear you recover 1 Guard each. You say what needs to be said and everyone stands a little straighter. [Requires Nerve 3]
+
+**Unyielding.** When your Guard reaches 0, you may immediately spend a Push to recover 2 Guard. Once per session. You go down when you decide to go down.
+
+### Somatic Discipline
+
+*For characters whose body is the instrument. Martial training, somatic kinesiology, movement as philosophy. On Mondas, this isn't mystical. It's the kid who trained in a basement gym for ten years because the world kept hitting them and they wanted to hit back with precision.*
+
+**Ki Strike.** Your unarmed attacks deal 1d6 (Light weapon) instead of 1d4 (Improvised). Your fists are trained, not improvised. At Close range, you always count as armed.
+
+**Flurry.** When attacking unarmed or with a Light weapon, roll one additional damage die. More hits, faster. [Requires Sharp 3]
+
+**Body as Shield.** While unarmored (Armor 0), your maximum Guard increases by 1. Your evasion is your protection. Wearing armor disables this Edge. [Requires Sharp 3]
+
+**Somatic Flow.** At the start of your turn, before your normal Move and Act, you may move one range band for free. You're already where you need to be. [Requires Sharp 3]
+
+**Redirecting Counter.** When you roll a 6 on a defense roll at Close range, you may immediately deal 1d6 damage to the attacker. You turned their momentum against them. [Requires Sharp 3]
+
+### Unwitting Channel
+
+*For characters who are conduits for something they don't control or understand. The friend who always seems to be in the right place. The person whose presence makes a room feel calmer. The one that bullets seem to miss for no reason. On Mondas, this is the rarest and strangest thing: power without intention. It might be faith, luck, or something that hasn't been named yet.*
+
+**Healing Hands.** Once per scene, touch an ally. They recover 2 Guard or clear one L1 Hurt injury. You don't know why this works. It happens when you mean it.
+
+**Calming Presence.** Allies at Close range who can see you gain Boon on Nerve saves. You don't do anything specific. People just feel steadier near you.
+
+**Saint's Luck.** Once per session, turn a consequence (1-3) into a partial success (4-5) on any roll you or an adjacent ally makes. Something tilts. You've stopped questioning it.
+
+**Involuntary Ward.** Once per scene, when you or an ally at Close takes damage, 1d6 of the damage is absorbed before it reaches Guard. You don't control this. The GM triggers it when the fiction supports it. You might not even notice it happened.
+
+**Resonance Magnet.** Thaumic effects in your vicinity behave strangely. Wards flicker. Scanners misread. Shapers feel a hum they can't place. Boon on disrupting or destabilizing thaumic effects within Close range, even though you're not doing anything on purpose. [Requires Nerve 3]
 
 ---
 
@@ -568,7 +640,11 @@ A player said: "She's been lying to cops since she was fourteen." That became: *
 | Sensitive | 8 |
 | Shaper | 12 |
 | Thaumatech | 14 |
-| **Total** | **212** |
+| Archetype: Patron Bond | 5 |
+| Archetype: Oath-Bound | 5 |
+| Archetype: Somatic Discipline | 5 |
+| Archetype: Unwitting Channel | 5 |
+| **Total** | **232** |
 
 ### Edge Allocation by Tier
 
