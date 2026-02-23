@@ -9,3 +9,4 @@ screenshot-*.png
 docs/node_modules/
 docs/dist/
 docs/.astro/
+.grepai/

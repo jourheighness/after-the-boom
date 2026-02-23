@@ -51,8 +51,14 @@ Modified D&D 5e (homebrew rules TBD — will be added to `rules/`). Currently us
 - Ranger → Field Researcher (Brenor's investigation/perception focus)
 - Fighter → Soldier (Jack's military background)
 
+## Search — HARD RULES
+1. **Always use `grepai_search` first** when looking for content, lore, rules, or code across the project. This is a large project with 69+ files and 1200+ chunks. Semantic search finds what you need faster than Grep/Glob.
+2. **Use `grepai_trace_callers` / `grepai_trace_callees`** for understanding code dependencies in the docs site.
+3. **Fall back to Grep/Glob only** when grepai returns no results or you need exact string/pattern matching.
+4. **Never skip grepai** for multi-file research, consistency checks, or "find where X is defined/used" tasks.
+
 ## Working Conventions
-1. **Notion is the visual/collaborative source of truth.** Local files are the Claude-optimized working copy.
+1. **Local markdown + GitHub is the source of truth.** The Astro docs site in `docs/` is the reader.
 2. **Never spoil planned twists** in session recaps or player-facing content.
 3. **When generating NPC dialogue**, read their voice card first. Stay in character.
 4. **When world-building**, check existing lore for consistency before inventing new content.
@@ -85,3 +91,4 @@ When the DM says:
 - **"Consistency check"** → Scan recent files for contradictions, timeline issues, orphaned threads.
 - **"New NPC"** → Use template at `campaigns/[campaign]/npcs/_template.md`.
 - **"World-build: [topic]"** → Research existing lore, propose content that fits, offer 2-3 options.
+- **Rules/system editing** → Use `/rules-edit` for any rules file edits, comment resolution, or consistency work. Tiered workflow (T1–T4) with cross-reference checking.

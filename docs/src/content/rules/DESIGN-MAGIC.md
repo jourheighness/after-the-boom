@@ -1,0 +1,1 @@
+../../../../rules/DESIGN-MAGIC.md

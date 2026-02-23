@@ -11,7 +11,9 @@ When you do something risky, roll d6s equal to your stat. Read the highest die.
 
 Before you roll, the GM tells you what's at stake. You can raise the stakes (accept worse stakes for +1d) or play it safe (accept a Snag for softer stakes). Boons and Snags modify any roll, whether you're picking a lock, talking down a guard, or swinging a wrench at someone's head. They always work the same way: +1d or -1d, cancel each other out.
 
-In a fight, the core roll changes. Attacks auto-hit, so you roll your weapon's dice instead of a stat. You choose: keep your highest die for damage, or sacrifice dice for tactical effects (shove, disarm, create cover, reposition). When an enemy comes at you, you roll your stat to mitigate. Everything happens at three ranges: Close, Near, Far.
+On any roll, you can sacrifice dice before reading your result to buy side effects — called **Gambits**. Shove someone, create a distraction, pocket a key while you're picking the lock. You give up the die to get the effect. Fewer dice means worse odds on the main roll, so it's always a trade.
+
+In a fight, the core roll changes. Attacks auto-hit, so you roll your weapon's dice instead of a stat. Keep your highest die for damage, sacrifice the rest for Gambits. When an enemy comes at you, you roll your stat to mitigate. Everything happens at three ranges: Close, Near, Far.
 
 **Guard** keeps you on your feet. When it breaks, real injuries start. A few bad hits and you're done.
 
@@ -21,7 +23,7 @@ In a fight, the core roll changes. Attacks auto-hit, so you roll your weapon's d
 
 When the outcome is uncertain and the stakes matter, a player rolls.
 
-**Roll d6s equal to the relevant stat. Read the single highest die.**
+**Roll d6s equal to the relevant stat. Read the single highest die.** Before reading your result, you may sacrifice one or more dice to pay for **Gambits** — tactical side effects like pocketing a key, creating a distraction, or slamming a door shut behind you. Each sacrificed die buys one Gambit. Fewer dice means worse odds on the main roll.
 
 | Highest Die | Result | What Happens |
 |-|-|-|
@@ -785,131 +787,3 @@ Damage, subtract Armor, subtract Guard, overflow = Harm.
 ### Push
 4 boxes. Spend 1 for: +1d, or -2 damage, or act while Critical. Empty = Crack.
 
----
-
-## Design Appendix
-
-### Decisions Made (WS1)
-
-| # | Decision | Answer | Laws |
-|-|-|-|-|
-| D1 | Dice system | d6 pool for rolls; weapon dice for attacks | P4, P15, P16 |
-| D2 | Who rolls | Player-facing only. No exceptions. | P11 |
-| D3 | Action economy | Move + Act per turn; React on enemy turns; no initiative | P6, P11, P15 |
-| D4 | Success granularity | Three tiers + critical (6 / 4-5 / 1-3 / double 6) | P1, P4 |
-| - | Stat count | 3 (Grit, Sharp, Nerve), rated 1-4 | P14, P17 |
-| - | Attack model | Auto-hit, weapon dice, Gambits for tactical choice | P4, P6, P9 |
-| - | GM framing | Stakes (state consequences, raise the stakes / play safe trade) | P1, P2, P6 |
-| - | Damage system | Guard buffer + 3-level Harm track + Scars | P3, P8, P12 |
-| - | Tension mechanic | Danger Clocks (tick each round) | P3, P6 |
-| - | Push resource | 4-box track, narrative recovery, Crack on empty | P12, P15 |
-
-### Decisions Made (WS4)
-
-| # | Decision | Answer | Laws |
-|-|-|-|-|
-| D8 | Positioning model | Three abstract ranges (Close/Near/Far), not zones or grid. Relative to entities, not a map. | P6, P15 |
-| D9 | Cover | +1/+2 Armor vs ranged (partial/full). No effect at Close. Strong Gambit destroys cover. | P13, P15 |
-| D10 | Weapon properties | 8 tags (Ranged, Sidearm, Thrown, Long, Loud, Brutal, Subtle, Slow). WS6 assigns to specific weapons. | P6, P17 |
-| D11 | Dual wielding | Roll both weapons' dice. Snag on defense until next turn. | P6, P9 |
-| D12 | Shields | Dropped. Setting is 1992, not medieval. Armor handles protection, Cover handles positioning. | P17 |
-| D13 | Create Cover Gambit | Standard Gambit (4+). Flip table, kick dumpster. Creates partial cover. Needs fictional justification. | P6, P9 |
-| D14 | Gear Gambits | 12 gear-unlocked Gambits across 3 categories (Sensory, Movement, Disruption). Mundane and thaumic gear alike. Loadout = tactical identity. | P6, P17 |
-| - | Ranged Gambits | Gambits tagged by range. Suppress (Near/Far) fills ranged gap. Improvised Gambits with examples replace vague "Other." | P6, P9 |
-| D15 | Gambit resistance | Explicit table by Threat level. Standard reduced/blocked at Threat 2+. Strong always works. | P6 |
-| D22 | Gambit potency | Attacker's stat (from description) sets potency: 1 = reduced, 2 = standard, 3+ = ignore one Threat level. Zero extra rolls. Fighting style emerges from stat spread. | P2, P6, P14 |
-| D23 | Weapon Gambits | Each weapon carries 1-3 specific Gambits on its entry. Loadout = tactical identity. | P6, P17 |
-| D24 | Social Gambits | 8 named social forms categorized across Influence (Pressure, Appeal, Undercut, Leak, Stonewall, Shift), Assess (Read), and Maneuver (Deflect, Endure). Social applications of base Gambits, not a separate tier. | P1, P6 |
-
-### Decisions Made (Mesh Pass)
-
-| # | Decision | Answer | Laws |
-|-|-|-|-|
-| D28 | Saves | Roll specified stat, same table. Triggering effect defines consequence, not GM. Partial = reduced intensity. Threat does not impose Snags on saves. | P4, P15 |
-| D29 | Conditions | Four named conditions (Stunned, Shaken, Prone, Staggered) with mechanical definitions. Referenced by Gambits and equipment effects. | P4, P6 |
-| D30 | Gambit sources | Three stacking layers: base list (15 Gambits), weapon-specific, property-category. All available simultaneously. | P6, P9 |
-| D31 | Shaping effect output | Standard roll, not auto-hit. GM sets damage in stakes by scale (Focused/Broad/Devastating). Differentiates weapons (reliable) from shaping (flexible). | P10, P16 |
-| D32 | Tactics | Seven tactical options split into Universal (Flanking, Ambush, Retreat, De-escalation) and Trained (Suppressing Fire, Tactical Retreat, Covering, Holding Ground). Trained require relevant Edge. See D38. | P6, P9 |
-| D33 | Guard = highest stat | Guard changed from Grit+2 to 2+highest stat. Guard is readiness (dodge, composure, toughness), not just body. All stat builds viable for survival. Range unchanged (3-6). | P13, P14 |
-| D34 | Gambit unification | Gambits extended to all rolls. 15 base Gambits across four output-based categories (Maneuver, Assess, Influence, Fight). Social Gambits are named instances of base Gambits. Potency and Resistance apply to Fight Gambits only. Trading damage for effect (combat) = trading outcome height for effect (any roll). | P6, P9, P15 |
-| D35 | Potency as fighter identity | Player describes how they use their stat. Grit breaks, Sharp redirects, Nerve pressures. Same Gambit, different fighter. Description, stat, potency mirrors all other resolution. Prevents two characters with the same weapon feeling identical. | P2, P6, P14 |
-| D36 | Crit unified with Strong Gambit tier | Double 6 grants one free Strong-tier Gambit. Same exceptional tier as 8+ on weapon dice, different trigger. Crit stops being vague narrative flourish. | P4, P6, P9 |
-| D37 | Strong + Enhanced potency stacking | Full effect plus one additional fictional consequence. Strong Gambit = penetration. Potency = character. Together: it works and it leaves a mark. | P2, P6, P14 |
-| D38 | Tactics split Universal vs Trained | Universal (Flanking, Ambush, Retreat, De-escalation) = instinct, no Edge required. Trained (Suppressing Fire, Tactical Retreat, Covering, Holding Ground) = Edge required. Civilian toolkit fully viable, just less structured. | P2, P6, P17 |
-| D39 | Edges modify Gambits laterally | Any Edge can modify a Gambit's trigger, effect, or threshold when fiction supports it. Background is mechanical. GM defaults to yes. | P2, P6, P14 |
-| D40 | Edge design axes | Seven axes (Expertise, Experience, Relationship, Perception, Body, Institution, Loss) as forcing function against clustering. Fiction first, mechanic follows. No skill list, name the specific fictional situation. | P2, P14, P17 |
-| D41 | Four Gambit categories | Maneuver (positioning), Assess (information), Influence (people), Fight (combat). Organized by output type, not context. Every base Gambit belongs to exactly one category. Assess cannot change the situation, only reveal it. | P6, P15, P16 |
-| D42 | Base Gambit list locked | 4 Maneuver + 3 Assess + 3 Influence + 5 Fight = 15. Extensions from Edges/equipment must reference a base Gambit by name. HTML comment markers prevent drift. | P6, P14 |
-| D43 | Scene granularity | A scene is the GM's framing unit, not a rules term. One roll can resolve a scene or open three more depending on dramatic need. Consequence-before-roll eliminates disputes. | P1, P5, P15 |
-| D44 | Background as Boon | When Background directly explains familiarity, Boon fires without negotiation. GM spotlight tool: mechanic creates character moment without separate narration. | P2, P9, P15 |
-| D45 | Ambush bypasses defense | No reaction roll if no fictional basis to anticipate. Makes Assess category worth the die cost. Information matters because ignorance has consequences. | P4, P6, P9 |
-| D46 | Unresolved threats become Clocks | When a threat leaves the scene without resolution, open a named Clock. Stall delays, Clock tracks. Connective tissue between scenes. Consequences live on Clocks, not in GM memory. | P3, P9, P15 |
-| D47 | Gambits as scene generation | Player Gambit choices surface the next scene. Scout finds the kitchen. Stall shapes the timing. GM answers honestly and follows the thread. Stakes before the roll give players information for meaningful choices. | P5, P9, P16 |
-| D48 | Gambit spam as scene design signal | Spam means one threat, enough dice, no competing pressure. Fix is scene design not rules: multiple simultaneous pressure points sized for different stats. When spam happens mid-scene, introduce next pressure point immediately. World keeps moving. | P9, P15, P17 |
-| D51 | Edge width vs depth | No stat gates. Progression through Edge prerequisites, max one per Edge, max three deep. Wide characters take lateral Edges across categories. Deep characters pursue chains. Differentiation requires no rules beyond the chain system, emerges from player choice. Chain payoffs must be characterful not optimal. If a chain is mandatory it's a hidden class. | P2, P12, P14 |
-| D52 | Edge chains replace stat gates | Stat gates create permanent exclusions at creation unrelated to play. Stats shape odds not options (stat 1 can attempt anything). Edge prerequisites gate on what you've earned through play, not what you rolled at creation. Fiction-first progression. | P2, P12, P14, P17 |
-| D53 | Sensitive renamed to Sparked | Sensitive was passive, a refined Knack. Sparked is where sensing becomes doing: small deliberate expression of the obsession. Tell originates here. 1 Guard base cost, desperate push is a Nerve roll with GM-set stakes. The effect is the bleed. Exposure is the cost. | P2, P10, P12 |
-| D54 | Break as Shaper gate | Shaper access requires a narrative event, not a mechanical prerequisite. A Sparked character who Breaks receives the temporary Edge Untapped Potential. Resolves into a Shaper Edge (walked through) or a refusal Edge (closed the door). Power on Mondas comes from the worst thing that happened to you. | P2, P12, P14 |
-| D55 | Shaping stat from fiction | Nerve cap removed. Shaping rolls use the stat matching the approach, same as any other roll. Grit shapers force energy through. Nerve shapers hold the pattern. Sharp shapers find the seam. Guard is the universal cost. Every stat build pays from the same survival buffer. Precision Shaping and Brute Channel Edges no longer needed as exceptions. | P2, P14, P15 |
-| D56 | Temporary Edges | Narrative events can produce temporary Edges: pending decisions with mechanical teeth. Must name resolution condition and at least two outcomes. Cannot linger indefinitely. GM creates fiction to force the question. Untapped Potential is the canonical example. | P2, P12, P15 |
-| D57 | Shaping is a standard roll | No separate dice engine for shaping. Roll stat (fiction determines which), GM sets Guard cost in the stakes as consequence tiers. Success costs what you expected, partial costs more, consequence costs and fails. Same framework as every other roll. Magic is different because of Tell, Heat, escalated stakes, and Guard cost, not because of a separate mechanic. | P4, P14, P15 |
-| D58 | Shaping Gambits | Shaping unlocks dedicated Gambits that trade effect quality for operational survival. Base set (Muffle, Anchor, Contain) unlocked at Sparked. Full set (Thread, Redirect, Siphon, Veil, Split) unlocked at Shaper. Shaper Edges can extend or add character-specific shaping Gambits. Weapon users trade damage for tactical effects. Shapers trade effect for survival. Same chassis, different decision space. | P6, P9, P10 |
-| D59 | Shaping scale tiers | Five tiers (Trivial/Moderate/Ambitious/Extreme/Beyond) give GM language to size shaping declarations before setting stakes. Trivial = 1 Guard no roll. Beyond = Break only. Death can be in the consequence tier at Extreme. Obsession scope has three zones (Core/Adjacent/Outside). Only Break transcends scope. No accidental Breaks. | P1, P6, P15 |
-
-### Decisions Made (WS2)
-
-| # | Decision | Answer | Laws |
-|-|-|-|-|
-| D16 | Background system | Universal Boon domain from Background. Separate from Edges. | P2, P14 |
-| D17 | Starting Guard | 2 + highest stat (range 3-6). Guard reflects best survival instinct, not just toughness. | P13, P14, P15 |
-| D18 | Stat permanence | Fixed at creation. No stat growth. | P14 |
-| D19 | Species mechanics | Purely narrative. No stat bonuses. | P17 |
-| D20 | Zero/positive balance | Zeroes: 4 Edges + Thaumic Null. Positives: 3 Edges + thaumic access. | P10, P17 |
-| D21 | Progression model | No XP, no levels. Edges through play. Guard from Scars. | P12, P14 |
-
-### Workstream Status
-
-- **WS1 (Core):** Complete. This document.
-- **WS2 (Creation):** Complete. See `rules/CHARACTER.md`.
-- **WS3 (Magic):** Complete. See `rules/MAGIC.md`.
-- **WS4 (Combat):** Complete. Integrated into this document.
-- **WS5 (Edges):** Complete. See `rules/EDGES.md` (212+ Edges).
-- **WS6 (Equipment):** Complete. See `rules/EQUIPMENT.md`.
-- **WS8 (Backgrounds):** Complete. See `rules/BACKGROUNDS.md` (194 entries).
-- **WS7 (Player Materials):** Pending. Character sheet, reference cards, one-pagers.
-
-### Design Principles Index
-
-Notes moved here from body text. Each principle tag (P1, P2, etc.) references the Design Laws in the master plan.
-
-- **P1, P4 (The Roll):** Every roll produces a result. No "nothing happens" outcome. A consequence on 1-3 is a complication, not a dead end.
-- **P2 (Stats):** Creativity rewarded by letting players choose approach, which determines stat. Bounded by fictional plausibility.
-- **P2 (Boons):** Creativity Boons capped at 1 per roll to prevent description stacking.
-- **P1, P6 (Stakes):** Stakes replace difficulty classes and position/effect. Raise the stakes / play safe trade gives agency over risk.
-- **P12 (Push):** Push recovery is narrative, not mechanical. A real moment, not a rest timer.
-- **P8 (Harm):** No HP to chip. Named injuries with mechanical bite create a desperate spiral.
-- **P12 (Scars):** Narrative anchors, not a penalty table. Guard growth creates natural progression.
-- **P12 (Recovery):** Every point of healing has a story attached.
-- **P6, P11 (Turns):** No initiative rolls. Players coordinate freely. All dice stay on the player side.
-- **P6, P9 (Gambits):** Gambits make every attack a tactical decision, producing cinematic moments through mechanical choices.
-- **P6 (Enemies):** Behavior lines prevent identical enemy tactics. Forces player adaptation.
-- **P3 (Danger Clocks):** Mechanical urgency. Standing around trading blows is punished by escalating threat.
-- **P6, P15 (Positioning):** Three ranges, not a grid. Fiction determines space. Ranges are relational, not positional.
-- **P13 (Cover):** Armor bonus, not attacker Snag. Lives on the defender where it belongs. No cognitive load inversion.
-- **P6 (Weapon Properties):** Tags create tactical differentiation without a wargame. Ranged/Long/Sidearm interact with positioning. Loud interacts with clocks.
-- **P9 (Dual Wielding):** Bigger dice pool for more Gambit options, defense Snag for vulnerability. Aggressive playstyle with a real cost.
-- **P6, P9 (Create Cover):** Trades offense for defense mid-fight. Requires fictional justification. Keeps the environment as a tactical resource.
-- **P17 (No Shields):** The setting is 1992 industrial, not medieval. Kevlar and thaumic wards are Armor. Barricades and furniture are Cover.
-
-### Probability Reference (Core Roll)
-
-| Pool | Consequence (1-3) | Partial (4-5) | Full (6) | Crit (6,6+) |
-|-|-|-|-|-|
-| 0d | 75% | 22% | 3% | 0% |
-| 1d | 50% | 33% | 17% | 0% |
-| 2d | 25% | 44% | 31% | 3% |
-| 3d | 13% | 46% | 42% | 7% |
-| 4d | 6% | 42% | 52% | 13% |
-| 5d | 3% | 37% | 60% | 20% |
-
-Sweet spot: **2d** (average stat). Partial success is the most common result. The game lives in "yes, but..."

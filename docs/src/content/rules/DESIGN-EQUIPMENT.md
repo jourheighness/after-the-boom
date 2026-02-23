@@ -1,0 +1,1 @@
+../../../../rules/DESIGN-EQUIPMENT.md

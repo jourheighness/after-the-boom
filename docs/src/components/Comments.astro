@@ -19,6 +19,10 @@ interface Comment {
   comment: string;
   sectionId: string;
   sourceFile: string;
+  filePath?: string;
+  nearestHeadingLine?: number;
+  sourceLine?: number;
+  paragraphIndex?: number;
   status: 'open' | 'resolved' | 'dismissed';
   resolution: string | null;
   createdAt: string;
@@ -34,6 +38,9 @@ let pendingSelection: {
   contextAfter: string;
   sectionId: string;
   sourceFile: string;
+  headingLine?: number;
+  sourceLine?: number;
+  paragraphIndex?: number;
   range: Range;
 } | null = null;
 
@@ -91,13 +98,19 @@ function generateId() {
 }
 
 // --- Text Anchoring ---
-function findClosestHeadingId(node: Node): string | null {
+function findClosestHeading(node: Node): { id: string; line?: number } | null {
   let el: Element | null = node.nodeType === 3 ? (node as Text).parentElement : node as Element;
   while (el && el.id !== 'main') {
-    if (/^H[1-4]$/.test(el.tagName) && el.id) return el.id;
+    if (/^H[1-4]$/.test(el.tagName) && el.id) {
+      const line = (el as HTMLElement).dataset.line ? parseInt((el as HTMLElement).dataset.line!) : undefined;
+      return { id: el.id, line };
+    }
     let sib = el.previousElementSibling;
     while (sib) {
-      if (/^H[1-4]$/.test(sib.tagName) && sib.id) return sib.id;
+      if (/^H[1-4]$/.test(sib.tagName) && sib.id) {
+        const line = (sib as HTMLElement).dataset.line ? parseInt((sib as HTMLElement).dataset.line!) : undefined;
+        return { id: sib.id, line };
+      }
       sib = sib.previousElementSibling;
     }
     el = el.parentElement;
@@ -110,6 +123,21 @@ function getSourceForSection(sectionId: string): string {
   if (!el) return 'UNKNOWN';
   const sec = el.closest('.file-section');
   return sec ? (sec as HTMLElement).dataset.source || 'UNKNOWN' : 'UNKNOWN';
+}
+
+function getParagraphIndex(node: Node, sectionId: string): number | undefined {
+  const heading = document.getElementById(sectionId);
+  if (!heading) return undefined;
+  let blockIndex = 0;
+  let sib = heading.nextElementSibling;
+  while (sib) {
+    const m = sib.tagName.match(/^H(\d)$/);
+    if (m && parseInt(m[1]) <= parseInt(heading.tagName[1])) break;
+    if (sib.contains(node) || sib === node) return blockIndex;
+    blockIndex++;
+    sib = sib.nextElementSibling;
+  }
+  return undefined;
 }
 
 function getSectionContentElements(headingEl: Element): Element[] {
@@ -217,13 +245,57 @@ function fuzzyFind(haystack: string, needle: string) {
   return null;
 }
 
+function wrapMultiNodeMatch(
+  match: { startNode: Text; startOffset: number; endNode: Text; endOffset: number; multiNode: true },
+  commentId: string,
+  cls: string
+) {
+  // Collect all text nodes between startNode and endNode (inclusive)
+  const textNodes: Text[] = [];
+  const range = document.createRange();
+  range.setStart(match.startNode, match.startOffset);
+  range.setEnd(match.endNode, match.endOffset);
+
+  // Walk the common ancestor to find text nodes within the range
+  const ancestor = range.commonAncestorContainer;
+  const walker = document.createTreeWalker(
+    ancestor.nodeType === 3 ? ancestor.parentElement! : ancestor,
+    NodeFilter.SHOW_TEXT
+  );
+  let node: Text | null;
+  let inRange = false;
+  while ((node = walker.nextNode() as Text | null)) {
+    if (node === match.startNode) inRange = true;
+    if (inRange) textNodes.push(node);
+    if (node === match.endNode) break;
+  }
+
+  // Wrap each text node segment
+  for (const tn of textNodes) {
+    const start = tn === match.startNode ? match.startOffset : 0;
+    const end = tn === match.endNode ? match.endOffset : tn.textContent!.length;
+    if (start >= end) continue;
+
+    const r = document.createRange();
+    r.setStart(tn, start);
+    r.setEnd(tn, end);
+    const span = document.createElement('span');
+    span.className = cls;
+    span.dataset.commentId = commentId;
+    r.surroundContents(span);
+  }
+}
+
 function applyHighlights() {
+  // Clean up previous highlights
   document.querySelectorAll('.commented-text').forEach(span => {
     const parent = span.parentNode!;
     while (span.firstChild) parent.insertBefore(span.firstChild, span);
     parent.removeChild(span);
     parent.normalize();
   });
+  document.querySelectorAll('.commented-block').forEach(el => el.classList.remove('commented-block'));
+  document.querySelectorAll('.orphan-indicator').forEach(el => el.remove());
 
   for (const c of comments) {
     if (c.status === 'dismissed') continue;
@@ -239,26 +311,82 @@ function applyHighlights() {
       ? getSectionContentElements(sectionEl)
       : [sectionEl];
     const match = findTextInElements(contentEls, c.selectedText, c.contextBefore, c.contextAfter);
-    if (!match) { c._orphaned = true; continue; }
-    c._orphaned = false;
 
-    try {
-      const range = document.createRange();
-      if (match.multiNode) {
-        range.setStart(match.startNode, match.startOffset);
-        range.setEnd(match.endNode, match.endOffset);
-      } else {
-        range.setStart(match.node, match.offset);
-        range.setEnd(match.node, match.offset + (match.length || c.selectedText.length));
+    if (match) {
+      c._orphaned = false;
+      try {
+        const cls = 'commented-text' + (c.status === 'resolved' ? ' resolved' : '');
+        if (!match.multiNode) {
+          const range = document.createRange();
+          range.setStart(match.node, match.offset);
+          range.setEnd(match.node, match.offset + (match.length || c.selectedText.length));
+          const span = document.createElement('span');
+          span.className = cls;
+          span.dataset.commentId = c.id;
+          range.surroundContents(span);
+        } else {
+          // Multi-node: wrap each text node segment individually
+          wrapMultiNodeMatch(match, c.id, cls);
+        }
+      } catch {
+        c._orphaned = true;
       }
-      const span = document.createElement('span');
-      span.className = 'commented-text' + (c.status === 'resolved' ? ' resolved' : '');
-      span.dataset.commentId = c.id;
-      range.surroundContents(span);
-    } catch {
-      c._orphaned = true;
+      continue;
     }
+
+    // Fallback: try paragraph-index anchoring
+    if (c.paragraphIndex != null && /^H[1-4]$/.test(sectionEl.tagName)) {
+      const heading = sectionEl;
+      const level = parseInt(heading.tagName[1]);
+      let blockIndex = 0;
+      let sib = heading.nextElementSibling;
+      while (sib) {
+        const m = sib.tagName.match(/^H(\d)$/);
+        if (m && parseInt(m[1]) <= level) break;
+        if (blockIndex === c.paragraphIndex) {
+          sib.classList.add('commented-block');
+          (sib as HTMLElement).dataset.commentId = c.id;
+          c._orphaned = false;
+          break;
+        }
+        blockIndex++;
+        sib = sib.nextElementSibling;
+      }
+      if (!c._orphaned) continue;
+    }
+
+    c._orphaned = true;
   }
+
+  // Add orphan indicators next to headings for orphaned comments
+  for (const c of comments) {
+    if (!c._orphaned || c.status === 'dismissed') continue;
+    const heading = document.getElementById(c.sectionId);
+    if (!heading || heading.querySelector('.orphan-indicator')) continue;
+    const dot = document.createElement('span');
+    dot.className = 'orphan-indicator';
+    dot.dataset.commentId = c.id;
+    dot.title = 'Orphaned comment — text was edited';
+    dot.innerHTML = '<span class="orphan-dot"></span>';
+    dot.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const panel = document.getElementById('commentsPanel')!;
+      panel.classList.add('open');
+      renderCommentsPanel();
+      scrollToComment(c.id);
+    });
+    heading.appendChild(dot);
+  }
+}
+
+function findSourceLine(node: Node): number | undefined {
+  let el: Element | null = node.nodeType === 3 ? (node as Text).parentElement : node as Element;
+  while (el && el.id !== 'main') {
+    const line = (el as HTMLElement).dataset.line;
+    if (line) return parseInt(line);
+    el = el.parentElement;
+  }
+  return undefined;
 }
 
 // --- Selection & Creation ---
@@ -294,10 +422,14 @@ function handleSelection(_e: Event) {
   const ctxBefore = (startNode.textContent || '').slice(Math.max(0, range.startOffset - 20), range.startOffset);
   const ctxAfter = (endNode.textContent || '').slice(range.endOffset, range.endOffset + 20);
 
-  const sectionId = findClosestHeadingId(range.startContainer) || 'unknown';
+  const heading = findClosestHeading(range.startContainer);
+  const sectionId = heading?.id || 'unknown';
+  const headingLine = heading?.line;
   const sourceFile = getSourceForSection(sectionId);
+  const paragraphIndex = getParagraphIndex(range.startContainer, sectionId);
+  const sourceLine = findSourceLine(range.startContainer);
 
-  pendingSelection = { text, contextBefore: ctxBefore, contextAfter: ctxAfter, sectionId, sourceFile, range };
+  pendingSelection = { text, contextBefore: ctxBefore, contextAfter: ctxAfter, sectionId, sourceFile, headingLine, sourceLine, paragraphIndex, range };
 
   floatBtn.style.display = 'block';
   floatBtn.style.left = (rect.left + window.scrollX + rect.width / 2 - 40) + 'px';
@@ -347,6 +479,7 @@ function saveNewComment() {
   const text = input?.value.trim();
   if (!text) return;
 
+  const sf = pendingSelection.sourceFile;
   const c: Comment = {
     id: generateId(),
     selectedText: pendingSelection.text,
@@ -354,7 +487,11 @@ function saveNewComment() {
     contextAfter: pendingSelection.contextAfter,
     comment: text,
     sectionId: pendingSelection.sectionId,
-    sourceFile: pendingSelection.sourceFile,
+    sourceFile: sf,
+    filePath: sf && sf !== 'UNKNOWN' ? `rules/${sf}.md` : undefined,
+    nearestHeadingLine: pendingSelection.headingLine,
+    sourceLine: pendingSelection.sourceLine,
+    paragraphIndex: pendingSelection.paragraphIndex,
     status: 'open',
     resolution: null,
     createdAt: new Date().toISOString(),
@@ -393,7 +530,7 @@ if (mainEl) {
   });
 
   mainEl.addEventListener('click', (e) => {
-    const span = (e.target as Element).closest('.commented-text');
+    const span = (e.target as Element).closest('.commented-text, .commented-block');
     if (!span) return;
     const panel = document.getElementById('commentsPanel')!;
     panel.classList.add('open');
@@ -583,7 +720,9 @@ function renderPanelComment(c: Comment, statusClass: string): string {
 }
 
 function scrollToComment(id: string) {
-  const span = document.querySelector(`.commented-text[data-comment-id="${CSS.escape(id)}"]`) as HTMLElement;
+  const escaped = CSS.escape(id);
+  const span = (document.querySelector(`.commented-text[data-comment-id="${escaped}"]`)
+    || document.querySelector(`.commented-block[data-comment-id="${escaped}"]`)) as HTMLElement;
   if (span) {
     span.scrollIntoView({ behavior: 'smooth', block: 'center' });
     span.style.outline = '2px solid var(--accent)';

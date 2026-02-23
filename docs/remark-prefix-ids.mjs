@@ -15,20 +15,19 @@ export default function remarkPrefixIds() {
     const prefix = match[1].toLowerCase();
 
     visit(tree, 'heading', (node) => {
-      // rehype-slug hasn't run yet at this point, so we need to work with
-      // the hProperties that will be used by rehype-slug
       if (!node.data) node.data = {};
       if (!node.data.hProperties) node.data.hProperties = {};
 
-      // If rehype-slug already set an id, prefix it
       if (node.data.hProperties.id) {
         node.data.hProperties.id = `${prefix}-${node.data.hProperties.id}`;
       } else {
-        // Set a custom id attribute that rehype-slug will respect
-        // We need to compute the slug ourselves
         const text = getTextContent(node);
         const slug = slugify(text);
         node.data.hProperties.id = `${prefix}-${slug}`;
+      }
+
+      if (node.position?.start?.line) {
+        node.data.hProperties['data-line'] = node.position.start.line;
       }
     });
   };

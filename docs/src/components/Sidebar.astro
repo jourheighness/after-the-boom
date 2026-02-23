@@ -17,7 +17,7 @@ const { sections } = Astro.props;
 
 <nav class="sidebar" id="sidebar">
   {sections.map(({ source, color, toc }) => (
-    <div class="nav-group">
+    <div class="nav-group" data-source={source}>
       <div class="nav-source" style={`border-left:3px solid ${color}`}>{source}</div>
       {toc.map(({ level, id, title }) => (
         <a

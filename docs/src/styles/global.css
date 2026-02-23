@@ -80,8 +80,8 @@ body {
 }
 .nav-group { margin-bottom: 8px; }
 .nav-source {
-  padding: 4px 12px;
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  padding: 6px 12px 4px;
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
   color: var(--text-muted); letter-spacing: 0.5px;
 }
 .nav-link {
@@ -104,7 +104,11 @@ body {
 }
 
 /* Typography */
-.main h1 { font-family: system-ui, sans-serif; font-size: 22px; color: var(--heading); margin: 32px 0 12px; font-weight: 700; }
+.main h1 {
+  font-family: inherit; font-size: 10px; color: var(--text-muted);
+  margin: 0 0 4px; font-weight: 400; letter-spacing: 0.3px;
+  opacity: 0.6;
+}
 .main h2 { font-family: system-ui, sans-serif; font-size: 18px; color: var(--heading); margin: 28px 0 10px; padding-top: 20px; border-top: 2px solid var(--border); font-weight: 700; }
 .main h3 { font-family: system-ui, sans-serif; font-size: 15px; color: var(--heading); margin: 20px 0 8px; font-weight: 600; }
 .main h4 { font-size: 13px; color: var(--heading); margin: 16px 0 6px; font-weight: 600; }
@@ -113,6 +117,7 @@ body {
 .main li { margin: 2px 0; }
 .main code { background: rgba(0,0,0,0.06); padding: 1px 4px; border-radius: 2px; font-size: 12px; }
 .main hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.main hr:has(+ h2) { display: none; }
 .main strong { font-weight: 700; }
 .main em { font-style: italic; }
 .main blockquote {
@@ -141,6 +146,13 @@ body {
 .search-hit { background: #ffd54f; border-radius: 2px; padding: 0 1px; }
 .file-section.hidden { display: none; }
 
+/* Design principle sections — sidebar distinction */
+.nav-group[data-source^="DESIGN-"] .nav-source {
+  font-style: italic;
+  opacity: 0.7;
+  font-size: 11px;
+}
+
 /* Comment highlights */
 .commented-text {
   background: rgba(255, 200, 50, 0.25);
@@ -155,6 +167,36 @@ body {
 }
 .commented-text.resolved:hover { background: rgba(100, 180, 100, 0.3); }
 .commented-text.orphaned { opacity: 0.5; }
+
+/* Paragraph-level fallback highlight (when exact text no longer matches) */
+.commented-block {
+  border-left: 3px solid #c8a020;
+  background: rgba(255, 200, 50, 0.08);
+  padding-left: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.commented-block:hover { background: rgba(255, 200, 50, 0.15); }
+
+/* Orphan indicator dot next to headings */
+.orphan-indicator {
+  display: inline-block;
+  margin-left: 6px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.orphan-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: #d47a20;
+  border-radius: 50%;
+  vertical-align: middle;
+  animation: orphan-pulse 2s ease-in-out infinite;
+}
+@keyframes orphan-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
 
 /* Comment floating button */
 .comment-float-btn {

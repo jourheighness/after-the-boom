@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import remarkPrefixIds from './remark-prefix-ids.mjs';
+import rehypeSourceLines from './rehype-source-lines.mjs';
 
 export default defineConfig({
   site: 'https://johannessundman.github.io',
@@ -7,5 +8,6 @@ export default defineConfig({
   output: 'static',
   markdown: {
     remarkPlugins: [remarkPrefixIds],
+    rehypePlugins: [rehypeSourceLines],
   },
 });
