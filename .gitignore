@@ -3,3 +3,6 @@
 *.swo
 *~
 .claude/
+.playwright-mcp/
+*.pdf
+screenshot-*.png
