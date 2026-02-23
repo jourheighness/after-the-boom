@@ -142,6 +142,36 @@ The boundary: **trying to hurt someone? Roll weapon dice. Everything else? Roll 
 
 ---
 
+## Gather Information
+
+When a PC wants to learn something specific, the GM picks one of three paths.
+
+### You Just Know
+
+The answer falls inside your Background's Boon domain, or is common knowledge for someone in your position. The GM tells you. No roll. A leyline researcher knows what a logic collapse is. A longshoreman doesn't. A Knack fires the same way — if the obsession intersects with the question, the GM volunteers the information.
+
+### You Can Find Out
+
+The answer exists but getting it has a cost — time, exposure, or risk. The GM states stakes like any other roll.
+
+**Which stat?** Sharp (searching, observing, connecting dots), Nerve (interrogating, persuading, reading someone), Grit (enduring something unpleasant to get the information — staking out in the cold, digging through wreckage).
+
+| Highest Die | Result |
+|-|-|
+| **6** | Clear, complete answer. Ask a follow-up question. |
+| **4-5** | You get the answer, but it's incomplete, it cost you something, or someone noticed you asking. |
+| **1-3** | You don't get it, or you get it and the GM makes a move — wrong conclusion, exposed, tipped someone off. |
+
+Background Boon applies if the domain is even adjacent. Knacks fire if the obsession intersects. Normal Boon/Snag rules.
+
+### It's a Project
+
+The answer is too big for one roll — mapping a conspiracy, tracing a supply chain, decoding a dead language. The GM starts a **clock** (4, 6, or 8 segments depending on complexity). Each attempt to gather information ticks it on success: 1 tick on a partial, 2 on a full, 3 on a critical. When the clock fills, the PC gets the full picture and can ask the GM several detailed questions about the subject.
+
+Each attempt costs time (hours, days — GM's call) and may carry its own stakes. A partial might tick the clock *and* alert someone.
+
+---
+
 ## Push
 
 When the dice aren't enough, you dig deep.
@@ -410,6 +440,26 @@ Weapons have properties that change how they interact with positioning and comba
 | **Slow** | Cannot attack and Move in the same turn. Sniper rifles, heavy emplacements. |
 
 Properties are tags, not categories. A weapon can have several. A hunting rifle might be Ranged, Loud, and Slow. A switchblade is Subtle. A grenade is Thrown, Loud, and Brutal. The full weapon catalog with properties assigned is in WS6 (Equipment).
+
+### Consumables
+
+Single-use items with the Thrown property. Flashbangs, smoke grenades, molotovs, frag grenades. Use your Act, spend the item.
+
+**Environmental effect (no targets).** It just works. Smoke breaks line of sight, caltrops cover the ground, an oil flask makes the floor slick. No roll.
+
+**Damage to an area.** Roll the item's dice against each target in the area separately. A frag grenade (1d8, Thrown, Loud, Brutal) rolls 1d8 per target at Close of the detonation.
+
+**Condition without damage.** The item forces a save. The item names the stat and the consequence. A flashbang (Thrown, Loud) forces a **Sharp save** — on failure, Snag on the target's next action. On a partial (4-5), reduced duration or intensity.
+
+| Item | Dice | Properties | Resolution |
+|-|-|-|-|
+| Flashbang | — | Thrown, Loud | Sharp save or Snag on next action |
+| Smoke grenade | — | Thrown | Breaks line of sight at Near, 2 rounds |
+| Molotov | 1d6 | Thrown, Loud | Damage per target + area alight |
+| Frag grenade | 1d8 | Thrown, Loud, Brutal | Damage per target at Close |
+| Concussion charge | — | Thrown, Loud | Nerve save or lose next Act |
+
+Consumables interact with Gear Gambits: if you're already attacking and sacrifice a die 4+ for a Gear Gambit (Flash, Obscure, Deafen), you get the effect alongside your damage without spending the item as a separate Act. Using the item standalone — throwing just the flashbang — costs your Act and the item, but requires no attack roll and no die sacrifice.
 
 ### The Attack Roll
 
