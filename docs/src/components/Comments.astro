@@ -25,6 +25,7 @@ interface Comment {
   paragraphIndex?: number;
   status: 'open' | 'resolved' | 'dismissed';
   resolution: string | null;
+  resolvedText?: string;
   createdAt: string;
   resolvedAt: string | null;
   _orphaned?: boolean;
@@ -310,7 +311,12 @@ function applyHighlights() {
     const contentEls = /^H[1-4]$/.test(sectionEl.tagName)
       ? getSectionContentElements(sectionEl)
       : [sectionEl];
-    const match = findTextInElements(contentEls, c.selectedText, c.contextBefore, c.contextAfter);
+
+    // For resolved comments with resolvedText, highlight the new text instead
+    const highlightText = (c.status === 'resolved' && c.resolvedText) ? c.resolvedText : c.selectedText;
+    const ctxBefore = (c.status === 'resolved' && c.resolvedText) ? '' : c.contextBefore;
+    const ctxAfter = (c.status === 'resolved' && c.resolvedText) ? '' : c.contextAfter;
+    const match = findTextInElements(contentEls, highlightText, ctxBefore, ctxAfter);
 
     if (match) {
       c._orphaned = false;
@@ -319,7 +325,7 @@ function applyHighlights() {
         if (!match.multiNode) {
           const range = document.createRange();
           range.setStart(match.node, match.offset);
-          range.setEnd(match.node, match.offset + (match.length || c.selectedText.length));
+          range.setEnd(match.node, match.offset + (match.length || highlightText.length));
           const span = document.createElement('span');
           span.className = cls;
           span.dataset.commentId = c.id;
@@ -480,6 +486,8 @@ function saveNewComment() {
   if (!text) return;
 
   const sf = pendingSelection.sourceFile;
+  const isRulesPage = window.location.pathname.endsWith('/') || window.location.pathname.endsWith('/index.html') || window.location.pathname.match(/\/after-the-boom\/?$/);
+  const pathPrefix = isRulesPage ? 'rules' : 'campaigns/the-rig';
   const c: Comment = {
     id: generateId(),
     selectedText: pendingSelection.text,
@@ -488,7 +496,7 @@ function saveNewComment() {
     comment: text,
     sectionId: pendingSelection.sectionId,
     sourceFile: sf,
-    filePath: sf && sf !== 'UNKNOWN' ? `rules/${sf}.md` : undefined,
+    filePath: sf && sf !== 'UNKNOWN' ? `${pathPrefix}/${sf.toLowerCase().replace(/_/g, '-')}.md` : undefined,
     nearestHeadingLine: pendingSelection.headingLine,
     sourceLine: pendingSelection.sourceLine,
     paragraphIndex: pendingSelection.paragraphIndex,

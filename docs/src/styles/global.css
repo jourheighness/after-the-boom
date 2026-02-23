@@ -29,10 +29,26 @@ body {
   padding: 0 16px;
   gap: 12px;
 }
-.header-title {
-  font-size: 15px; font-weight: 700;
-  white-space: nowrap;
+.tab-nav {
+  display: flex;
+  gap: 0;
+}
+.tab-nav a {
+  padding: 6px 14px;
+  color: rgba(245,240,235,0.5);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
   font-family: system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+.tab-nav a.active {
+  color: #f5f0eb;
+  border-bottom-color: var(--accent);
+}
+.tab-nav a:hover {
+  color: #f5f0eb;
 }
 .search-box {
   flex: 1; max-width: 400px;
@@ -106,9 +122,11 @@ body {
 /* Typography */
 .main h1 {
   font-family: inherit; font-size: 10px; color: var(--text-muted);
-  margin: 0 0 4px; font-weight: 400; letter-spacing: 0.3px;
+  margin: 0 0 20px; font-weight: 400; letter-spacing: 0.3px;
   opacity: 0.6;
 }
+.main h1 + hr { display: none; }
+.main h1 + h2 { border-top: none; margin-top: 4px; padding-top: 0; }
 .main h2 { font-family: system-ui, sans-serif; font-size: 18px; color: var(--heading); margin: 28px 0 10px; padding-top: 20px; border-top: 2px solid var(--border); font-weight: 700; }
 .main h3 { font-family: system-ui, sans-serif; font-size: 15px; color: var(--heading); margin: 20px 0 8px; font-weight: 600; }
 .main h4 { font-size: 13px; color: var(--heading); margin: 16px 0 6px; font-weight: 600; }
@@ -141,6 +159,21 @@ body {
 .main th { background: #eae5df; font-weight: 600; text-align: left; padding: 6px 10px; border: 1px solid var(--border); }
 .main td { padding: 5px 10px; border: 1px solid var(--border); vertical-align: top; }
 .main tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+
+/* Chapter headers (auto-generated from data-source) */
+.file-section::before {
+  content: attr(data-source);
+  display: block;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--heading);
+  padding: 32px 0 12px;
+  margin-bottom: 4px;
+  border-bottom: 3px solid var(--accent);
+}
+.file-section:first-child::before { padding-top: 0; }
 
 /* Search highlights */
 .search-hit { background: #ffd54f; border-radius: 2px; padding: 0 1px; }

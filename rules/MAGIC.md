@@ -2,100 +2,11 @@
 
 ## In Two Minutes
 
-All thaumic work costs something. Thaumatech devices don't absorb the cost, they replace the technique. The device is a stencil, not a shield. The energy still flows through you.
-
-**Thaumatech** makes magic predictable. The device enables the action and you roll your stat as normal, no drain cost. Want more? Push for +1d from your Push track, same as any roll. The device keeps the process clean, so the only risk is what happens when you push past its rating.
-
-**Innate shaping** has no stencil. You roll your stat like any other action. The difference: Guard cost is in the stakes, Tell is mandatory, Heat ticks every time, and the GM always includes thaumic side effects in the consequences. You shape through your **obsession** (what your magic does, rooted in who you are) using your **Tell** (the physical, observable process you developed). Every use is visible, reportable, consequential.
+Innate shaping has no stencil. You roll your stat like any other action. The difference: Guard cost is in the stakes, Tell is mandatory, Heat ticks every time, and the GM always includes thaumic side effects in the consequences. You shape through your **obsession** (what your magic does, rooted in who you are) using your **Tell** (the physical, observable process you developed). Every use is visible, reportable, consequential.
 
 The thaumic spectrum runs through four tiers. **Knack** is passive sensing tied to an obsession. **Sparked** is where sensing becomes doing: one small expression, Tell emerges, Guard cost begins. **Shaper** is the full engine, unlocked through a Break. At every tier, the cost scales with the power. For Shapers, that cost can become a **Break**: a character-defining sacrifice where death is on the table and the effect has no ceiling.
 
----
-
-## Thaumatech
-
-Thaumatech is Mondas's answer to the chaos of raw magic. Devices that channel thaumic energy through engineered pathways: somatic inputs replaced by switches, verbal components replaced by calibrated resonators, material components replaced by standardized catalysts. The result is deterministic: same input, same output, every time.
-
-The device IS the scope and technique. A ward projector wards. A scanner scans. You push the button. No personal quirks, no idiosyncratic technique, no superstition. That's why thaumatech is boring, reliable, universal, and why every government on Mondas promotes it.
-
-### Personal vs. Grid-Powered
-
-Not all thaumatech works the same way. The distinction matters.
-
-**Personal thaumatech** operates through **contact plates**: small panels built into the device that rest against the user's skin. The plate draws thaumic potential directly from the operator. A thaumic pistol has a thumb plate on the grip. Body armor has plates on the inside, against the chest and spine. A field patch has a plate you charge before applying. A thaumic grenade has a plate you charge before throwing. The energy comes from you. The device just shapes it.
-
-This means **only positives can operate personal thaumatech.** A zero picks up a thaumic pistol and the contact plate reads nothing. The trigger pulls. Nothing happens. The device is inert. It needs a source, and zeroes have nothing to give.
-
-**Detectability:** Active contact plates emit a low-level thaumic signature. Sensitives can feel it at Close range. BTC scanners can read it at Near. Carrying active personal thaumatech in a social situation is like carrying a visible weapon: people who know what to look for will notice. The DPA definitely notices. Mundane weapons have no signature. A knife is just a knife. Sometimes that matters more than overcharge potential.
-
-Personal thaumatech includes: weapons, body armor, scanners, grenades, healing patches, field equipment, portable wards. Anything you carry and power with your body.
-
-**Grid-powered thauma-ware** is different. Powered by the thaumic grid (CTE boilers, siphon plants, municipal infrastructure), these devices have buttons and switches like conventional electronics. The energy comes from the grid, not from the operator. Anyone can use them. Your thaumic fridge doesn't care who opens it. The office heating system doesn't check your BTC.
-
-Grid-powered thauma-ware includes: home appliances, heating systems, industrial equipment, municipal infrastructure, building wards, public transit systems. The infrastructure of daily life on Mondas.
-
-**The old grid still exists.** Gasoline cars. Conventional electronics. Non-thaumic refrigerators. Twenty years after the Boom, this infrastructure is declining. Fewer gas stations every year. Brownouts in neighborhoods the thaumic grid hasn't reached. Parts getting harder to find. Poor communities and zeroes who can't afford the transition try to keep conventional tech running. It works. It's just getting lonelier.
-
-### Using Thaumatech
-
-A thaumatech device works like any tool. The device enables the action: you can't scan without a scanner, can't ward without a ward projector. The roll uses your relevant stat (Sharp for precision work, Nerve for channeling, Grit for brute-force applications).
-
-**Base use is free.** Roll your stat as normal. The device enables the action, no drain cost. This is what it's built for. A factory boiler operator running their rig at spec doesn't drain. An inspector scanning for anomalies doesn't drain. Routine thaumatech is infrastructure. It costs nothing because it's designed not to.
-
-**Pushing a device.** Want more than the rated output? Spend a **Push box** for +1d, same as any other roll. One Push per roll. You're pulling more than the device was meant for, faster than is safe. The energy still flows through you. The device doesn't protect you from the cost, it just shaped the channel.
-
-Each device lists a **device stat** (Sharp, Nerve, or Grit) that reflects how it's operated. A scanner runs on Sharp. A ward projector runs on Nerve. A heavy emitter runs on Grit. This determines which stat you roll when using the device, not a separate overcharge cap.
-
-| Device Stat | Device Types | Examples |
-|-|-|-|
-| **Sharp** | Precision instruments, scanners, targeting systems | BTC scanner, signature reader, diagnostic kit, thaumic recorder, channeling rifle |
-| **Nerve** | Channeling devices, wards, medical, control | Ward projector, dampening field, field patch, containment unit, suppressor, nerve stabilizer |
-| **Grit** | Brute-force emitters, heavy hardware, physical amplifiers | Heavy discharge rig, discharge rod, gravity clamp, thaumic welder, reactive armor plates |
-
-### Thaumatech in Combat
-
-When used as a weapon, thaumatech follows the standard attack rules:
-
-- Roll the device's **weapon dice** (same categories as mundane weapons: a thaumatech wrench is 1d8, a discharge rod is 1d6, a heavy discharge rig is 1d8)
-- Sacrifice dice 4+ for **Gambits** (device-appropriate: Overload, Flash, Redirect, Dampen, in addition to standard Gambits. See CORE.md Gambits.)
-- Push for +1d (spend a Push box, same as any roll)
-
-The base attack die is free. No drain for standard use.
-
-### Device Consequences Through Stakes
-
-Device failure is handled through the existing Stakes system. Before any thaumatech roll, the GM includes device consequences in the stakes based on what makes sense:
-
-**Consumer / standard-rated gear:**
-- Partial (4-5): Reduced effect, device runs hot
-- Consequence (1-3): Device disabled until end of scene, needs recalibration
-
-**Professional / industrial gear:**
-- Partial: Device strains, -1d on next use with this device
-- Consequence: Device damaged, needs repair (downtime)
-
-**Military / black-ops gear:**
-- Partial: Device destabilizes, minor collateral effect
-- Consequence: Device breaks catastrophically. Explosion, feedback surge, targeting locks onto the nearest neural signature (yours), rune activates inside the barrel.
-
-**Jury-rigged / improvised gear:**
-- Stakes are always harsh. The GM puts the worst plausible outcome on the table. Improvised thaumatech is a gamble every time.
-
-The more powerful the device, the more dangerous the failure. A consumer scanner overheating is an inconvenience. A black-ops brain-staker misfiring is a horror show. No separate degradation mechanic. The GM sets Stakes based on the fiction, same as everything else.
-
-### Patrons as Thaumatech Medium
-
-Nobody knows what patrons are. The DPA doesn't have a formal classification. Theologians, academics, and conspiracy theorists all have theories. What's established: patrons communicate through thaumatech devices. Always. The device is the medium, not the message.
-
-**How it works:** A patron-linked operator attunes a personal thaumatech device (walkman, pager, comm unit) as a receiving channel. The patron's voice, instructions, or influence arrive through the device's output: static on a walkman, coded numbers on a pager, interference patterns on a TV screen. The operator must be at least a Knack to receive. Sensitives can communicate both ways. Mundanes hear nothing.
-
-**Government pact-operators** work with compacted patrons. The DPA and military branches maintain patron entities in containment, transported on military aircraft and stored in shielded facilities. Operators are assigned a patron, issued standardized channeling equipment, and trained to interpret the signal. The relationship is transactional and supervised. The operator files reports.
-
-**Natural pact-takers** like Murph found their patron through circumstance, desperation, or accident. The Chairman communicates through a pager for messages and a walkman for sustained channeling. The relationship is personal, unsupervised, and not filed anywhere. Natural pact-takers hide behind corporate fronts, personal eccentricity, or simple denial. If the DPA confirms an unsanctioned patron link, the operator becomes a person of very serious interest.
-
-**Detection:** Active patron channeling through a device emits a thaumic signature. Sensitives feel it at Close range. Contact plate scanners read it at Near. The signature is distinctive, different from standard thaumatech use. A trained DPA agent can tell the difference. Carrying a patron-linked device in public is a calculated risk.
-
-**Patrons and Channels:** Patron-linked characters operate through the **Bestowed** channel (see Channels under The Thaumic Spectrum). The patron narrows scope and shapes the Tell. The thaumatech device is the communication medium, but the thaumic connection itself is innate, running through the operator's obsession. A pact-operator who loses their device can still feel the patron. They just can't hear the instructions clearly.
+For thaumatech (devices, contact plates, grid-powered thauma-ware, over-spec use), see `rules/THAUMATECH.md`.
 
 ---
 

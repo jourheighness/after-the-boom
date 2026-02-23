@@ -18,9 +18,12 @@ interface SectionGroup {
 interface Props {
   sections: SectionGroup[];
   sources: { name: string; color: string }[];
+  currentTab?: 'rules' | 'campaigns' | 'dm-screen';
 }
-const { sections, sources } = Astro.props;
+const { sections, sources, currentTab = 'rules' } = Astro.props;
 const showComments = !import.meta.env.PROD;
+const showDmScreen = !import.meta.env.PROD;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <!DOCTYPE html>
@@ -33,7 +36,13 @@ const showComments = !import.meta.env.PROD;
 <body>
   <div class="header">
     <button class="hamburger" id="hamburgerBtn">&#9776;</button>
-    <div class="header-title">MONDAS Rules Reader</div>
+    <nav class="tab-nav">
+      <a href={`${base}/`} class={currentTab === 'rules' ? 'active' : ''}>Rules</a>
+      <a href={`${base}/campaigns`} class={currentTab === 'campaigns' ? 'active' : ''}>Campaigns</a>
+      {showDmScreen && (
+        <a href={`${base}/dm-screen`} class={currentTab === 'dm-screen' ? 'active' : ''}>DM Screen</a>
+      )}
+    </nav>
     <Search />
     <FilterBar sources={sources} />
     {showComments && (

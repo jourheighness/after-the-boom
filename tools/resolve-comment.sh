@@ -6,15 +6,17 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 COMMENTS_FILE="$SCRIPT_DIR/comments.json"
 
 if [ -z "$1" ] || [ -z "$2" ]; then
-  echo "Usage: resolve-comment.sh <comment-id> \"<resolution text>\""
+  echo "Usage: resolve-comment.sh <comment-id> \"<resolution text>\" [\"<new highlight text>\"]"
   echo ""
   echo "  comment-id    Full ID or unique suffix (e.g. 'u4l' matches 'c_1771849112978_u4l')"
   echo "  resolution    What was changed to address the comment"
+  echo "  new-text      (optional) Text to highlight in the resolved state, so the change is visible"
   exit 1
 fi
 
 ID_PATTERN="$1"
 RESOLUTION="$2"
+RESOLVED_TEXT="${3:-}"
 NOW="$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
 
 # Find matching comment
@@ -37,9 +39,15 @@ else
 fi
 
 # Update the comment
-jq --arg res "$RESOLUTION" --arg now "$NOW" \
-  "(.comments[] | select($SELECTOR)) |= (.status = \"resolved\" | .resolution = \$res | .resolvedAt = \$now)" \
-  "$COMMENTS_FILE" > "$COMMENTS_FILE.tmp" && mv "$COMMENTS_FILE.tmp" "$COMMENTS_FILE"
+if [ -n "$RESOLVED_TEXT" ]; then
+  jq --arg res "$RESOLUTION" --arg now "$NOW" --arg rt "$RESOLVED_TEXT" \
+    "(.comments[] | select($SELECTOR)) |= (.status = \"resolved\" | .resolution = \$res | .resolvedAt = \$now | .resolvedText = \$rt)" \
+    "$COMMENTS_FILE" > "$COMMENTS_FILE.tmp" && mv "$COMMENTS_FILE.tmp" "$COMMENTS_FILE"
+else
+  jq --arg res "$RESOLUTION" --arg now "$NOW" \
+    "(.comments[] | select($SELECTOR)) |= (.status = \"resolved\" | .resolution = \$res | .resolvedAt = \$now)" \
+    "$COMMENTS_FILE" > "$COMMENTS_FILE.tmp" && mv "$COMMENTS_FILE.tmp" "$COMMENTS_FILE"
+fi
 
 # Show result
 FULL_ID=$(jq -r ".comments[] | select($SELECTOR) | .id" "$COMMENTS_FILE")

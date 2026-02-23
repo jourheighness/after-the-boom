@@ -12,6 +12,7 @@ const SOURCE_ORDER = [
   'DESIGN-CHARACTER',
   'EDGES',
   'DESIGN-EDGES',
+  'THAUMATECH',
   'EQUIPMENT',
   'DESIGN-EQUIPMENT',
   'GAMBITS',
@@ -25,6 +26,7 @@ const FILE_COLORS: Record<string, string> = {
   CORE:               '#8b7355',
   MAGIC:              '#7a5c7a',
   EDGES:              '#5c6a7a',
+  THAUMATECH:         '#8a6a5c',
   EQUIPMENT:          '#7a5c5c',
   GAMBITS:            '#5c7a5c',
   CHARACTER:          '#7a7a5c',
@@ -93,7 +95,7 @@ const sidebarSections = sections.map(s => ({
 }));
 ---
 
-<RulesLayout sections={sidebarSections} sources={sources}>
+<RulesLayout sections={sidebarSections} sources={sources} currentTab="rules">
   {sections.map(({ source, color, Content, toc }) => (
     <section class="file-section" data-source={source}>
       <Content />

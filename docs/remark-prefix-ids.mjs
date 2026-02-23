@@ -14,17 +14,27 @@ export default function remarkPrefixIds() {
     if (!match) return;
     const prefix = match[1].toLowerCase();
 
+    const seen = new Map();
+
     visit(tree, 'heading', (node) => {
       if (!node.data) node.data = {};
       if (!node.data.hProperties) node.data.hProperties = {};
 
+      let id;
       if (node.data.hProperties.id) {
-        node.data.hProperties.id = `${prefix}-${node.data.hProperties.id}`;
+        id = `${prefix}-${node.data.hProperties.id}`;
       } else {
         const text = getTextContent(node);
         const slug = slugify(text);
-        node.data.hProperties.id = `${prefix}-${slug}`;
+        id = `${prefix}-${slug}`;
       }
+
+      // Deduplicate: append -1, -2, etc. for repeated IDs
+      const count = seen.get(id) || 0;
+      seen.set(id, count + 1);
+      if (count > 0) id = `${id}-${count}`;
+
+      node.data.hProperties.id = id;
 
       if (node.position?.start?.line) {
         node.data.hProperties['data-line'] = node.position.start.line;

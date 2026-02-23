@@ -77,11 +77,11 @@ Common spreads:
 Stats are **permanent.** They don't grow. Your character gets better through Edges, Guard growth (Scars), and narrative change. The numbers you pick now are the numbers you keep.
 
 **Thaumic implications of stats (Positives only):**
-- **Nerve** caps innate shaping dice. A Nerve 1 shaper can only channel 1 die per shaping attempt. Nerve 3 channels 3 dice. Nerve is your channeling bandwidth.
-- **Each thaumatech device has an overcharge stat** (Sharp, Nerve, or Grit). Your stat caps how many bonus dice you can push through that device. A Sharp 3 character overcharges a scanner by up to 3 dice. A Grit 1 character barely pushes a kinetic amp.
-- **Your highest stat** determines your starting Guard (the buffer that absorbs damage). A Grit 3 character has Guard 5 from toughness. A Sharp 3 character has Guard 5 from reflexes. A Nerve 3 character has Guard 5 from threat awareness. Guard also serves as fuel for shaping and overcharging.
+- **Thaumatech rolls use the same stats as everything else.** The fiction determines which stat you roll — Grit to force it, Sharp to place it precisely, Nerve to hold it steady. See `rules/THAUMATECH.md`.
+- **Shaping stat comes from the fiction.** Grit forces energy through. Sharp finds the seam. Nerve holds the pattern. All three stats are valid approaches to shaping.
+- **Your highest stat** determines your starting Guard (the buffer that absorbs damage). A Grit 3 character has Guard 5 from toughness. A Sharp 3 character has Guard 5 from reflexes. A Nerve 3 character has Guard 5 from threat awareness. Guard also serves as the cost currency for shaping and over-spec thaumatech use.
 
-This means stat choices matter differently for every build. Zeroes pick stats for rolls and Guard. Positives also pick stats for which devices they excel with and how much channeling they can handle.
+This means stat choices matter differently for every build. Zeroes pick stats for rolls and Guard. Positives also pick stats for which devices they excel with and which shaping approach they use.
 
 ---
 

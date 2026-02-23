@@ -1,0 +1,1 @@
+../../../../campaigns/the-rig/pc-smorgasbord.md

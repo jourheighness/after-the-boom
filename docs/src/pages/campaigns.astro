@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from 'astro:content';
+import RulesLayout from '../layouts/RulesLayout.astro';
+
+const SOURCE_ORDER = [
+  'PLAYER-REFERENCE',
+  'PC-SMORGASBORD',
+];
+
+const FILE_COLORS: Record<string, string> = {
+  'PLAYER-REFERENCE': '#5c7a6a',
+  'PC-SMORGASBORD':   '#6a5c7a',
+};
+
+const allEntries = await getCollection('campaigns');
+
+const entries = allEntries.sort((a, b) => {
+  const aName = a.id.replace(/\.md$/, '').toUpperCase();
+  const bName = b.id.replace(/\.md$/, '').toUpperCase();
+  const aIdx = SOURCE_ORDER.indexOf(aName);
+  const bIdx = SOURCE_ORDER.indexOf(bName);
+  return (aIdx === -1 ? 999 : aIdx) - (bIdx === -1 ? 999 : bIdx);
+});
+
+interface TocEntry { level: number; id: string; title: string; }
+interface SectionData {
+  source: string;
+  color: string;
+  toc: TocEntry[];
+  Content: any;
+}
+
+const sections: SectionData[] = [];
+
+for (const entry of entries) {
+  const source = entry.id.replace(/\.md$/, '').toUpperCase();
+  const color = FILE_COLORS[source] || '#666';
+  const { Content, headings } = await render(entry);
+
+  const toc: TocEntry[] = headings
+    .filter(h => h.depth >= 2 && h.depth <= 3)
+    .map(h => ({ level: h.depth, id: h.slug, title: h.text }));
+
+  sections.push({ source, color, toc, Content });
+}
+
+const sources = sections.map(s => ({ name: s.source, color: s.color }));
+const sidebarSections = sections.map(s => ({
+  source: s.source,
+  color: s.color,
+  toc: s.toc,
+}));
+---
+
+<RulesLayout sections={sidebarSections} sources={sources} currentTab="campaigns">
+  {sections.map(({ source, color, Content, toc }) => (
+    <section class="file-section" data-source={source}>
+      <Content />
+    </section>
+  ))}
+</RulesLayout>
