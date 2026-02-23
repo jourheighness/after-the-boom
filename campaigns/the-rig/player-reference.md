@@ -51,7 +51,33 @@ Pick 3. Each gives one specific mechanical benefit.
 
 ## Gambits
 
-On an attack roll, any die showing **4+** can be sacrificed instead of counting toward your result. You get a tactical effect (trip, disarm, reposition, etc.).
+On any roll, sacrifice a die showing **4+** for a tactical effect instead of counting it toward your result. One gambit per die. No duplicates. Strong gambits need **8+** (d8+ weapons only).
+
+### Maneuver
+- **Position.** Boon on your next related roll. You set something up.
+- **Escape.** Break contact. Disengage without triggering a response.
+- **Conceal.** Hide yourself, an object, or a trail.
+- **Stall.** Buy time. An impending consequence doesn't resolve yet. You get one action.
+
+### Assess
+- **Gather.** Learn one specific detail beyond what the roll gives you.
+- **Read.** Reveal one true thing about a person's state, intent, or vulnerability.
+- **Scout.** Map the space. Exits, threats, numbers, opportunities.
+
+### Influence
+- **Shift.** An NPC's attitude or stance changes in a direction you describe.
+- **Pressure.** They make a decision now they'd rather defer.
+- **De-escalate.** Reduce hostility one notch. Buy a beat of calm.
+
+### Fight
+- **Shove.** Push target one range band or into an obstacle.
+- **Trip.** Knock prone. Standing costs their Move.
+- **Disarm.** Force weapon drop.
+- **Pin.** Hold in place. They spend an Act to break free.
+- **Create Cover.** Flip table, kick dumpster. +1 Armor vs ranged.
+
+### Improvised
+You can always propose a gambit not on this list. If it costs a die and produces one tactical effect of similar weight, it's probably fair. Examples: blind (throw dust), destroy (smash a panel), distract (feint — ally gets Boon), pull (yank them toward you).
 
 ## Thaumatech (Positives Only)
 
