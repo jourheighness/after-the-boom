@@ -219,10 +219,10 @@ Progression is slow, lateral, and character-driven. After ten sessions, a charac
 **Guard:** 5 (Sharp 3 + 2, highest stat). **Push:** 4. **Armor:** 1 (surplus tactical vest).
 
 **Edges (4):**
-1. Field Medic: Can treat Hurt injuries without medical supplies.
-2. Dead Eye: Boon on ranged attacks at Far range.
-3. Hard to Kill: +1 maximum Guard (Guard becomes 6).
-4. Connected [VA Hospital Network]: Know someone inside. Once per session, call a favor.
+1. Patch Expert (Field Medicine): When using healing consumables on others, they recover 1 additional Guard.
+2. Long-Range Patience: Boon on Far-range attacks when she hasn't moved this round.
+3. Thick Skin: Once per scene, ignore the first point of damage from a single attack.
+4. Old Contacts (custom): Once per session, name someone she served with who's now in a useful position. The GM determines what they can provide.
 
 **Trait:** Thaumic Null. Invisible to thaumic detection, BTC scans, ward triggers, thaumic targeting.
 
@@ -244,8 +244,8 @@ Kara is competent, quiet, and invisible to the systems that track everyone else.
 
 **Edges (3):**
 1. Knack: Metal warms slightly in his hands. Boon when working with metal or detecting metal stress/fatigue. (Obsession: the factory floor, the furnace, how things hold together.)
-2. Thaumatech Certified: Boon operating professional-grade devices.
-3. Union Trained: Boon when negotiating with institutions.
+2. Field Repair (Technician): Once per scene, restore a disabled thaumatech device to working condition.
+3. Union Voice (custom): Boon on Nerve rolls when negotiating with institutions, management, or bureaucrats. He's sat at the table before.
 
 **Gear:** Factory-issue thaumic scanner (thumb plate, reads structural integrity), heavy wrench (1d6), steel-toed boots, union card, coveralls.
 

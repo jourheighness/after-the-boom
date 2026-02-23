@@ -1,6 +1,6 @@
 # MONDAS Gambit Catalog v0.1
 
-All Gambits cost one die showing 4+ (Standard) or 8+ (Strong) sacrificed from an attack roll. The highest remaining die sets damage after any sacrifice. If no die remains, damage is 0. Gambits marked "Strong (8+)" require a die showing 8 or higher. See `rules/CORE.md` for the full Gambit rules.
+All Gambits cost one die showing 4+ (Standard) or 8+ (Strong) sacrificed from a roll. In combat, the highest remaining die sets damage. On any other roll, the highest remaining die is your result. If no die remains, damage is 0 (combat) or the outcome is a consequence (non-combat). Gambits marked "Strong (8+)" require a die showing 8 or higher. See `rules/CORE.md` for the full Gambit rules, including the 15 base Gambits across four categories (Maneuver, Assess, Influence, Fight) and Social Gambit forms.
 
 **Defensive Gambits** are declared on your turn as part of your attack. Sacrifice a die 4+ as normal. The defensive effect persists until the start of your next turn. You're trading offense for protection.
 
@@ -126,7 +126,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Flip the Table.** Overturn a heavy table or counter. Creates instant partial cover for you or an adjacent ally. Close. Requires: table, counter, or heavy furniture.
 
-**Pull the Rug.** Yank a mat, tarp, or loose flooring. Target at Close is tripped without spending a Standard Gambit slot: they fall prone. Close. Requires: loose floor covering beneath target.
+**Pull the Rug.** Yank a mat, tarp, or loose flooring. Target at Close is tripped without spending a Gambit die: they fall prone. Close. Requires: loose floor covering beneath target.
 
 **Gas Line.** Rupture a gas pipe or canister. The area at Near becomes hazardous: any open flame or spark triggers an explosion for 2d6 damage to all at Close of the rupture. Near. Requires: industrial or domestic gas line, Strong (8+).
 
@@ -136,7 +136,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Into Traffic.** Shove a target into an active roadway or moving vehicle path. They take 1d6 damage and must spend an Act to return to the fight. Close. Requires: active road or moving vehicle nearby.
 
-**Revolving Door.** Use a rotating door to trap or spin a target. Target is disoriented: Snag on their next two actions. Close. Requires: revolving door.
+
 
 **Break the Railing.** Destroy a railing, fence, or guardrail. Creates a fall hazard: any target pushed or Shoved into that space falls. Close. Requires: railing or guardrail at an elevation.
 
@@ -242,11 +242,11 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Charge.** Move a full band toward the target as part of this attack. If you moved the full band, gain a Boon on the roll. Take Snag on defensive rolls until your next turn. Requires: you started at Near.
 
-**Crowd Surf.** Move through a group of mooks or bystanders without stopping. None may block you or respond this round. Requires: three or more non-elite enemies or civilians between you and destination.
+
 
 **Wall Push.** Use a wall, vehicle, or solid surface behind the target to pin them in place. They cannot reposition this round. Close. Requires: solid surface directly behind target.
 
-**Elevator Drop.** Attack from directly above, using a drop or falling object. Gain a Boon and the target cannot avoid the attack. Requires: elevation directly above target, Strong (8+).
+
 
 **Scatter.** Force a group of mooks to spread apart. Up to three mooks at Near must move one band away from each other or from you. They cannot attack this round. Near. Requires: Strong (8+).
 
@@ -326,7 +326,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **False Tell.** You make a deliberate shaping gesture you have no intention of following through on; all non-Mundane enemies at Close flinch and lose a step of positioning. Close. Requires: you are at least Knack on the thaumic spectrum.
 
-**Predator Patience.** Act replacement. You do not attack this round. Instead, the weight of your silent attention forces the target to make a Nerve save or take a Snag on their next action. Close.
+
 
 **Berserker Rush.** You scream and charge without breaking stride; mooks at Close scatter or freeze and must make a Nerve save before they can engage you. Close. Requires: you moved this round.
 
@@ -384,7 +384,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Feedback Loop.** The target's next thaumatech use deals 1d4 damage to them as the frequencies conflict. Near. Requires: thaumatech weapon.
 
-**Resonance Spike.** You hit the target at a frequency that makes their next shaping or device use cost 1 additional Guard. Near. Requires: thaumatech weapon or innate shaping.
+**Discharge Spike.** You hit the target at a frequency that makes their next shaping or device use cost 1 additional Guard. Near. Requires: thaumatech weapon or innate shaping.
 
 **Overcharge Burst.** You push your device past its rated output; spend 1 Guard and deal +2 damage on this hit. The device takes visible strain and may need a cooldown. Close/Near. Requires: thaumatech weapon.
 
@@ -402,7 +402,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Scanner Ping.** You read the target's thaumic signature on hit and learn their current Guard value and highest Harm level. Near. Requires: thaumatech weapon with sensor capability.
 
-**Resonance Lock.** The target cannot activate or use thaumatech devices for one round; the lock disrupts the contact plate interface. Near. Requires: thaumatech weapon. Strong Gambit only.
+**Signal Lock.** The target cannot activate or use thaumatech devices for one round; the lock disrupts the contact plate interface. Near. Requires: thaumatech weapon. Strong Gambit only.
 
 **Cascade Failure.** If the target is carrying two or more thaumatech devices, you disable all of them for one round simultaneously. Near. Requires: thaumatech weapon. Strong Gambit only, Threat 0-1 only.
 
@@ -426,7 +426,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Focus Shatter.** You hit the object the target uses to anchor their shaping; they cannot use innate shaping until they recover composure (one full round without acting). Close. Requires: innate shaping or thaumatech weapon, target has an identifiable focus object.
 
-**Ward Burn.** Act replacement. You pour raw shaping into a thaumic ward and dissolve it. The ward is gone for the rest of the scene. Close. Requires: innate shaping (Shaper). Costs 2 Guard (shaping cost, not a die sacrifice). No roll needed.
+**Ward Break.** Act replacement. You pour raw shaping into a thaumic ward and dissolve it. The ward is gone for the rest of the scene. Close. Requires: innate shaping (Shaper). Costs 2 Guard (shaping cost, not a die sacrifice). No roll needed.
 
 **Instinct Channel.** Act replacement. On your turn, spend double Guard dice to shape a defensive ward. If you take damage before your next turn, the shaping effect fires first (absorb, redirect, or counterattack per your obsession scope). Close/Near. Requires: innate shaping (Shaper). Once per combat.
 
@@ -438,7 +438,7 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 ## Improvised Situational Gambits
 
-**Hot Coffee.** You throw a cup of scalding liquid into the target's face; they take a Snag on all Sharp-based actions for one round while they deal with it. Close. Requires: hot beverage or liquid.
+**Hot Coffee.** You throw a cup of scalding liquid into the target's face; they take a Snag on all Sharp-based actions for one round. Close. Requires: hot beverage or liquid.
 
 **Thrown Chair.** You hurl a chair at the target for 1d4 damage and they must make a Grit save or are knocked back one step. Near. Requires: a chair or comparably heavy furniture item.
 
@@ -446,35 +446,15 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 
 **Fire Escape Drop.** You shove or kick something heavy off a fire escape, catwalk, or elevated position onto a target below for 1d8 damage. Near. Requires: elevated position and a heavy loose object.
 
-**Shopping Cart Ram.** You shove a loaded cart into the target for 1d6 damage and push them back one range band. Near. Requires: urban environment, shopping cart or wheeled equipment dolly.
-
-**Parking Lot Ambush.** You use a car as cover and leverage, forcing the target into a pinch between the vehicle and a wall; they cannot reposition this round. Close. Requires: parking lot or similar environment with vehicles.
-
-**Dumpster Push.** You shove a heavy dumpster or industrial bin into the target's path; they must succeed on a Grit save or be knocked prone and take 1d6 damage. Close. Requires: dumpster or comparable heavy container.
-
-**Fixture Drop.** You cut, shoot, or otherwise release an overhead light fixture, duct section, or ceiling panel onto a target below for 1d8 to all at Close of the drop point. Near. Requires: a suitable overhead fixture and a way to release it.
+**Fixture Drop.** You release an overhead light fixture, duct section, or ceiling panel onto a target below for 1d8 to all at Close of the drop point. Near. Requires: a suitable overhead fixture and a way to release it.
 
 **Sprinkler Activation.** You trigger the fire suppression system; everything electronic or thaumatech at Close takes a Snag for the rest of the scene as contacts corrode. Close. Requires: visible sprinkler heads and a way to trigger them.
-
-**Jukebox Smash.** You shove someone into or through the jukebox; they take 1d6 damage from the impact and glass, and the noise temporarily drowns out coordination. Close. Requires: a jukebox or similarly-sized appliance, bar environment.
-
-**Pool Cue Snap.** You break a pool cue across a hard edge and now have two shorter improvised weapons; you may attack twice this round for 1d4 each, Close only. Close. Requires: pool cue, bar environment.
-
-**Bar Slide.** You slide across a bar top to reach a target on the other side without provoking a response; you arrive at Close and may immediately attack. Close. Requires: bar or counter surface, bar environment.
 
 **Glass Shower.** You break a display case, window, or glass partition onto the target; they take 1d4 damage and have a Snag on movement (broken glass underfoot) for one round. Close. Requires: a glass fixture in the immediate area.
 
 **Cable Whip.** You grab a power cable, extension cord, or industrial hose and use it as a whip; 1d4 damage at Near, and the target is off-balance (Snag on their next Grit action). Near. Requires: a cable, cord, or hose of appropriate length.
 
-**Can Spray.** You shake a can of paint, soda, or pressurized liquid and spray it at the target's face; they take a Snag on all sight-based actions for one round. Close. Requires: pressurized can or bottle.
-
-**Book Throw.** You hurl a heavy reference book or binder at the target as a distraction; they take a Snag on their next action. Near. Requires: office or library environment, heavy book or binder.
-
-**Escalator Advantage.** You fight from a moving escalator or stairwell, using the height change for leverage; gain a Boon on your next attack against a target on the lower end. Close. Requires: escalator or stairwell environment.
-
-**Supermarket Sweep.** You knock over a shelving unit or display rack in a chain; it knocks targets down and blocks movement through that path. Near. Requires: retail or warehouse environment with freestanding shelving.
-
-**Phone Cord Strangle.** You grab a coiled phone cord and use it as an improvised garrote; pin the target at Close and deal 1d4 damage per round they remain pinned. Close. Requires: office environment, corded phone.
+**Shelving Collapse.** You knock over a shelving unit, display rack, or heavy container into the target's path; they must succeed on a Grit save or be knocked prone and take 1d6 damage. Near. Requires: freestanding heavy furniture or equipment.
 
 ---
 
@@ -503,6 +483,56 @@ Gambits are not a menu you memorize. They're a toolbox. If a player describes a 
 **Collar Grab.** You grab the target by their collar or lapel and haul them into a clinch; neither of you can leave Close range this round. Breaking free requires a Grit save on your turn (failure: you stay clinched, wasting your Move). Close. Requires: your hand is free.
 
 **Fake Surrender.** You drop your weapon, raise your hands, and say something conciliatory; when the target lowers their guard, you attack with whatever you have left, dealing damage with a Boon. Close. This works exactly once ever per campaign against the same person, and NPCs remember.
+
+### Social Gambits
+
+Social Gambits are named instances of base Influence, Assess, and Maneuver Gambits used in conversation. When making a social roll, sacrifice a die showing 4+ for a tactical effect. See `rules/CORE.md` for the 8 core social forms and their category mappings.
+
+**Negotiate.** Both sides concede a point. You choose what you give up; the GM chooses what you gain.
+- *Binding Terms.* **(Strong)** The agreement holds weight. Breaking it costs the violator something concrete: reputation, leverage, or a favor owed.
+
+**Intimidate.** Target backs down on one specific demand or line of action. They resent it.
+- *Buckle.* **(Strong)** Target folds entirely. They gain the Shaken condition for the rest of the scene.
+
+**Deceive.** Plant a single false belief. It holds until contradicted by direct evidence.
+- *Deep Cover.* **(Strong)** The lie layers in. Even when confronted with weak evidence, the target rationalizes it away. Only undeniable proof breaks it.
+
+**Persuade.** Target acts against their immediate interest on one specific point. They need a reason, and you just gave them one.
+- *True Believer.* **(Strong)** Target commits fully. They'll advocate your position to others without further convincing.
+
+**Redirect.** Shift blame or attention to another person or topic. The room follows your lead for the moment.
+- *Scapegoat.* **(Strong)** The redirect sticks. The new target must deal with the scrutiny before anyone circles back to you.
+
+**Expose.** Reveal a truth in front of witnesses, forcing the target to respond publicly. They get Snag on their next social roll as they scramble.
+- *On the Record.* **(Strong)** The revelation can't be walked back. The target's reputation takes a concrete hit: lose a contact, draw official attention, or burn a cover story.
+
+**De-Escalate.** Dial a hostile situation down one notch. Nobody reaches for anything. Buys one exchange of calm dialogue.
+- *Common Ground.* **(Strong)** Hostility drains from the scene. Combatants lower weapons, shouting stops. A new approach becomes possible.
+
+**Stonewall.** Shut down one line of questioning. The interrogator gets nothing and must change tack or give up.
+- *Dead End.* **(Strong)** You lock the topic entirely. The questioner gets Snag on all further attempts to revisit it this scene.
+
+### Vehicle Pursuit Gambits
+
+For chase scenes. Sacrifice a die showing 4+ from a driving roll (usually Grit or Sharp).
+
+**PIT Maneuver.** Clip the target's rear quarter. They lose control for a moment: Snag on their next driving roll. Near.
+- *Full Spin.* **(Strong)** Target vehicle spins out completely. They lose their next turn recovering. Near.
+
+**Ram.** Slam your vehicle into the target. Both vehicles take damage (GM sets severity by speed). Close.
+- *Wreck.* **(Strong)** Target vehicle is disabled. Yours takes damage too, but you're still moving. Close.
+
+**Bootleg Turn.** Pull a 180 at speed. Reverse your direction instantly, no lost momentum.
+- *Head-On.* **(Strong)** Complete the turn and immediately close distance on a pursuer. Your next action against them gets Boon.
+
+**Use Traffic.** Thread through civilian vehicles to break line of sight or force pursuers into bad choices. Near.
+- *Gridlock.* **(Strong)** You slip through clean. Pursuers hit a bottleneck: they lose a full turn navigating it or risk a crash.
+
+**Shortcut.** Cut through a side street, lot, or alley. Gain one range band on your target.
+- *Lost Them.* **(Strong)** You vanish from pursuit entirely. Pursuers must make a Sharp roll to reacquire or lose you for the scene.
+
+**Brake Check.** Slam the brakes. The vehicle behind must react: swerve (Snag next roll) or rear-end you (both take damage). Close.
+- *Pileup.* **(Strong)** The pursuer and at least one other nearby vehicle collide. Multiple pursuers are stalled for a full turn. Close.
 
 ---
 
@@ -565,14 +595,16 @@ You don't need to find your Gambit in the catalog. The catalog exists so you hav
 | Weapon-Specific (Sidearm) | 4 |
 | Weapon-Specific (Thrown) | 4 |
 | Weapon-Specific (Slow) | 2 |
-| Environmental | 24 |
+| Environmental | 23 |
 | Defensive | 20 |
-| Movement | 19 |
+| Movement | 17 |
 | Control | 20 |
-| Psychological | 15 |
+| Psychological | 14 |
 | Team | 15 |
 | Thaumic Combat (Thaumatech) | 12 |
 | Thaumic Combat (Innate Shaping) | 8 |
-| Improvised Situational | 19 |
+| Improvised Situational | 9 |
 | Dirty Fighting | 12 |
-| **Total** | **201** |
+| Social | 8 |
+| Vehicle Pursuit | 6 |
+| **Total** | **200** |

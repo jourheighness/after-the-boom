@@ -1,667 +1,460 @@
-# MONDAS Edge Catalog v0.1
+# MONDAS Edge Design Principles
 
-## In Two Minutes
-
-Edges are the things that make your character yours. Each Edge gives one specific mechanical benefit: a Boon in certain situations, a new action, a resource trade, or a narrative capability. One Edge, one sentence, one trigger.
-
-Characters start with **3 Edges** (positives) or **4 Edges** (zeroes). Edges are gained through play, roughly 1 every 2-3 sessions. See `rules/CHARACTER.md` for allocation rules and the Edge table by thaumic tier.
-
-**Three archetypes:**
-- **Unlock:** "You can now do X" (opens a new action)
-- **Situational Boon:** "Boon when [specific trigger]" (improves an existing action)
-- **Resource trade:** "Spend X to get Y" (Push for effect, Guard for power)
-
-Players should propose custom Edges. The catalog below is a starting point, not a cage. See **Build Your Own** at the end of this document for how.
-
-### Progression
-
-Some Edges have **stat gates**: a minimum stat value you need before you can take them. These are marked with tags like `[Requires Grit 3]` or `[Requires Sharp 3]`. You can't take a gated Edge at creation unless your starting stats meet the requirement. As you gain Edges through play, gated options represent the kind of expertise that only comes with an already-strong foundation.
-
-Stats don't grow. But stat gates still matter because they shape your build from the start: a Grit 3 character can take Righteous Strike at session one. A Sharp 3 character can take Flurry. You chose your stats knowing what they'd unlock.
-
-Some Edges also require **prerequisite Edges** (marked with `[Requires: Edge Name]`). You earn the prerequisite through play, then the next tier opens. The Knack > Sensitive > Shaper chain already works this way. These chains give your character a sense of deepening rather than just widening.
-
-The result: early characters feel competent. Later characters feel powerful. A session-20 character with eight Edges, including two or three gated ones, fights differently than a fresh character with three. Not because the numbers are bigger, but because the options are deeper.
+This document defines what Edges are, how they work, and the rules for creating them. The catalog of specific Edges is built from these principles. GMs, players, and LLM assistants creating Edges must follow every rule in this document.
 
 ---
 
-## Combat
+## What an Edge Is
 
-**Interceptor.** When an enemy at Close range turns to flee or move away, you get a free attack. Close only.
+An Edge is one specific thing your character can do that most people can't. One sentence. One trigger. One effect.
 
-**Suppressive Discipline.** When you Suppress (Gambit), the target takes Snag on their next two actions instead of one. Ranged weapon required.
+Every Edge fits one of five shapes:
 
-**Brawler's Instinct.** Boon on unarmed defense rolls. You read a punch better than most read a book.
+- **Unlock:** "You can now do X." Opens an action others don't have.
+- **Situational Boon:** "Boon on [stat] rolls when [specific trigger]." Improves an existing action in a narrow situation.
+- **Resource Trade:** "Spend [cost] to get [benefit]." Guard for power, Push for effect, once-per-scene for reliability.
+- **Gambit Extension:** Modifies an existing base Gambit. Changes its trigger, effect, or threshold in a specific fictional context. The base Gambit must be named. One modification per Edge.
+- **New Gambit:** Adds a Gambit that doesn't exist on the base list. Follows all Gambit rules (die cost, resistance). Only available to characters with this Edge.
 
-**Knife Work.** With a Subtle weapon at Close range, your Gambits count as one threat level higher for resistance purposes. [Requires Sharp 3]
+If an Edge doesn't fit one of these shapes, it isn't an Edge. Rewrite it until it does.
 
-**Heavy Handler.** Boon on attack rolls with Heavy or Devastating weapons when you haven't moved this round. You let the weight do the work, but you have to plant your feet. [Requires Grit 3]
-
-**Point-Blank Specialist.** When you attack with a Ranged-property weapon at Close range, the Snag from the Ranged property is canceled. You've practiced shooting in rooms that were too small to miss in.
-
-**Pistol Discipline.** Boon on attacks made with a Sidearm when you have no other weapon drawn. One gun, both hands, full attention.
-
-**Long-Range Patience.** Boon on Far-range attacks when you haven't moved this round. You hold still. Most people can't.
-
-**Dual Carry.** You can wield two Sidearms without the defense Snag that dual wielding normally imposes. You still roll both weapons' dice and allocate freely.
-
-**Improvised Weapons.** Boon on attacks with chairs, bottles, pipes, or whatever isn't meant to be a weapon. You grew up in rooms full of them.
-
-**Counter-Puncher.** When an enemy misses you at Close range, you may immediately make an unarmed attack as a free action. Once per round. [Requires Sharp 3]
-
-**Grappler.** When you establish a hold on an enemy, they take Snag on all rolls to break free. You've trained for this specific problem.
-
-**Ground Fighter.** No Snag on attack rolls while prone. Most people can't fight from the floor. You can.
-
-**Riot Control.** Boon on defense rolls against attacks from groups of three or more. You learned crowd geometry at a police academy or a union hall.
-
-**Close-Quarters Rifleman.** When you attack with a Long weapon at Close range, you get the reach advantage Boon that Long weapons normally only get at Near. You trained to use the full length even in tight quarters.
-
-**Combat Medic.** Once per scene, spend a Push and a full round to stabilize a Critical (L3) ally, preventing them from worsening. They remain Critical but can act with Push.
-
-**Called Shot.** Spend a Push before attacking. On a success, choose which of the target's carried items breaks, drops, or jams.
-
-**Covering Fire.** When an ally moves through a threatened zone, you may make a ranged attack against the threatening enemy as a free action. This is a normal attack, not a free Gambit. Ranged weapon required.
-
-**Covering Withdrawal.** When you move away from an enemy, allies at your position gain Boon on their next defense roll. You leave a mess behind you.
-
-**Weapon Throw.** You can throw any melee weapon at Near range without the improvised penalty. It deals its normal damage die. Getting it back is your problem.
-
-**Ambush Specialist.** Boon on all attack rolls during the first round of combat when you initiated it from concealment.
-
-**Defensive Fighter.** When you choose to defend rather than attack, you gain Boon on all defense rolls that round and a free Reposition Gambit.
-
-**Breach and Clear.** Boon on the first attack roll made immediately after forcing open a door or entering a confined space. You count the angles before you move.
-
-**Pin Expertise.** When you use the Pin Gambit, the target must spend two actions instead of one to break free.
-
-**Shove Mastery.** When you use the Shove Gambit, the target also loses their next free movement. They hit something. It stays hit.
-
-**Weapon Retention.** Boon on rolls to resist the Disarm Gambit. You hold on. You have reasons.
-
-**Threat Display.** Once per scene, draw a weapon as a free action. The next ally who acts this round gains a Boon on their action. The gesture does the work.
-
-**Sustained Pressure.** Boon on attack rolls against a target you attacked on your immediately previous turn. Lose the Boon if you switch targets or skip a round. [Requires Grit 3]
-
-**Fortifier.** Your Create Cover Gambit produces full cover (+2 Armor vs ranged) instead of partial. You know how to stack furniture, kick a table the right way, make a wall out of nothing. [Requires Grit 3]
-
-**Quick Draw.** Removes the Slow property from one weapon you own. You've drilled the reload until it's muscle memory.
-
-**Ward Breaker.** When attacking a sustained thaumic effect (ward, barrier, shield), your attack counts as a Strong Gambit for the purpose of breaking it. You know where the field is thin.
+Knack Edges follow additional rules beyond the five shapes. See **Knack Edges** below.
 
 ---
 
-## Survival
+## Knack Edges
 
-**Tracker.** You can follow a trail up to 24 hours old through urban or rural environments. The GM will tell you how old a trail is and give you a direction.
+Knacks are not actions. They are senses. The character doesn't activate them. The world registers differently for someone whose mind won't stop circling a particular fixation, and Mondas turns that fixation into perception.
 
-**Forager.** In any non-sterile outdoor environment, you can locate enough food and clean water for two people per day. Takes an hour.
+Every Knack has four components:
 
-**Urban Navigator.** You never get lost in a city. Given a neighborhood name, you know which streets connect to what, where the dead ends are, and where people dump things.
+**The Obsession.** A personal, emotional preoccupation. Not a tactical interest. Not "I want to detect danger." Something like: being watched, things falling apart, what people actually mean. The obsession is what the character can't stop thinking about. It existed before the Knack did. The BTC just gave it teeth.
 
-**Hazmat Awareness.** Boon on rolls to detect or avoid industrial chemical hazards. You know what a drum that smells like almonds means.
+**The Sense.** What the obsession lets them feel. Always passive, always sensory. Temperature shifts, pressure changes, a wrongness in someone's voice, the stress in a load-bearing wall. Knacks produce information. They don't produce force, movement, or direct mechanical advantage.
 
-**Field Surgery.** You can treat Wounded (L2) injuries using only a kit bag and time. Takes a full scene. Cannot treat Critical.
+**The Bleed.** The ambient cost. When the Knack fires, the character's fixation leaks into the environment. A room gets colder. Lights flicker. A conversation pauses for a beat too long. People nearby feel something without knowing what. The bleed is not directed, not functional, not controllable. It's the BTC responding to sustained attention. Sensitives and scanners can read it. Mundane bystanders just feel uneasy.
 
-**Toxin Resistance.** Boon on Grit saves against poisons, alcohol, and inhaled thaumic particulates. Your liver has been through things.
+**The Boon.** When the sensory information is directly relevant to a roll, it grants a Boon. The Boon fires because you know something others don't, not because you're doing something they can't.
 
-**Night Adapted.** No Snag on Sharp rolls from darkness or low light. You learned which flicker means a bulb is dying and which means something is in the way.
+### How Knacks Show Up in Mechanics
 
-**Safe House Sense.** When you need to hide in a city, you can identify one safe location without a roll. Once used, that location becomes compromised if you stay more than a day.
+A Knack fires when its obsession intersects with the fiction. No activation roll, no resource spend.
 
-**Rubble Reading.** Boon on rolls to navigate or find exits in damaged or collapsed structures. You've been inside failing buildings before. You paid attention.
+- **Boon on relevant rolls.** The Knack's trigger defines when. "Boon on detecting deception in face-to-face conversation" fires every time the obsession is in play and a roll happens. GM and player should agree instantly whether the Knack applies.
+- **Free information from the GM.** Some Knacks give the GM a prompt to volunteer information without a roll. "You feel structural weakness in metal when you press your hands against it." The GM tells you the bridge is compromised. No Sharp roll needed. The Knack is the roll.
+- **Bleed as consequence.** The bleed is always present when the Knack fires. It is not optional. A character who uses Gut Meter to read a liar also makes the liar's coffee go cold, or puts a hitch in the fluorescent lighting. The bleed is how magic costs something even when it costs no Guard. People notice. Sensitives notice more. The DPA notices most.
 
-**Scavenge.** Once per session, name a mundane piece of equipment (nothing military grade, nothing digital). The GM tells you where in the current area you might find it.
+### Knack Design Rules
 
-**Frostbite Protocol.** Boon on Grit saves while at L1 Hurt or L2 Wounded. Your body learned to keep working when the weather said stop.
+- **Always ready to fire.** No activation, no cost, no limit. A Knack is part of how the character experiences the world. The capacity is passive. The bleed only happens when the obsession intersects with the fiction.
+- **Obsession is mandatory.** Every Knack names its obsession. The obsession defines scope. A Knack without an obsession has no boundaries and will drift into a general-purpose sensor.
+- **Obsession must be personal.** "Danger" is not an obsession. "Being watched" is. "Healing" is not an obsession. "Not being useless in a crisis" is. The obsession tells you something about the character's interior life, not their utility.
+- **Sensory, not directed.** The mechanical benefit is always informational: a Boon from knowing, or free GM information. The bleed affects the environment but accomplishes nothing the character controls. If the effect changes the world on purpose, it's shaping, not a Knack.
+- **Magic costs.** The bleed is the cost. No Guard, no Push, but the world responds to the character's attention in ways they can't hide. A Knack character in a room full of Sensitives is exposed. A Knack character near a DPA scanner is flagged. The cost is social and political, not mechanical. This is Mondas: the price of power is visibility.
+- **Positive only.** Mundane and Zero characters don't have Knacks. A Knack is the first step on the thaumic spectrum.
+- **Gateway to Sparked.** All Sparked Edges require a Knack Edge. The Knack is depth 1 of the thaumic chain. Taking a Knack is a statement: this character is on the spectrum, even if they never go further.
 
-**Fire Starter.** You can make fire from almost nothing: friction, scrap, chemical reactions, whatever's around. Boon on creating fire in adverse conditions. Wet wood, wind, no matches. Doesn't matter.
+### The Obsession Test
 
-**Escape Route.** When you enter a building, you note the exits without thinking about it. Boon on Sharp rolls to find a way out of an unfamiliar structure under pressure.
+Before finalizing a Knack, ask:
 
-**Strong Swimmer.** Boon on all rolls in water: swimming, diving, holding position in current, underwater search. You don't panic when the ground disappears.
-
-**Immovable.** When an enemy Gambit would move you (Shove, Trip, Pull, knockback), make a Grit check. On a 4+, you don't move. You planted your feet and the physics disagreed.
-
-**Load Bearer.** No Snag penalties from carrying heavy equipment or wearing bulky armor. Years of hauling taught your body to compensate.
-
-**Pain Fuel.** When you take Harm, gain a Boon on your next action. The hit wakes something up. Once per scene.
-
----
-
-## Social
-
-**Honest Face.** Boon on Nerve rolls to lie when you're telling a partial truth. Full lies get nothing.
-
-**Union Card.** Boon when negotiating with any organized labor body. They know their own.
-
-**Cold Read.** When you spend a full minute observing someone, the GM tells you one thing they want and one thing they're afraid of.
-
-**Interrogator.** Boon on Nerve rolls to extract information from an unwilling subject through pressure, not violence. You know how long to let the silence run.
-
-**Command Presence.** When you give a direct order in a crisis, NPCs in earshot who have no faction loyalty against you will follow it unless they roll Nerve. You sound like someone who knows what they're doing. [Requires Nerve 3]
-
-**Street Preacher.** When addressing a crowd in a public place, Boon on Nerve rolls to shift their mood. Works for anger or calm, not specific demands.
-
-**Media Savvy.** Boon on all rolls involving journalists, cameras, or press presence. You know what plays and what doesn't.
-
-**Rumor Mill.** Once per session, ask the GM one question about local gossip. The GM answers honestly but with the accuracy of a neighborhood rumor.
-
-**Bureaucratic Judo.** Boon on Nerve rolls when dealing with any government or institutional official if you arrive with paperwork. Any paperwork. You've learned they respond to the gesture.
-
-**Witness Pressure.** Boon on Nerve rolls to convince someone not to cooperate with an investigation. You don't threaten. You remind them how these things go.
-
-**Therapist's Ear.** When an NPC is in emotional distress and you give them space to talk, the GM tells you what's actually wrong, not what they say is wrong.
-
-**Poker Face.** Boon on Nerve rolls to conceal your reaction to information. You got the news and you kept eating your lunch.
-
-**Bilingual.** You speak a second language fluently, from a list you establish at character creation. Boon on social rolls made in that language with native speakers.
-
-**Sign Language.** You communicate fluently in silent signing with anyone who shares it. No roll required for most communication, and bystanders don't know what you said.
-
-**Code Talk.** Choose a faction or subculture. You know their argot. Boon on social rolls with members when you use it correctly.
-
-**Soft Sell.** Boon on Nerve rolls to convince someone to do something when you're not pressuring them. You make it sound like their idea.
-
-**Hard Sell.** Boon on Nerve rolls to push someone toward a decision right now. They might resent it later. Later isn't your problem.
-
-**Badge Rapport.** Boon on social rolls with active-duty police officers, security guards, or transit workers. You know how to talk to people who spend their days being talked at.
-
-**Displaced Solidarity.** Boon on social rolls with Displaced community members. You've sat at the same tables, eaten the same bad food, waited in the same lines.
-
-**Old Soldier.** Boon on social rolls with veterans of any branch. You share something that doesn't need to be named.
-
-**Diner Regular.** Once per session, you can get the real version of local information from service industry workers without a roll. They've heard everything.
-
-**Name Recognition.** Choose a neighborhood or professional community at character creation. You are known there. NPCs will do you small favors without persuasion rolls.
-
-**Survivor's Gravity.** After you describe something genuinely hard that happened to you, the listener takes Snag on Nerve rolls to dismiss or contradict you for the rest of the scene.
-
-**Courtroom Voice.** Boon on Nerve rolls when making a formal argument in any structured setting: a hearing, a grievance process, a disciplinary board. You know procedure.
-
-**Stage Presence.** Boon on Nerve rolls when performing for an audience: music, comedy, a speech, a sermon. You know how to hold a room and when to let a silence do the work.
+1. Could this obsession exist without the BTC? If no, it's too magical. Obsessions are human. The BTC amplifies them.
+2. Does the obsession tell you something about the character that has nothing to do with combat or investigation? If no, it's tactical, not personal.
+3. Would this person have this fixation even if it never gave them an advantage? If no, it's a mechanic looking for flavor. Start over.
+4. Can you describe the bleed in one sentence without using the word "magic"? If no, the bleed is too spectacular for a Knack.
 
 ---
 
-## Professional
+## Sparked Edges
 
-**Dead Drop.** You maintain hidden caches in the city. Once per session, declare you have a stash nearby with a specific mundane item.
+Sparked is where sensing becomes doing. The character's obsession crosses from perception to expression. Small, deliberate, specific. The fire-fixated Knack who always felt heat in their hands can now transfer a flame from a lighter to their fingertip. The character who felt structural weakness in metal can now feel where to push to make a weld fail.
 
-**Forensic Eye.** Boon on Sharp rolls to read a crime scene, accident site, or area of recent violence. You see what moved and what didn't.
+This is not shaping. Shaping is the full engine: stat rolls with Guard cost in the stakes, scope rules, Break risk. Sparked is one small trick, rooted in the obsession, with real costs attached.
 
-**Wrench Monkey.** Boon on Grit rolls to repair, jury-rig, or sabotage any mechanical or automotive equipment. You know what should move and what shouldn't.
+On Mondas, this is where everything changes. A Knack gets flagged on a scanner. A Sparked character gets a DPA file. People on the street call it "sparked" because that's what it looks like: something caught. The DPA calls it a classification event and starts building a case.
 
-**Electrical Know-How.** You can safely hot-wire, bypass, or rewire electrical systems given access and a few minutes. Thaumatech circuitry is a separate skill.
+Every Sparked Edge has four components:
 
-**Building Trades.** You know the layout logic of industrial buildings: where the load-bearing walls are, where pipes run, where exits are required by code. Boon on navigation rolls in industrial spaces.
+**The Expression.** One small, specific, deliberate use of the obsession. Not a power menu. One thing. The fire Knack lights things. The structural-stress Knack weakens joints. The expression is always narrow, always tied to the obsession, always recognizable as an extension of what the Knack already felt.
 
-**Source Network.** You have three named journalist contacts. Once per session, ask one a question. They'll answer honestly if they can, but answers come with strings.
+**The Tell.** Sparked is where Tells begin. The Tell grows from whatever physical habit the obsession already produced. The zippo tricks became the lighter flick that transfers flame. The habit of pressing hands against walls became the two-palm push that finds the fault line. The Tell is observable, identifiable, and blockable. Take the zippo away and the fire trick stops. This Tell carries forward into Shaper if the character progresses.
 
-**Legal Hold.** You know enough procedural law to delay any arrest, detention, or warrant execution for one scene. You're not a lawyer. You just read the forms.
+**The Cost.** Base expression costs 1 Guard. Small, controlled, reliable. No roll required. Pushing the expression beyond its comfortable scope is a standard roll (stat from fiction) with GM-set stakes, where Guard cost is part of the consequences. See below.
 
-**Bypass Artist.** Boon on Sharp rolls to defeat mechanical locks, alarm systems, or security doors. Electronic security is different. Bring a friend.
+**The Exposure.** The effect is the bleed. There is no separation between doing the thing and being seen doing the thing. A Sparked expression is visible, tangible, and reportable. Every use is a potential DPA classification event. Every witness is a potential report.
 
-**Demo License.** You have (or had) a demolitions certification. Boon on any roll involving controlled explosives or knowing what a detonator is actually attached to.
+### How Sparked Shows Up in Mechanics
 
-**Paramedic Protocol.** When you stabilize a Critical ally in the field, they recover to Wounded (L2) instead of remaining Critical. Requires a full round of uninterrupted work.
+**Base expression: 1 Guard, no roll.** The small controlled trick. Lighting a cigarette from a lighter flame. Chilling a drink. Feeling exactly where the fault line runs. The Tell is visible but the effect is minor. This is the daily-life version of being Sparked.
 
-**Arson Read.** Boon on Sharp rolls to determine how a fire started, where it started, and whether it was set. You know accelerants by their burn pattern.
+**Desperate push: standard roll with stakes.** When the character forces the expression past its comfortable scope, it becomes a standard roll. The stat comes from the fiction: Grit if you're forcing it, Sharp if you're placing it precisely, Nerve if you're holding it together through will. The GM sets consequences before the roll, same as any other stakes declaration.
 
-**Lab Hands.** Boon on Sharp rolls involving chemical identification, synthesis, or contamination assessment. You've worked with things that would frighten most people.
+The GM constructs desperate push stakes using these guidelines:
 
-**Blueprint Memory.** When you have studied the plans for a building, you can navigate it without rolls even in darkness or under duress. Takes ten minutes to study.
+- **Guard cost scales with the consequence tier.** A clean success might cost 2 Guard. A partial might cost 3-4. A consequence might cost the full attempt plus L1 Hurt. The character knows the price range before they roll. They choose whether to gamble.
+- **Physical harm belongs in the consequence tier.** A 1-3 on a desperate push is the character's body objecting to being used as a conduit. Burns, nausea, disorientation, bleeding from the nose. This is where Break foreshadowing lives. Not a Break itself (that's Shaper territory), but the character feels what a Break would be. Their body tells them there is a wall.
+- **The effect can go wrong in scope, not just fail.** The flame burst that catches the curtains. The structural push that drops more of the ceiling than intended. The obsession is not precision-trained at this tier. Desperate push means desperate results.
+- **Exposure scales with the roll.** A full success is visible but controlled. A partial is obvious. A consequence is unmistakable, messy, and the kind of thing that shows up in a DPA incident report with the phrase "uncontrolled thaumic expression."
 
-**Radio Operator.** You can operate any standard civilian or military radio equipment and know which frequencies are monitored, which are jammed, and which are open. Boon on rolls to intercept communications.
+**Example:** A Sparked character with a fire obsession needs to stop a guard. The base expression lights cigarettes. The desperate push is a flame burst to the face.
 
-**Dispatch Logic.** Boon on rolls to interpret patterns in radio traffic, delivery logs, or shift schedules. You know what normal looks like. That makes abnormal obvious.
+GM sets stakes: "You can try it. Clean, it costs 2 Guard and the guard flinches back. Messy, it costs 4 Guard, your hand blisters, and the guard's jacket catches. If it goes wrong, the fire goes where it wants, you take L1 Hurt, and the sprinkler system triggers."
 
-**Library Method.** Given access to records, newspaper archives, or a public library, you can answer almost any factual question about local history, public figures, or published data without a roll. Takes time.
+The player describes how they're doing it. The fiction determines the stat. The consequences were on the table before the dice moved.
 
-**Cartographer's Eye.** Boon on Sharp rolls to produce, read, or correct maps. You can reproduce a rough map of any space you've walked through once.
+**Tell is mandatory.** No Tell, no expression. If the Tell is blocked (object confiscated, hands bound, voice suppressed), the Sparked Edge cannot fire. This is a real vulnerability and an intentional one.
 
-**Amateur Pilot.** You can fly light propeller aircraft. Nothing military, nothing pressurized. If the controls make sense, you can make it work.
+### Sparked Shaping Gambits
 
-**Deck Hand.** Boon on all rolls made aboard watercraft: navigation, maintenance, loading, emergency procedures. You know how things move at sea.
+Becoming Sparked unlocks base shaping Gambits. On a desperate push (standard roll), any die showing 4+ can be sacrificed for a shaping Gambit instead of contributing to the result, same as any other roll.
 
-**Union Steward.** Boon on all rolls related to labor negotiation, grievance filing, or organizing workers. You've read the contract. You've read the other contract too.
+These are the control tools. A Sparked character is learning to manage the fallout of doing something they barely understand.
 
-**Dispatch Network.** Once per session, you can locate any vehicle, delivery, or transfer within the city grid. Someone owes you a call.
+**Base shaping Gambits (unlocked at Sparked):**
 
-**Academic Credential.** You carry institutional legitimacy. Boon on social rolls with universities, hospitals, or government research offices when you present credentials.
+- **Muffle.** Reduce Heat ticks by 1 for this expression. You pulled it inward. The DPA scanner gets static instead of a spike.
+- **Anchor.** The Tell stays subtle. Observers need a Sharp roll to identify it as a thaumic expression instead of a mundane gesture. You made the lighter flick look casual.
+- **Contain.** The bleed stays in your body instead of leaking into the environment. No flickering lights, no temperature drop, no ambient unease. The room stays normal. You feel it instead.
 
-**Quartermaster's Eye.** Boon on rolls to assess, acquire, or substitute equipment for a specific job. You know what's good enough and what will get someone killed.
+These Gambits represent the same trade as combat Gambits: sacrifice outcome quality for operational control. The Sparked character who Muffles their flame burst gets less effect but keeps the Heat clock from ticking. The one who doesn't gets the full flame but the DPA knows about it.
 
-**Scene Reconstruction.** Given five minutes at a location where something happened, the GM tells you one thing about the sequence of events that isn't obvious. You read the room after the room has changed.
+### Sparked Design Rules
 
-**Animal Handler.** Boon on all rolls involving domesticated animals: calming, directing, reading behavior, basic veterinary care. Wild animals are a different conversation.
+- **One expression per Edge.** A Sparked Edge does one thing. The fire Knack lights and heats. It doesn't illuminate, project, or shield. One verb.
+- **Obsession still defines scope.** The expression must be a natural extension of the Knack's obsession. If you can't draw a straight line from the obsession to the expression, it's too broad.
+- **Escalation, not expansion.** Desperate push makes the one expression bigger, not different. More heat, not a different kind of fire. The scope doesn't change. The intensity does.
+- **Tell must be observable and blockable.** Emotional states, internal focus, and unverifiable mental acts are not Tells. The Tell is physical, external, and something an enemy can interfere with.
+- **Costs must hurt.** 1 Guard for base use is a real resource in a system where Guard is your survival buffer. A desperate push at 3-4 Guard approaches Scar territory. The player should feel the weight of spending Guard on expression instead of keeping it for defense.
+- **Requires a Knack Edge.** Sparked is depth 2 of the thaumic chain. The Knack is the foundation. The obsession and bleed already exist. Sparked adds control and cost.
+- **Gateway to Shaper.** All Shaper Edges require a Sparked Edge. The Tell established here carries forward. The Guard economy established here scales up. A character who has been Sparked and pushed desperately knows what it costs. When they become a Shaper and the stakes get existential, they have context for why Break is terrifying.
 
-**Shade Tree Mechanic.** Boon on Grit rolls to repair any vehicle with improvised tools and no manual. It won't be pretty, but it'll move.
+### The Expression Test
 
----
+Before finalizing a Sparked Edge, ask:
 
-## Criminal
-
-**Pickpocket.** Boon on Sharp rolls to lift items from a person without their awareness. Crowds help. Eye contact hurts.
-
-**Safecracker.** Boon on Sharp rolls to open mechanical combination locks, safes, and secure drawers. Electronic locks are out of scope.
-
-**Fence.** You know where to sell things that shouldn't be sold and how to get a fair price. Once per session, convert a stolen or sensitive item into cash or a traded favor.
-
-**Forger.** Boon on Sharp rolls to create convincing false documents: IDs, work orders, credentials, transit passes. You've studied what "official" looks like.
-
-**Smuggler's Route.** You know three established routes for moving cargo without inspection. Each route has a known risk. The GM knows what it is.
-
-**Disguise Craft.** Boon on Nerve rolls to pass as someone you're not when you've had at least ten minutes to prepare. Improvised disguises get no Boon.
-
-**Tail Shaker.** Boon on Sharp rolls to detect surveillance and on Grit rolls to lose a tail on foot or in traffic. You check your mirror. You check it again.
-
-**Getaway Driver.** Boon on all rolls made while driving a vehicle under pressure: pursuit, evasion, threading obstacles. You've done this before and gotten away.
-
-**Inside Man.** Choose one type of institution at character creation: hospital, police station, factory, transit hub. You have an unspecified contact there who will look the other way once per session.
-
-**Evidence Clean.** Boon on Sharp rolls to remove, plant, or alter physical evidence at a scene. Takes time. Hurried work leaves traces.
-
-**Wire Knowledge.** Boon on Sharp rolls to tap a phone line, trace a call, or identify surveillance equipment. You know what a bump in the wire means.
-
-**Black Market Access.** Once per session, you can locate a specific illegal item for purchase. Availability and price are the GM's call.
-
-**Cat Burglar.** Boon on Grit rolls for climbing, moving silently, or crossing rooftops. You move like someone who prefers not to use the door.
-
-**Con Artist.** Boon on Nerve rolls when running a sustained deception over multiple scenes. The longer it runs, the better you get.
-
-**Chop Shop.** You can strip and reassemble a vehicle for parts or resale. Takes a few hours and a private space. The result is untraceable. The timeline is the GM's problem.
+1. Is the expression one verb? "Light," "weaken," "chill," "feel." If it takes a compound sentence to describe, it's too broad.
+2. Does the Tell grow naturally from the Knack's obsession habit? If you have to invent a new behavior, the connection is forced.
+3. At 1 Guard, does the base expression feel like a small, controlled thing? If it feels powerful at base cost, the floor is too high.
+4. At 4 Guard desperate push, does it feel like the character is hurting themselves to do this? If it feels routine, the ceiling is too low.
+5. Would the DPA care? If someone does this in a diner and a field agent is two tables over, does a report get written? If no, it's still a Knack, not a Sparked expression.
 
 ---
 
-## Connections
+## Shaper Edges
 
-**Owed a Favor [faction].** Name a faction. Once per session, call in a favor. The favor is repaid and crossed off. You can earn new favors through play.
+Shapers are what happens when a Sparked character hits the wall and goes through it. The small trick isn't small anymore. The obsession that lit a cigarette can now fill a room with heat. The hands that felt a fault line can now open one.
 
-**Somebody's Cousin.** You're related to half the neighborhood. Boon on Nerve rolls to get information from locals in your home district.
+This is full innate shaping. The mechanical engine is the same standard roll used everywhere else: describe your approach, fiction determines the stat, GM sets stakes with Guard cost in the consequences. What makes shaping different is the Tell, the Heat, the escalated stakes, and the scope of what's possible. The rules for the shaping fiction (obsession, scope, expansion, thaumic bargains) live in `rules/MAGIC.md`. Shaper Edges modify how the engine works for a specific character.
 
-**Police Contact.** You have a working relationship with a named officer. Once per session, ask them one question about an open investigation. They answer if it won't cost them their badge.
+### The Gate: Break
 
-**Underworld Standing.** In criminal circles, your name means something. Boon on social rolls with people who operate outside the law when your reputation would be known.
+You cannot take Shaper Edges through normal progression. The gate is narrative, not mechanical.
 
-**Brotherhood Bond.** Choose a union. Members of that union will vouch for you in disputes, offer you a floor to sleep on, and share what they know. Boon on social rolls with members.
+When a Sparked character Breaks (pushes a desperate expression past the point their body can handle, takes the consequences, goes unconscious, receives a Thaumic Mark), the door opens. The character receives the temporary Edge **Untapped Potential**.
 
-**Military Buddy Network.** You can reach three former service members with relevant skills. Once per session, one of them can provide information, a safe location, or a skill check on your behalf.
+**Untapped Potential** sits on the character sheet as a pending decision. It has mechanical teeth: Boon on Nerve saves against thaumic effects while active. It represents the ceiling being gone. The character can feel it. They haven't decided what to do about it.
 
-**Journalist Source.** A working journalist trusts you. Once per session, you can give them information and request they publish or bury something in return. They won't burn their career for you.
+**Resolution has two paths:**
 
-**DPA Insider.** You have a contact inside the DPA, at a low classification level. Once per session, they can confirm or deny whether a name is in the system.
+**Walk through.** A narrative trigger occurs: a moment of extreme need, a situation where the expression does something it shouldn't be able to, or simply the character choosing to reach for more. The player replaces Untapped Potential with a Shaper Edge. This can happen mid-scene. The table watches the character become something new.
 
-**Clergy Network.** You have standing with a religious or spiritual community. Boon on social rolls within that community, and you can always find somewhere to sleep safely.
+**Close the door.** The character decides they never want to go there again. The player replaces Untapped Potential with a refusal Edge. The Break scared them enough. They stay Sparked, they stay careful, and the refusal becomes part of who they are.
 
-**Hospital Contact.** A nurse or orderly at a named hospital will help you off the books: information about admissions, a quiet room, access to the supply closet. Once per session.
+If the player doesn't resolve Untapped Potential within a few sessions, the GM should create fiction that tests the question. Not forcing the choice. Making it harder to avoid.
 
-**Dockworker Web.** You know people who move things: cargo, people, information. Once per session, find out what came in or went out through a port or rail yard in the past week.
+If a player passes on Untapped Potential and it resolves into a refusal or simply fades, they would need a new narrative trigger to reopen the door: another moment where the expression exceeds its scope, a crisis that strips away the careful limits. The cleanest window is right after the Break, when the change is fresh. Every window after that is harder to find.
 
-**Displaced Community Ties.** You are trusted by the Displaced community in your city. Boon on social rolls within that community. They will hide you before they'll talk to anyone official.
+### Refusal Edges
 
-**Old Money Access.** You know someone with family money and old connections. Once per session, they can open a door, make a call, or write a check, but they'll remind you of it.
+A character who Breaks and chooses not to become a Shaper takes a refusal Edge. This is a permanent Edge that occupies a real slot. The refusal is not nothing. It's a choice with weight.
 
-**Bar Regular.** Choose a bar. The staff knows you, the regulars know you, and you know when something is different. Boon on information-gathering rolls conducted there.
+Refusal Edges follow the Loss axis. What was taken is something the character took from themselves. The mechanical benefit should reflect what the character gained by closing the door: stability, resistance, control. The cost is permanent: Shaper Edges are no longer available.
 
-**Debt Collector's List.** Someone powerful owes you. You haven't called it in yet. Once per campaign (not per session), you can collect: one significant favor, no questions asked. Cross this Edge off when used.
+Design guidance for refusal Edges:
+
+- The benefit should be defensive or stabilizing, not offensive. The character chose safety over power.
+- The benefit should be strong enough that the choice feels real, not like a consolation prize. A player who takes a refusal Edge should feel they got something meaningful, not that they missed out.
+- The fiction should be specific. Not "you chose not to shape." Something like: "you felt the fire fill the room and you pulled it back inside and it stayed there, and now nothing thaumic gets through the walls you built."
+
+### The Shaping Roll
+
+Shaping uses the standard roll. No separate dice engine. No pool-purchasing mechanic. The stat determines the pool, the same way it does for picking a lock or talking down a guard.
+
+1. **Declare effect + Tell.** Must be within obsession scope. If Tell is blocked, you can't shape.
+2. **GM sets stakes.** Guard cost is part of the consequences, not a prepaid resource. The GM sizes the cost based on the scale of the effect:
+   - **6:** It works. Costs what you expected (GM states the base Guard cost).
+   - **4-5:** It works, but the Guard cost is higher than planned. Or the effect is reduced at the expected cost. Thaumic side effects in the partial.
+   - **1-3:** The Guard cost hits and the effect doesn't. Or the effect goes wrong. Or both. Physical harm from channeling backlash.
+3. **Roll your stat.** Fiction determines which. Grit forces energy through. Sharp finds the seam. Nerve holds the pattern. Same pool as any other roll. Boons and Snags apply normally.
+4. **Sacrifice dice for Gambits.** Any die showing 4+ can be sacrificed for a shaping Gambit instead of contributing to the result. Same Gambit chassis as combat. The shaper's tactical layer.
+
+This means a shaper with Sharp 3 rolls 3d6 to precisely reshape a lock, same as they'd roll 3d6 to pick one. The difference: it costs Guard (in the stakes), it requires a Tell, it ticks Heat, and the GM always includes thaumic side effects in the consequences. The magic is in the cost structure, not a separate mechanic.
+
+### Shaping Gambits
+
+Shapers unlock the full shaping Gambit list, which builds on the base Gambits unlocked at Sparked (Muffle, Anchor, Contain).
+
+**Full shaping Gambits (unlocked at Shaper, in addition to Sparked base):**
+
+- **Thread.** Sustain a previous shaping effect for one more round without spending your Act. You wove it into the current shaping.
+- **Redirect.** On a partial or consequence, choose where the thaumic side effect goes. It still happens, but you aim it. The backfire hits the empty hallway, not your ally.
+- **Siphon.** Recover 1 Guard from the ambient thaumic field. Only works in elevated-BTC environments. You took some back.
+- **Veil.** The shaping effect is invisible to mundane observers. Sensitives and scanners still detect it. You shaped the perception alongside the effect.
+- **Split.** Divide the effect across two targets at reduced intensity. One die, two outcomes, neither at full strength.
+
+**Shaper Edges can extend or add to this list.** A character-specific shaping Gambit that reflects their obsession, their Tell, their particular relationship to the thaumic. Examples:
+
+- A fire shaper's Edge might grant **Banked Heat**: sacrifice a die to store the energy. Release it next round as a free Boon on a fire-related roll. The ember stays in their hand.
+- A structural shaper's Edge might extend **Redirect** to work on incoming physical attacks, not just thaumic side effects. They redirect the force through the floor.
+- A perception shaper's Edge might grant **Echo**: sacrifice a die to sense everything within Close range for one round, no line of sight required. The obsession maps the space.
+
+The principle: combat Gambits change the battlefield. Shaping Gambits change the cost. The weapon user trades damage for tactical effects. The shaper trades effect quality for operational survival. Both are interesting. Both emerge from the same system.
+
+### What Shaper Edges Do
+
+Shaper Edges don't grant shaping. The Break and the character's existing obsession grant shaping. Shaper Edges modify how the engine works for this specific character.
+
+The modifications follow the same five Edge shapes:
+
+- **Unlock:** "You can now shape in a way others can't." (Adjacent-scope access, sustained shaping without Act cost, shaping under conditions that would normally impose Snag.)
+- **Situational Boon:** "Boon on shaping rolls when [specific trigger]." (Sustained focus under pressure, familiar-scope precision.)
+- **Resource Trade:** "Spend [cost] to get [shaping benefit]." (Recover Guard after a clean shaping, reduce scope penalty.)
+- **Gambit Extension:** Modifies a base shaping Gambit. Changes trigger, effect, or threshold based on the character's obsession.
+- **New Gambit:** Adds a shaping Gambit unique to this character. Follows all Gambit rules. Only available to characters with this Edge.
+
+### Shaper Design Rules
+
+- **The Tell carries forward.** The Tell established at the Sparked tier is the same Tell at the Shaper tier. It doesn't change, it doesn't upgrade. The zippo is still the zippo. The character's relationship to it deepens, but the object and the gesture remain.
+- **Stat from fiction.** Shaping rolls use the stat that matches the approach, same as any other roll in the system. The GM asks "how are you doing this?" and the fiction answers. Grit shapers force energy through like bending steel. Nerve shapers hold the pattern in their mind. Sharp shapers find the seam and place the effect precisely. The stat determines the pool. Guard is the cost in the stakes. Every stat build pays the same price from the same survival buffer.
+- **Guard cost is in the stakes, not prepaid.** The GM sets the Guard cost as part of the consequence tiers before the roll. Success costs what you expected. Partial costs more. Consequence costs and fails. This is the same framework as every other roll, with Guard as a shaping-specific consequence.
+- **Break risk is real.** Shaper Edges that reduce cost, expand scope, or increase power should never eliminate Break risk. Break is the price of the ceiling being gone. Edges that make shaping safer should make it marginally safer, not safe.
+- **Obsession is still scope.** The Knack obsession defines what the character shapes. A fire-obsessed Shaper shapes fire, heat, combustion. Not ice. Not force. Not minds. Scope expansion Edges (like adjacent-scope access) stretch the boundary. They don't erase it.
+- **Shaper Edges require a Sparked Edge.** This is the chain: Knack > Sparked > Break (narrative gate) > Shaper. No shortcuts.
+- **Rare by design.** Most characters on Mondas never reach Shaper. Most people are Mundane or Knack. Sparked is uncommon. Shaper is rare enough that the DPA considers each one a case file. The catalog should reflect this: fewer Shaper Edges than any other category.
+- **Scale tiers bound ambition.** Every shaping effect falls into a tier: Trivial (1 Guard, no roll), Moderate (standard stakes), Ambitious (steep stakes, side effects on success), Extreme (death on the table). Beyond all four: Break. The GM names the tier before setting stakes. Shaper Edges should never collapse these tiers. An Edge that makes Extreme effects feel Moderate has broken the cost structure.
+- **Break is the only path past scope.** Effects outside the obsession's core and adjacent zones are not possible through normal shaping. Only Break transcends scope. Shaper Edges that expand scope should widen the adjacent zone, not eliminate the boundary. See `rules/DESIGN.md` for GM guidance on adjudicating scope.
+
+### The Shaper Test
+
+Before finalizing a Shaper Edge, ask:
+
+1. Does this modify the shaping engine, or does it grant a new standalone ability? If standalone, it's not a Shaper Edge. It might be a Sparked Edge or a general Edge.
+2. Does this make shaping safer? If yes, by how much? If the answer is "significantly," the Edge undermines Break risk and needs to be weaker.
+3. Is the modification tied to the obsession, or is it generic? "Boon on fire shaping under pressure" is tied. "Boon on all shaping" is generic and too broad.
+4. Would a Sparked character who never Broke feel locked out of something essential? If yes, the Edge is too powerful. Sparked characters should feel complete. Shapers should feel dangerous, not necessary.
 
 ---
 
-## Physical
+## No Stat Gates
 
-**Iron Gut.** You don't get sick from bad food, bad water, or minor chemical exposure. Boon on resisting ingested hazards and disease.
+No Edge requires a minimum stat value. Stats are fixed at creation (D18). A stat gate is a permanent exclusion based on a number the player chose before they knew who the character would become. It creates a hidden class system.
 
-**Dead Weight.** When someone tries to move, carry, or restrain you against your will, they get a Snag.
-
-**Cat Landing.** Falls of two stories or less don't cost you Guard. Falls of three or four stories cost half the normal Guard loss (GM sets base).
-
-**Marathon Legs.** You can run at sustained pace for hours without accumulating fatigue penalties. Boon on extended chase and endurance rolls.
-
-**Pain Gate.** You can keep functioning through L1 Hurt without the die penalty. The injury is still there. You just don't slow down. [Requires Grit 3]
-
-**Light Sleeper.** You wake at the first meaningful sound in your environment. You are never surprised while sleeping.
-
-**Steady Hands.** Your hands don't shake. Boon on fine manual work under pressure: surgery, lockpicking, precise assembly.
-
-**Hollow Breathing.** You control your breathing well enough to appear calm under inspection and hold it for three minutes without strain. Boon on Nerve rolls to appear unaffected when you are not.
-
-**Contortionist.** You can fit through any opening wide enough for your head. Boon on escaping restraints and squeezing through tight spaces.
-
-**Fast Clotter.** Your injuries stabilize quickly. You recover from L1 Hurt after a short rest (ten minutes) rather than needing a full scene.
-
-**Grip Strength.** You can hang from one hand indefinitely and climbing never costs extra actions. Boon when strength of grip is the determining factor.
-
-**Cold Blooded.** You regulate body temperature better than most. Boon on resisting extreme heat and cold environments.
-
-**Thick Skin.** Your body absorbs minor impacts. Once per scene, ignore the first point of damage from a single attack before it hits Guard.
-
-**Low Baseline.** Your body's thaumic signature is unusually quiet. DPA scanners and Sensitive characters have Snag when trying to read your biology at range.
+Stats shape odds, not options. A character with Grit 1 can attempt anything a Grit 4 character can. They're worse at it. That's what stats do. Edges don't get to override that principle by locking doors stats already leave open.
 
 ---
 
-## Mental
+## Progression Through Chains
 
-**Eidetic Page.** You remember anything you've read verbatim. Boon when recalling written information you've personally seen.
+Edges can require other Edges as prerequisites. This is the only progression mechanic in the Edge system.
 
-**Speed Reader.** You process text at roughly four times normal speed. Boon on research rolls when written material is the source and time is the constraint.
+**Rules:**
 
-**Pattern Lock.** When you see a code, cipher, or repeated sequence, you feel the structure click. Boon on cryptographic and pattern analysis.
+- Maximum **one prerequisite** per Edge.
+- Maximum **chain depth of three** (starter, middle, payoff).
+- A chain must be named and listed as a set so players can see the full arc before committing.
 
-**Mental Arithmetic.** You perform complex calculations without tools. Boon on Sharp rolls involving numbers, odds, or financial analysis under time pressure.
+**Chain format:**
 
-**Calm Core.** When everyone else is losing their heads, you don't. Boon on Nerve rolls when the scene is chaotic, loud, or panicked. [Requires Nerve 3]
+> ### [Chain Name]
+> *[Cluster or category tag]. Three Edges. Depth 1, 2, 3.*
+> [One sentence: who the character is becoming, not what they can do.]
+>
+> **Starter Edge.** One sentence. One trigger. Effect.
+> **Middle Edge.** *(Requires: Starter Edge)* One sentence. One trigger. Effect.
+> **Payoff Edge.** *(Requires: Middle Edge)* One sentence. One trigger. Effect.
 
-**Compartmentalization.** You can set an emotional experience aside and function normally. It has to go somewhere eventually, but not right now.
-
-**Interrogation Wall.** You resist manipulation, coercion, and psychological pressure better than most. Boon when someone is actively trying to break your composure or extract information.
-
-**Spatial Map.** You build accurate mental maps of spaces you've moved through. You don't get lost in buildings, tunnels, or underground spaces.
-
-**Rapid Assessment.** You can read a room or scene in seconds. Boon on first-look analysis of unfamiliar situations.
-
-**Lucid Control.** You remain partially aware during dreams and can sometimes steer them. Boon when thaumic or Sensitive interference operates through the dream state.
-
-**Photographic Face.** You never forget a face. Boon on identifying people you've met before, even years later, even in disguise.
-
-**Multi-track.** You can hold two separate tasks in attention at once without either suffering. Boon when managing two simultaneous problems.
-
-**Long Game.** You think in scenarios rather than moments. Boon when planning multi-step operations or predicting how people will behave over time.
-
-**Stress Ceiling.** You have a hard limit above which your stress response flattens into clarity rather than panic. Boon on Nerve saves when you're already at L2 Harm or worse.
-
-**Rote Immunity.** Repetitive or tedious tasks don't degrade your performance. You don't drift or miss things from boredom. Boon on surveillance, stakeout, and monitoring rolls.
+**Standalone Edges** (no chain) are the default. Most Edges in the catalog should be standalone. Chains are the exception, not the structure.
 
 ---
 
-## Knack [Positive only]
+## Temporary Edges
 
-*Knack Edges represent small thaumic expressions tied to personal obsession. They require no roll, produce no Heat, cost no Guard. They are simply part of who you are.*
+Some moments in play produce a change that should sit on the character sheet until the story resolves it. Temporary Edges are that tool. They are narrative Clocks that live on the character sheet instead of the GM's notes, with mechanical teeth so the player interacts with them at the table.
 
-**Dowser.** You feel running water through walls and floors. Boon on finding hidden pipes, flooded basements, underground streams, and water mains. (Obsession: flow, movement, things that run.)
+A temporary Edge is not a permanent Edge with an expiration date. It is a pending decision. Something happened to the character. The character hasn't decided what it means yet. The temporary Edge holds the question open until they do.
 
-**Flinch Sense.** You feel the tension spike before someone commits violence. Not who, not what. Just the moment of decision. Boon on surprise checks and ambush detection. (Obsession: danger, survival, reading threat.)
+### How Temporary Edges Work
 
-**Sympathetic Hands.** Machines run a little smoother when you're touching them. Boon on thaumatech repair and mechanical maintenance. (Obsession: fixing things, making them work right.)
+- **Granted by the fiction.** The GM or the rules award a temporary Edge when a story event demands it. A Break that opens the Shaper door. A debt that hasn't been repaid. A secret that hasn't been acted on.
+- **Has mechanical presence.** A Boon, a Snag, a permission, a restriction. Something the player feels at the table. A temporary Edge that's just a note is a note, not an Edge.
+- **Names the resolution condition.** What makes it go away. "When you repay the debt." "When you choose to shape or refuse." "When the secret comes out." The condition must be fictional, not mechanical. "After 3 sessions" is a timer, not a resolution.
+- **Names what it becomes.** At least two options. One active (you walked through the door), one refusal (you closed it). The resolution replaces the temporary Edge with a permanent one, or removes it entirely. Either outcome is a character statement.
+- **Cannot linger.** If a temporary Edge has been on the sheet for several sessions without resolution, the GM should create fiction that forces the question. Temporary Edges are pressure, not decoration.
 
-**Gut Meter.** You feel when someone is lying. Not always what the truth is. Just the wrongness of the statement. Boon on detecting deception in face-to-face conversation. (Obsession: honesty, fairness, being taken seriously.)
+### Examples
 
-**Weather Bone.** Your body reads the air before the sky changes. Boon on predicting weather shifts and navigating outdoor hazards caused by conditions. (Obsession: sky, seasons, the outside world.)
+**Untapped Potential.** *(Granted after a Break for a Sparked character.)* The ceiling is gone. You haven't walked through. Boon on Nerve saves against thaumic effects while this Edge is active. Resolves when you take a Shaper Edge (walked through) or a refusal Edge (closed the door). See **Shaper Edges** below.
 
-**Direction True.** You always know which way is north and roughly how far you've traveled. Boon on navigation by foot or in unfamiliar terrain. (Obsession: place, belonging, knowing where you stand.)
+**Marked.** *(Granted when a patron, faction, or powerful entity takes specific interest.)* Someone is watching. Boon on one stat of the GM's choice while the attention is on you, because the entity's interest is a resource. Resolves when the situation settles: you serve them, you escape them, or you destroy the connection. Each produces a different permanent Edge or no Edge at all.
 
-**Flame Read.** Open flame shifts and gutters in response to your attention. You can read mood and presence from fire behavior. Boon on detecting hidden people and gas leaks in fire-lit spaces. (Obsession: exposure, warmth, things that can't hide.)
+**Witness.** *(Granted when the character sees something they shouldn't have.)* You remember every detail. Boon on Sharp rolls related to the event. Resolves when you testify, are silenced, bury it, or use the information. The resolution defines who you became because of what you saw.
 
-**Empathic Press.** When you touch someone, you feel a blunt impression of their dominant emotion. Not thoughts. Just the big feeling sitting on top. Boon on reading emotional state through physical contact. (Obsession: connection, care, not being alone with something.)
-
-**Metal Stress.** You feel structural weakness in metal and concrete when you press your hands against it. Boon on assessing structural integrity of buildings, bridges, and vehicles. (Obsession: what holds and what doesn't, reliability.)
-
-**Green Thumb.** Plants respond to your attention. They root faster, recover from neglect with less effort, and you can tell when something is wrong with them before it shows. Boon on all work with living plants. (Obsession: patience, growth, things that take time.)
-
-**Echo Sense.** In low-light or no-light conditions, you build a spatial picture from ambient sound. Boon on navigation and awareness in darkness and confined spaces. (Obsession: orientation, knowing the shape of a room.)
-
-**Tremor Read.** You feel footsteps, vibrations, and movement through floor and ground when you're in contact with it. Boon on tracking movement through a building or detecting approaching people while stationary. (Obsession: being watched, approach, threat from behind.)
-
-**Death Watch.** You know when someone near you is in their final hours. Not the cause. Not the minute. Just the knowledge that the clock is very short. Boon when providing last aid or making decisions about triage. (Obsession: endings, what matters, not wasting time.)
-
-**Ink Sense.** You feel the emotional state of whoever wrote a document when you hold it. Not the meaning. The feeling behind the words. Boon on assessing authenticity of written materials and detecting forged intent. (Obsession: truth, what people actually mean.)
-
-**Crowd Pulse.** You read the mood of a group as a single organism. You feel when a crowd is about to shift: from restless to angry, from scared to dangerous. Boon on managing or navigating group dynamics. (Obsession: people in aggregate, mass behavior, safety in numbers.)
-
-**Rust Nose.** You smell decay and corrosion: rot in walls, mold behind plaster, rust in hidden pipes. Boon on finding structural problems, hidden damage, and environmental hazards. (Obsession: maintenance, things falling apart, what's being ignored.)
-
-**Bone Set.** Your hands feel fractures and breaks in bone beneath skin. Boon on diagnosing and setting broken bones without imaging equipment. (Obsession: the body's structure, healing, being useful in a crisis.)
-
-**Static Cling.** Small lightweight objects stick to your hands when you want them to. You can lift and move items under half a pound without gripping them fully. Boon on sleight of hand and handling small components. (Obsession: precision, detail work, small things.)
-
-**Heat Sink.** You absorb ambient warmth around you, making cold spaces slightly colder when you're present. Boon on resisting heat-based environmental effects and staying undetected by thermal sensors. (Obsession: stillness, conservation, being unnoticed.)
-
-**Whisper Catch.** Distant, quiet sounds reach you clearly when you focus. Boon on overhearing conversations across a room or through thin walls. (Obsession: information, what's being said just out of earshot.)
+**Owed.** *(Granted when someone saves the character's life or makes a significant sacrifice for them.)* The weight of the debt is on your sheet. Snag on Nerve rolls to act against the person you owe. Resolves when you repay it or decide you won't. Both say something.
 
 ---
 
-## Sensitive [Requires Knack]
+## Width and Depth
 
-*Sensitives feel the thaumic spectrum directly.*
+The Edge system produces two natural character shapes without additional rules. The differentiation emerges entirely from player choice.
 
-**Leyline Sense.** You feel leyline paths and convergence points when you walk near them. Boon on navigating underground thaumic infrastructure and finding siphon access points. [Requires Knack]
+**Wide characters** take Edges across multiple categories with no prerequisites. Eight to ten Edges, each a standalone tool. They handle almost any situation adequately. Their Edges rarely interact. Each one fires independently. Never the best in the room at any one thing. Never useless.
 
-**Shaping Radar.** You feel active shaping within Near range as a pressure change. You can't identify the shaper, but you know shaping happened and roughly where. Boon on detecting hidden or concealed shaping. [Requires Knack]
+**Deep characters** pursue one or two chains alongside a few lateral Edges. When their chain fires, they operate at a level a wide character can't touch. Outside their domain, they're rolling naked. The specialist. The person who is very specifically good at one thing.
 
-**BTC Tolerance.** High Background Thaumic Count environments that would disorient others don't affect you the same way. Boon on resisting disorientation and perception effects from thaumic saturation. [Requires Knack]
+**The interesting middle** combines one chain with lateral Edges that feed it. The chain is the weapon. The lateral Edges are the context that makes the chain work in more situations.
 
-**Thaumic Empathy.** When you touch someone who is experiencing drain, you feel a ghost of it yourself. This is uncomfortable. It is also information. Boon on assessing another person's drain state and remaining capacity. [Requires Knack]
+**At character creation** the first Edge choices are a real statement. Three standalone Edges signals width. One chain starter signals direction. The payoff is sessions away and the player has committed to living toward it.
 
-**Aura Sight.** You can see the rough thaumic potential in people with concentration. Tells you whether someone is Mundane, Knack, Sensitive, or Shaper. Doesn't reveal their specific shape or current state. [Requires Knack]
-
-**Ward Sense.** You feel the edges of thaumic wards and barriers when you're within Close range. You know where the wall is, even when it's invisible. [Requires Knack]
-
-**Resonance Read.** When you focus on a thaumatech device, you can tell whether it's running clean or approaching failure. Boon on assessing device condition without diagnostic tools. [Requires Knack]
-
-**Grit Resonance.** Boon on Grit saves to resist thaumic environmental effects: BTC saturation, leyline proximity, entity presence. Your body learned to absorb what your mind can't block. [Requires Knack]
+**Broken chains** are a character archetype. Started toward something, lost access to the next step. The gap is the character. A burned operative with a chain starter and no path to the middle Edge carries that incompleteness as identity. This requires no rules. It happens when the fiction closes a door the mechanics left open.
 
 ---
 
-## Shaper [Requires Sensitive]
+## Chain Design Rules
 
-*All Shaper Edges modify how innate shaping works.*
+Chains must be alluring, not optimal. The payoff should be characterful and specific: a thing only this character can do, not a numbers upgrade everyone would want.
 
-**Silent Shaping.** Your Tell no longer requires vocalization. You've internalized it enough that no sound is needed. Cost: each shaping costs +1 Guard to compensate for the removed external anchor. [Requires Sensitive]
+**The mandatory test:** would a wide character who never touches this chain feel like they missed something mechanically? If yes, the payoff is too strong. Redesign it until the answer is no.
 
-**Remote Touch.** Your physical-contact Tell extends to Near range. You reach without reaching. The extension is visible to observers: a shimmer, a pressure wave, a temperature shift. [Requires Sensitive]
+A chain that every character builds toward is a hidden class. The system has no classes. Don't create them through the back door.
 
-**Quick Channel.** Once per scene, you can shape as part of another action without spending a separate Act. The shaping still costs Guard normally. [Requires Sensitive]
+**Payoff Edges** (depth 3) should be:
 
-**Sustained Focus.** You've learned to hold a shape while the world falls apart around you. Boon on Nerve saves to maintain sustained shaping effects while under physical or psychological pressure. [Requires Sensitive]
+- Fictional in flavor: they describe who the character has become, not a stat bonus.
+- Narrow in trigger: they fire in specific situations, not broadly.
+- Dramatic in effect: when they fire, the table notices. The investment paid off.
+- Replaceable in function: a wide character solves the same problem differently, less elegantly, but they solve it.
 
-**Drain Anchor.** Once per scene, after a successful shaping, recover 1 Guard. The first one comes easier. After that, every die costs what it should. [Requires Sensitive]
-
-**Scope Edge.** You can attempt adjacent-scope shaping at +1 Guard per step beyond your natural scope instead of the standard double-cost penalty. [Requires Sensitive]
-
-**Mark Reader.** You can sense Thaumic Marks on other shapers when you make physical contact. You know they've broken before. You can feel roughly how many times. [Requires Sensitive]
-
-**Echo Channel.** You can repeat your last shaping effect at standard Guard cost without re-establishing your Tell. Once per scene. The effect is identical: same scope, same target, same duration. [Requires Sensitive]
-
-**Tell Mask.** You've learned to perform your Tell in a way that's harder to identify. Observers who don't already know your Tell must succeed on a Sharp roll to recognize it as a shaping trigger. [Requires Sensitive]
-
-**Controlled Break.** Once, ever, you can reduce the Harm from a Break by one level. The Mark still happens. The unconsciousness still happens. You just come through a little less destroyed. [Requires Sensitive]
-
-**Precision Shaping.** Use Sharp instead of Nerve as your shaping cap when the effect is precise manipulation of a single target or object at Close range. The nurse feeling for a specific nerve cluster. The mechanic adjusting a single bolt inside a machine. Does not apply to area effects, sustained effects, or shaping at Near or beyond. [Requires Sensitive]
-
-**Brute Channel.** Use Grit instead of Nerve as your shaping cap when the effect is raw physical force, structural change, or environmental manipulation. The steelworker bending a beam. Costs 1 extra Guard per shaping attempt on top of normal purchase cost. [Requires Sensitive]
+**Starter Edges** (depth 1) must be independently useful. A player who takes a starter and never pursues the chain should not feel cheated. The starter is a real Edge, not a tax.
 
 ---
 
-## Thaumatech [Positive only unless noted]
+## Seven Axes
 
-**Overcharge Efficient.** When you overcharge, the first additional die costs 0 Guard instead of 1. After that, standard pricing. One free die per overcharge. [Requires regular thaumatech use]
+Every Edge draws from at least one axis. The axes are a forcing function against clustering. If your last three Edges came from the same axis, stop and pick a different one.
 
-**Device Whisperer.** You have a feel for what a device needs. Boon on all thaumatech repair, maintenance, and diagnosis.
-
-**Field Calibrator.** When a thaumatech device produces a consequence, you can reduce its severity by one step. Once per scene.
-
-**Multi-Device.** You can sustain two thaumatech effects simultaneously. Both operate with a Snag until you drop one.
-
-**Combat Technician.** You've practiced using devices in live situations. Boon when using thaumatech weapons or using devices offensively in conflict.
-
-**Surge Protector.** When a thaumatech device fails or overloads, you take no feedback damage. The device still breaks. You just don't go with it.
-
-**Hot Swap.** Switching your active device is a free action. You don't lose an Act to change tools in the middle of a scene.
-
-**Jury Rigger.** You can improvise functional thaumatech from salvaged components. It always counts as jury-rigged tier and has a built-in failure clock, but it works.
-
-**EMP Hardened.** Your conventional gear is shielded against thaumic disruption. DPA pulse events and thaumic interference that would disable unshielded equipment don't affect your kit. [Zero allowed]
-
-**Scavenger.** When a thaumatech device is destroyed or burned out, you can extract one usable component before it's gone. That component is still functional and can be incorporated into another device or used in a Jury Rig attempt.
-
-**Overcharge Specialist.** Choose one overcharge stat (Sharp, Nerve, or Grit) when you take this Edge. Your overcharge cap with devices using that stat increases by 1. [Requires chosen stat at 3]
-
-**Grid Fluency.** Boon when operating, troubleshooting, or jury-rigging grid-powered thaumaware: boiler systems, siphon feeds, factory lines. Anyone can push a button. You can make the grid do tricks.
-
-**Thaumic Appraiser.** Boon on Sharp rolls to assess thaumatech provenance, legality, modification, and black-market value. You know a military scanner from a civilian one by the weight of the housing.
-
-**Plate Conditioner.** Boon on your first thaumatech use each scene. Your contact plates are broken in, re-seated, cleaned. The difference between a tech who maintains their gear and one who doesn't.
-
----
-
-## Archetype Clusters
-
-These Edges support specific character concepts that arise in play. They're not classes. They're clusters of related Edges that reinforce a particular identity. A character might take one or two from a cluster, or build their whole arc around one. Mix and match freely.
-
-### Patron Bond
-
-*For characters who draw power from something they don't fully understand. A deal struck in desperation, a voice that whispers in bad moments, borrowed strength with a price tag. On Mondas, nobody knows what patrons are. The DPA doesn't have a classification. Theologians argue. The patron doesn't explain.*
-
-**Borrowed Strength.** Once per scene, add +2d to any roll. Immediately tick a **Debt clock** (4 segments). When the clock fills, your patron collects: the GM determines the price (a service, a secret, a piece of yourself). The clock resets after collection. [Requires Nerve 3]
-
-**Patron Whisper.** You hear your patron's voice when danger approaches. Boon on Sharp rolls to detect threats and ambushes. The voice is accurate. It is never kind.
-
-**Dark Bargain.** When a Thaumic Bargain is offered, you may accept it twice: two free dice, two guaranteed consequences. Your patron always encourages excess.
-
-**Debt Leverage.** When your Debt clock is at 3+ segments, gain Boon on Nerve rolls. The closer you are to collection, the more power bleeds through. You feel sharper, more confident. That's the trap.
-
-**Patron's Mark.** Your patron's influence becomes visible under stress. When you Crack (Push track empties), instead of a standard Crack condition, your patron takes partial control for the rest of the scene. The GM describes what it looks like. You are terrifying and effective. You are not fully yourself.
-
-### Oath-Bound
-
-*For characters who draw strength from conviction. An oath sworn over a union card, a promise made to someone who didn't come home, a line drawn that you will not let the world cross. The power isn't magic. It's certainty. Mondas has a word for people like this: stubborn.*
-
-**Righteous Strike.** Once per scene, when you attack a target that has harmed someone you've sworn to protect, spend 2 Guard to roll an additional 1d8 with your weapon dice. The blow lands like it means something. [Requires Grit 3]
-
-**Shielding Presence.** Once per round, when an ally at Close range takes damage after their defense roll, you may absorb up to 2 points of that damage to your own Guard instead. You step between them. That's what you do.
-
-**Oath Sense.** You feel when someone in your presence breaks a promise. Not mind reading. The weight of a broken word. Boon on detecting deception when the lie contradicts a stated commitment.
-
-**Rally the Line.** Once per scene, spend a Push. All allies who can hear you recover 1 Guard each. You say what needs to be said and everyone stands a little straighter. [Requires Nerve 3]
-
-**Unyielding.** When your Guard reaches 0, you may immediately spend a Push to recover 2 Guard. Once per session. You go down when you decide to go down.
-
-### Somatic Discipline
-
-*For characters whose body is the instrument. Martial training, somatic kinesiology, movement as philosophy. On Mondas, this isn't mystical. It's the kid who trained in a basement gym for ten years because the world kept hitting them and they wanted to hit back with precision.*
-
-**Ki Strike.** Your unarmed attacks deal 1d6 (Light weapon) instead of 1d4 (Improvised). Your fists are trained, not improvised. At Close range, you always count as armed.
-
-**Flurry.** When attacking unarmed or with a Light weapon, roll one additional damage die. More hits, faster. [Requires Sharp 3]
-
-**Body as Shield.** While unarmored (Armor 0), your maximum Guard increases by 1. Your evasion is your protection. Wearing armor disables this Edge. [Requires Sharp 3]
-
-**Somatic Flow.** At the start of your turn, before your normal Move and Act, you may move one range band for free. You're already where you need to be. [Requires Sharp 3]
-
-**Redirecting Counter.** When you roll a 6 on a defense roll at Close range, you may immediately deal 1d6 damage to the attacker. You turned their momentum against them. [Requires Sharp 3]
-
-### Unwitting Channel
-
-*For characters who are conduits for something they don't control or understand. The friend who always seems to be in the right place. The person whose presence makes a room feel calmer. The one that bullets seem to miss for no reason. On Mondas, this is the rarest and strangest thing: power without intention. It might be faith, luck, or something that hasn't been named yet.*
-
-**Healing Hands.** Once per scene, touch an ally. They recover 2 Guard or clear one L1 Hurt injury. You don't know why this works. It happens when you mean it.
-
-**Calming Presence.** Allies at Close range who can see you gain Boon on Nerve saves. You don't do anything specific. People just feel steadier near you.
-
-**Saint's Luck.** Once per session, turn a consequence (1-3) into a partial success (4-5) on any roll you or an adjacent ally makes. Something tilts. You've stopped questioning it.
-
-**Involuntary Ward.** Once per scene, when you or an ally at Close takes damage, 1d6 of the damage is absorbed before it reaches Guard. You don't control this. The GM triggers it when the fiction supports it. You might not even notice it happened.
-
-**Resonance Magnet.** Thaumic effects in your vicinity behave strangely. Wards flicker. Scanners misread. Shapers feel a hum they can't place. Boon on disrupting or destabilizing thaumic effects within Close range, even though you're not doing anything on purpose. [Requires Nerve 3]
-
----
-
-## Build Your Own
-
-The catalog above is a starting point. The best Edges come from your character's story. Here's how to make one.
-
-### Pick a Shape
-
-Every Edge fits one of three templates. Pick the one that matches what you want.
-
-**Unlock:** "You can now [specific action] that most people can't."
-- "You can read lips at Near range."
-- "You can hold your breath for five minutes."
-- "You can hot-wire a car without tools."
-
-**Situational Boon:** "Boon on [stat] rolls when [specific trigger]."
-- "Boon on Sharp rolls when tracking someone through a crowd."
-- "Boon on Nerve rolls when speaking to someone who's grieving."
-- "Boon on Grit rolls when climbing without equipment."
-
-**Resource Trade:** "Spend [cost] to get [specific benefit]."
-- "Spend a Push to recall the exact layout of a building you've visited once."
-- "Once per session, name a contact at a hospital who owes you."
-- "Once per scene, reduce incoming damage by 1 by spending a Push."
-
-### Test It
-
-Three questions. If you can answer yes to all three, you have an Edge.
-
-**1. Is the trigger specific?** If it applies to every roll, it's too broad. Narrow it.
-- Too broad: "Boon on all combat rolls."
-- Good: "Boon on attacks with improvised weapons."
-
-**2. Will it actually come up?** If it requires a situation that happens once a campaign, it's flavor, not an Edge. Widen it.
-- Too narrow: "Boon when fighting left-handed dwarves on a bridge."
-- Good: "Boon on attacks when you're fighting on unstable footing."
-
-**3. Does it say something about who this person is?** If the answer is no, it's a stat bonus, not an Edge.
-- No character: "+1 to damage."
-- Character: "Boon on Sharp rolls to spot a lie when you've been lied to by this person before."
-
-### Talk to the GM
-
-Bring your idea before the session. Say something like:
-
-*"My character spent ten years doing [thing]. I think that should give them [mechanical benefit] when [situation]."*
-
-The GM might say yes, might adjust the trigger, might suggest something better. That's the process working. If the GM narrows your Edge, it's not a nerf. Narrow Edges fire harder when they fire.
-
-### Examples from Play
-
-A player said: "My character was a telegraph operator for twenty years. She should be good with codes." That became: **Pattern Reader.** Boon on Sharp rolls to decode, encrypt, or spot patterns in written or transmitted communication.
-
-A player said: "My guy grew up in the tunnels under the old quarter. He knows them cold." That became: **Tunnel Rat.** You never get lost underground in your home city. Boon on navigation and stealth rolls in tunnels, sewers, and sub-basements.
-
-A player said: "She's been lying to cops since she was fourteen." That became: **Badge Blinder.** Boon on Nerve rolls to deceive anyone in an official uniform. You've studied the face they make when they believe you.
-
----
-
-## Quick Reference
-
-### Edge Count by Category
-
-| Category | Count |
+| Axis | What it covers |
 |-|-|
-| Combat | 31 |
-| Survival | 17 |
-| Social | 25 |
-| Professional | 26 |
-| Criminal | 15 |
-| Connections | 15 |
-| Physical | 14 |
-| Mental | 15 |
-| Knack | 20 |
-| Sensitive | 8 |
-| Shaper | 12 |
-| Thaumatech | 14 |
-| Archetype: Patron Bond | 5 |
-| Archetype: Oath-Bound | 5 |
-| Archetype: Somatic Discipline | 5 |
-| Archetype: Unwitting Channel | 5 |
-| **Total** | **232** |
+| **Expertise** | What they've drilled until it's automatic |
+| **Experience** | What they've survived and carry forward |
+| **Relationship** | Who they are to other people |
+| **Perception** | How they read situations differently |
+| **Body** | What years of physical history built into them |
+| **Institution** | What system shaped them and left its mark |
+| **Loss** | What was taken, revoked, or ended |
 
-### Stat-Gated Edges
+Fiction first. Don't start with a mechanical benefit. Start with: who is this person, and what does that change about how the world responds to them? The mechanic is the answer to that question.
 
-| Gate | Edges |
+---
+
+## Edges and Gambits
+
+Two of the five Edge shapes interact directly with the Gambit system.
+
+**Gambit Extension** Edges modify an existing base Gambit in one of three ways: change the trigger (works in a situation it normally wouldn't), change the effect (produces something different or additional), or change the threshold (counts as Strong against a specific target type). The base Gambit must be named. Example: a war journalist Edge that lets De-escalation work against armed actors who aren't ideologically committed.
+
+**New Gambit** Edges add a Gambit that doesn't exist on the base list. The new Gambit follows all standard rules: die cost, resistance by Threat level, categorized as Maneuver/Assess/Influence/Fight. It is only available to characters with the Edge. Example: a Handler Edge that grants a "Bind" Gambit for containing spirits.
+
+GM defaults to yes on Edge-Gambit interactions grounded in the fiction. One clear effect, same die cost.
+
+---
+
+## Edge Categories
+
+Edges are organized by fictional context, not mechanical function. Categories help players find relevant options during creation. They are not restrictions. An Edge filed under Combat can matter in a social scene if the fiction supports it.
+
+The categories:
+
+| Category | What it covers |
 |-|-|
-| **Grit 3** | Heavy Handler, Sustained Pressure, Fortifier, Pain Gate, Righteous Strike, Brute Channel |
-| **Sharp 3** | Knife Work, Counter-Puncher, Flurry, Body as Shield, Somatic Flow, Redirecting Counter, Precision Shaping |
-| **Nerve 3** | Command Presence, Calm Core, Borrowed Strength, Debt Leverage, Rally the Line, Resonance Magnet |
-| **Chosen stat 3** | Overcharge Specialist |
-| **Prerequisite Edge** | All Sensitive, Shaper, and Thaumatech Edges (see individual entries) |
-| **No gate** | Everything else (available at creation) |
+| **Combat** | Fighting, weapons, tactical positioning |
+| **Survival** | Endurance, navigation, environmental resilience |
+| **Social** | Persuasion, deception, reading people |
+| **Professional** | Trade skills, institutional knowledge, technical expertise |
+| **Criminal** | Theft, smuggling, evasion, underworld operations |
+| **Connections** | Named contacts, faction standing, favors owed |
+| **Physical** | Body capabilities beyond normal training |
+| **Mental** | Cognitive and perceptual capabilities |
+| **Knack** | Minor thaumic expressions tied to personal obsession. Positive only. |
+| **Sparked** | Controlled thaumic expression. Small deliberate use of the obsession. Requires a Knack Edge. |
+| **Shaper** | Full innate shaping. Guard pools, Nerve cap, Break risk. Requires a Sparked Edge. |
+| **Thaumatech** | Device operation, modification, grid interaction |
 
-### Edge Allocation by Tier
+The thaumic spectrum categories (Knack > Sparked > Shaper) are the system's built-in chain. They follow all chain rules.
 
-| Tier | Edges | Restriction |
+---
+
+## Writing an Edge
+
+### The Process
+
+1. Pick an axis. Name the fictional truth about the character.
+2. Pick a shape (Unlock, Situational Boon, Resource Trade).
+3. Write one sentence. One trigger. One effect.
+4. Test the trigger: can a player and GM agree in two seconds whether it applies? If not, narrow it.
+5. Test the fiction: does the mechanic follow from the character, or did you write the mechanic first? If mechanics first, start over.
+6. Test the catalog: is this Edge already there under a different name? If yes, stop.
+7. Test the axis: is this the same axis as your last Edge? If yes, pick a different axis.
+
+### Range Examples
+
+Four Edges from four different axes and shapes. These demonstrate range, not a template.
+
+**Burned Badge** *(Institution + Loss, Situational Boon)*
+Boon on Nerve rolls to pass through institutional checkpoints using expired or revoked credentials. Snag on any roll if someone actually runs your paperwork.
+
+**Crowd Read** *(Experience + Perception, Unlock)*
+You can tell when a group is about to shift before it does. The GM tells you one round in advance when a group scene is about to turn violent, scatter, or surge.
+
+**Handler's Debt** *(Relationship + Institution, Resource Trade)*
+Once per session, name someone who owes you from a previous job. They exist, they'll do one thing. The GM decides what they can reasonably provide. Cross this off until re-established in play.
+
+**Hollow Nerve** *(Body + Loss, Situational Boon)*
+Boon on Nerve saves when you're already at L2 Wounded or worse. Something stops working when the damage gets bad enough, and what stops working is fear.
+
+---
+
+## Catalog Size Targets
+
+A complete catalog should contain roughly:
+
+- **8-12 named chains** across all categories, establishing the character arcs the system supports.
+- **80-120 standalone Edges** across all categories, providing the lateral breadth for wide characters.
+- **Total: 100-150 Edges.** Enough range for diverse characters. Not so many that the catalog becomes a shopping list.
+
+The v1 catalog had 287 Edges. That was too many. Quantity created the illusion of depth while diluting the signal. Every Edge in the new catalog must carry its weight. If two Edges occupy the same fictional space, cut one.
+
+---
+
+## Player-Created Edges
+
+Players should propose custom Edges. The catalog is a starting point, not a cage.
+
+The player brings the fiction: "My character spent ten years doing [thing]. I think that should give them [mechanical benefit] when [situation]."
+
+The GM applies the same tests:
+1. Is the trigger specific enough?
+2. Does the mechanic follow from the fiction?
+3. Is it already in the catalog under a different name?
+
+If the GM narrows the Edge, it's not a nerf. Narrow Edges fire harder when they fire.
+
+---
+
+## Design Decisions
+
+These decisions are canonical. They are recorded in the Design Appendix of `rules/CORE.md` as D51 and D52.
+
+| # | Decision | Summary |
 |-|-|-|
-| Zero (Mundane) | 4 free | No Knack/Sensitive/Shaper/Thaumatech |
-| Knack | 1 Knack + 2 free (3 total) | |
-| Sensitive | 1 Knack + 1 Sensitive + 1 free (3 total) | |
-| Shaper | 1 Knack + 1 Sensitive + 1 Shaper (3 total) | GM approval required |
+| D51 | Edge width vs depth | No stat gates. Progression through Edge prerequisites, max one per Edge, max three deep. Wide characters take lateral Edges across categories. Deep characters pursue chains. Differentiation requires no additional rules, emerges from player choice. Chain payoffs must be characterful not optimal. If a chain is mandatory it's a hidden class. |
+| D52 | Edge chains replace stat gates | Stat gates create permanent exclusions at creation unrelated to play. Stats shape odds not options (stat 1 can attempt anything). Edge prerequisites gate on what you've earned through play, not what you rolled at creation. Fiction-first progression. |

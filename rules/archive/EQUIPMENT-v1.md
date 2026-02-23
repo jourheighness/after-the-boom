@@ -222,12 +222,12 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 - *Overcharge Burst.* Spend 1 Guard for +2 damage on this hit. Device needs a cooldown (Snag on next attack with it). Close/Near.
 - *System Crash.* **(Strong)** The target's thaumatech weapon is disabled for 1 round. Close/Near.
 
-**Pulse emitter** | 1d8 | Ranged, Loud | Overcharge: Grit | Shoulder-mounted. Industrial pest-control repurposed. The beam is visible and leaves scorch marks on concrete.
+**Heavy discharge rig** | 1d8 | Ranged, Loud | Overcharge: Grit | Shoulder-mounted. Industrial pest-control repurposed for field work. The beam is visible and leaves scorch marks on concrete. Weighs nine pounds with the battery pack.
 - *Frequency Match.* Bypass one point of thaumic ward protection on this hit. Near.
 - *Wide Beam.* Spread the emitter cone. Deal 1d4 to every target at Close/Near in a cone. Near.
 
-**Resonance blade** | 1d8 | Subtle | Overcharge: Sharp | Contact plate in the hilt. The blade hums at a frequency you feel in your teeth. Rare. Illegal in most jurisdictions.
-- *Disruption Cut.* The resonance frequency collapses one sustained thaumic effect the target is maintaining. Close.
+**Frequency blade** | 1d8 | Subtle | Overcharge: Sharp | Contact plate in the hilt. The blade hums at a frequency you feel in your teeth. Rare. Illegal in most jurisdictions. Looks like a hunting knife until you hear it.
+- *Disruption Cut.* The frequency collapses one sustained thaumic effect the target is maintaining. Close.
 - *Harmonic Edge.* The blade cuts through thaumic armor as easily as conventional. Ignore 1 Armor from thaumic sources on this hit. Close.
 - *Singing Blade.* The hum intensifies to a pitch that makes teeth ache. All enemies at Close take Snag on their next action. Close.
 
@@ -250,9 +250,9 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 - *Cutting Beam.* Draw a line through a wall, floor, or ceiling section. Creates a new opening. Close/Near.
 - *Sustained Burn.* **(Strong)** Hold the beam on target. Ignore all Armor on this hit. Close/Near.
 
-**Resonance shotgun** | 2d6 | Ranged, Loud | Overcharge: Grit | Contact plate stock. Fires a broad-spectrum thaumic burst. Close range. Conventional armor provides no protection. Thaumic armor reduces damage normally.
+**Scatter cannon** | 2d6 | Ranged, Loud | Overcharge: Grit | Contact plate stock. Fires a broad-spectrum thaumic burst at close quarters. Conventional armor provides no protection. Thaumic armor reduces damage normally. DPA crowd-suppression tool repurposed for field combat.
 - *Pulse Scatter.* The burst hits every target at Close for 1d4 each. Close.
-- *Resonance Lock.* **(Strong)** The target cannot activate or use thaumatech devices for 1 round. Close/Near.
+- *Signal Lock.* **(Strong)** The target cannot activate or use thaumatech devices for 1 round. Close/Near.
 
 **Stun rod** | 1d6 | Subtle | Overcharge: Nerve | Rubber-insulated grip. Hits the nervous system. Target makes a Grit save or loses their next Act. Security guard standard. Also available through industrial supply catalogs.
 - *Arc Jump.* Touch the stun rod to a metal surface the target is holding or standing on. The charge travels through. Near (if connected).
@@ -262,10 +262,10 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 - *Scanner Ping.* On hit, read the target's thaumic signature. Learn their current Guard value. Near.
 - *Calibrated Strike.* Tune the bolt frequency. Ignore 1 Armor on this hit. Near.
 
-**Resonance rifle** | 1d8 | Ranged, Loud | Overcharge: Sharp | Long-frame thaumic emitter, contact plate at the grip and cheek rest. Military development, never fully adopted. About forty units exist. Accurate. Recognizable.
+**Channeling rifle** | 1d8 | Ranged, Loud | Overcharge: Sharp | Long-frame thaumic emitter, contact plate at the grip and cheek rest. Military development, never fully adopted. About forty units exist in Federal armories. Accurate. Recognizable. Carrying one means paperwork.
 - *Overwatch.* Declare a zone. First enemy to enter it takes your attack as a free action. Far.
 - *Frequency Match.* Bypass one point of thaumic ward protection on this hit. Near/Far.
-- *Resonance Spike.* **(Strong)** The target's next shaping or device use costs 1 additional Guard. Near/Far.
+- *Discharge Spike.* **(Strong)** The target's next shaping or device use costs 1 additional Guard. Near/Far.
 
 **Drain siphon** | 1d6 | Sidearm | Overcharge: Nerve | Contact plate on grip. On a hit against a Positive, target loses one Guard and attacker regains one Push. DPA black site equipment. Not in any catalog you've seen.
 - *Deep Draw.* **(Strong)** Drain 2 Guard from the target instead of 1. Close.
@@ -275,14 +275,14 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 - *Airburst.* Detonate the grenade above the targets. Ignores cover. Close/Near.
 - *Rolling Toss.* Roll it along the floor under a door or barrier. Reaches targets behind obstacles. Close/Near.
 
-**Kinetic burst gauntlet** | 1d8 | -- | Overcharge: Grit | Heavy contact plate along the entire palm and fingers. Fires a kinetic pulse on a closed-fist strike. The punch lands before anyone hears the charge.
+**Impact gauntlet** | 1d8 | -- | Overcharge: Grit | Heavy contact plate along the entire palm and fingers. Fires a kinetic pulse on a closed-fist strike. The punch lands before anyone hears the charge. Union enforcers call them "negotiators."
 - *Shockwave.* The pulse sends the target flying. Knock them back one band and prone. Close.
 - *Concussive Clap.* **(Strong)** Clap both gauntlets together. All targets at Close take 1d4 damage and are staggered. Close.
 
-**Null emitter (backpack)** | -- | Ranged | Overcharge: Nerve | Experimental DPA equipment. Not commercially available. Backpack-mounted generator, handheld projector. Creates a thaumic suppression cone out to Far range. Anyone in the cone (Positive or not) cannot activate thaumatech. Requires a Positive to operate the contact plate trigger, but affects everyone. Drains its power cell after 3 uses per scene.
+**Suppression rig (backpack)** | -- | Ranged | Overcharge: Nerve | Experimental DPA equipment. Not commercially available. Backpack-mounted generator, handheld projector. Creates a thaumic suppression cone out to Far range. Anyone in the cone (Positive or not) cannot activate thaumatech. Requires a Positive to operate the contact plate trigger, but affects everyone. Drains its power cell after 3 uses per scene. Weighs thirty pounds. The DPA calls it "the deadfield."
 - *Focused Beam.* Narrow the cone to a single target. Suppression lasts 2 rounds instead of 1 for that target. Far.
 
-**Concussive lance** | 2d6 | Ranged, Loud | Overcharge: Grit | Military prototype. Fires a focused kinetic pulse. Loud, heavy, obviously military. Carrying one in public means the DPA is either with you or coming for you.
+**Impact projector** | 2d6 | Ranged, Loud | Overcharge: Grit | Military prototype. Fires a focused kinetic pulse from a tube launcher. Loud, heavy, obviously military. Carrying one in public means the DPA is either with you or coming for you.
 - *Knockback Pulse.* The pulse sends the target flying backward one band and prone. Near.
 - *Collateral Blast.* **(Strong)** The pulse expands on impact. All targets at Close to the point of impact take 1d4. Near.
 
@@ -300,7 +300,7 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 
 **Leather armor (custom)** | Armor 1, Subtle | Reinforced leather panels sewn into a jacket lining. Takes two weeks and costs what it costs. Doesn't look like armor.
 
-**Surplus flak jacket** | Armor 1 | Bulky. Smells like someone else's sweat. Stops fragments, not bullets. Imposes Snag on Sharp rolls.
+**Surplus flak jacket** | Armor 1 | Bulky. Smells like someone else's sweat. Stops fragments, not bullets. Imposes Snag on Sharp rolls. Could be FU, CSS, or South Gondwana surplus. The label's been cut out.
 
 **Kevlar vest (civilian)** | Armor 2 | Concealable under a dress shirt. Rated for handgun rounds. No Snag. Takes a rifle round and you'll feel it for a week.
 
@@ -320,7 +320,7 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 
 **Reactive plate (thaumic)** | Armor 3 | [Contact plate] Positive only. Bulky. On a hit, the plate discharges a pulse that pushes the attacker back to Near range if they were Close. Imposes Snag on Sharp rolls.
 
-**Kinetic dampener vest** | Armor 2 | [Contact plate] Positive only. No bulk. Absorbs kinetic energy on impact and vents it as low-grade heat. Designed for industrial accident prevention. Security forces noticed.
+**Kinetic dampener vest** | Armor 2 | [Contact plate] Positive only. No bulk. Absorbs kinetic energy on impact and vents it as low-grade heat. Originally designed for Zhongguo factory accident prevention. Security forces worldwide noticed.
 
 **Thaumic ward plate** | Armor 1 | [Contact plate] Positive only. Held in one hand, blocks one attack per round for full armor value. A circular plate the size of a hubcap. The DPA riot unit carries these.
 - *Plate Slam.* Ram the ward plate into a target. The thaumic discharge adds +1 damage and pushes them back one step. Close.
@@ -338,7 +338,7 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 
 **BTC Scanner (industrial)** | Overcharge: Sharp | Palm plate on the back panel. Commercial-grade unit the size of a briefcase. Reads BTC across a 50-meter radius with logged output. Requires a Positive to operate; everyone else reads the paper printout.
 
-**Resonance Tracker** | Overcharge: Sharp | Wrist plate. Detects and broadly classifies thaumic resonance signatures within Near range. Useful for tracking innate shapers. DPA standard issue. Consumer versions are tuned down and require a permit.
+**Signature reader** | Overcharge: Sharp | Wrist plate. Detects and broadly classifies thaumic signatures within Near range. Useful for tracking innate shapers. DPA standard issue. Consumer versions are tuned down and require a permit.
 
 **Entity Detector** | Overcharge: Sharp | Thumb plate on a wand-style housing. Identifies non-human thaumic presence. Distinguishes spirits, bound entities, and ambient manifestations. Often smells faintly of ozone after use.
 
@@ -348,7 +348,7 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 
 **Nerve Stabilizer** | Overcharge: Nerve | Index finger plate. Suppresses active thaumic discharge in an overloaded nervous system. Used on shapers mid-Break or post-Crack. Buys time. Requires medical training to use correctly.
 
-**Healing Patch** | Single-use adhesive backed with a micro-plate. Charge and apply to wound. Clears a Hurt condition immediately. Cannot treat Wounded or Critical. Sold in boxes of four at any pharmacy.
+**Field Patch (thaumic)** | Single-use adhesive backed with a micro-plate. Charge and apply to wound. Clears a Hurt condition immediately. Cannot treat Wounded or Critical. Sold in boxes of four at any pharmacy. CSS troops carry a knockoff version with a shorter shelf life.
 
 **Trauma Kit (thaumic)** | Overcharge: Nerve | Hard-shell case with forearm plate on the lid. Field-surgery kit that channels accelerated clotting and tissue response. Clears Hurt. On a Strong result, downgrades Wounded to Hurt. Heavy. Takes a full round to deploy.
 
@@ -392,11 +392,34 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 
 **Thaumic Relay Tap** | Wrist plate on a device the size of a deck of cards. Plugs into a municipal leyline junction and draws power directly. Illegal for civilian use. Every scrapper knows where to find one.
 
-**Resonance Jammer (personal)** | Chest plate worn close to the skin. Masks the user's thaumic signature from passive detection. Does not fool an active scan. Duration is one scene before the plate needs to rest.
+**Signature scrambler (personal)** | Chest plate worn close to the skin. Masks the user's thaumic signature from passive detection. Does not fool an active scan. Duration is one scene before the plate needs to rest.
 
 **Thaumic Recorder** | Overcharge: Sharp | Index finger plate on a device that looks like a modified cassette recorder. Captures thaumic discharge events as readable waveform data. Used in forensics and research.
 
 **Remote Activation Unit** | Thumb plate on a transmitter housing. Remotely activates or depresses a contact plate on a paired device at up to Near range. Used in demolitions and industrial automation.
+
+### Consumer Thaumatech [Contact plate, Positive only]
+
+*Mass-produced devices built on 1992 consumer electronics platforms. Available at department stores, electronics shops, and thaumatech retailers. Requires a Positive operator. Most models carry a Class 1 license requirement.*
+
+**Walkman (channeling model)** | Overcharge: Nerve | Headphone contact plates rest against the temples. Standard portable cassette player modified with a thaumic receiver coil. Patron-linked operators use these to receive channeled communication, hearing the patron's voice mixed into whatever tape is playing. The DPA sells a government-issue version without the cassette function. Neue Europa models are bulkier but better shielded.
+- *Tune In.* Spend 1 Guard to open a channel to a linked patron or spirit for one scene. Communication is one-way (receive only) unless the operator is a Sensitive.
+
+**Pager (signal link)** | Wrist plate behind the belt clip. Receives short thaumic-encoded messages from a linked source: patron, spirit, or another pager. Range is citywide if the municipal grid is up. Dead zones kill the signal. The Chairman communicates through one of these.
+- *Urgent Ping.* The linked source can push a single urgent message that vibrates and flashes regardless of the operator's attention. No roll required.
+
+**Camcorder (scrying playback)** | Overcharge: Sharp | Palm plate on the grip. Records thaumic impressions alongside normal video on standard VHS tape. Playing back the tape on a compatible VHS player reveals thaumic residue invisible to the naked eye. DPA forensic teams use these at crime scenes. South Gondwana field researchers use them to document leyline drift.
+
+**Boombox (area amplifier)** | Overcharge: Nerve | Dual palm plates on the carry handles. Amplifies a shaping effect to fill a Close radius instead of a single target. The amplification is loud, visible, and unmistakable. Draws attention. Popular with street performers in the Free Cities who blur the line between busking and unlicensed shaping.
+- *Broadcast.* Spend 2 Guard to push a single shaping effect to all targets in Close range. The effect loses precision: GM determines collateral.
+
+**Car phone (remote ward)** | Overcharge: Nerve | Handset plate against the ear. Projects a ward effect along the phone signal to a specific location the operator has visited. Range limited to municipal phone network coverage. Requires a car phone installation ($800 plus monthly service). Corporate security firms use these to check building wards remotely.
+
+**Answering machine (spirit trap)** | Overcharge: Nerve | Palm plate on the housing. Modified consumer answering machine that captures non-corporeal entities in the tape loop. The entity experiences playback as a holding pattern. Capacity: one entity per tape. Rewinding releases it. Spirit-wranglers in Oakview use these as humane temporary holding.
+- *Record.* Make a Nerve roll against the entity. On success, the entity is bound to the tape until someone hits rewind or eject. The tape degrades after 48 hours.
+
+**VHS player (recorded divination)** | Overcharge: Sharp | Palm plate on the top-loading mechanism. Plays back pre-recorded divination sessions on modified VHS tapes. The tapes are expensive, single-viewing, and produced by licensed diviners under DPA supervision. Zhongguo state television broadcasts encrypted divination content that these units can decode.
+- *Playback.* Insert a divination tape and spend 1 Guard. Receive a single cryptic answer to a question posed when the tape was recorded. The tape burns out after one use.
 
 ---
 
@@ -446,9 +469,9 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 
 ### Disruption
 
-**EMP Rod** | Three charges | Overload. Localized electromagnetic-thaumic pulse at Close range. Suppresses all thaumatech for 1 round. On Strong: suppresses for 2 rounds and disables contact plates until cleared. Illegal for civilian possession.
+**Deadfield Rod** | Three charges | Overload. Localized thaumic suppression pulse at Close range. Suppresses all thaumatech for 1 round. On Strong: suppresses for 2 rounds and disables contact plates until cleared. Illegal for civilian possession.
 
-**Resonance Disruptor Grenade** | Single-use | Overload. Scrambles all active contact plates in a Close radius for 2 rounds. Shapers in the area can't overcharge during that time. Military prototype.
+**Disruption grenade** | Single-use | Overload. Scrambles all active contact plates in a Close radius for 2 rounds. Shapers in the area can't overcharge during that time. Military prototype.
 
 **Thaumic Redirect Coil** | Single-use | Redirect. Wire coil deployed around a fixed point. Thaumic effects targeting that point are redirected to a new point within Near. Takes one Act to deploy.
 
@@ -535,7 +558,7 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 
 **Surveyor Equipment** | Transit level, measuring tape, stakes. Boon on Sharp rolls to assess terrain or map interiors.
 
-**Biometric Spoofer** | Black market. Latex cast and micro-heating element for print-reader locks. Works on consumer-grade readers. Fails on DPA hardware.
+**Biometric Spoofer** | Black market. Latex cast and micro-heating element for print-reader locks. Works on consumer-grade readers. Fails on DPA hardware. Free Cities workshops produce the best ones.
 
 ---
 
@@ -632,14 +655,37 @@ Everything on this list exists in 1992 Mondas. Weapons use the dice categories f
 
 **Charged Thaumic Crystal** | Single-use power source for depleted thaumatech devices. One crystal restores one use. Sold legally in hardware stores near leyline districts.
 
-**Thaumic Stimulant** | Single-use. Spend 1 Guard fewer on your next thaumatech overcharge (minimum 1). Jitters and headache for the rest of the scene.
+**Surge Pill** | Single-use capsule, bright orange. Spend 1 Guard fewer on your next thaumatech overcharge (minimum 1). Jitters, headache, and metallic taste for the rest of the scene. Zhongguo state pharmacies sell a regulated version under the brand name Chongji.
 
 **Suppression Pill** | Drops thaumic signature to near-Mundane for one scene. Passive scanners read clean. Does not suppress active shaping.
 
-**Drain Recovery Tonic** | Single-use. Recover 1 Guard. Takes a full round to drink. Tastes like copper and regret. Once per scene.
+**Grid Tonic** | Single-use bottle, murky amber. Recover 1 Guard. Takes a full round to drink. Tastes like copper and regret. Once per scene. Brewed by Free Cities pharmaceutical co-ops and exported worldwide.
 
 **Signal Flare** | Burns bright red for 3 minutes at Far visibility. Hot enough to start a fire with intent.
 - *Improvised Incendiary.* Press it against a flammable surface and ignite. Starts a directed fire. Close.
+
+### Pharmaceuticals
+
+*Thaumic-adjacent drugs. Some are prescription, some are over-the-counter, some are neither. Availability varies by country. Neue Europa regulates all of these. The Free Cities regulate none of them.*
+
+**Stabil-tabs** | Prescription. Daily pill that suppresses thaumic sensitivity. Closeted shapers and unregistered Sensitives take these to pass workplace screenings. Long-term use causes emotional flattening and vivid dreams. Withdrawal spikes sensitivity for 48 hours. Neue Europa pharmacies require a DPA referral. Free Cities market stalls sell them loose.
+
+**Adrenal-T** | Single-use auto-injector. Temporary Guard boost: gain 2 Guard immediately. After the scene ends, lose 3 Guard (which can trigger a Scar if it drops you to 0). Combat medics carry these. CSS shock troops are issued two per operation. Addictive with repeated use.
+- *Emergency Boost.* Inject an ally at Close range as a free action on your turn. They gain the Guard immediately.
+
+**Scry Tab** | Single-use tablet, chalky white. Grants a 3-second burst of divination to any Knack or higher on the spectrum. The user sees a single truthful image related to a question they're holding in mind. Extremely expensive. Requires attunement (Knack minimum). Side effects include nosebleed, migraine, and 1 hour of Snag on Sharp rolls. Zhongguo state intelligence services produce the best version.
+
+**Thaumic Sedative** | DPA issue. Injected. Completely suppresses shaping ability for 4 hours. Used on detained shapers and during transport. Subjects experience numbness, disorientation, and memory gaps. Not available on the civilian market. Black-site dosages are higher and last longer.
+
+**BTC Dampener (portable)** | Aerosol canister. Reduces local Background Thaumic Count by approximately 1 point in a Close radius for 10 minutes. Useful in high-BTC zones where ambient thaumic noise interferes with sensitive equipment. Leyline maintenance crews carry these. Does not affect shaping directly, but shapers report feeling "muffled."
+
+**Nerve Blocker** | Prescription patch, worn behind the ear. Suppresses Tell manifestation for one scene. The shaper can still shape, but their Tell doesn't display. Useful for shapers trying to work without revealing their method. Side effect: Snag on all Nerve rolls while active. The DPA considers possession by an unregistered individual to be evidence of concealment.
+
+**Sensitivity Booster (wide-spectrum)** | Single-use liquid, taken sublingually. Expands thaumic detection range by one band (Close becomes Near, Near becomes Far) for one scene. Knacks feel like Sensitives. Sensitives feel like their skin is on fire. Risk of involuntary shaping on a failed Nerve save at scene end. South Gondwana field researchers use these when mapping leyline routes through jungle canopy.
+
+**Anti-Break Shot** | Emergency auto-injector, red cap. Delays Break symptoms by 1 hour. Does not prevent the Break, only postpones it. The delayed Break hits harder: add +1 to the Harm level when it arrives. Used by DPA extraction teams pulling a shaper out of a hot zone. Not a treatment. A stopgap.
+
+**Marker Dye (thaumic forensic)** | Spray bottle. Marks thaumic signatures with a visible fluorescent residue that lasts 24 hours. Used by DPA forensic teams to tag crime scenes, track shaping residue, and identify which devices were active. Also used by customs agents at ports. The dye is harmless but impossible to wash off before it fades naturally.
 
 ---
 

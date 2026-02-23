@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "comments": [
+    {
+      "id": "c_1771776770451_xfp",
+      "selectedText": "In Two Minutes",
+      "contextBefore": "",
+      "contextAfter": "You have three stats",
+      "comment": "clarify that the roll changes in combat, more. Boons are universal and apply both in combat and in a normal roll. clarity here",
+      "sectionId": "core-in-two-minutes",
+      "sourceFile": "CORE",
+      "status": "dismissed",
+      "resolution": "Rewrote the combat paragraph to lead with 'the core roll changes' and clarified weapon dice replace stat dice for attacks. Added a sentence after the stakes paragraph explaining Boons/Snags are universal modifiers that work the same on every roll.",
+      "createdAt": "2026-02-22T16:12:50.451Z",
+      "resolvedAt": "2026-02-22T16:15:00.000Z",
+      "_orphaned": false
+    },
+    {
+      "id": "c_test_crossfile_001",
+      "selectedText": "Drain overflow causes Harm",
+      "contextBefore": "When a shaper spends Guard to fuel shaping",
+      "contextAfter": "at the levels specified",
+      "comment": "The Guard overflow formula here should match CORE.md's Harm overflow table exactly. Currently says 1-2/3-4/5+ but need to verify this is consistent across both files.",
+      "sectionId": "magic-drain",
+      "sourceFile": "MAGIC",
+      "status": "open",
+      "createdAt": "2026-02-22T17:50:00.000Z",
+      "_orphaned": true
+    }
+  ]
+}
