@@ -4,7 +4,7 @@
 
 All thaumic work costs something. Thaumatech devices don't absorb the cost, they replace the technique. The device is a stencil, not a shield. The energy still flows through you.
 
-**Thaumatech** makes magic predictable. The device enables the action and you roll your stat as normal, no drain cost. Want more? Spend Guard for bonus dice. The device keeps the process clean, so the only risk is what happens when you push past its rating.
+**Thaumatech** makes magic predictable. The device enables the action and you roll your stat as normal, no drain cost. Want more? Push for +1d from your Push track, same as any roll. The device keeps the process clean, so the only risk is what happens when you push past its rating.
 
 **Innate shaping** has no stencil. You roll your stat like any other action. The difference: Guard cost is in the stakes, Tell is mandatory, Heat ticks every time, and the GM always includes thaumic side effects in the consequences. You shape through your **obsession** (what your magic does, rooted in who you are) using your **Tell** (the physical, observable process you developed). Every use is visible, reportable, consequential.
 
@@ -42,29 +42,15 @@ A thaumatech device works like any tool. The device enables the action: you can'
 
 **Base use is free.** Roll your stat as normal. The device enables the action, no drain cost. This is what it's built for. A factory boiler operator running their rig at spec doesn't drain. An inspector scanning for anomalies doesn't drain. Routine thaumatech is infrastructure. It costs nothing because it's designed not to.
 
-**Overcharging costs Guard.** Want more than the rated output? Each point of Guard spent adds **+1 bonus die** on the roll, up to the device's **overcharge stat** (listed on the device entry). A scanner overcharges on Sharp. A ward projector overcharges on Nerve. A heavy emitter overcharges on Grit. Your stat is the cap: a Sharp 2 character can overcharge a scanner by 2 dice maximum, spending 2 Guard. You're pulling more than the device was meant for, faster than is safe. The energy still flows through you. The device doesn't protect you from the cost, it just shaped the channel. Now you're widening that channel past spec.
+**Pushing a device.** Want more than the rated output? Spend a **Push box** for +1d, same as any other roll. One Push per roll. You're pulling more than the device was meant for, faster than is safe. The energy still flows through you. The device doesn't protect you from the cost, it just shaped the channel.
 
-### Overcharge Stats
+Each device lists a **device stat** (Sharp, Nerve, or Grit) that reflects how it's operated. A scanner runs on Sharp. A ward projector runs on Nerve. A heavy emitter runs on Grit. This determines which stat you roll when using the device, not a separate overcharge cap.
 
-Each thaumatech device lists its overcharge stat. This determines which stat caps your bonus dice when pushing past rated output.
-
-| Overcharge Stat | Device Types | Examples |
+| Device Stat | Device Types | Examples |
 |-|-|-|
 | **Sharp** | Precision instruments, scanners, targeting systems | BTC scanner, signature reader, diagnostic kit, thaumic recorder, channeling rifle |
 | **Nerve** | Channeling devices, wards, medical, control | Ward projector, dampening field, field patch, containment unit, suppressor, nerve stabilizer |
 | **Grit** | Brute-force emitters, heavy hardware, physical amplifiers | Heavy discharge rig, discharge rod, gravity clamp, thaumic welder, reactive armor plates |
-
-A character with Sharp 3 / Nerve 1 gets maximum overcharge from scanners and precision weapons but barely pushes a ward projector. Gear choices mirror character identity. The same stat that makes you good at aiming makes you good at overcharging aiming devices.
-
-### Careful vs. Rushed Channeling
-
-Time changes the odds.
-
-**Taking extra time (spend an additional Act, two rounds instead of one):** Gain a **Boon (+1d)** on the roll. Careful, controlled channeling. You still pay full drain cost, but the extra time gives you better odds. In combat, that extra round matters: the Danger Clock is ticking, enemies are moving. Out of combat, it's almost always worth taking.
-
-**Rushed (default in combat):** No Boon. You're pulling fast and hard because you don't have a choice.
-
-This applies to both thaumatech overcharging and innate shaping. The time/odds trade is universal.
 
 ### Thaumatech in Combat
 
@@ -72,9 +58,9 @@ When used as a weapon, thaumatech follows the standard attack rules:
 
 - Roll the device's **weapon dice** (same categories as mundane weapons: a thaumatech wrench is 1d8, a discharge rod is 1d6, a heavy discharge rig is 1d8)
 - Sacrifice dice 4+ for **Gambits** (device-appropriate: Overload, Flash, Redirect, Dampen, in addition to standard Gambits. See CORE.md Gambits.)
-- Overcharge by spending Guard for bonus dice, same as any thaumic use
+- Push for +1d (spend a Push box, same as any roll)
 
-The base attack die is free. Drain only for overcharging.
+The base attack die is free. No drain for standard use.
 
 ### Device Consequences Through Stakes
 
@@ -323,7 +309,7 @@ Every Tell must have a clear, observable trigger that an enemy could block or a 
 | Physical contact | Touching the target, laying hands | Must be Close to target. No ranged shaping. |
 | Focus object | Rosary, lighter, coin, grandmother's ring | Lose it = can't shape, or Snag without it. |
 | Pain / blood | Self-harm, biting lip, drawing blood | Take 1 extra Guard damage on top of drain cost. |
-| Ritual counting | Specific numbers, sequences, patterns | Takes extra time (always counts as careful channeling). Can be interrupted. |
+| Ritual counting | Specific numbers, sequences, patterns | Takes extra time. Can be interrupted. |
 | Somatic routine | Tai chi forms, boxing stance, yoga poses | Requires space and freedom of movement. Snag in tight quarters. |
 
 A character's Tell is not a menu to optimize. It's a statement about who this person is and how they discovered magic. The kid who prays learned from a grandmother who thought it was divine. The one who needs pain discovered shaping during trauma. The one with the focus object found it humming after the Boom. Every Tell is a backstory. And every Tell is a vulnerability. Someone watching long enough can learn your Tell, and that means they can stop you.
@@ -339,7 +325,7 @@ When a Shaper channels:
    - **6:** The effect works. Guard cost as stated (the expected price).
    - **4-5:** The effect works at reduced intensity, or full effect at higher Guard cost. A thaumic side effect.
    - **1-3:** The Guard cost hits and the effect doesn't. Or the effect goes wrong. Or both. Physical harm from channeling backlash.
-3. **Roll your stat.** The fiction determines which stat. Grit forces energy through like bending steel. Sharp finds the seam and places the effect precisely. Nerve holds the pattern through composure and will. Same pool as any other roll. Boons and Snags apply normally: ally assist, clever positioning, careful channeling (extra Act for +1d), or Snags from injury, Tell impairment, hostile conditions.
+3. **Roll your stat.** The fiction determines which stat. Grit forces energy through like bending steel. Sharp finds the seam and places the effect precisely. Nerve holds the pattern through composure and will. Same pool as any other roll. Boons and Snags apply normally: ally assist, clever positioning, taking extra time, or Snags from injury, Tell impairment, hostile conditions. **Push** for +1d by spending a Push box (same as any roll, one per roll).
 4. **Sacrifice dice for shaping Gambits.** Any die showing 4+ can be sacrificed for a shaping Gambit instead of contributing to the result. Shapers have access to the full shaping Gambit list: Muffle, Anchor, Contain (from Sparked), plus Thread, Redirect, Siphon, Veil, Split. Shaper Edges can extend or add to this list.
 5. **Tick the Heat clock.** The number of ticks depends on **how visible the magic was** (reduced by 1 if the Muffle Gambit was used):
 
@@ -375,7 +361,7 @@ The Heat clock is tracked by the GM. It persists across scenes within the same f
 
 ### Thaumic Bargains
 
-Before any thaumic roll (thaumatech overcharge or innate shaping), the GM may offer a **Thaumic Bargain**: a free +1d in exchange for a consequence that happens **regardless of the roll result.**
+Before any thaumic roll, the GM may offer a **Thaumic Bargain**: a free +1d in exchange for a consequence that happens **regardless of the roll result.**
 
 "The ward holds, but every thaumic sensor in the block pings your location."
 "You get the extra die, but your nose bleeds and everyone in the room sees it."
@@ -395,12 +381,12 @@ Bargains are different from Stakes: Stakes are tied to roll results (partial = t
 |-|-|-|
 | Scope | Determined by device | Shaped by obsession, agreed with GM |
 | Technique | Push the button | Tell: personal, observable, blockable |
-| Dice source | Stat (free), overcharge costs Guard | Stat (same roll), Guard cost in stakes |
+| Dice source | Stat (free), Push for +1d | Stat (same roll), Guard cost in stakes, Push for +1d |
 | Stakes | Normal | Always escalated (thaumic side effects + Guard cost) |
 | Background heat | 0 ticks (regulated, expected) | 1-3 ticks per use (visibility-scaled) |
 | Flexibility | Limited to device function | Anything within obsession scope |
 | Tactical layer | Weapon/gear Gambits | Shaping Gambits (Muffle, Anchor, Contain, Thread, Redirect, Siphon, Veil, Split) |
-| Bargains | Available on overcharge | Available always |
+| Bargains | Rare (why risk a device?) | Available always |
 | Vulnerability | Device breaks | Tell can be identified, countered, suppressed |
 
 The only advantage of innate: no device limits your imagination within your obsession's scope. You can shape anything the fiction supports. That freedom is the power, and the reason every authority on Mondas wants it controlled.
@@ -409,9 +395,9 @@ The only advantage of innate: no device limits your imagination within your obse
 
 ## Drain
 
-Drain is not a separate track. It's **self-inflicted Guard damage** from thaumic channeling.
+Drain is **Guard damage from thaumic consequences.** For innate shaping, Guard cost lives in the GM's stakes: even a full success costs Guard. A consequence costs Guard and the effect fails. The shaper paid and got nothing.
 
-When you spend Guard to fuel magic (overcharging thaumatech or any innate shaping), the points come off your Guard total. When Guard hits 0, further drain becomes Harm, following the standard damage overflow rules:
+Guard damage from shaping follows the same overflow rules as combat damage:
 
 | Overflow | Harm Level |
 |-|-|
@@ -419,19 +405,13 @@ When you spend Guard to fuel magic (overcharging thaumatech or any innate shapin
 | 3-4 | Level 2 (Wounded): burst capillaries, nerve damage, blackout risk |
 | 5+ | Level 3 (Critical): hemorrhage, seizure, system shutdown |
 
-This is the same pipeline as combat damage. No new mechanics. The only difference: you chose this. You decided how much to spend. The wrench operator who overcharged by 2 chose to risk a nosebleed. The shaper who spent everything chose to risk death.
+### The Shaper's Dilemma
 
-### The Caster's Dilemma
-
-In combat, a caster's Guard is being eaten from **two directions**: enemy attacks and their own shaping. A thaumatech user who overcharges in round 1 has less Guard when the enemy swings in round 2. A shaper whose stakes cost 3 Guard on a success has 3 less Guard for the defense roll that follows. With Guard 6 (highest stat 4), that's half your buffer on one shaping. With Guard 3 (highest stat 1), a single Moderate shaping can empty you.
-
-The GM sets Guard cost in the stakes, and the cost hits on every result tier. Even a full success costs Guard. A consequence costs Guard AND the effect fails. The shaper paid and got nothing. That's the dilemma: every shaping attempt reduces your ability to survive the next attack, whether it worked or not.
+In combat, a shaper's Guard is being eaten from **two directions**: enemy attacks and their own shaping. A shaper whose stakes cost 3 Guard on a success has 3 less Guard for the defense roll that follows. With Guard 6 (highest stat 4), that's half your buffer on one shaping. With Guard 3 (highest stat 1), a single Moderate shaping can empty you.
 
 This is the low-magic feel. Not "you can't cast," but every cast makes you more vulnerable to the mundane. The bullet doesn't care that you just shaped a ward. Your Guard is gone either way.
 
-### Burnout
-
-Everyday burnout is real. A factory worker who overcharges their rated device to meet quotas goes home with less Guard. Do that every day and you're walking around at half capacity, one bad moment from Harm. Burnout isn't dramatic. It's erosion. Managing drain is a real-world skill on Mondas, taught in trade schools and measured in workplace safety audits.
+Meanwhile, **Push is being spent in both directions too.** Push a shaping roll for +1d, and that's one fewer Push box for the defense roll, the escape attempt, or the moment you take a Critical and need to Push to act. Guard and Push are both finite. Shaping eats both.
 
 ---
 
@@ -513,8 +493,7 @@ A Break is a moment where a character decides that what they're protecting is wo
 - **Personal thaumatech** (weapons, armor, scanners): contact plates, positives only
 - **Grid thauma-ware** (appliances, heating, infrastructure): buttons and switches, anyone
 - Base use: free (roll stat, device enables action)
-- Overcharge: spend Guard for +1d per point, capped at device's overcharge stat (Sharp/Nerve/Grit, listed on device entry)
-- Careful channeling (extra Act): Boon (+1d)
+- Push for +1d (same Push track as any roll, one per roll)
 - Failure: device consequences through Stakes (scales with gear danger)
 - Sustained: costs Act each round
 - Heat clock: 0 ticks (it's supposed to look like technology)
@@ -523,7 +502,7 @@ A Break is a moment where a character decides that what they're protecting is wo
 - Obsession scope determines what you can affect; Tell determines how
 - Standard roll (stat from fiction: Grit forces, Sharp places, Nerve holds)
 - Guard cost in the GM's stakes (success = expected cost, partial = higher cost, consequence = cost hits and effect fails)
-- Careful channeling (extra Act): Boon (+1d)
+- Push for +1d (same Push track as any roll, one per roll)
 - Heat clock: 1-3 ticks per use (visibility-scaled, reduced by Muffle Gambit)
 - Stakes always escalated (thaumic side effects + Guard cost)
 - Sustained: costs Act each round
@@ -536,8 +515,8 @@ A Break is a moment where a character decides that what they're protecting is wo
 - Player can refuse. Not the same as Stakes.
 
 ### Drain
-- Guard is the resource. Overflow to Harm (1-2 = L1, 3-4 = L2, 5+ = L3)
-- No separate drain track
+- Guard cost in stakes (innate shaping). Overflow to Harm (1-2 = L1, 3-4 = L2, 5+ = L3)
+- Push spent on shaping rolls is the same Push track as combat. Both deplete together.
 
 ### Break (Innate Only)
 - Player declares. Effect succeeds fully. Transcends obsession scope and Tell.
@@ -554,15 +533,16 @@ A Break is a moment where a character decides that what they're protecting is wo
 | # | Decision | Answer | Laws |
 |-|-|-|-|
 | D5 | Magic cost model | Drain = Guard. No separate track. Overflow to Harm. | P13, P17 |
-| D6 | Thaumatech vs Innate | Different risk profiles on the same roll chassis. Thaumatech: base use free (roll stat), overcharge costs Guard for bonus dice. Innate: standard roll (stat from fiction), Guard cost in stakes, Tell mandatory, Heat ticks, escalated stakes. | P10, P12 |
+| D6 | Thaumatech vs Innate | Different risk profiles on the same roll chassis. Thaumatech: base use free (roll stat), Push for +1d. Innate: standard roll (stat from fiction), Guard cost in stakes, Tell mandatory, Heat ticks, escalated stakes. Both use the same Push track. | P10, P12 |
 | D7 | How shaping works | Free-form within obsession scope, constrained by Tell. Standard roll, Guard cost in GM's stakes. No spell list, no separate dice engine. Shaping Gambits (Muffle, Anchor, Contain, Thread, Redirect, Siphon, Veil, Split) provide the tactical layer. | P2, P16 |
 | ~~D25~~ | ~~Nerve caps shaping~~ | **Superseded by D55.** Shaping stat from fiction. No Nerve cap. All stat builds shape through their approach. Guard is the universal cost. | |
-| D26 | Device overcharge stat | Each thaumatech device lists an overcharge stat (Sharp/Nerve/Grit). Overcharge dice capped at that stat. Creates build-relevant equipment choices. | P6, P17 |
+| ~~D26~~ | ~~Device overcharge stat~~ | **Superseded by D58.** Device stat determines the roll stat, not an overcharge cap. Push is universal (+1d, one per roll, from the Push track). No separate overcharge mechanic. | |
 | ~~D27~~ | ~~Nerve god-stat mitigation~~ | **Superseded by D55.** No longer relevant. Nerve is not a shaping cap. All three stats are equally valid shaping approaches. Precision Shaping and Brute Channel Edges no longer needed. | |
 | - | Thaumic Spectrum | Four tiers (Mundane, Knack, Sparked, Shaper) as Edge chain. Obsession-based, not category-based. Sparked replaces Sensitive (D53). Break is Shaper gate (D54). | P10, P17 |
 | - | Obsession & Tell | Scope from character obsession, not a list. Tell = technique + vulnerability. Edges refine both. | P14, P17 |
 | - | Contact plate system | Personal thaumatech powered through contact plates on skin. Positives only. Grid thauma-ware has buttons/switches, anyone operates. | P10, P17 |
-| - | Time/odds trade | Extra Act = Boon (+1d). Universal (thaumatech + innate). | P15 |
+| - | Time/odds trade | Extra time = Boon (fictional, GM grants). Not a separate mechanic. | P15 |
+| D58 | Push consolidation | Push is the universal +1d mechanic across all rolls (combat, shaping, thaumatech, social). One Push per roll from the 4-box Push track. Replaces overcharge-costs-Guard and careful-channeling-for-Boon. Thaumic Bargain stays as a separate GM tool. | P12, P15 |
 | - | Thaumic Bargains | GM offers free +1d for guaranteed consequence. Player can refuse. | P2 |
 | - | Heat clock | Subtle 1, Overt 2, Undeniable 3. Thaumatech 0. GM-tracked, table-visible. | P12 |
 | - | Sustained effects | Costs Act each round. Nerve save to maintain when hit. Both device and innate. | P6 |
@@ -584,7 +564,7 @@ A Break is a moment where a character decides that what they're protecting is wo
 
 **Tell limitations:** Limitations create gameplay. "We need stealth but my Tell is singing" is a scene. Tells can be identified and countered, making shapers dangerous to be, not just to face.
 
-**Three innate costs (Guard in stakes, heat clock, escalated stakes):** Each creates a different pressure: survival cost, accumulating attention, narrative weight. Together they make every cast a genuine decision. Shaping Gambits add a fourth pressure: the choice to trade effect quality for operational control.
+**Three innate costs (Guard in stakes, heat clock, escalated stakes):** Each creates a different pressure: survival cost, accumulating attention, narrative weight. Together they make every cast a genuine decision. Shaping Gambits add a fourth pressure: the choice to trade effect quality for operational control. Push adds a fifth: the same 4-box track fuels combat, shaping, and survival. Every Push spent on a shaping roll is one fewer for dodging bullets.
 
 **Break is innate-only:** Thaumatech exists to prevent Breaks. The device is the safety valve. Device fails catastrophically, the device breaks. Shaper fails catastrophically, the person breaks.
 
@@ -601,6 +581,6 @@ Notes moved here from body text.
 - **P3, P7 (Device failure):** Dangerous gear means dangerous consequences. The world responds to thaumic violence.
 - **P10 (Spectrum):** Every tier has something to contribute in every scene.
 - **P12 (Innate magic):** Guard cost in stakes, heat clock, escalated stakes, Tell limitations, shaping Gambits. All fictional events and real tactical choices, not abstract resource management.
-- **P13 (Drain):** No drain track. Guard cost lives in the GM's stakes. Same consequence framework as every other roll.
+- **P13 (Drain):** No drain track. Guard cost lives in the GM's stakes. Push is the same 4-box track used for everything else. No separate magic resource.
 - **P6 (Sustained):** Sustaining creates a real tactical choice: keep the ward up or fight back?
 - **P3, P9, P12 (Break):** Desperate, cinematic, narrative-embedded. Structure for the moment, not routine use.

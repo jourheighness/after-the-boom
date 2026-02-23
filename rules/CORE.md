@@ -9,9 +9,9 @@ When you do something risky, roll d6s equal to your stat. Read the highest die.
 - **4-5:** You do it, but there's a cost.
 - **1-3:** Things go sideways. The GM tells you how.
 
-Before you roll, the GM tells you what's at stake. You can push harder (accept worse stakes for +1d) or play it safe (accept a Snag for softer stakes).
+Before you roll, the GM tells you what's at stake. You can raise the stakes (accept worse stakes for +1d) or play it safe (accept a Snag for softer stakes). Boons and Snags modify any roll, whether you're picking a lock, talking down a guard, or swinging a wrench at someone's head. They always work the same way: +1d or -1d, cancel each other out.
 
-In a fight, everything happens at three ranges: Close, Near, Far. Attacks auto-hit. You roll your weapon dice and choose: keep your highest die for damage, or sacrifice dice for tactical effects (shove, disarm, create cover, reposition). When an enemy comes at you, you roll your stat to see how much you can mitigate.
+In a fight, the core roll changes. Attacks auto-hit, so you roll your weapon's dice instead of a stat. You choose: keep your highest die for damage, or sacrifice dice for tactical effects (shove, disarm, create cover, reposition). When an enemy comes at you, you roll your stat to mitigate. Everything happens at three ranges: Close, Near, Far.
 
 **Guard** keeps you on your feet. When it breaks, real injuries start. A few bad hits and you're done.
 
@@ -28,7 +28,7 @@ When the outcome is uncertain and the stakes matter, a player rolls.
 | **6** | Full success | You get what you want. No strings. |
 | **4-5** | Partial success | You get it, but with a cost, complication, or reduced effect. |
 | **1-3** | Consequence | You don't get it, or you get it at a serious price. The GM makes a move. |
-| **Two or more 6s** | Critical | Full success, plus a bonus: extra effect, unexpected advantage, or narrative flourish. |
+| **Two or more 6s** | Critical | Full success, plus one free Strong-tier Gambit. Choose any Gambit available to you. It lands at full effect regardless of the target's Threat level. No die cost. This is the stat-roll equivalent of a weapon die showing 8+: the exceptional threshold that punches through resistance. |
 
 **Zero dice:** When Snags reduce your pool below 1, roll 2d6 and take the **lowest**. Criticals are impossible at 0d.
 
@@ -91,7 +91,7 @@ Boons and Snags cancel 1-for-1. Only the net result applies. Maximum pool is **5
 - **Gear:** The right tool for the job. Lockpicks for a lock. A scope for a long shot.
 - **Creative approach:** The player describes something that uses the environment, exploits a weakness, or leverages preparation. Max 1 Boon from creativity per roll.
 - **Ally assist:** Another character helps. They describe how. This costs their Act for the turn (in combat) or exposes them to risk (out of combat).
-- **Pushing harder:** Accept worse stakes from the GM in exchange for +1d (see *Stakes*).
+- **Raising the stakes:** Accept worse consequences from the GM in exchange for +1d (see *Stakes*).
 
 ### Sources of Snags
 - **Injury:** Active Harm conditions apply Snags when relevant (or always, for serious injuries).
@@ -117,7 +117,7 @@ The stakes must be **specific and grounded.** Not "you take damage" but "the gua
 The player hears the stakes. Then they can:
 
 - **Accept and roll.** Most of the time.
-- **Push harder.** "What if I go louder, kick it in instead of picking it?" The GM raises the consequence but grants a **Boon (+1d)**. More risk, better odds.
+- **Raise the stakes.** "What if I go louder, kick it in instead of picking it?" The GM raises the consequence but grants a **Boon (+1d)**. More risk, better odds.
 - **Play it safe.** "What if I take my time and go careful?" The GM softens the consequence but imposes a **Snag (-1d)**. Less risk, worse odds.
 - **Change approach.** "Forget the door, I'm going through the window." New stakes, possibly a different stat.
 - **Back off.** "Never mind. We find another way." No roll, no consequence.
@@ -130,7 +130,7 @@ Combat has its own resolution for attacks and defense (see Attacking and Defense
 
 But combat isn't only attacks. When a PC wants to do something in a fight that isn't hitting someone, the GM decides:
 
-**It's trivial.** Kick a table over, shout a warning, draw a weapon, toss your keys to an ally. Just do it. No roll. Some actions cost your Act but need no roll either (Suppressing Fire, Covering an Ally, Holding Ground). Those trade your attack for a guaranteed effect. See Tactics.
+**It's trivial.** Kick a table over, shout a warning, draw a weapon, toss your keys to an ally. Just do it. No roll. Some actions cost your Act but need no roll either. Trained Tactics (Suppressing Fire, Covering an Ally, Holding Ground) trade your attack for a guaranteed effect but require a relevant Edge. Universal Tactics (Flanking, Retreat, De-escalation) are available to everyone. See Tactics.
 
 **It's risky.** Climb a fire escape under fire, sprint across an open lot, hack a security terminal while the alarm blares. The GM states what goes wrong on a failure. Roll the appropriate stat (same rules as any other stat roll: 6 = clean, 4-5 = partial, 1-3 = consequence). Push still works (spend a box for +1d). The push-harder and play-safe trades from the standard stakes model don't apply in combat. The GM sets terms once, you roll or change approach. If the action creates an advantage on success, the GM tells you what you gain: a Boon on your next action, or a free Gambit effect on your next attack.
 
@@ -303,27 +303,6 @@ Players discuss and coordinate freely. There is no initiative roll. The fiction 
 
 ---
 
-## Social Plays
-
-When a conversation has stakes, these are your options. Not special abilities. Just the things anyone can try when words matter. Pick one, describe how, roll the stat. The GM sets stakes like any other roll. Edges and Backgrounds add Boons when they apply.
-
-| Play | Stat | What Happens |
-|-|-|-|
-| **Pressure** | Nerve | Force a decision now. Partial: they comply but you burn goodwill. |
-| **Read** | Sharp | Study someone. GM reveals one truth about them. Partial: they notice you watching. |
-| **Endure** | Grit | Outlast the interrogation, the argument, the sales pitch. Partial: you hold but concede something small. |
-| **Deflect** | Nerve | Redirect attention off yourself or an ally. Partial: they let it go but will circle back. |
-| **Appeal** | Nerve | Make a case through their values. Only works if you know what they care about. Partial: they hear you but need more. |
-| **Stonewall** | Grit | Refuse to engage. They can't progress without escalating. Partial: they find a crack in your composure. |
-| **Undercut** | Sharp | Say something that pulls the floor out. They lose momentum. Partial: you reveal something about yourself too. |
-| **Leak** | Sharp | Plant specific information. GM tells you who heard it within a day. Partial: it travels, but so does the fact that you planted it. |
-
-On a consequence (1-3), the GM's stakes apply as usual. You pushed and they pushed back harder. You read wrong and tipped your hand. You stonewalled and they escalated to something you can't handle sitting down.
-
-Social Plays combine naturally. Read someone first, learn what they care about, then Appeal to it. Two rolls, two sets of stakes, but the second one hits because you did the work.
-
----
-
 ## Positioning
 
 Combat uses three abstract ranges. These describe relationships between people, not positions on a grid. The GM states who is Close, Near, or Far when a fight starts. Everything else follows from the fiction.
@@ -352,23 +331,44 @@ Cover does not help against Close-range attacks. If they're in your face, the wa
 
 A **Strong Gambit** (8+) can destroy cover: punch through the drywall, blow the barricade apart, shatter the window someone is hiding behind. This gives heavy weapons a tactical role beyond raw damage.
 
-### Tactics
+### Universal Tactics
 
-These are situations you create through positioning and coordination. They're available to everyone. No Edges required, no dice sacrificed. The Gambit catalog includes ways to achieve some of these while also dealing damage (Flanking Rush, Covering Retreat, etc.), but the basic versions below cost your Act or arise naturally from the fiction.
+Available to everyone. No Edge required. These are instinct, not doctrine. Things any person does when a situation turns dangerous.
 
 **Flanking.** When two allies are at Close range with the same enemy from different angles, both attackers get a **Boon** on attacks against that target. The GM judges "different angles" from the fiction, not a grid. Flanking breaks when the target Repositions (Gambit) or Moves away. You don't need to spend anything to flank. Just get two people on opposite sides of someone.
 
 **Ambush.** Attack from concealment or surprise. Roll Sharp to set it up (before combat starts). On a 6: perfect position, Boon on your opening attack. On 4-5: you're in place, attack normally. On 1-3: they spotted you, no ambush, combat starts on their terms. When the ambush triggers, ambushing characters act first (before the GM's turn) and the target does not get a defense roll against the first attack. After the opening round, combat proceeds normally.
 
-**Suppressing Fire.** Spend your Act firing at an area (Near or Far) instead of a target. No damage. Every enemy in that area who moves or acts before your next turn takes a **Snag**. Requires a Ranged or Sidearm weapon. Uses ammunition. This is the "keep their heads down while we move" play.
-
-**Tactical Retreat.** Spend your Act to withdraw safely. Move **two range bands** instead of one, and enemies at Close do not get a response. You deal no damage this turn. This is expensive (you lose your attack) but clean. The default disengage (spend Move, one band, possible response) is faster but riskier.
-
-**Covering an Ally.** Spend your Act to protect a specific ally you can see (Near or closer). Until your next turn, when that ally is attacked, the attacker takes a **Snag** on damage. Describe how: shouting a warning, firing near the enemy, stepping between them. You don't deal damage. You keep someone alive.
-
-**Holding Ground.** Spend your Act to brace at your current position. Until your next turn, gain **+1 Armor** and you cannot be Shoved or Tripped. Good for blocking doorways, holding choke points, protecting someone behind you.
+**Retreat.** Spend your Move, leave the situation. Enemies may pursue depending on the fiction.
 
 **De-escalation.** Spend your Act to try to end the fight. Roll Nerve. On a 6: one enemy stops fighting (drops weapon, backs off, surrenders). On 4-5: they hesitate, lose their next action, but their allies keep going. On 1-3: they ignore you, and their next attack targets you specifically. Only works on enemies with Morale. Fanatics, machines, and entities don't listen. You must be visible and audible. This is the civilian option, the "nobody needs to die here" play, and sometimes it's the smartest move in the room.
+
+### Trained Tactics
+
+Require a relevant Edge. These represent doctrine and muscle memory. Not things civilians improvise under fire.
+
+**Suppressing Fire.** Spend your Act firing at an area (Near or Far) instead of a target. No damage. Every enemy in that area who moves or acts before your next turn takes a **Snag**. Requires a Ranged or Sidearm weapon. Uses ammunition. Requires a military, law enforcement, or security Edge.
+
+**Tactical Retreat.** Spend your Act to withdraw safely. Move **two range bands** instead of one, and enemies at Close do not get a response. You deal no damage this turn. The controlled version of Retreat. Requires a military, law enforcement, or security Edge.
+
+**Covering an Ally.** Spend your Act to protect a specific ally you can see (Near or closer). Until your next turn, when that ally is attacked, the attacker takes a **Snag** on damage. Deliberate protective positioning. Requires a military, law enforcement, or security Edge.
+
+**Holding Ground.** Spend your Act to brace at your current position. Until your next turn, gain **+1 Armor** and you cannot be Shoved or Tripped. Disciplined choke point defense. Requires a military, law enforcement, or security Edge.
+
+A former CSS operator and a union organizer both know how to run. Only one knows how to run while keeping the exit covered and their team intact. Trained Tactics are not more powerful. They are more structured. The civilian toolkit is fully viable. It just looks different.
+
+### Edges and Gambits
+
+Edges don't just unlock Trained Tactics. Any Edge can modify how a Gambit works when the fiction supports it, changing its trigger, its effect, or its threshold.
+
+The modification takes one of three forms:
+- Change the trigger: this Gambit works in a situation it normally wouldn't
+- Change the effect: this Gambit produces something different or additional
+- Change the threshold: this Gambit counts as Strong against a specific target type
+
+A war journalist De-escalates differently than a hostage negotiator. A trauma surgeon's Secure Gambit covers a downed ally mid-fight. A competitive climber's Reposition covers two bands on vertical terrain. The Edge makes the Gambit yours.
+
+When a player proposes an Edge-Gambit interaction not in the catalog, the GM defaults to yes if it's grounded in the fiction. One clear effect, one die, same rules as any Gambit.
 
 ---
 
@@ -432,25 +432,91 @@ This works with any combination: two knives, two pistols, a knife and a pistol. 
 
 ### Gambits
 
-Any die showing **4 or higher** can be sacrificed for a tactical effect instead of contributing to damage. Each sacrificed die = one Gambit.
+Any die showing 4 or higher can be sacrificed for a tactical effect instead of contributing to your result. This works on any roll, combat or otherwise.
+
+The cost is real. You sacrifice before reading your result. The highest remaining die is your outcome. Spending your only 6 to get a side effect might drop you from a full success to a partial. That's the choice.
+
+One Gambit per die sacrificed. Multiple dice, multiple Gambits. No duplicates: each Gambit can only be used once per roll.
+
+In combat you're trading damage for effect. On any other roll you're trading outcome height for effect. Same system, different currency.
 
 **Gambit Sources:** Your available Gambits come from three places that all stack:
 
-1. **Standard list** (below). Available to everyone, every weapon.
+1. **Base list** (below). Available to everyone, every roll. 15 Gambits across four categories.
 2. **Weapon Gambits** (1-3 per weapon, listed on its entry in `rules/EQUIPMENT.md`).
 3. **Property-category Gambits** (from `rules/GAMBITS.md`). Any weapon with the Melee property gets all Melee Gambits, any Ranged weapon gets all Ranged Gambits, etc.
 
-A knife that's Subtle gets: the standard Gambits + its weapon-specific Gambits + all Subtle-category and Melee-category Gambits. In practice, range and situation narrow your options to a handful. If the same Gambit name appears in both your weapon entry and a property category, you have it once, not twice.
+A knife that's Subtle gets: the base Gambits + its weapon-specific Gambits + all Subtle-category and Melee-category Gambits. In practice, range and situation narrow your options to a handful. If the same Gambit name appears in both your weapon entry and a property category, you have it once, not twice.
 
-**Standard Gambits (die 4+):**
-- **Bolster:** +1 to total damage per die spent. Any range. Always works.
-- **Reposition:** you move one range band after the attack, even if you already moved. Any range.
-- **Create Cover:** flip a table, kick over a dumpster, shoot out a support to topple something. Creates partial cover (+1 Armor vs ranged) at your position or an adjacent ally's. Must make fictional sense. Any range, but the cover is always at your position, not the target's.
-- **Shove:** push the target one range band away. Close only.
-- **Trip:** knock the target down (they spend movement to recover). Close only.
-- **Disarm:** force them to drop something. Close only.
-- **Pin:** prevent them from moving next turn. Close only.
-- **Suppress:** keep the target's head down. They take a Snag on their next action. Near or Far only.
+<!-- BASE GAMBIT LIST — LOCKED. 15 entries across 4 categories.
+     Edges and equipment EXTEND (new trigger, modified effect, changed threshold).
+     They do not add base Gambits. To modify this list, update the count and commit. -->
+
+#### Maneuver
+
+Output: positioning, access, protection. No confrontation required.
+
+- **Position:** Boon on your next related roll. You set something up.
+- **Escape:** Break contact. Disengage without triggering a response.
+- **Conceal:** Hide yourself, an object, or a trail from detection.
+- **Stall:** Buy time. An impending consequence doesn't resolve yet. You get one action before it hits. Also tick a relevant clock forward or back by one. *GM note: name the consequence when it's delayed. It returns on the next action unless the player addresses it directly. Stall is not escape. It's borrowed time with a visible price tag. The player should always know what's coming back.*
+
+#### Assess
+
+Output: information only. You learn something. The situation does not change.
+
+- **Gather:** Learn one specific detail beyond what the roll gives you.
+- **Read:** Reveal one true thing about a person's state, intent, or vulnerability.
+- **Scout:** Map the space. Exits, threats, numbers, opportunities.
+
+#### Influence
+
+Output: changes people or institutions. Somebody's position shifts.
+
+- **Shift:** An NPC's attitude, behavior, or stance changes in a direction you describe.
+- **Pressure:** They make a decision now they'd rather defer.
+- **De-escalate:** Reduce hostility one notch. Buy a beat of calm.
+
+#### Fight
+
+Output: physical combat effects. Bodies and objects move.
+
+- **Shove:** Push target one range band or into an obstacle.
+- **Trip:** Knock prone. Stand costs Move.
+- **Disarm:** Force weapon drop.
+- **Pin:** Hold target in place. They spend an Act to break free.
+- **Create Cover:** Improvise cover. Flip table, kick dumpster. +1 Armor vs ranged.
+
+<!-- END BASE GAMBIT LIST -->
+
+**Extension Model:** Edges and equipment can expand the base list in three ways:
+
+1. **New trigger.** Use a base Gambit in a situation it doesn't normally cover.
+2. **Modified effect.** A base Gambit does something additional or different.
+3. **Changed threshold.** Reduce cost (4+ becomes free) or increase potency.
+
+Every extension must name which base Gambit it modifies. "This Edge grants an enhanced Shove" not "this Edge pushes enemies." If it doesn't reference a base Gambit, it's not a Gambit extension. See `rules/EDGES.md` for examples.
+
+Strong Gambits require 8+ and only work with d8+ weapons. In combat, Strong Gambits work against any Threat level.
+
+Weapon-specific, property-category, Defensive, Act Replacement, and Gear Gambits remain exactly as written in their respective sections below and in `rules/GAMBITS.md`.
+
+### Social Gambits
+
+When the roll is a conversation and the target is a person, the base Gambits take specific social forms. These are not a separate system. They show what Influence, Assess, and Maneuver look like when words are the weapon.
+
+| Name | Category | Stat | Effect |
+|-|-|-|-|
+| **Pressure** | Influence | Nerve | They make a decision now they'd rather defer. |
+| **Appeal** | Influence | Nerve | They move toward your position because it aligns with something they care about. |
+| **Deflect** | Maneuver | Nerve | Attention moves off you or an ally. |
+| **Read** | Assess | Sharp | GM reveals one true thing about them. |
+| **Undercut** | Influence | Sharp | They lose momentum. Their next move costs more. |
+| **Leak** | Influence | Sharp | Specific information travels. GM tells you where it lands. |
+| **Endure** | Maneuver | Grit | You hold your position through something that should break it. |
+| **Stonewall** | Influence | Grit | They can't progress without escalating. |
+
+Using a Social Gambit on a combat roll is possible if the fiction supports it. GM judges whether the category fits.
 
 **Improvised Gambits:** Players can always propose a Gambit not on this list. State what you want, the GM judges whether it's plausible given your weapon, range, and the fiction. A few examples:
 - *Blind:* throw dust, splash a drink, aim for the eyes. Target gets Snag on next action. Close or Near.
@@ -458,7 +524,7 @@ A knife that's Subtle gets: the standard Gambits + its weapon-specific Gambits +
 - *Distract:* ricochet shot, thrown debris, feint. An ally gets a Boon on their next action against that target. Any range.
 - *Pull:* yank someone toward you or drag yourself to them. Close, or any range with the right gear (grappling hook, cable).
 
-The principle: if it costs you a die and produces a single tactical effect of similar weight to the standard list, it's probably a fair Gambit.
+The principle: if it costs you a die and produces a single tactical effect of similar weight to the base list, it's probably a fair Gambit.
 
 **Defensive Gambits:** Some Gambits protect you instead of affecting the enemy. Sacrifice a die 4+ from your attack roll on your turn. The defensive effect persists until the start of your next turn. You're trading offense for protection. See `rules/GAMBITS.md` for the full list (Parry, Guard Stance, Brace for Impact, etc.).
 
@@ -472,7 +538,7 @@ The principle: if it costs you a die and produces a single tactical effect of si
 
 ### Gear Gambits
 
-Specific equipment unlocks Gambits beyond the standard list. Mundane gear and thaumatech alike. What you bring to a fight defines what you can do in it.
+Specific equipment unlocks Gambits beyond the base list. Mundane gear and thaumatech alike. What you bring to a fight defines what you can do in it.
 
 During a gear-up scene, players choose their loadout. If you know the enemy relies on sight for a special attack, bring flashbangs. If you're raiding a thaumatech-heavy site, bring a deadfield rod. If you expect a chase, bring caltrops. Preparation is a tactical advantage, and since you can't carry everything, your choices matter.
 
@@ -509,19 +575,25 @@ The full gear catalog with costs, legality, and availability is in WS6 (Equipmen
 
 ### Gambit Potency
 
-When you perform a Gambit, your stat determines how hard it lands. Describe what you do. The description picks the stat, same as any other action.
+Your stat shapes how your Gambits land, what they look like, and how hard they stick.
 
-"I shove him back" = Grit. "I cut the strap on his holster" = Sharp. "I hold the blade where he can see it" = Nerve.
+The player describes what they do. That description determines the stat. The stat determines potency. A Grit character and a Sharp character both carrying knives fight completely differently:
+
+- **Grit** breaks and overwhelms. You don't disarm, you break their grip. You don't shove, you drive them into the wall with your weight. You don't pin, you put them on the ground and stay there.
+- **Sharp** redirects and finds gaps. You don't shove, you slip inside the guard and use their momentum. You don't disarm, you cut the strap. You don't pin, you put the blade exactly where moving would be stupid.
+- **Nerve** pressures and holds. You don't pin, you press the blade where they can feel it and hold eye contact until moving feels wrong. You don't disarm, you make them choose to drop it.
+
+Same Gambit name. Completely different fighter. The description earns the stat. The stat determines how hard it lands.
 
 | Stat | Potency |
 |-|-|
-| **1** | Reduced. The Shove is a stumble. The Suppress is a flinch. It works, barely. |
+| **1** | Reduced. The Shove is a stumble. The Pin is a moment, not a hold. It works, barely. |
 | **2** | Standard. The Gambit works as written. |
 | **3+** | Enhanced. Against Threat 2+ targets, ignore one level of Threat resistance. |
 
-This means your stats shape HOW you fight. A character with Grit 1 / Sharp 3 doesn't shove people. They cut straps, sever tendons, pin sleeves to walls. A character with Grit 3 / Sharp 1 doesn't do precision work. They throw people, break things, slam doors on arms. Same weapons, different person, different Gambits light up.
+**Strong Gambit + Enhanced potency together:** When a Strong Gambit (die 8+, or a free Crit Gambit) combines with Enhanced potency (stat 3+), the Gambit works at full effect AND leaves an additional consequence the GM names from the fiction. Not a bigger number, something extra sticks. The disarm also leaves them exposed. The shove also knocks them prone. The pin also leaves them Shaken. The GM describes what that looks like based on how the player described the action.
 
-You don't pick a fighting style from a list. It emerges from your stats, your weapon, and the way you describe your actions. A knife in the hands of a Sharp 3 character is a scalpel. In the hands of a Nerve 3 character, it's a threat. In the hands of a Grit 3 character, it's a pry bar with an edge.
+Potency applies to Fight Gambits only. Other categories land based on the fiction. The GM narrates the degree, not a table.
 
 ### Gambit Resistance
 
@@ -669,7 +741,7 @@ Clocks are visible to all players. They exist on the table, drawn on paper or in
 ## Quick Reference
 
 ### The Roll (non-combat & defense)
-Roll [stat]d6, read highest. 6 = full, 4-5 = partial, 1-3 = consequence. Double 6 = critical.
+Roll [stat]d6, read highest. 6 = full, 4-5 = partial, 1-3 = consequence. **Crit (double 6):** Full success + one free Strong-tier Gambit, full effect regardless of Threat level.
 
 ### Saves
 Roll the specified stat, same table. Effect defines the consequence. Partial = reduced intensity. Threat does not impose Snags on saves.
@@ -684,16 +756,13 @@ Grit (body), Sharp (senses), Nerve (will). Rated 1-4.
 Boon = +1d. Snag = -1d. Cancel 1-for-1. Max 5d, min 0d (2d6 take lowest).
 
 ### Stakes
-GM states consequences before any roll. Player can push harder (+1d, worse stakes), play safe (-1d, softer stakes), change approach, or back off. In combat: trivial non-attack actions just happen, risky ones get a stat roll (GM sets terms, no back-and-forth). Attacks use weapon dice, not the stakes model. Tactical effects during attacks = Gambits.
-
-### Social Plays
-Pressure (Nerve), Read (Sharp), Endure (Grit), Deflect (Nerve), Appeal (Nerve), Stonewall (Grit), Undercut (Sharp), Leak (Sharp). Same roll rules. Edges and Backgrounds add Boons.
+GM states consequences before any roll. Player can raise the stakes (+1d, worse stakes), play safe (-1d, softer stakes), change approach, or back off. In combat: trivial non-attack actions just happen, risky ones get a stat roll (GM sets terms, no back-and-forth). Attacks use weapon dice, not the stakes model. Tactical effects during attacks = Gambits.
 
 ### Positioning
 Close (melee), Near (across a room), Far (across a lot). Move = shift one band. Cover: partial +1 Armor, full +2 Armor (ranged only).
 
 ### Tactics
-Flanking (two allies, different angles, Boon on attacks). Ambush (Sharp roll to set up, target gets no defense on first attack). Suppressing Fire (Act, no damage, Snag on enemies in area). Tactical Retreat (Act, move two bands, no response). Covering (Act, Snag on damage to ally's attacker). Holding Ground (Act, +1 Armor, can't be Shoved/Tripped). De-escalation (Act, Nerve roll, stop one enemy, Morale targets only).
+**Universal Tactics (anyone):** Flanking, Ambush, Retreat, De-escalation. **Trained Tactics (Edge required):** Suppressing Fire, Tactical Retreat, Covering an Ally, Holding Ground.
 
 ### Attacking
 Auto-hit. Roll weapon dice. Sacrifice dice 4+ for Gambits. Highest remaining die = damage. Strong Gambits need 8+. Dual wield: both weapons' dice, Snag on defense.
@@ -702,18 +771,7 @@ Auto-hit. Roll weapon dice. Sacrifice dice 4+ for Gambits. Highest remaining die
 Ranged (Near/Far, Snag at Close), Sidearm (Close/Near, Snag at Far), Thrown (Near, lost), Long (Close+Near, Boon at reach), Loud (ticks clocks), Brutal (crit = two dice), Subtle (concealable), Slow (no Move+attack).
 
 ### Gambits
-
-| Type | Cost | Examples |
-|-|-|-|
-| Standard | Die 4+ | Bolster, Reposition, Create Cover (any range). Shove, Trip, Disarm, Pin (Close). Suppress (Near/Far). |
-| Defensive | Die 4+ on your turn | Parry, Guard Stance. Effect lasts until your next turn. |
-| Act Replacement | Forgo attack | Brace for Impact, Predator Patience. No die cost. |
-| Weapon-specific | Die 4+ | 1-3 per weapon, see `rules/EQUIPMENT.md`. |
-| Gear | Die 4+ or Act | Flash, Obscure, Deafen, Mark, Restrain, Slow, Barrier, Pull, Overload, Redirect, Dampen, Jam. Requires gear. |
-| Strong | Die 8+ | Greater effect, destroys cover. Only possible with d8+ weapons. |
-
-**Potency:** Stat 1 = reduced, Stat 2 = standard, Stat 3+ = ignore one Threat level.
-**Sources stack:** Standard + weapon-specific + property-category. Same name = have once.
+**Gambits:** Any die 4+ sacrificed for effect on ANY roll. Four categories by output: **Maneuver** (Position, Escape, Conceal, Stall [delay consequence + tick clock ±1]), **Assess** (Gather, Read, Scout), **Influence** (Shift, Pressure, De-escalate), **Fight** (Shove, Trip, Disarm, Pin, Create Cover). 15 base, extended by Edges/equipment (must name which base Gambit they modify). Social forms: Pressure/Appeal/Deflect (Nerve), Read/Undercut/Leak (Sharp), Endure/Stonewall (Grit). Potency (Fight only): stat 1 = reduced, stat 2 = standard, stat 3+ = ignore one Threat level. Strong + Enhanced = full effect + additional fictional consequence.
 
 ### Defense
 Roll [stat]d6 vs. enemy attack. 6 = no damage, 4-5 = half, 1-3 = full. Enemy Threat imposes Snags.
@@ -741,7 +799,7 @@ Damage, subtract Armor, subtract Guard, overflow = Harm.
 | D4 | Success granularity | Three tiers + critical (6 / 4-5 / 1-3 / double 6) | P1, P4 |
 | - | Stat count | 3 (Grit, Sharp, Nerve), rated 1-4 | P14, P17 |
 | - | Attack model | Auto-hit, weapon dice, Gambits for tactical choice | P4, P6, P9 |
-| - | GM framing | Stakes (state consequences, push harder / play safe trade) | P1, P2, P6 |
+| - | GM framing | Stakes (state consequences, raise the stakes / play safe trade) | P1, P2, P6 |
 | - | Damage system | Guard buffer + 3-level Harm track + Scars | P3, P8, P12 |
 | - | Tension mechanic | Danger Clocks (tick each round) | P3, P6 |
 | - | Push resource | 4-box track, narrative recovery, Crack on empty | P12, P15 |
@@ -761,18 +819,42 @@ Damage, subtract Armor, subtract Guard, overflow = Harm.
 | D15 | Gambit resistance | Explicit table by Threat level. Standard reduced/blocked at Threat 2+. Strong always works. | P6 |
 | D22 | Gambit potency | Attacker's stat (from description) sets potency: 1 = reduced, 2 = standard, 3+ = ignore one Threat level. Zero extra rolls. Fighting style emerges from stat spread. | P2, P6, P14 |
 | D23 | Weapon Gambits | Each weapon carries 1-3 specific Gambits on its entry. Loadout = tactical identity. | P6, P17 |
-| D24 | Social Plays | 8 structured social actions (Pressure, Read, Endure, Deflect, Appeal, Stonewall, Undercut, Leak) with stat and outcome. Not Gambits. Same roll system. | P1, P6 |
+| D24 | Social Gambits | 8 named social forms categorized across Influence (Pressure, Appeal, Undercut, Leak, Stonewall, Shift), Assess (Read), and Maneuver (Deflect, Endure). Social applications of base Gambits, not a separate tier. | P1, P6 |
 
 ### Decisions Made (Mesh Pass)
 
 | # | Decision | Answer | Laws |
 |-|-|-|-|
 | D28 | Saves | Roll specified stat, same table. Triggering effect defines consequence, not GM. Partial = reduced intensity. Threat does not impose Snags on saves. | P4, P15 |
-| D29 | Conditions | Three named conditions (Stunned, Shaken, Prone) with mechanical definitions. Referenced by Gambits and equipment effects. | P4, P6 |
-| D30 | Gambit sources | Three stacking layers: standard list, weapon-specific, property-category. All available simultaneously. | P6, P9 |
+| D29 | Conditions | Four named conditions (Stunned, Shaken, Prone, Staggered) with mechanical definitions. Referenced by Gambits and equipment effects. | P4, P6 |
+| D30 | Gambit sources | Three stacking layers: base list (15 Gambits), weapon-specific, property-category. All available simultaneously. | P6, P9 |
 | D31 | Shaping effect output | Standard roll, not auto-hit. GM sets damage in stakes by scale (Focused/Broad/Devastating). Differentiates weapons (reliable) from shaping (flexible). | P10, P16 |
-| D32 | Tactics | Seven universal tactical options (Flanking, Ambush, Suppressing Fire, Tactical Retreat, Covering, Holding Ground, De-escalation). Situations, not Gambits. Available to everyone. Gambits can create these situations while attacking. | P6, P9 |
+| D32 | Tactics | Seven tactical options split into Universal (Flanking, Ambush, Retreat, De-escalation) and Trained (Suppressing Fire, Tactical Retreat, Covering, Holding Ground). Trained require relevant Edge. See D38. | P6, P9 |
 | D33 | Guard = highest stat | Guard changed from Grit+2 to 2+highest stat. Guard is readiness (dodge, composure, toughness), not just body. All stat builds viable for survival. Range unchanged (3-6). | P13, P14 |
+| D34 | Gambit unification | Gambits extended to all rolls. 15 base Gambits across four output-based categories (Maneuver, Assess, Influence, Fight). Social Gambits are named instances of base Gambits. Potency and Resistance apply to Fight Gambits only. Trading damage for effect (combat) = trading outcome height for effect (any roll). | P6, P9, P15 |
+| D35 | Potency as fighter identity | Player describes how they use their stat. Grit breaks, Sharp redirects, Nerve pressures. Same Gambit, different fighter. Description, stat, potency mirrors all other resolution. Prevents two characters with the same weapon feeling identical. | P2, P6, P14 |
+| D36 | Crit unified with Strong Gambit tier | Double 6 grants one free Strong-tier Gambit. Same exceptional tier as 8+ on weapon dice, different trigger. Crit stops being vague narrative flourish. | P4, P6, P9 |
+| D37 | Strong + Enhanced potency stacking | Full effect plus one additional fictional consequence. Strong Gambit = penetration. Potency = character. Together: it works and it leaves a mark. | P2, P6, P14 |
+| D38 | Tactics split Universal vs Trained | Universal (Flanking, Ambush, Retreat, De-escalation) = instinct, no Edge required. Trained (Suppressing Fire, Tactical Retreat, Covering, Holding Ground) = Edge required. Civilian toolkit fully viable, just less structured. | P2, P6, P17 |
+| D39 | Edges modify Gambits laterally | Any Edge can modify a Gambit's trigger, effect, or threshold when fiction supports it. Background is mechanical. GM defaults to yes. | P2, P6, P14 |
+| D40 | Edge design axes | Seven axes (Expertise, Experience, Relationship, Perception, Body, Institution, Loss) as forcing function against clustering. Fiction first, mechanic follows. No skill list, name the specific fictional situation. | P2, P14, P17 |
+| D41 | Four Gambit categories | Maneuver (positioning), Assess (information), Influence (people), Fight (combat). Organized by output type, not context. Every base Gambit belongs to exactly one category. Assess cannot change the situation, only reveal it. | P6, P15, P16 |
+| D42 | Base Gambit list locked | 4 Maneuver + 3 Assess + 3 Influence + 5 Fight = 15. Extensions from Edges/equipment must reference a base Gambit by name. HTML comment markers prevent drift. | P6, P14 |
+| D43 | Scene granularity | A scene is the GM's framing unit, not a rules term. One roll can resolve a scene or open three more depending on dramatic need. Consequence-before-roll eliminates disputes. | P1, P5, P15 |
+| D44 | Background as Boon | When Background directly explains familiarity, Boon fires without negotiation. GM spotlight tool: mechanic creates character moment without separate narration. | P2, P9, P15 |
+| D45 | Ambush bypasses defense | No reaction roll if no fictional basis to anticipate. Makes Assess category worth the die cost. Information matters because ignorance has consequences. | P4, P6, P9 |
+| D46 | Unresolved threats become Clocks | When a threat leaves the scene without resolution, open a named Clock. Stall delays, Clock tracks. Connective tissue between scenes. Consequences live on Clocks, not in GM memory. | P3, P9, P15 |
+| D47 | Gambits as scene generation | Player Gambit choices surface the next scene. Scout finds the kitchen. Stall shapes the timing. GM answers honestly and follows the thread. Stakes before the roll give players information for meaningful choices. | P5, P9, P16 |
+| D48 | Gambit spam as scene design signal | Spam means one threat, enough dice, no competing pressure. Fix is scene design not rules: multiple simultaneous pressure points sized for different stats. When spam happens mid-scene, introduce next pressure point immediately. World keeps moving. | P9, P15, P17 |
+| D51 | Edge width vs depth | No stat gates. Progression through Edge prerequisites, max one per Edge, max three deep. Wide characters take lateral Edges across categories. Deep characters pursue chains. Differentiation requires no rules beyond the chain system, emerges from player choice. Chain payoffs must be characterful not optimal. If a chain is mandatory it's a hidden class. | P2, P12, P14 |
+| D52 | Edge chains replace stat gates | Stat gates create permanent exclusions at creation unrelated to play. Stats shape odds not options (stat 1 can attempt anything). Edge prerequisites gate on what you've earned through play, not what you rolled at creation. Fiction-first progression. | P2, P12, P14, P17 |
+| D53 | Sensitive renamed to Sparked | Sensitive was passive, a refined Knack. Sparked is where sensing becomes doing: small deliberate expression of the obsession. Tell originates here. 1 Guard base cost, desperate push is a Nerve roll with GM-set stakes. The effect is the bleed. Exposure is the cost. | P2, P10, P12 |
+| D54 | Break as Shaper gate | Shaper access requires a narrative event, not a mechanical prerequisite. A Sparked character who Breaks receives the temporary Edge Untapped Potential. Resolves into a Shaper Edge (walked through) or a refusal Edge (closed the door). Power on Mondas comes from the worst thing that happened to you. | P2, P12, P14 |
+| D55 | Shaping stat from fiction | Nerve cap removed. Shaping rolls use the stat matching the approach, same as any other roll. Grit shapers force energy through. Nerve shapers hold the pattern. Sharp shapers find the seam. Guard is the universal cost. Every stat build pays from the same survival buffer. Precision Shaping and Brute Channel Edges no longer needed as exceptions. | P2, P14, P15 |
+| D56 | Temporary Edges | Narrative events can produce temporary Edges: pending decisions with mechanical teeth. Must name resolution condition and at least two outcomes. Cannot linger indefinitely. GM creates fiction to force the question. Untapped Potential is the canonical example. | P2, P12, P15 |
+| D57 | Shaping is a standard roll | No separate dice engine for shaping. Roll stat (fiction determines which), GM sets Guard cost in the stakes as consequence tiers. Success costs what you expected, partial costs more, consequence costs and fails. Same framework as every other roll. Magic is different because of Tell, Heat, escalated stakes, and Guard cost, not because of a separate mechanic. | P4, P14, P15 |
+| D58 | Shaping Gambits | Shaping unlocks dedicated Gambits that trade effect quality for operational survival. Base set (Muffle, Anchor, Contain) unlocked at Sparked. Full set (Thread, Redirect, Siphon, Veil, Split) unlocked at Shaper. Shaper Edges can extend or add character-specific shaping Gambits. Weapon users trade damage for tactical effects. Shapers trade effect for survival. Same chassis, different decision space. | P6, P9, P10 |
+| D59 | Shaping scale tiers | Five tiers (Trivial/Moderate/Ambitious/Extreme/Beyond) give GM language to size shaping declarations before setting stakes. Trivial = 1 Guard no roll. Beyond = Break only. Death can be in the consequence tier at Extreme. Obsession scope has three zones (Core/Adjacent/Outside). Only Break transcends scope. No accidental Breaks. | P1, P6, P15 |
 
 ### Decisions Made (WS2)
 
@@ -803,7 +885,7 @@ Notes moved here from body text. Each principle tag (P1, P2, etc.) references th
 - **P1, P4 (The Roll):** Every roll produces a result. No "nothing happens" outcome. A consequence on 1-3 is a complication, not a dead end.
 - **P2 (Stats):** Creativity rewarded by letting players choose approach, which determines stat. Bounded by fictional plausibility.
 - **P2 (Boons):** Creativity Boons capped at 1 per roll to prevent description stacking.
-- **P1, P6 (Stakes):** Stakes replace difficulty classes and position/effect. Push harder / play safe trade gives agency over risk.
+- **P1, P6 (Stakes):** Stakes replace difficulty classes and position/effect. Raise the stakes / play safe trade gives agency over risk.
 - **P12 (Push):** Push recovery is narrative, not mechanical. A real moment, not a rest timer.
 - **P8 (Harm):** No HP to chip. Named injuries with mechanical bite create a desperate spiral.
 - **P12 (Scars):** Narrative anchors, not a penalty table. Guard growth creates natural progression.
