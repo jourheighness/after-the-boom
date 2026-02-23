@@ -1,0 +1,30 @@
+---
+interface TocEntry {
+  level: number;
+  id: string;
+  title: string;
+}
+interface SectionGroup {
+  source: string;
+  color: string;
+  toc: TocEntry[];
+}
+interface Props {
+  sections: SectionGroup[];
+}
+const { sections } = Astro.props;
+---
+
+<nav class="sidebar" id="sidebar">
+  {sections.map(({ source, color, toc }) => (
+    <div class="nav-group">
+      <div class="nav-source" style={`border-left:3px solid ${color}`}>{source}</div>
+      {toc.map(({ level, id, title }) => (
+        <a
+          class={`nav-link ${level === 3 ? 'nav-h3' : 'nav-h2'}`}
+          href={`#${id}`}
+        >{title}</a>
+      ))}
+    </div>
+  ))}
+</nav>

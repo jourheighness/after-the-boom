@@ -1,0 +1,701 @@
+<!--
+  Comment system: select text to annotate, localStorage + optional dev server sync.
+  Note: innerHTML usage below is safe because all user-supplied strings are escaped
+  via escHtml() (which uses textContent assignment) before insertion into templates.
+-->
+<div class="comments-panel" id="commentsPanel"></div>
+<button class="comment-float-btn" id="commentFloatBtn">+ Comment</button>
+<div class="comment-popover" id="commentPopover"></div>
+
+<script>
+const STORAGE_KEY = 'mondas-reader-comments';
+const IS_DEV = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+interface Comment {
+  id: string;
+  selectedText: string;
+  contextBefore: string;
+  contextAfter: string;
+  comment: string;
+  sectionId: string;
+  sourceFile: string;
+  status: 'open' | 'resolved' | 'dismissed';
+  resolution: string | null;
+  createdAt: string;
+  resolvedAt: string | null;
+  _orphaned?: boolean;
+  _userReopened?: boolean;
+}
+
+let comments: Comment[] = [];
+let pendingSelection: {
+  text: string;
+  contextBefore: string;
+  contextAfter: string;
+  sectionId: string;
+  sourceFile: string;
+  range: Range;
+} | null = null;
+
+// --- Escaping (all user content passes through this before innerHTML) ---
+function escHtml(str: string): string {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+// --- Data Layer ---
+function loadComments() {
+  let stored: Comment[] = [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) stored = JSON.parse(raw);
+  } catch { stored = []; }
+  comments = stored;
+  comments.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
+}
+
+function saveComments() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
+  updateBadge();
+  if (IS_DEV) syncToServer();
+}
+
+function syncToServer() {
+  const data = { version: 1, comments };
+  fetch('/api/comments', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).then(r => {
+    const ind = document.getElementById('syncIndicator');
+    if (ind) {
+      ind.textContent = r.ok ? 'saved' : 'error';
+      ind.className = 'sync-indicator ' + (r.ok ? 'sync-ok' : 'sync-err');
+      clearTimeout((ind as any)._timer);
+      (ind as any)._timer = setTimeout(() => { ind.textContent = ''; ind.className = 'sync-indicator'; }, 2000);
+    }
+  }).catch(() => {});
+}
+
+function updateBadge() {
+  const badge = document.getElementById('commentBadge');
+  if (!badge) return;
+  const openCount = comments.filter(c => c.status === 'open').length;
+  badge.textContent = String(openCount);
+  badge.classList.toggle('zero', openCount === 0);
+}
+
+function generateId() {
+  return 'c_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5);
+}
+
+// --- Text Anchoring ---
+function findClosestHeadingId(node: Node): string | null {
+  let el: Element | null = node.nodeType === 3 ? (node as Text).parentElement : node as Element;
+  while (el && el.id !== 'main') {
+    if (/^H[1-4]$/.test(el.tagName) && el.id) return el.id;
+    let sib = el.previousElementSibling;
+    while (sib) {
+      if (/^H[1-4]$/.test(sib.tagName) && sib.id) return sib.id;
+      sib = sib.previousElementSibling;
+    }
+    el = el.parentElement;
+  }
+  return null;
+}
+
+function getSourceForSection(sectionId: string): string {
+  const el = document.getElementById(sectionId);
+  if (!el) return 'UNKNOWN';
+  const sec = el.closest('.file-section');
+  return sec ? (sec as HTMLElement).dataset.source || 'UNKNOWN' : 'UNKNOWN';
+}
+
+function getSectionContentElements(headingEl: Element): Element[] {
+  const level = parseInt(headingEl.tagName[1]);
+  const elements: Element[] = [headingEl];
+  let sib = headingEl.nextElementSibling;
+  while (sib) {
+    const m = sib.tagName.match(/^H(\d)$/);
+    if (m && parseInt(m[1]) <= level) break;
+    elements.push(sib);
+    sib = sib.nextElementSibling;
+  }
+  return elements;
+}
+
+function collectTextNodes(elements: Element[]): { entries: { node: Text; start: number; end: number }[]; full: string } {
+  const entries: { node: Text; start: number; end: number }[] = [];
+  let pos = 0;
+  for (const el of elements) {
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    let node: Text | null;
+    while ((node = walker.nextNode() as Text | null)) {
+      const len = node.textContent!.length;
+      entries.push({ node, start: pos, end: pos + len });
+      pos += len;
+    }
+  }
+  const full = entries.map(e => e.node.textContent).join('');
+  return { entries, full };
+}
+
+function mapOffsetToNode(entries: { node: Text; start: number; end: number }[], offset: number) {
+  for (const e of entries) {
+    if (offset >= e.start && offset < e.end) {
+      return { node: e.node, offset: offset - e.start };
+    }
+  }
+  const last = entries[entries.length - 1];
+  return { node: last.node, offset: last.node.textContent!.length };
+}
+
+function findTextInElements(elements: Element[], text: string, ctxBefore?: string, ctxAfter?: string) {
+  const { entries, full } = collectTextNodes(elements);
+  if (entries.length === 0) return null;
+
+  let matches = findAllOccurrences(full, text);
+  if (matches.length === 0) {
+    const normFull = full.replace(/\s+/g, ' ');
+    const normText = text.replace(/\s+/g, ' ');
+    matches = findAllOccurrences(normFull, normText);
+  }
+  if (matches.length === 0 && text.length >= 10) {
+    const best = fuzzyFind(full, text);
+    if (best) matches = [best.offset];
+  }
+  if (matches.length === 0) return null;
+
+  let bestIdx = matches[0];
+  if (matches.length > 1 && (ctxBefore || ctxAfter)) {
+    for (const idx of matches) {
+      const before = full.slice(Math.max(0, idx - 20), idx);
+      const after = full.slice(idx + text.length, idx + text.length + 20);
+      if ((ctxBefore && before.endsWith(ctxBefore)) || (ctxAfter && after.startsWith(ctxAfter))) {
+        bestIdx = idx;
+        break;
+      }
+    }
+  }
+
+  const startMap = mapOffsetToNode(entries, bestIdx);
+  const endOffset = bestIdx + text.length;
+  const endMap = mapOffsetToNode(entries, endOffset - 1);
+
+  if (startMap.node === endMap.node) {
+    return { node: startMap.node, offset: startMap.offset, length: text.length, multiNode: false as const };
+  } else {
+    return { startNode: startMap.node, startOffset: startMap.offset, endNode: endMap.node, endOffset: endMap.offset + 1, multiNode: true as const };
+  }
+}
+
+function findAllOccurrences(haystack: string, needle: string): number[] {
+  const results: number[] = [];
+  let idx = haystack.indexOf(needle);
+  while (idx !== -1) {
+    results.push(idx);
+    idx = haystack.indexOf(needle, idx + 1);
+  }
+  return results;
+}
+
+function fuzzyFind(haystack: string, needle: string) {
+  const minLen = Math.max(10, Math.floor(needle.length * 0.6));
+  const lowerH = haystack.toLowerCase();
+  const lowerN = needle.toLowerCase();
+  let idx = lowerH.indexOf(lowerN);
+  if (idx !== -1) return { offset: idx };
+  for (let len = needle.length - 1; len >= minLen; len--) {
+    idx = haystack.indexOf(needle.slice(0, len));
+    if (idx !== -1) return { offset: idx };
+  }
+  for (let len = needle.length - 1; len >= minLen; len--) {
+    idx = haystack.indexOf(needle.slice(needle.length - len));
+    if (idx !== -1) return { offset: idx };
+  }
+  return null;
+}
+
+function applyHighlights() {
+  document.querySelectorAll('.commented-text').forEach(span => {
+    const parent = span.parentNode!;
+    while (span.firstChild) parent.insertBefore(span.firstChild, span);
+    parent.removeChild(span);
+    parent.normalize();
+  });
+
+  for (const c of comments) {
+    if (c.status === 'dismissed') continue;
+
+    let sectionEl: Element | null = document.getElementById(c.sectionId);
+    if (!sectionEl) sectionEl = document.getElementById('main');
+    if (!sectionEl) { c._orphaned = true; continue; }
+
+    const fileSec = sectionEl.closest('.file-section');
+    if (fileSec && fileSec.classList.contains('hidden')) continue;
+
+    const contentEls = /^H[1-4]$/.test(sectionEl.tagName)
+      ? getSectionContentElements(sectionEl)
+      : [sectionEl];
+    const match = findTextInElements(contentEls, c.selectedText, c.contextBefore, c.contextAfter);
+    if (!match) { c._orphaned = true; continue; }
+    c._orphaned = false;
+
+    try {
+      const range = document.createRange();
+      if (match.multiNode) {
+        range.setStart(match.startNode, match.startOffset);
+        range.setEnd(match.endNode, match.endOffset);
+      } else {
+        range.setStart(match.node, match.offset);
+        range.setEnd(match.node, match.offset + (match.length || c.selectedText.length));
+      }
+      const span = document.createElement('span');
+      span.className = 'commented-text' + (c.status === 'resolved' ? ' resolved' : '');
+      span.dataset.commentId = c.id;
+      range.surroundContents(span);
+    } catch {
+      c._orphaned = true;
+    }
+  }
+}
+
+// --- Selection & Creation ---
+const mainEl = document.getElementById('main');
+if (mainEl) {
+  mainEl.addEventListener('mouseup', (e) => {
+    setTimeout(() => handleSelection(e), 10);
+  });
+}
+
+function handleSelection(_e: Event) {
+  const sel = window.getSelection();
+  const floatBtn = document.getElementById('commentFloatBtn')!;
+
+  if (!sel || sel.isCollapsed || sel.toString().trim().length < 3) {
+    floatBtn.style.display = 'none';
+    pendingSelection = null;
+    return;
+  }
+
+  const anchor = sel.anchorNode;
+  if (anchor) {
+    const el = anchor.nodeType === 3 ? (anchor as Text).parentElement : anchor as Element;
+    if (el?.closest('input, textarea, .comment-popover, .comments-panel')) return;
+  }
+
+  const text = sel.toString().trim();
+  const range = sel.getRangeAt(0);
+  const rect = range.getBoundingClientRect();
+
+  const startNode = range.startContainer;
+  const endNode = range.endContainer;
+  const ctxBefore = (startNode.textContent || '').slice(Math.max(0, range.startOffset - 20), range.startOffset);
+  const ctxAfter = (endNode.textContent || '').slice(range.endOffset, range.endOffset + 20);
+
+  const sectionId = findClosestHeadingId(range.startContainer) || 'unknown';
+  const sourceFile = getSourceForSection(sectionId);
+
+  pendingSelection = { text, contextBefore: ctxBefore, contextAfter: ctxAfter, sectionId, sourceFile, range };
+
+  floatBtn.style.display = 'block';
+  floatBtn.style.left = (rect.left + window.scrollX + rect.width / 2 - 40) + 'px';
+  floatBtn.style.top = (rect.bottom + window.scrollY + 4) + 'px';
+}
+
+document.getElementById('commentFloatBtn')!.addEventListener('click', showCreatePopover);
+
+function showCreatePopover() {
+  if (!pendingSelection) return;
+  const popover = document.getElementById('commentPopover')!;
+  const floatBtn = document.getElementById('commentFloatBtn')!;
+  floatBtn.style.display = 'none';
+
+  const preview = pendingSelection.text.length > 60
+    ? pendingSelection.text.slice(0, 57) + '...'
+    : pendingSelection.text;
+
+  // Safe: preview is escaped via escHtml before insertion
+  popover.innerHTML = `
+    <div class="popover-selected">"${escHtml(preview)}"</div>
+    <textarea id="commentInput" placeholder="Your comment..."></textarea>
+    <div class="popover-actions">
+      <button id="popoverCancel">Cancel</button>
+      <button class="primary" id="popoverSave">Save</button>
+    </div>
+  `;
+
+  popover.querySelector('#popoverCancel')!.addEventListener('click', closePopover);
+  popover.querySelector('#popoverSave')!.addEventListener('click', saveNewComment);
+
+  const rect = pendingSelection.range.getBoundingClientRect();
+  popover.style.display = 'block';
+  let left = rect.left + window.scrollX;
+  let top = rect.bottom + window.scrollY + 8;
+  if (left + 320 > window.innerWidth) left = window.innerWidth - 330;
+  if (left < 10) left = 10;
+  popover.style.left = left + 'px';
+  popover.style.top = top + 'px';
+
+  setTimeout(() => (document.getElementById('commentInput') as HTMLTextAreaElement)?.focus(), 50);
+}
+
+function saveNewComment() {
+  if (!pendingSelection) return;
+  const input = document.getElementById('commentInput') as HTMLTextAreaElement;
+  const text = input?.value.trim();
+  if (!text) return;
+
+  const c: Comment = {
+    id: generateId(),
+    selectedText: pendingSelection.text,
+    contextBefore: pendingSelection.contextBefore,
+    contextAfter: pendingSelection.contextAfter,
+    comment: text,
+    sectionId: pendingSelection.sectionId,
+    sourceFile: pendingSelection.sourceFile,
+    status: 'open',
+    resolution: null,
+    createdAt: new Date().toISOString(),
+    resolvedAt: null
+  };
+  comments.push(c);
+  saveComments();
+  closePopover();
+  window.getSelection()?.removeAllRanges();
+  applyHighlights();
+  renderCommentsPanel();
+}
+
+// --- Hover/Click on highlighted comments ---
+let _hoverTimeout: ReturnType<typeof setTimeout> | null = null;
+
+if (mainEl) {
+  mainEl.addEventListener('mouseover', (e) => {
+    const span = (e.target as Element).closest('.commented-text') as HTMLElement;
+    if (!span) return;
+    if (_hoverTimeout) clearTimeout(_hoverTimeout);
+    const cid = span.dataset.commentId;
+    const c = comments.find(x => x.id === cid);
+    if (!c) return;
+    _hoverTimeout = setTimeout(() => showViewPopover(c, span), 200);
+  });
+
+  mainEl.addEventListener('mouseout', (e) => {
+    const span = (e.target as Element).closest('.commented-text');
+    if (!span) return;
+    if (_hoverTimeout) clearTimeout(_hoverTimeout);
+    _hoverTimeout = setTimeout(() => {
+      const popover = document.getElementById('commentPopover')!;
+      if (!popover.matches(':hover')) closePopover();
+    }, 300);
+  });
+
+  mainEl.addEventListener('click', (e) => {
+    const span = (e.target as Element).closest('.commented-text');
+    if (!span) return;
+    const panel = document.getElementById('commentsPanel')!;
+    panel.classList.add('open');
+    renderCommentsPanel();
+  });
+}
+
+const popoverEl = document.getElementById('commentPopover')!;
+popoverEl.addEventListener('mouseenter', () => { if (_hoverTimeout) clearTimeout(_hoverTimeout); });
+popoverEl.addEventListener('mouseleave', () => { _hoverTimeout = setTimeout(closePopover, 300); });
+
+function showViewPopover(c: Comment, span: HTMLElement) {
+  const popover = document.getElementById('commentPopover')!;
+  const rect = span.getBoundingClientRect();
+
+  let actions = '';
+  if (c.status === 'open') {
+    actions = `<button data-action="delete" data-id="${escHtml(c.id)}">Delete</button>`;
+  } else if (c.status === 'resolved') {
+    actions = `
+      <button data-action="reopen" data-id="${escHtml(c.id)}">Reopen</button>
+      <button class="primary" data-action="dismiss" data-id="${escHtml(c.id)}">Dismiss</button>
+    `;
+  }
+
+  const resolutionHtml = c.resolution
+    ? `<div class="resolution-note"><strong>Resolution:</strong> ${escHtml(c.resolution)}</div>`
+    : '';
+
+  // Safe: all dynamic content escaped via escHtml
+  popover.innerHTML = `
+    <div class="popover-selected">"${escHtml(c.selectedText.slice(0, 60))}"</div>
+    <div style="margin:6px 0;font-size:12px;">${escHtml(c.comment)}</div>
+    ${resolutionHtml}
+    <div class="comment-meta">${escHtml(c.status)} &middot; ${escHtml(new Date(c.createdAt).toLocaleDateString())}</div>
+    <div class="popover-actions">${actions}</div>
+  `;
+
+  popover.querySelectorAll('[data-action]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const action = (btn as HTMLElement).dataset.action;
+      const id = (btn as HTMLElement).dataset.id!;
+      if (action === 'delete') deleteComment(id);
+      else if (action === 'reopen') reopenComment(id);
+      else if (action === 'dismiss') dismissComment(id);
+    });
+  });
+
+  popover.style.display = 'block';
+  let left = rect.left + window.scrollX;
+  let top = rect.bottom + window.scrollY + 8;
+  if (left + 320 > window.innerWidth) left = window.innerWidth - 330;
+  if (left < 10) left = 10;
+  popover.style.left = left + 'px';
+  popover.style.top = top + 'px';
+}
+
+function deleteComment(id: string) {
+  comments = comments.filter(x => x.id !== id);
+  saveComments();
+  closePopover();
+  applyHighlights();
+  renderCommentsPanel();
+}
+
+function reopenComment(id: string) {
+  const c = comments.find(x => x.id === id);
+  if (!c) return;
+  c.status = 'open';
+  c._userReopened = true;
+  c.resolution = null;
+  c.resolvedAt = null;
+  saveComments();
+  closePopover();
+  applyHighlights();
+  renderCommentsPanel();
+}
+
+function dismissComment(id: string) {
+  const c = comments.find(x => x.id === id);
+  if (!c) return;
+  c.status = 'dismissed';
+  saveComments();
+  closePopover();
+  applyHighlights();
+  renderCommentsPanel();
+}
+
+function closePopover() {
+  const popover = document.getElementById('commentPopover')!;
+  popover.style.display = 'none';
+  popover.innerHTML = '';
+  const floatBtn = document.getElementById('commentFloatBtn')!;
+  floatBtn.style.display = 'none';
+  pendingSelection = null;
+}
+
+// --- Comments Panel ---
+function toggleCommentsPanel() {
+  document.getElementById('commentsPanel')!.classList.toggle('open');
+  renderCommentsPanel();
+}
+// Expose globally for header button
+(window as any).toggleCommentsPanel = toggleCommentsPanel;
+
+function renderCommentsPanel() {
+  const panel = document.getElementById('commentsPanel')!;
+  const active = comments.filter(c => c.status !== 'dismissed');
+
+  // Safe: all dynamic content escaped via escHtml
+  let html = `
+    <div class="comments-panel-header">
+      <h3>Comments</h3>
+      <span id="syncIndicator" class="sync-indicator"></span>
+    </div>
+  `;
+
+  if (active.length === 0) {
+    html += '<p style="color:var(--text-muted);font-size:12px;">No comments yet. Select text and press <kbd>c</kbd> or click "+ Comment" to add one.</p>';
+    panel.innerHTML = html;
+    return;
+  }
+
+  const orphaned = active.filter(c => c._orphaned);
+  if (orphaned.length > 0) {
+    html += '<div class="panel-group-label">Orphaned</div>';
+    for (const c of orphaned) html += renderPanelComment(c, 'orphaned');
+  }
+
+  const grouped: Record<string, Comment[]> = {};
+  for (const c of active.filter(x => !x._orphaned)) {
+    const key = c.sourceFile || 'UNKNOWN';
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(c);
+  }
+  for (const [src, items] of Object.entries(grouped)) {
+    html += `<div class="panel-group-label">${escHtml(src)}</div>`;
+    for (const c of items) html += renderPanelComment(c, c.status);
+  }
+
+  panel.innerHTML = html;
+
+  // Attach event listeners via delegation
+  panel.querySelectorAll('.panel-comment').forEach(el => {
+    el.addEventListener('click', () => {
+      const id = (el as HTMLElement).dataset.commentId!;
+      scrollToComment(id);
+    });
+  });
+  panel.querySelectorAll('.panel-action').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const action = (btn as HTMLElement).dataset.action;
+      const id = (btn as HTMLElement).dataset.id!;
+      if (action === 'delete') deleteComment(id);
+      else if (action === 'reopen') reopenComment(id);
+      else if (action === 'dismiss') dismissComment(id);
+    });
+  });
+}
+
+function renderPanelComment(c: Comment, statusClass: string): string {
+  const pill = statusClass === 'orphaned' ? 'pill-orphaned'
+    : c.status === 'resolved' ? 'pill-resolved' : 'pill-open';
+  const label = statusClass === 'orphaned' ? 'orphaned' : c.status;
+
+  let actions = '';
+  if (c.status === 'open' || statusClass === 'orphaned') {
+    actions = `<span class="panel-action panel-action-danger" data-action="delete" data-id="${escHtml(c.id)}">Delete</span>`;
+  } else if (c.status === 'resolved') {
+    actions = `
+      <span class="panel-action" data-action="reopen" data-id="${escHtml(c.id)}">Reopen</span>
+      <span class="panel-action" data-action="dismiss" data-id="${escHtml(c.id)}">Dismiss</span>
+    `;
+  }
+
+  return `
+    <div class="panel-comment status-${escHtml(statusClass)}" data-comment-id="${escHtml(c.id)}">
+      <div class="panel-selected-text">"${escHtml(c.selectedText.slice(0, 50))}"</div>
+      <div class="panel-comment-text">${escHtml(c.comment)}</div>
+      <div class="panel-comment-footer">
+        <span class="panel-status ${pill}">${escHtml(label)}</span>
+        <span class="panel-actions">${actions}</span>
+      </div>
+    </div>
+  `;
+}
+
+function scrollToComment(id: string) {
+  const span = document.querySelector(`.commented-text[data-comment-id="${CSS.escape(id)}"]`) as HTMLElement;
+  if (span) {
+    span.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    span.style.outline = '2px solid var(--accent)';
+    span.style.outlineOffset = '2px';
+    setTimeout(() => { span.style.outline = ''; span.style.outlineOffset = ''; }, 2000);
+    return;
+  }
+  const c = comments.find(x => x.id === id);
+  if (c?.sectionId) {
+    const heading = document.getElementById(c.sectionId);
+    if (heading) heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// --- Keyboard: 'c' for comment ---
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'c' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    const el = document.activeElement;
+    if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || (el as HTMLElement).isContentEditable)) return;
+    const sel = window.getSelection();
+    if (sel && !sel.isCollapsed && sel.toString().trim().length >= 3) {
+      e.preventDefault();
+      handleSelection(e);
+      if (pendingSelection) showCreatePopover();
+    }
+  }
+  if (e.key === 'Escape') {
+    const popover = document.getElementById('commentPopover')!;
+    if (popover.style.display === 'block') {
+      closePopover();
+      e.stopPropagation();
+    }
+    const panel = document.getElementById('commentsPanel')!;
+    if (panel.classList.contains('open')) {
+      panel.classList.remove('open');
+    }
+  }
+});
+
+// Close on outside click
+document.addEventListener('mousedown', (e) => {
+  const target = e.target as Element;
+  const popover = document.getElementById('commentPopover')!;
+  if (popover.style.display === 'block' && !popover.contains(target) && !target.closest('.commented-text') && !target.closest('.comment-float-btn')) {
+    closePopover();
+  }
+  const panel = document.getElementById('commentsPanel')!;
+  if (panel.classList.contains('open') && !panel.contains(target) && !target.closest('.comment-toggle-btn') && !target.closest('.commented-text')) {
+    panel.classList.remove('open');
+  }
+});
+
+// --- Dev server sync: poll for external changes ---
+function pollServerComments() {
+  if (!IS_DEV) return;
+  fetch('/api/comments').then(r => r.json()).then((serverData: any) => {
+    const serverComments: Comment[] = serverData?.comments || serverData || [];
+    if (!serverComments || serverComments.length === 0) {
+      setTimeout(pollServerComments, 3000);
+      return;
+    }
+    const byId: Record<string, Comment> = {};
+    for (const c of comments) byId[c.id] = c;
+    let changed = false;
+    for (const c of serverComments) {
+      if (!byId[c.id]) {
+        byId[c.id] = c;
+        changed = true;
+      } else {
+        const local = byId[c.id];
+        if (c.status !== local.status && !local._userReopened) {
+          local.status = c.status;
+          changed = true;
+        }
+        if (c.resolution !== local.resolution) {
+          local.resolution = c.resolution;
+          local.resolvedAt = c.resolvedAt;
+          changed = true;
+        }
+        if (c.status === 'open' && local._userReopened) {
+          delete local._userReopened;
+        }
+      }
+    }
+    if (changed) {
+      comments = Object.values(byId);
+      comments.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
+      applyHighlights();
+      updateBadge();
+      if (document.getElementById('commentsPanel')!.classList.contains('open')) {
+        renderCommentsPanel();
+      }
+    }
+    setTimeout(pollServerComments, 3000);
+  }).catch(() => {
+    setTimeout(pollServerComments, 5000);
+  });
+}
+
+// Re-apply highlights when filters change
+const origApplyFilters = (window as any).__applyFilters;
+if (origApplyFilters) {
+  (window as any).__applyFilters = function() {
+    origApplyFilters();
+    applyHighlights();
+  };
+}
+
+// --- Init ---
+loadComments();
+applyHighlights();
+updateBadge();
+pollServerComments();
+</script>

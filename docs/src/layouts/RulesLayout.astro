@@ -1,0 +1,127 @@
+---
+import Sidebar from '../components/Sidebar.astro';
+import FilterBar from '../components/FilterBar.astro';
+import Search from '../components/Search.astro';
+import Comments from '../components/Comments.astro';
+import '../styles/global.css';
+
+interface TocEntry {
+  level: number;
+  id: string;
+  title: string;
+}
+interface SectionGroup {
+  source: string;
+  color: string;
+  toc: TocEntry[];
+}
+interface Props {
+  sections: SectionGroup[];
+  sources: { name: string; color: string }[];
+}
+const { sections, sources } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MONDAS Rules Reader</title>
+</head>
+<body>
+  <div class="header">
+    <button class="hamburger" id="hamburgerBtn">&#9776;</button>
+    <div class="header-title">MONDAS Rules Reader</div>
+    <Search />
+    <FilterBar sources={sources} />
+    <button class="comment-toggle-btn" onclick="toggleCommentsPanel()">
+      Comments <span class="comment-badge zero" id="commentBadge">0</span>
+    </button>
+  </div>
+
+  <Sidebar sections={sections} />
+
+  <main class="main" id="main">
+    <slot />
+  </main>
+
+  <Comments />
+
+  <script>
+    // --- Sidebar toggle (mobile) ---
+    document.getElementById('hamburgerBtn')?.addEventListener('click', () => {
+      document.getElementById('sidebar')?.classList.toggle('open');
+    });
+    document.getElementById('main')?.addEventListener('click', () => {
+      document.getElementById('sidebar')?.classList.remove('open');
+    });
+
+    // --- Source filters ---
+    const activeFilters = new Set(
+      Array.from(document.querySelectorAll('.filter-btn')).map(b => (b as HTMLElement).dataset.source!)
+    );
+
+    function applyFilters() {
+      document.querySelectorAll('.file-section').forEach(sec => {
+        sec.classList.toggle('hidden', !activeFilters.has((sec as HTMLElement).dataset.source!));
+      });
+    }
+    // Expose for comment system integration
+    (window as any).__applyFilters = applyFilters;
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const src = (btn as HTMLElement).dataset.source!;
+        if (activeFilters.has(src)) {
+          activeFilters.delete(src);
+          btn.classList.remove('active');
+        } else {
+          activeFilters.add(src);
+          btn.classList.add('active');
+        }
+        applyFilters();
+      });
+    });
+
+    // --- Scroll spy ---
+    let spyTimeout: ReturnType<typeof setTimeout> | null = null;
+    window.addEventListener('scroll', () => {
+      if (spyTimeout) clearTimeout(spyTimeout);
+      spyTimeout = setTimeout(updateScrollSpy, 100);
+    });
+
+    function updateScrollSpy() {
+      const links = document.querySelectorAll('.nav-link');
+      const scrollY = window.scrollY + 80;
+      let active: Element | null = null;
+      for (const link of links) {
+        const href = link.getAttribute('href');
+        if (!href) continue;
+        const target = document.getElementById(href.slice(1));
+        if (target && target.offsetTop <= scrollY) active = link;
+      }
+      links.forEach(l => l.classList.remove('active'));
+      if (active) {
+        active.classList.add('active');
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+          const rect = active.getBoundingClientRect();
+          const sidebarRect = sidebar.getBoundingClientRect();
+          if (rect.top < sidebarRect.top || rect.bottom > sidebarRect.bottom) {
+            active.scrollIntoView({ block: 'nearest' });
+          }
+        }
+      }
+    }
+    updateScrollSpy();
+
+    // --- Escape closes sidebar on mobile ---
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.getElementById('sidebar')?.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>

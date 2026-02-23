@@ -1,0 +1,16 @@
+---
+interface Props {
+  sources: { name: string; color: string }[];
+}
+const { sources } = Astro.props;
+---
+
+<div class="filter-bar">
+  {sources.map(({ name, color }) => (
+    <button
+      class="filter-btn active"
+      data-source={name}
+      style={`--btn-color:${color}`}
+    >{name}</button>
+  ))}
+</div>

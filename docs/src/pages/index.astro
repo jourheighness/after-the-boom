@@ -1,0 +1,81 @@
+---
+import { getCollection, render } from 'astro:content';
+import RulesLayout from '../layouts/RulesLayout.astro';
+
+// Same order as the Python build script
+const SOURCE_ORDER = [
+  'CORE',
+  'MAGIC',
+  'GAMBITS',
+  'EDGES',
+  'EQUIPMENT',
+  'CHARACTER',
+  'BACKGROUNDS',
+  'DESIGN',
+];
+
+const FILE_COLORS: Record<string, string> = {
+  CORE:        '#8b7355',
+  MAGIC:       '#7a5c7a',
+  GAMBITS:     '#5c7a5c',
+  EDGES:       '#5c6a7a',
+  EQUIPMENT:   '#7a5c5c',
+  CHARACTER:   '#7a7a5c',
+  BACKGROUNDS: '#5c7a7a',
+  DESIGN:      '#6a5c7a',
+};
+
+// Load all rules entries
+const allEntries = await getCollection('rules');
+
+// Sort by SOURCE_ORDER, unknown files at the end
+const entries = allEntries.sort((a, b) => {
+  const aName = a.id.replace(/\.md$/, '').toUpperCase();
+  const bName = b.id.replace(/\.md$/, '').toUpperCase();
+  const aIdx = SOURCE_ORDER.indexOf(aName);
+  const bIdx = SOURCE_ORDER.indexOf(bName);
+  return (aIdx === -1 ? 999 : aIdx) - (bIdx === -1 ? 999 : bIdx);
+});
+
+// Build section data: render each entry and use Astro's heading slugs
+interface TocEntry { level: number; id: string; title: string; }
+interface SectionData {
+  source: string;
+  color: string;
+  toc: TocEntry[];
+  Content: any;
+}
+
+const sections: SectionData[] = [];
+
+for (const entry of entries) {
+  const source = entry.id.replace(/\.md$/, '').toUpperCase();
+  const color = FILE_COLORS[source] || '#666';
+  const { Content, headings } = await render(entry);
+
+  // Use Astro's heading slugs directly (already prefixed by remark plugin)
+  const toc: TocEntry[] = headings
+    .filter(h => h.depth <= 3)
+    .map(h => ({ level: h.depth, id: h.slug, title: h.text }));
+
+  sections.push({ source, color, toc, Content });
+}
+
+// Build sources for filter bar
+const sources = sections.map(s => ({ name: s.source, color: s.color }));
+
+// Build sidebar sections
+const sidebarSections = sections.map(s => ({
+  source: s.source,
+  color: s.color,
+  toc: s.toc,
+}));
+---
+
+<RulesLayout sections={sidebarSections} sources={sources}>
+  {sections.map(({ source, color, Content, toc }) => (
+    <section class="file-section" data-source={source}>
+      <Content />
+    </section>
+  ))}
+</RulesLayout>

@@ -16,16 +16,32 @@
       "_orphaned": false
     },
     {
-      "id": "c_test_crossfile_001",
-      "selectedText": "Drain overflow causes Harm",
-      "contextBefore": "When a shaper spends Guard to fuel shaping",
-      "contextAfter": "at the levels specified",
-      "comment": "The Guard overflow formula here should match CORE.md's Harm overflow table exactly. Currently says 1-2/3-4/5+ but need to verify this is consistent across both files.",
-      "sectionId": "magic-drain",
-      "sourceFile": "MAGIC",
+      "id": "c_1771844861011_vpa",
+      "selectedText": "or sacrifice dice for tactical effects (shove, disarm, create cover, reposition).",
+      "contextBefore": "est die for damage, ",
+      "contextAfter": " When an enemy comes",
+      "comment": "this is now true for all rolls, even the basic roll",
+      "sectionId": "core-in-two-minutes",
+      "sourceFile": "CORE",
       "status": "open",
-      "createdAt": "2026-02-22T17:50:00.000Z",
-      "_orphaned": true
+      "resolution": null,
+      "createdAt": "2026-02-23T11:07:41.011Z",
+      "resolvedAt": null,
+      "_orphaned": false
+    },
+    {
+      "id": "c_1771844939181_c9p",
+      "selectedText": "Roll d6s equal to the relevant stat. Read the single highest die.",
+      "contextBefore": "",
+      "contextAfter": "\nHighest DieResultWh",
+      "comment": "here as well, pay dice for gambits",
+      "sectionId": "core-the-roll",
+      "sourceFile": "CORE",
+      "status": "open",
+      "resolution": null,
+      "createdAt": "2026-02-23T11:08:59.181Z",
+      "resolvedAt": null,
+      "_orphaned": false
     }
   ]
 }

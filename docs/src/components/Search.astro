@@ -1,0 +1,89 @@
+<!-- Client-side search: walks text nodes and highlights matches -->
+<div class="search-box">
+  <span class="search-icon">&#x1F50D;</span>
+  <input type="text" id="searchInput" placeholder="Search... (Ctrl+K)">
+</div>
+<span class="search-count" id="searchCount"></span>
+
+<script>
+  let searchTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  function doSearch(query: string) {
+    if (searchTimeout) clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => executeSearch(query), 150);
+  }
+
+  function executeSearch(query: string) {
+    // Clear previous highlights
+    document.querySelectorAll('.search-hit').forEach(el => {
+      const parent = el.parentNode!;
+      parent.replaceChild(document.createTextNode(el.textContent || ''), el);
+      parent.normalize();
+    });
+
+    const countEl = document.getElementById('searchCount')!;
+    if (!query || query.length < 2) {
+      countEl.textContent = '';
+      return;
+    }
+
+    const regex = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    let count = 0;
+    let firstHit: HTMLElement | null = null;
+
+    const main = document.getElementById('main')!;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT);
+    const nodes: Text[] = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode as Text);
+
+    for (const node of nodes) {
+      if (!regex.test(node.textContent || '')) continue;
+      regex.lastIndex = 0;
+
+      const frag = document.createDocumentFragment();
+      let lastIdx = 0;
+      let match: RegExpExecArray | null;
+      const text = node.textContent || '';
+      while ((match = regex.exec(text)) !== null) {
+        if (match.index > lastIdx) {
+          frag.appendChild(document.createTextNode(text.slice(lastIdx, match.index)));
+        }
+        const mark = document.createElement('span');
+        mark.className = 'search-hit';
+        mark.textContent = match[1];
+        frag.appendChild(mark);
+        count++;
+        if (!firstHit) firstHit = mark;
+        lastIdx = regex.lastIndex;
+      }
+      if (lastIdx < text.length) {
+        frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+      }
+      node.parentNode!.replaceChild(frag, node);
+    }
+
+    countEl.textContent = count > 0 ? count + ' matches' : 'No matches';
+    if (firstHit) firstHit.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // Wire up input
+  document.getElementById('searchInput')!.addEventListener('input', (e) => {
+    doSearch((e.target as HTMLInputElement).value);
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      document.getElementById('searchInput')!.focus();
+    }
+    if (e.key === 'Escape') {
+      const input = document.getElementById('searchInput') as HTMLInputElement;
+      if (document.activeElement === input) {
+        input.value = '';
+        doSearch('');
+        input.blur();
+      }
+    }
+  });
+</script>
