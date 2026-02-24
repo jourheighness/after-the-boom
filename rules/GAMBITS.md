@@ -2,22 +2,48 @@
 
 ## In Two Minutes
 
-Gambits are the system's tactical layer. Any die showing 4+ can be sacrificed from any roll to buy a side effect. Your available gambits come from three stacking sources: the 15 base gambits (in `rules/CORE.md`), weapon-specific gambits (in `rules/EQUIPMENT.md`), and the property-category and special gambits in this file.
+Gambits are the system's tactical layer. Any die showing 4+ can be sacrificed from any roll to buy a side effect. Your available gambits come from three stacking sources: the 15 base gambits (in `rules/CORE.md`), weapon-specific gambits (1 per weapon, in `rules/EQUIPMENT.md`), and the property-category and special gambits in this file.
 
-Design principles, generation rules, and all tests live in `rules/DESIGN-GAMBITS.md`. Read that before creating entries here.
+Design principles and generation rules live in `rules/DESIGN-GAMBITS.md`. Read that before creating entries here.
 
 ---
 
 ## Base Gambits (Reference)
 
-The 15 base gambits are defined and locked in `rules/CORE.md` (D42). Listed here for reference. Do not modify — changes go through CORE.md.
+The 15 base gambits are defined and locked in `rules/CORE.md` (D42). Listed here for reference. Do not modify; changes go through CORE.md.
 
 **Maneuver (4):** Position, Escape, Conceal, Stall
 **Assess (3):** Gather, Read, Scout
 **Influence (3):** Shift, Pressure, De-escalate
 **Fight (5):** Shove, Trip, Disarm, Pin, Create Cover
 
-See `rules/CORE.md` for full definitions, social gambit forms, potency rules, and resistance table.
+See `rules/CORE.md` for full definitions, potency rules, and resistance table.
+
+### Social Applications
+
+The base gambits work in social scenes. Same dice, same sacrifice. The fiction changes the flavor:
+
+- **Pressure** becomes leveraging a deadline. **Shift** becomes persuasion. **De-escalate** becomes defusing tension.
+- **Read** becomes reading body language. **Gather** becomes extracting information mid-conversation.
+- **Stonewall** (Grit): you hold your position through something that should break it. **Endure** isn't separate; it's how Grit expresses any Maneuver gambit socially.
+
+No separate social gambit list. The base 15 cover it. If a player describes a social effect that maps to a base gambit, it works.
+
+### Improvised Gambits
+
+Players can propose effects not on any list. The GM judges plausibility. The principle: one die, one tactical effect of similar weight to the base list. Examples: blind (throw dust, Snag on next action), destroy (target an object), distract (feint, ally gets Boon).
+
+### Defensive Gambits
+
+Sacrifice a die 4+ from your attack roll on your turn. The effect persists until your next turn. You're trading offense for protection.
+
+*Catalog in progress.*
+
+### Act Replacements
+
+Replace your attack entirely for a specific effect. No dice rolled, no damage dealt. You can still Move. The effect should be worth skipping an entire attack.
+
+*Catalog in progress.*
 
 ---
 
@@ -146,12 +172,11 @@ See `rules/DESIGN-EDGES.md` for Shaper Edge design rules.
 | Source | Where Defined | Available To |
 |-|-|-|
 | Base (15) | `rules/CORE.md` | Everyone, every roll |
-| Weapon-specific (1-3 per weapon) | `rules/EQUIPMENT.md` | Anyone wielding that weapon |
+| Weapon-specific (1 per weapon) | `rules/EQUIPMENT.md` | Anyone wielding that weapon |
 | Property-category | This file | Any weapon with that property |
 | Defensive | This file | Anyone attacking (trade offense for defense) |
 | Act Replacements | This file | Anyone (replaces attack entirely) |
-| Gear Gambits (12) | `rules/CORE.md` | Anyone carrying the gear |
-| Social forms (8) | `rules/CORE.md` | Anyone in conversation |
+| Gear Gambits | `rules/EQUIPMENT.md` | Anyone carrying the gear |
 | Sparked shaping (3) | This file | Sparked+ characters on shaping rolls |
 | Shaper shaping (5) | This file | Shaper characters on shaping rolls |
 | Edge-granted | `rules/DESIGN-EDGES.md` | Characters with the specific Edge |

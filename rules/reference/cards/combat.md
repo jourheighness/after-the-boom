@@ -16,16 +16,15 @@
 - Defensive Gambits: declared on your turn, persist until next turn. Trade offense for protection.
 - Gambit potency: attacker's stat sets potency. 1 = reduced, 2 = standard, 3+ = ignore one Threat level (D22)
 - Gambit resistance: explicit table by Threat level. Standard reduced/blocked at Threat 2+, Strong always works (D15)
-- Dual wielding: roll both weapons' dice, Snag on defense until next turn (D11)
+- Dual wielding: light weapons only. Roll both weapons' dice, Snag on defense until next turn (D11)
 - Cover: +1/+2 Armor vs ranged (partial/full). No effect at Close. Strong Gambit destroys cover (D9)
 - No shields (D12). Armor and Cover handle protection.
 - Saves: roll specified stat, same result table. Triggering effect defines consequence. Threat does NOT impose Snags on saves (D28)
 - Stakes in combat: GM states consequences before the roll. Push harder / play safe is the player's risk dial.
 - Gambit sources stack (D30): base list (15 Gambits) + weapon-specific + property-category. All available simultaneously.
-- Tactics split (D32/D38): Universal (Flanking, Ambush, Retreat, De-escalation) = anyone. Trained (Suppressing Fire, Tactical Retreat, Covering, Holding Ground) = Edge required.
+- Universal tactics (Flanking, Ambush, Retreat, De-escalation) available to everyone. Trained tactics (Edge-gated) TBD.
 - Crit = free Strong-tier Gambit (D36). Full effect regardless of Threat.
 - Strong + Enhanced potency = full effect + one additional fictional consequence (D37).
-- Edges modify Gambits laterally (D39): change trigger, effect, or threshold when fiction supports it.
 
 ## Design Space (generalize from these)
 
@@ -41,7 +40,7 @@
 - No AC or to-hit rolls. Attacks auto-hit.
 - No GM-side dice. Enemy damage is a consequence, not a roll.
 - No hit point pools. Guard + Harm track only.
-- Gambit threshold is always 4+ (standard) or 8+ (Strong). No variable DCs.
+- Gambit threshold is always 4+ (standard) or 6 (Strong). No variable DCs.
 
 ## Quick Mechanical Reference
 
@@ -55,11 +54,11 @@
 | Cover | Partial +1, Full +2 vs ranged. No effect at Close. |
 | Weapon dice | 1d4 improvised, 1d6 light, 1d8 standard, 2d6 heavy, 2d8 devastating |
 | Gambit categories | Maneuver, Assess, Influence, Fight (15 base, extended by Edges/equipment) |
-| Gambit threshold | Standard 4+, Strong 8+ (from weapon damage roll) |
+| Gambit threshold | Standard 4+, Strong 6 (from weapon damage roll) |
 | Harm overflow | 1-2 excess = L1, 3-4 = L2, 5+ = L3 |
 | Push options | +1d (once/roll), -2 damage received, act while Critical |
 | Push track | 4 boxes. Crack when empty. |
-| Conditions | Stunned: can't act, 0d defense. Shaken: Snag all. Prone: stand costs Move. Staggered: enemies fighting hurt. |
+| Conditions | Stunned: can't act, 0d defense. Shaken: Snag all. Prone: stand costs Move. Staggered: enemies only, Snag all + Morale check. |
 | Enemy Threat Snags | 0-3 applied to player defense rolls |
 | Defense damage | None (full success), half (partial), full (consequence) |
 | Danger Clock | Ticks each round. GM sets trigger threshold. |

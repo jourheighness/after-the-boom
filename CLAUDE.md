@@ -100,7 +100,7 @@ grepai is configured as an MCP server. Tools are prefixed `mcp__grepai__`. Use `
 
 ## Checkpoints
 
-**Before any multi-file edit pass** (ralph-loop, mesh pass, consistency sweep, or batch rules editing):
+**Before any multi-file edit pass** (mesh pass, consistency sweep, restructuring, or batch rules editing):
 1. `git add -A && git commit -m "checkpoint: pre-[description]"` — create a rollback point
 2. Announce the checkpoint hash to the user
 3. Proceed with the work
@@ -117,7 +117,7 @@ When the DM says:
 - **"Consistency check"** → Scan recent files for contradictions, timeline issues, orphaned threads.
 - **"New NPC"** → Use template at `campaigns/[campaign]/npcs/_template.md`.
 - **"World-build: [topic]"** → Research existing lore, propose content that fits, offer 2-3 options.
-- **Rules/system editing** → Use `/rules-edit` for any rules file edits, comment resolution, or consistency work. Tiered workflow (T1–T4) with cross-reference checking.
+- **Rules/system editing** → Use `/review` for comment resolution, restructuring passes, or any rules file edits. Handles both comment-driven changes and large sweep requests. Always runs Ralph Loop validation after edits.
 
 
 

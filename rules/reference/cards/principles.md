@@ -18,7 +18,7 @@ These laws govern every mechanical decision in MONDAS. When evaluating changes, 
 | P10 | Everyone Contributes | Every thaumic tier, every stat spread, every background has something to bring to every scene. |
 | P11 | Player-Facing Dice | Players roll. GM never touches dice. Enemy threat is expressed through Stakes, Snags, and consequences. |
 | P12 | Narrative Progression | Recovery, Push refill, Guard growth, Scars. Every mechanical shift is a story beat, not a timer. |
-| P13 | Unified Mechanics | Guard handles damage AND drain. Cover is Armor. One system, reused. No parallel tracks. |
+| P13 | Complementary Tracks | Guard (body) and Push (will) handle different domains. Cover is Armor. Systems reused across contexts. No third track. |
 | P14 | Differentiation | Stats are fixed. No convergence. Character identity is permanent. Growth is lateral (new options), not vertical (bigger numbers). |
 | P15 | Speed | Fewer rolls, faster resolution. Three ranges not a grid. No initiative. Streamline always. |
 | P16 | Constrained Freedom | Free-form within boundaries. Obsession scope, not spell lists. Background domains, not skill lists. |
@@ -31,7 +31,7 @@ These hold across all files:
 1. **The Roll**: Stat dice (1d-5d), take highest. 6 = full, 4-5 = partial, 1-3 = consequence, double 6+ = critical. 0d = roll 2d6 take lowest.
 2. **Boons/Snags**: +1d / -1d. Cancel 1-for-1. Max 5d, min 0d. Sources stack but creativity capped at 1.
 3. **Guard**: 2 + highest stat (range 3-6). Damage buffer. Recovers in genuine safety. Scar when Guard hits 0.
-4. **Push**: 4-box track. Spend for +1d, -2 damage received, or act while Critical. Once per roll. Crack when empty.
+4. **Push**: 4-box track. Spend for +1d, -2 damage received, act while Critical, or device gambit (GM sizes cost). Once per roll for +1d. Crack when empty.
 5. **Harm**: Three levels (L1 minor, L2 serious, L3 critical). Named injuries. Overflow formula: 1-2 excess = L1, 3-4 = L2, 5+ = L3.
 6. **No GM dice, ever.** Threat expressed through Stakes negotiation and Snag count (0-3).
 
@@ -62,6 +62,6 @@ These are final. Do not revisit without explicit instruction from the designer.
 
 - Never add a mechanic that only one stat spread can use
 - Never create a dominant strategy (if one option is always best, the design is broken)
-- Never introduce a parallel resource track (Guard already handles it)
+- Never introduce a third resource track (Guard and Push cover body and will)
 - Never add GM-side dice rolls
 - Never reference real-world place names (use Mondas concordance)

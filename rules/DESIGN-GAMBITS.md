@@ -30,7 +30,7 @@ Property-category gambits are available to any weapon with that property. They r
 
 1. **One property, one gambit list.** Each property has 3-6 gambits that define what that property lets you do in a fight.
 2. **Property gambits complement, not replace, base gambits.** A Ranged weapon still has access to all base gambits. The property adds options, not substitutions.
-3. **Same cost structure.** Standard (4+) or Strong (8+). One die, one effect. Same resistance rules (Threat table in `rules/CORE.md`).
+3. **Same cost structure.** Standard (4+) or Strong (6). One die, one effect. Same resistance rules (Threat table in `rules/CORE.md`).
 4. **Range restrictions match the property.** Ranged gambits work at Near/Far. Melee gambits work at Close. If a gambit breaks this, state the exception explicitly.
 
 ---
@@ -82,7 +82,7 @@ Every extension must name which gambit it modifies. "This Edge grants an enhance
 | Cost | Requirement | What It Buys |
 |-|-|-|
 | Standard (4+) | Die showing 4 or higher | One tactical effect. Resistance applies by Threat level. |
-| Strong (8+) | Die showing 8 or higher (d8+ weapons only) | Greater effect. Works against any Threat level. |
+| Strong (6) | Die showing 6 (d6+ weapons only) | Greater effect. Works against any Threat level. |
 | Act Replacement | Skip your attack | A specific effect worth an entire attack. |
 
 ## Potency (Fight Gambits Only)
@@ -95,7 +95,7 @@ Every extension must name which gambit it modifies. "This Edge grants an enhance
 
 ## Resistance (by Target Threat)
 
-| Threat | Standard (4+) | Strong (8+) |
+| Threat | Standard (4+) | Strong (6) |
 |-|-|-|
 | 0 (Mook) | Full effect | Full + bonus |
 | 1 (Tough) | Full effect | Full effect |
@@ -125,6 +125,8 @@ These decisions are canonical. They are recorded in the Master Decision Log in `
 - Act replacement catalog: how many, threshold for "worth an attack."
 - Thaumatech-specific gambits: should thaumatech weapons have their own property-like category? Current lean: thaumatech gambits live on individual device entries in `rules/EQUIPMENT.md`, same as weapon gambits.
 - Shaping gambit extensions from Shaper Edges: how many character-specific gambits is too many? Current lean: 1-2 per Shaper Edge, tied to obsession.
+- Trained Tactics (Edge-gated combat actions: Suppressing Fire, Tactical Retreat, Covering, Holding Ground): live in Edges or in a tactics subsection? Currently removed from CORE.md pending decision.
+- Edge-Gambit interaction model: how Edges modify Gambits (change trigger, effect, threshold). Belongs in `rules/EDGES.md` or `rules/DESIGN-EDGES.md`.
 
 ### Design Notes
 
