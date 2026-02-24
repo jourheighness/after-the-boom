@@ -27,7 +27,7 @@ This document records the design decisions, rationale, and philosophy behind the
 - **P3, P7 (Device failure):** Dangerous gear means dangerous consequences. The world responds to thaumic violence.
 - **P10 (Spectrum):** Every tier has something to contribute in every scene.
 - **P12 (Innate magic):** Guard cost in stakes, heat clock, escalated stakes, Tell limitations, shaping Gambits. All fictional events and real tactical choices, not abstract resource management.
-- **P13 (Drain):** No drain track. Guard cost lives in the GM's stakes. Push is the same 4-box track used for everything else. No separate magic resource.
+- **P13 (Drain):** Two complementary tracks. Innate drain = Guard (body). Device drain = Push (will). No third track. Push is shared across all voluntary effort: +1d, device gambits, act while Critical, reduce damage.
 - **P6 (Sustained):** Sustaining creates a real tactical choice: keep the ward up or fight back?
 - **P3, P9, P12 (Break):** Desperate, cinematic, narrative-embedded. Structure for the moment, not routine use.
 
@@ -39,8 +39,8 @@ This document records the design decisions, rationale, and philosophy behind the
 
 | # | Decision | Answer | Laws |
 |-|-|-|-|
-| D5 | Magic cost model | Drain = Guard. No separate track. Overflow to Harm. | P13, P17 |
-| D6 | Thaumatech vs Innate | Different risk profiles on the same roll chassis. Thaumatech: base use free (roll stat), Push for +1d. Innate: standard roll, Guard cost in stakes, Tell mandatory, Heat ticks, escalated stakes. | P10, P12 |
+| D5 | Magic cost model | Innate drain = Guard (body cost, overflow to Harm). Device drain = Push (will cost, empty = Crack). Two domains, two existing tracks. | P13, P17 |
+| D6 | Thaumatech vs Innate | Different risk profiles. Thaumatech: base free, device gambits cost Push (GM sizes from fiction), auto-succeed, device risk roll (2d6) when quality vs. stretch warrants it. Innate: standard roll, Guard in stakes, Tell mandatory, Heat ticks, escalated stakes. Operators crack. Shapers scar. | P10, P12 |
 | D7 | How shaping works | Free-form within obsession scope, constrained by Tell. Standard roll, Guard cost in GM's stakes. Shaping Gambits for tactical layer. | P2, P16 |
 | ~~D25~~ | ~~Nerve caps shaping~~ | **Superseded by D55.** Shaping stat from fiction. No Nerve cap. | |
 | ~~D26~~ | ~~Device overcharge stat~~ | **Superseded by D58.** Push is universal +1d. No separate overcharge. | |
@@ -49,12 +49,12 @@ This document records the design decisions, rationale, and philosophy behind the
 | - | Obsession & Tell | Scope from character obsession, not a list. Tell = technique + vulnerability. | P14, P17 |
 | - | Contact plate system | Personal thaumatech through contact plates. Positives only. Grid thauma-ware has switches, anyone operates. | P10, P17 |
 | - | Time/odds trade | Extra time = Boon (fictional, GM grants). Not a separate mechanic. | P15 |
-| D58 | Push consolidation | Push is universal +1d across all rolls. One per roll from 4-box track. Replaces overcharge-costs-Guard and careful-channeling-for-Boon. | P12, P15 |
+| D58 | Push consolidation | Push is universal +1d across all rolls AND device gambit fuel. 4-box track handles voluntary effort, device activations, and survival. Replaces overcharge-costs-Guard, careful-channeling-for-Boon, and over-spec-as-separate-subsystem. | P12, P15 |
 | - | Thaumic Bargains | GM offers free +1d for guaranteed consequence. Player can refuse. | P2 |
 | - | Heat clock | Subtle 1, Overt 2, Undeniable 3. Thaumatech 0. GM-tracked, table-visible. | P12 |
 | - | Sustained effects | Costs Act each round. Nerve save to maintain when hit. | P6 |
 | - | Break mechanic | Innate only. Guaranteed success, no roll. Min L2 Harm + Mark + session KO. Death possible. | P3, P9, P12 |
-| - | Device failure | Through Stakes, not separate degradation. Scales with gear danger. | P7, P13 |
+| - | Device failure | Device risk: GM declares based on quality vs. Push stretch. Roll 2d6. Repair in downtime. Destruction is narrative. See D61, D62. | P5, P7 |
 | - | Spectrum ceiling | GM decides before campaign. Default: knacks only. | P3, P10 |
 | D57 | Thaumic Channels | Five channels (Innate, Bestowed, Sworn, Inherited, Learned). Same mechanics, different fiction and Break consequences. Channel loss produces Temporary Edge. | P10, P14, P17 |
 

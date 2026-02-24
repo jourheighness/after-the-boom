@@ -2,55 +2,51 @@
 
 ## Core Principles
 
-1. **Guard is the fuel.** No separate mana/drain track. Magic costs Guard. Overflow triggers Harm.
-2. **Nerve is the cap.** Innate shaping dice limited to Nerve stat. External Boons can exceed this. Grit determines tank size, Nerve determines bandwidth.
-3. **Thaumatech is safe by design.** Base use = roll stat, device enables action. No Guard cost for base use. Overcharge costs Guard, capped by device-specific stat.
-4. **Tells are observable and blockable.** If you can see the Tell, you can counter the shaper. Emotional states removed as Tells (unverifiable at the table).
-5. **Every cast is a decision.** Three simultaneous costs on innate shaping (Nerve save, heat clock, escalated stakes) prevent routine use.
+1. **Two tracks, clear domains.** Guard = body (enemy attacks, innate shaping). Push = will (voluntary effort, device gambits). No third track.
+2. **Innate shaping costs Guard.** Guard cost in the GM's stakes. Overflow triggers Harm. Shapers scar.
+3. **Thaumatech costs Push.** Base use free. Device gambits cost Push (GM sizes from fiction). Auto-succeed. Operators crack.
+4. **Tells are observable and blockable.** If you can see the Tell, you can counter the shaper.
+5. **Every cast is a decision.** Innate: Guard cost, heat clock, escalated stakes. Thaumatech: Push cost, device risk. Both eat resources you need for survival.
 
 ## Key Decisions (locked)
 
-- Innate shaping pool: Guard-purchased dice ARE the pool. No stat added. (D7)
-- Nerve caps pool, Boons from external sources CAN exceed cap (D25)
-- Per-device overcharge stat: Sharp/Nerve/Grit. Caps bonus dice (D26)
-- Nerve god-stat mitigated by Sharp (scanners, precision weapons) and Grit (heavy weapons, Guard pool) (D27)
-- Careful channeling: extra Act for Boon (+1d), NOT -1 drain
-- Nerve save: only on partial/consequence, not every cast
-- Break: guaranteed success, no roll. Transcends Nerve cap, obsession scope, Tell. Min L2 Harm + Mark + out for rest of session
-- Shaping effect output: standard roll, not auto-hit. GM sets damage in stakes by scale (D31)
-- Precision Shaping: Sharp as cap, single target at Close only
-- Brute Channel: Grit as cap, +1 Guard surcharge per attempt
-- Thaumic Bargains: GM offers free +1d for guaranteed consequence. Player can refuse. Character moment, not math.
-- Device failure: expressed through Stakes, not separate degradation. Scales with gear danger.
+- Shaping stat from fiction: Grit forces, Sharp places, Nerve holds. No Nerve cap. (D55)
+- Innate shaping: standard roll, Guard cost in GM's stakes. Not auto-hit. (D7, D31)
+- Thaumatech: base free, device gambits cost Push (D60). Device risk when quality vs. stretch warrants it (D61). Roll 2d6: 6 = fine, 4-5 = breaks, 1-3 = catastrophic.
+- Gear is character: repair in downtime, destruction is narrative only (D62).
+- Thaumatech survival principle: encounters should include elements requiring device gambits (D63).
+- Push consolidation: universal +1d AND device gambit fuel. Same 4-box track. (D58)
+- Break: guaranteed success, no roll. Transcends obsession scope, Tell. Min L2 Harm + Mark + out for days. (D54)
+- Thaumic Bargains: GM offers free +1d for guaranteed consequence. Player can refuse.
 - Spectrum ceiling: GM decides before campaign. Default: knacks only.
 
 ## Design Space (generalize from these)
 
-- Example A: A Sensitive with Nerve 3 buys 3 Guard dice to shape fire along their hands (somatic Tell). They roll 3d6. On a partial, they take a Nerve save. The fire works but the heat clock ticks 2 (Overt).
-- Example B: A technician overcharges a thaumic scanner (Sharp-rated device). They spend 2 Guard for +2d on the scan. No Nerve save, no heat clock, no Tell. The scanner just draws harder.
-- Example C: A Knack never "casts." Their obsession with locks means they feel the tumblers. Mechanically identical to a Boon on lockpicking rolls. No Guard cost, no shaping. Just a knack.
-- Counter-example: "The wizard spends 3 mana to cast Fireball for 8d6 damage." Separate resource, fixed spell, fixed output. Everything MONDAS avoids.
-- "Generate unlike these examples. They show range, not targets."
+- Example A: A Sparked character heats a seized valve by pressing their palms to the pipe. 1 Guard, no roll. The Tell activates (palms flat, fingers spread). Bleed warms the hallway.
+- Example B: A Shaper with Sharp 3 reads the structural faults in a wall. Standard roll (Sharp), Guard cost in stakes (2 on success, 3-4 on partial). Heat clock ticks 2.
+- Example C: A technician uses a thaumic scanner to read through a reinforced wall. 1 Push. Auto-succeeds. The scanner runs hot but the operator sees everything behind the concrete.
+- Example D: A fighter uses a discharge rod to suppress an unbound entity. 3 Push. Auto-succeeds. Entity drops for 1 round. GM calls device at risk: roll 2d6. Gets a 4. Rod breaks. Repairable in downtime.
+- Example E: A Knack feels the tumblers in a lock. Free. No cost. Boon on the roll. Bleed makes the hallway lights flicker.
 
 ## Boundaries
 
 - No spell lists. Obsession + Tell defines scope.
-- No separate mana/drain track. Guard handles it.
-- No free dice for innate shaping. Every die costs 1 Guard.
-- Thaumatech base use never costs Guard. Only overcharge does.
+- Innate drain = Guard (body). Device drain = Push (will). No third track.
+- Thaumatech base use never costs Push. Only device gambits do.
 - Mundanes and Zeroes cannot shape or operate personal thaumatech (contact plate restriction).
+- Device gambits are binary capabilities (things dice can't do), not incremental bonuses.
 
 ## Quick Mechanical Reference
 
 | Mechanic | Values |
 |-|-|
-| Thaumic Spectrum | Mundane 80%, Knack 15%, Sensitive 4%, Shaper <1% |
-| Innate pool | 1 Guard = 1 die, max = Nerve stat |
-| Overcharge pool | 1 Guard = 1 die, max = device overcharge stat |
-| Drain overflow | 1-2 excess Guard = L1 Harm, 3-4 = L2, 5+ = L3 |
+| Thaumic Spectrum | Mundane 80%, Knack 15%, Sparked 4%, Shaper <1% |
+| Innate shaping | Standard roll (stat from fiction), Guard cost in GM's stakes |
+| Device gambits | Push cost (GM sizes from fiction), auto-succeed |
+| Device risk | 2d6 read highest: 6 = fine, 4-5 = breaks, 1-3 = catastrophic |
+| Guard overflow (innate) | 1-2 = L1 Harm, 3-4 = L2, 5+ = L3 |
+| Push track | 4 boxes. Empty = Crack |
 | Heat clock ticks | Subtle 1, Overt 2, Undeniable 3, Thaumatech 0 |
-| Shaping scales | Focused (4-6 / 2-3 dmg), Broad (2-4 / 1-2), Devastating (6-8+ / 3-4) |
-| Careful channel | Extra Act for +1 Boon die |
-| Break cost | Min L2 Harm, permanent Mark, out for rest of session |
+| Scale tiers (innate) | Trivial (1 Guard, no roll) / Moderate / Ambitious / Extreme / Beyond (Break) |
+| Break cost | Min L2 Harm, permanent Mark, out for days |
 | Sustained effects | Costs 1 Act/round, Nerve save to maintain when hit |
-| Nerve save trigger | Partial or consequence result only |

@@ -14,6 +14,8 @@ Gambits come from three stacking sources: the 15 base gambits (in `rules/CORE.md
 
 A gambit is one die for one effect. The effect is specific, immediate, and resolved at the table in one sentence. If the GM has to make three rulings to resolve a gambit, it's too complicated. If the gambit is "something good happens," it's too vague.
 
+**Gambits never deal damage.** Damage comes from weapon dice. Gambits change the situation: positioning, status effects, battlefield control, information, influence. Shove, trip, suppress, blind, pin, conceal, stall. Never "+1 damage" or "+2 damage." If a player wants to deal more damage, they keep more dice. If they want to change the fight, they sacrifice dice for gambits. That's the trade. No hybrid. This applies to all gambit sources: base, weapon-specific, property-category, defensive, device, and shaping gambits.
+
 **The sacrifice test:** Would a player agonize over whether to sacrifice this die? If the gambit is so good that it's always worth the die, it's too strong. If it's never worth the die, it's pointless. The sweet spot is situational: devastating in the right moment, wasteful in the wrong one.
 
 **The uniqueness test:** Does this gambit produce an effect that no other gambit produces? If it overlaps with a base gambit, it should be an Edge extension of that base gambit, not a new entry. If it overlaps with another property-category gambit, cut one.

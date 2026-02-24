@@ -291,14 +291,15 @@ Bargains are different from Stakes: Stakes are tied to roll results (partial = t
 | Layer | Thaumatech | Innate Shaping |
 |-|-|-|
 | Scope | Determined by device | Shaped by obsession, agreed with GM |
-| Technique | Push the button | Tell: personal, observable, blockable |
-| Dice source | Stat (free), Push for +1d | Stat (same roll), Guard cost in stakes, Push for +1d |
-| Stakes | Normal | Always escalated (thaumic side effects + Guard cost) |
+| Technique | Contact plates, rated function | Tell: personal, observable, blockable |
+| Base cost | Free (device enables action) | Guard in stakes (body cost) |
+| Beyond base | Device gambits cost Push (will cost) | Escalated stakes (more Guard) |
+| Depletion | Crack (mental break) | Scar (physical mark) |
 | Background heat | 0 ticks (regulated, expected) | 1-3 ticks per use (visibility-scaled) |
 | Flexibility | Limited to device function | Anything within obsession scope |
-| Tactical layer | Weapon/gear Gambits | Shaping Gambits (Muffle, Anchor, Contain, Thread, Redirect, Siphon, Veil, Split) |
-| Bargains | Rare (why risk a device?) | Available always |
-| Vulnerability | Device breaks | Tell can be identified, countered, suppressed |
+| Tactical layer | Device gambits (auto-succeed, Push cost) | Shaping Gambits (Muffle, Anchor, Contain, Thread, Redirect, Siphon, Veil, Split) |
+| Device risk | Quality vs. stretch, 2d6 roll | No device to break |
+| Vulnerability | Device breaks, operator cracks | Tell can be identified, countered, suppressed |
 
 The only advantage of innate: no device limits your imagination within your obsession's scope. You can shape anything the fiction supports. That freedom is the power, and the reason every authority on Mondas wants it controlled.
 
@@ -306,9 +307,11 @@ The only advantage of innate: no device limits your imagination within your obse
 
 ## Drain
 
-Drain is **Guard damage from thaumic consequences.** For innate shaping, Guard cost lives in the GM's stakes: even a full success costs Guard. A consequence costs Guard and the effect fails. The shaper paid and got nothing.
+Drain is the cost of channeling thaumic energy. **Innate shaping drains Guard** (body cost). The channeling physically hurts: nosebleeds, nerve pain, burst capillaries. Guard cost lives in the GM's stakes: even a full success costs Guard. A consequence costs Guard and the effect fails. The shaper paid and got nothing.
 
-Guard damage from shaping follows the same overflow rules as combat damage:
+**Thaumatech drains Push** (will cost). The contact plates draw from your concentration and willpower. Device gambits cost Push, sized by the GM from fiction. See `rules/THAUMATECH.md`. Operators don't scar. They crack: Numb, Volatile, Paranoid. These are industrial injuries.
+
+Guard damage from innate shaping follows the same overflow rules as combat damage:
 
 | Overflow | Harm Level |
 |-|-|
@@ -404,8 +407,9 @@ A Break is a moment where a character decides that what they're protecting is wo
 - **Personal thaumatech** (weapons, armor, scanners): contact plates, positives only
 - **Grid thauma-ware** (appliances, heating, infrastructure): buttons and switches, anyone
 - Base use: free (roll stat, device enables action)
-- Push for +1d (same Push track as any roll, one per roll)
-- Failure: device consequences through Stakes (scales with gear danger)
+- Device gambits: cost Push (GM sizes from fiction). Auto-succeed. Binary capabilities.
+- Device risk: GM calls it based on quality vs. Push stretch. Roll 2d6. 6 = fine, 4-5 = breaks (repairable), 1-3 = catastrophic (breaks + feedback). Push the roll for +1d.
+- Repair: downtime scene. Destruction is narrative only.
 - Sustained: costs Act each round
 - Heat clock: 0 ticks (it's supposed to look like technology)
 
@@ -426,8 +430,9 @@ A Break is a moment where a character decides that what they're protecting is wo
 - Player can refuse. Not the same as Stakes.
 
 ### Drain
-- Guard cost in stakes (innate shaping). Overflow to Harm (1-2 = L1, 3-4 = L2, 5+ = L3)
-- Push spent on shaping rolls is the same Push track as combat. Both deplete together.
+- **Innate shaping:** Guard cost in stakes (body). Overflow to Harm (1-2 = L1, 3-4 = L2, 5+ = L3). Shapers scar.
+- **Thaumatech:** Device gambits cost Push (will). Empty = Crack. Operators crack.
+- Push is shared across all uses: +1d on any roll, device gambits, act while Critical, reduce damage. Both combat and thaumatech deplete the same 4-box track.
 
 ### Break (Innate Only)
 - Player declares. Effect succeeds fully. Transcends obsession scope and Tell.

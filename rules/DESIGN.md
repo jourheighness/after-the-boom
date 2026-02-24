@@ -36,7 +36,7 @@ These laws govern every mechanical decision in MONDAS. When evaluating changes, 
 | P10 | Everyone Contributes | Every thaumic tier, every stat spread, every background has something to bring to every scene. |
 | P11 | Player-Facing Dice | Players roll. GM never touches dice. Enemy threat is expressed through Stakes, Snags, and consequences. |
 | P12 | Narrative Progression | Recovery, Push refill, Guard growth, Scars. Every mechanical shift is a story beat, not a timer. |
-| P13 | Unified Mechanics | Guard handles damage AND drain. Cover is Armor. One system, reused. No parallel tracks. |
+| P13 | Complementary Tracks | Guard handles damage (body). Push handles voluntary effort and device drain (will). Cover is Armor. Two existing tracks, clear domains. No new parallel tracks. |
 | P14 | Differentiation | Stats are fixed. No convergence. Character identity is permanent. Growth is lateral (new options), not vertical (bigger numbers). |
 | P15 | Speed | Fewer rolls, faster resolution. Three ranges not a grid. No initiative. Streamline always. |
 | P16 | Constrained Freedom | Free-form within boundaries. Obsession scope, not spell lists. Background domains, not skill lists. |
@@ -46,7 +46,7 @@ These laws govern every mechanical decision in MONDAS. When evaluating changes, 
 
 - Never add a mechanic that only one stat spread can use
 - Never create a dominant strategy (if one option is always best, the design is broken)
-- Never introduce a parallel resource track (Guard already handles it)
+- Never introduce a third resource track (Guard and Push have clear domains: body and will)
 - Never add GM-side dice rolls
 - Never reference real-world place names (use Mondas concordance)
 
@@ -427,11 +427,11 @@ All canonical design decisions. Each decision is recorded once here. Individual 
 
 | # | Decision | Answer | Laws |
 |-|-|-|-|
-| D5 | Magic cost model | Drain = Guard. No separate track. Overflow to Harm. | P13, P17 |
-| D6 | Thaumatech vs Innate | Different risk profiles on same roll chassis. Thaumatech: base free, Push for +1d. Innate: standard roll, Guard in stakes, Tell mandatory, Heat ticks, escalated stakes. | P10, P12 |
+| D5 | Magic cost model | Innate drain = Guard (body cost, overflow to Harm). Device drain = Push (will cost, empty = Crack). Two domains, two existing tracks. | P13, P17 |
+| D6 | Thaumatech vs Innate | Different risk profiles. Thaumatech: base free, device gambits cost Push (GM sizes from fiction), auto-succeed, device risk roll (2d6) when quality vs. stretch warrants it. Innate: standard roll, Guard in stakes, Tell mandatory, Heat ticks, escalated stakes. Operators crack. Shapers scar. | P10, P12 |
 | D7 | How shaping works | Free-form within obsession scope, constrained by Tell. Standard roll, Guard in GM's stakes. Shaping Gambits for tactical layer. | P2, P16 |
 | D57 | Thaumic Channels | Five channels (Innate, Bestowed, Sworn, Inherited, Learned). Same mechanics, different fiction and Break consequences. Channel emerges from play. Loss produces Temporary Edge. | P10, P14, P17 |
-| D58 | Push consolidation | Push is universal +1d across all rolls. One per roll from 4-box track. Replaces overcharge-costs-Guard and careful-channeling-for-Boon. | P12, P15 |
+| D58 | Push consolidation | Push is universal +1d across all rolls AND device gambit fuel. 4-box track handles voluntary effort, device activations, and survival (act while Critical, reduce damage). One per roll for +1d; device gambits are separate activations (can cost multiple Push). Replaces overcharge-costs-Guard, careful-channeling-for-Boon, and over-spec-as-separate-subsystem. | P12, P15 |
 | D59 | Shaping scale tiers | Five tiers (Trivial/Moderate/Ambitious/Extreme/Beyond). GM language to size declarations. Only Break transcends scope. | P1, P6, P15 |
 
 ### WS4: Combat
@@ -469,6 +469,7 @@ All canonical design decisions. Each decision is recorded once here. Individual 
 | D40 | Edge design axes | Seven axes as forcing function against clustering. | P2, P14, P17 |
 | D41 | Four Gambit categories | Maneuver, Assess, Influence, Fight. Organized by output type. | P6, P15, P16 |
 | D42 | Base Gambit list locked | 4+3+3+5 = 15. Extensions must reference a base Gambit by name. | P6, P14 |
+| D64 | Gambits never deal damage | Damage comes from weapon dice only. Gambits change the situation: positioning, status, control, information. No "+X damage" gambits. Keep dice for damage, sacrifice dice for effects. | P6, P9 |
 | D43 | Scene granularity | Scene is GM's framing unit. Consequence-before-roll eliminates disputes. | P1, P5, P15 |
 | D44 | Background as Boon | Background directly → Boon without negotiation. Spotlight tool. | P2, P9, P15 |
 | D45 | Ambush bypasses defense | No fictional basis to anticipate = no defense roll. | P4, P6, P9 |
@@ -491,7 +492,10 @@ All canonical design decisions. Each decision is recorded once here. Individual 
 
 | # | Decision | Answer | Laws |
 |-|-|-|-|
-| - | *Decisions pending catalog completion* | | |
+| D60 | Device gambits cost Push | Device gambits cost Push (GM sizes from fiction), not Guard. Auto-succeed. Base use free. Operators crack, shapers scar. | P6, P7, P13 |
+| D61 | Device risk | GM declares device at risk based on quality vs. Push stretch. Roll 2d6 read highest: 6 = fine, 4-5 = breaks (repairable), 1-3 = catastrophic (breaks + feedback). Push the roll for +1d. Boons apply. | P5, P6, P7 |
+| D62 | Gear is character | Devices accumulate history. Repair in downtime scenes. Destruction is narrative (like PC death), not mechanical. Quality is fictional positioning for risk threshold, not a dice modifier. | P5, P9, P12 |
+| D63 | Thaumatech survival principle | Encounters should include elements that require device gambits. Mundane approaches insufficient. Gear is essential, not optional. | P7, P10 |
 
 ### WS8: Backgrounds
 

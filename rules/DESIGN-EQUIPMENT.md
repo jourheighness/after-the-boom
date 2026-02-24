@@ -62,13 +62,15 @@ Before finalizing a weapon entry, ask:
 
 ## Thaumatech Design
 
-Thaumatech devices follow the rules in `rules/MAGIC.md`:
+Thaumatech devices follow the rules in `rules/THAUMATECH.md`:
 
 - **Personal thaumatech** operates through contact plates. Positives only. Detectable by sensitives (Close) and scanners (Near).
 - **Grid-powered thauma-ware** uses buttons and switches. Anyone operates. Powered by the thaumic grid, not the user.
-- **Base use is free.** Roll device stat as normal. Push for +1d from Push track.
-- **Device stat** (Sharp, Nerve, or Grit) determines which stat you roll.
-- **Device failure** is handled through Stakes, scaled by gear danger level.
+- **Base use is free.** Roll your stat as normal. The device enables the action. Push for +1d from Push track.
+- **Device gambits cost Push.** GM sizes the cost from the fiction based on how far past rated function you're stretching. Auto-succeed.
+- **Device risk.** GM declares a device at risk when quality vs. Push stretch warrants it. Roll 2d6, read highest. 6 = fine, 4-5 = breaks (repairable in downtime), 1-3 = catastrophic (breaks + feedback to user). Push the roll for +1d. Boons apply.
+- **Quality is fictional positioning.** Determines when the GM calls for a risk roll, not a dice modifier. Military devices tolerate more stretch before risk. Jury-rigged devices are at risk sooner.
+- **Gear is character.** Devices accumulate history through play. Repair is a downtime scene, not a replacement. Destruction is narrative only.
 
 | Device Stat | Device Types | Examples |
 |-|-|-|
@@ -79,10 +81,11 @@ Thaumatech devices follow the rules in `rules/MAGIC.md`:
 ### Thaumatech Generation Rules
 
 1. **Function first.** What does the device do? One function per device. A scanner scans. A ward wards.
-2. **Assign device stat.** Which stat governs operation? Precision = Sharp. Sustained channeling = Nerve. Brute force = Grit.
-3. **Set the danger tier.** Consumer (mild failure), Professional (moderate), Military (catastrophic), Jury-rigged (always harsh). This determines Stakes consequences.
-4. **Name the manufacturer or origin.** Even a line. "Kessler-Brandt Model 7" or "CSS surplus, serial filed." Provenance is worldbuilding.
-5. **Contact plate or grid?** Personal thaumatech has a plate (positives only, detectable). Grid-powered has switches (anyone, no detection). This is a meaningful choice.
+2. **Assign device stat.** Which stat governs base use? Precision = Sharp. Sustained channeling = Nerve. Brute force = Grit.
+3. **Write device gambits.** Each device gets 1-3 device gambits: binary capabilities that do things dice can't. These are the extraordinary uses that cost Push. The device gambit should answer: "What does this device do that saves the day?" A ward projector negates a hit. A discharge rod suppresses an entity. A field patch stabilizes a Critical injury. If the device gambit is just "+1d" or "a Boon," it's not worth Push. Make it categorical.
+4. **Set quality tier.** Jury-rigged, Standard, or Military/Artisan. Quality determines when the GM calls for a device risk roll. Higher quality tolerates more Push stretch before risk triggers. This is fictional positioning, not a number.
+5. **Name the manufacturer or origin.** Even a line. "Kessler-Brandt Model 7" or "CSS surplus, serial filed." Provenance is worldbuilding. Gear is character.
+6. **Contact plate or grid?** Personal thaumatech has a plate (positives only, detectable). Grid-powered has switches (anyone, no detection). This is a meaningful choice.
 
 ---
 
@@ -156,9 +159,8 @@ These decisions are canonical. They are recorded in the Master Decision Log in `
 
 ### Open Questions
 
-- Thaumatech device catalog: individual entries with rated outputs, device stats, and failure stakes.
-- Black-market gear: pricing, availability, reliability trade-offs.
-- Device quality tiers: how consumer vs. military affects Stakes consequences in detail.
+- Thaumatech device catalog: individual entries with device stats, device gambits, and quality tiers.
+- Black-market gear: pricing, availability, quality trade-offs. Better quality = fewer risk rolls = worth the felony.
 - Ammunition tracking: abstract or counted? Current lean: abstract (you have it until the fiction says you don't).
 - Currency and economy: how much things cost, whether money matters mechanically.
 

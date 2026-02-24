@@ -142,33 +142,51 @@ The boundary: **trying to hurt someone? Roll weapon dice. Everything else? Roll 
 
 ---
 
-## Gather Information
+## Work a Lead
 
-When a PC wants to learn something specific, the GM picks one of three paths.
+When a PC has something concrete to go on, a **lead**, they can work it. A lead is a name, an address, a document, a device, a contact, a rumor, a thaumic signature. Something specific that points somewhere.
 
-### You Just Know
+The player names the lead. The GM states what the lead can tell them and what working it costs: time, exposure, risk. Then the player rolls.
 
-The answer falls inside your Background's Boon domain, or is common knowledge for someone in your position. The GM tells you. No roll. A leyline researcher knows what a logic collapse is. A longshoreman doesn't. A Knack fires the same way — if the obsession intersects with the question, the GM volunteers the information.
-
-### You Can Find Out
-
-The answer exists but getting it has a cost — time, exposure, or risk. The GM states stakes like any other roll.
-
-**Which stat?** Sharp (searching, observing, connecting dots), Nerve (interrogating, persuading, reading someone), Grit (enduring something unpleasant to get the information — staking out in the cold, digging through wreckage).
+**Stat from fiction:** Sharp (analyze evidence, search records, connect dots, read a thaumic signature), Nerve (lean on a contact, talk your way in, read someone, bluff past a desk clerk), Grit (stake out a location, dig through wreckage, endure an unpleasant source, survive hostile terrain to reach the answer).
 
 | Highest Die | Result |
 |-|-|
-| **6** | Clear, complete answer. Ask a follow-up question. |
-| **4-5** | You get the answer, but it's incomplete, it cost you something, or someone noticed you asking. |
-| **1-3** | You don't get it, or you get it and the GM makes a move — wrong conclusion, exposed, tipped someone off. |
+| **6** | Clear answer. Ask a follow-up question for free. |
+| **4-5** | You get it, but: incomplete, cost you something, or someone noticed. |
+| **1-3** | Dead end, wrong conclusion, or you got it and the GM makes a move. |
 
-Background Boon applies if the domain is even adjacent. Knacks fire if the obsession intersects. Normal Boon/Snag rules.
+Background Boon applies if the domain is even adjacent. Knacks fire if the obsession intersects. Normal Boon/Snag rules. Thaumatech can open leads that don't exist for mundanes: a scanner reads residue, a tap plays back a conversation, a tracer follows a signature.
+
+If the player doesn't have a lead, they don't roll. They either know the answer already (Background, Knack, common knowledge) or they need to find a lead first. That's a scene, not a mechanic.
 
 ### It's a Project
 
-The answer is too big for one roll — mapping a conspiracy, tracing a supply chain, decoding a dead language. The GM starts a **clock** (4, 6, or 8 segments depending on complexity). Each attempt to gather information ticks it on success: 1 tick on a partial, 2 on a full, 3 on a critical. When the clock fills, the PC gets the full picture and can ask the GM several detailed questions about the subject.
+The answer is too big for one lead. Mapping a conspiracy, tracing a supply chain, decoding a dead language. The GM starts a **clock** (4, 6, or 8 segments). Each lead worked ticks it: 1 on a partial, 2 on a full, 3 on a critical. When the clock fills, the PC gets the full picture.
 
-Each attempt costs time (hours, days — GM's call) and may carry its own stakes. A partial might tick the clock *and* alert someone.
+Each lead costs time (hours, days) and may carry its own stakes. A partial might tick the clock *and* alert someone.
+
+---
+
+## Group Checks
+
+When the whole group faces something together, use one of two methods.
+
+### Weakest Link
+
+Everyone rolls. The **worst result** is the group result. One failure exposes everyone.
+
+**Cover:** Before rolling, a PC can cover for someone who would be the weak link. The covering PC takes a **Snag** on their own roll. The covered PC skips theirs entirely, folded into the cover. You can only cover one person, and only if you can plausibly help them in the fiction.
+
+Use this for: sneaking past a checkpoint, crossing a collapsing bridge, talking your way through a DPA sweep. Moments where the group moves as one and the weakest performance defines the outcome.
+
+### Group Effort
+
+Everyone rolls individually. The GM sets a **clock** (4, 6, or 8 segments based on difficulty). Each PC's roll ticks it: 1 on a partial (4-5), 2 on a full (6). A miss (1-3) ticks nothing and may trigger a complication. When the clock fills, the group succeeds.
+
+If the clock isn't full after everyone rolls, the GM decides: another round (with escalating stakes), or partial success based on how full the clock is.
+
+Use this for: searching a building floor by floor, fortifying a position before an assault, fleeing through a crowd, performing a group ritual. Extended efforts where individual contributions add up.
 
 ---
 
@@ -180,8 +198,9 @@ Each character has a **Push track** of 4 boxes. Spend 1 Push to:
 - **Add +1d** to any roll (before rolling)
 - **Reduce incoming damage by 2** (after a defense roll)
 - **Act despite a Critical injury** (when you'd normally be incapacitated)
+- **Activate a device gambit** (GM sizes cost from fiction; see `rules/THAUMATECH.md`)
 
-One Push per roll. You can't stack them.
+One Push per roll for the +1d use. Device gambits are separate activations and can cost multiple Push in a single use. You can Push a roll (+1d) and activate a device gambit in the same turn, but each draws from the same 4-box track.
 
 ### Cracking
 
@@ -466,9 +485,8 @@ Consumables interact with Gear Gambits: if you're already attacking and sacrific
 1. Roll all your weapon dice (plus any bonus dice from Edges, allies, or situation)
 2. Choose: **keep dice for damage** or **sacrifice dice for Gambits** (see below)
 3. The **highest remaining die** = damage dealt to the target
-4. Add +1 for each die sacrificed to **Bolster** (a specific Gambit)
-5. Subtract target's **Armor**
-6. Apply remainder to target's **Guard**, overflow to **Harm**
+4. Subtract target's **Armor**
+5. Apply remainder to target's **Guard**, overflow to **Harm**
 
 You always deal at least the highest die you kept. If you sacrifice ALL your dice to Gambits, you deal 0 damage but get pure tactical effects.
 
@@ -595,6 +613,8 @@ Specific equipment unlocks Gambits beyond the base list. Mundane gear and thauma
 During a gear-up scene, players choose their loadout. If you know the enemy relies on sight for a special attack, bring flashbangs. If you're raiding a thaumatech-heavy site, bring a deadfield rod. If you expect a chase, bring caltrops. Preparation is a tactical advantage, and since you can't carry everything, your choices matter.
 
 Gear Gambits follow the same rule: sacrifice a die showing 4+ during your attack to get the effect alongside your damage. You can also use the item as your Act without attacking (throw just the smoke grenade, deploy just the barricade). Either way, the item is consumed or needs recovery/reloading after use.
+
+**Thaumatech device gambits** work differently from gear gambits. They cost **Push** (not a sacrificed die), auto-succeed, and do things dice can't. See `rules/THAUMATECH.md` for the full device gambit and device risk rules.
 
 **Sensory Denial**
 
@@ -835,5 +855,5 @@ Damage, subtract Armor, subtract Guard, overflow = Harm.
 1 (Hurt, -1d relevant), 2 (Wounded, -1d all), 3 (Critical, Push to act), Death.
 
 ### Push
-4 boxes. Spend 1 for: +1d, or -2 damage, or act while Critical. Empty = Crack.
+4 boxes. Spend 1 for: +1d, or -2 damage, or act while Critical, or device gambit (GM sizes cost). Empty = Crack. Guard = body (enemy attacks, innate shaping). Push = will (voluntary effort, device gambits).
 

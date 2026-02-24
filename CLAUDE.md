@@ -52,10 +52,26 @@ Modified D&D 5e (homebrew rules TBD — will be added to `rules/`). Currently us
 - Fighter → Soldier (Jack's military background)
 
 ## Search — HARD RULES
-1. **Always use `grepai_search` first** when looking for content, lore, rules, or code across the project. This is a large project with 69+ files and 1200+ chunks. Semantic search finds what you need faster than Grep/Glob.
+grepai is configured as an MCP server. Tools are prefixed `mcp__grepai__`. Use `ToolSearch` with query `grepai` to load them before first use.
+
+**Config:** bge-m3 embeddings (1024d), hybrid search on, rules/ boosted 1.3x, docs/src/ penalized 0.5x.
+
+### Tool usage
+1. **Always use `grepai_search` first** when looking for content, lore, rules, or code across the project. Semantic search finds what you need faster than Grep/Glob.
 2. **Use `grepai_trace_callers` / `grepai_trace_callees`** for understanding code dependencies in the docs site.
 3. **Fall back to Grep/Glob only** when grepai returns no results or you need exact string/pattern matching.
 4. **Never skip grepai** for multi-file research, consistency checks, or "find where X is defined/used" tasks.
+
+### Efficiency (always apply)
+- **Always pass `compact: true`** to reduce token usage ~80%.
+- **Always pass `format: "toon"`** for token-efficient output.
+- **Limit results:** default is 10, use `limit: 5` or less unless you need breadth.
+- **Use `path` filter** when you know the directory (e.g. `path: "rules/"` to skip docs duplication).
+
+### When to delegate to subagent
+- **Multi-file research** (consistency checks, "where is X defined across all files"): use `deep-explore` subagent which has grepai access.
+- **Any search that will need 3+ grepai calls** chained together: delegate to subagent to protect main context.
+- Subagent prompt must include: "Use grepai_search with compact:true, format:toon. Final response under 2000 characters."
 
 ## Working Conventions
 1. **Local markdown + GitHub is the source of truth.** The Astro docs site in `docs/` is the reader.
@@ -82,6 +98,16 @@ Modified D&D 5e (homebrew rules TBD — will be added to `rules/`). Currently us
 - Subagent output constraint: "Final response under 2000 characters. List outcomes, not process."
 - During live sessions, prefer speed (haiku/inline) over depth
 
+## Checkpoints
+
+**Before any multi-file edit pass** (ralph-loop, mesh pass, consistency sweep, or batch rules editing):
+1. `git add -A && git commit -m "checkpoint: pre-[description]"` — create a rollback point
+2. Announce the checkpoint hash to the user
+3. Proceed with the work
+4. If the work fails or the user wants to roll back: `git revert --no-commit HEAD~N..HEAD` (where N = commits since checkpoint)
+
+This is mandatory. No exceptions. Multi-file edits without a checkpoint are not recoverable.
+
 ## Workflow Commands
 When the DM says:
 - **"Prep next session [campaign]"** → Read last session log + active threads + GM notes. Generate scene beats, NPC prep, contingencies.
@@ -92,3 +118,6 @@ When the DM says:
 - **"New NPC"** → Use template at `campaigns/[campaign]/npcs/_template.md`.
 - **"World-build: [topic]"** → Research existing lore, propose content that fits, offer 2-3 options.
 - **Rules/system editing** → Use `/rules-edit` for any rules file edits, comment resolution, or consistency work. Tiered workflow (T1–T4) with cross-reference checking.
+
+
+
