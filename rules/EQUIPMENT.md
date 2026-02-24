@@ -75,11 +75,11 @@ Design principles, generation rules, and all tests live in `rules/DESIGN-EQUIPME
 
 | Category | Dice |
 |-|-|
-| Unarmed / Improvised | 1d4 |
-| Light | 1d6 |
-| Medium | 1d8 |
-| Heavy | 2d6 |
-| Devastating | 2d8 |
+| Unarmed / Improvised | d4 |
+| Light | d6 |
+| Medium | d8 |
+| Heavy | d10 |
+| Devastating | d12 |
 
 ### Weapon Properties
 

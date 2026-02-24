@@ -17,7 +17,7 @@ The 15 base gambits are defined and locked in `rules/CORE.md` (D42). Listed here
 **Influence (3):** Shift, Pressure, De-escalate
 **Fight (5):** Shove, Trip, Disarm, Pin, Create Cover
 
-See `rules/CORE.md` for full definitions, potency rules, and resistance table.
+See `rules/CORE.md` for full definitions and resistance rules.
 
 ### Social Applications
 
