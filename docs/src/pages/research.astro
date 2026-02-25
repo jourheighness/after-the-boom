@@ -1,0 +1,57 @@
+---
+import { getCollection, render } from 'astro:content';
+import RulesLayout from '../layouts/RulesLayout.astro';
+
+const FILE_COLORS: Record<string, string> = {
+  '002-RIFT-STALKER': '#5c6a7a',
+};
+
+// Fallback color cycle for new playtests
+const PALETTE = ['#5c6a7a', '#7a5c7a', '#5c7a5c', '#7a7a5c', '#8b7355', '#5c7a7a'];
+
+const allEntries = await getCollection('research');
+
+// Sort by filename (numeric prefix gives chronological order)
+const entries = allEntries.sort((a, b) => {
+  const aName = a.id.replace(/\.md$/, '').toUpperCase();
+  const bName = b.id.replace(/\.md$/, '').toUpperCase();
+  return aName.localeCompare(bName);
+});
+
+interface TocEntry { level: number; id: string; title: string; }
+interface SectionData {
+  source: string;
+  color: string;
+  toc: TocEntry[];
+  Content: any;
+}
+
+const sections: SectionData[] = [];
+
+for (const [i, entry] of entries.entries()) {
+  const source = entry.id.replace(/\.md$/, '').toUpperCase();
+  const color = FILE_COLORS[source] || PALETTE[i % PALETTE.length];
+  const { Content, headings } = await render(entry);
+
+  const toc: TocEntry[] = headings
+    .filter(h => h.depth >= 2 && h.depth <= 3)
+    .map(h => ({ level: h.depth, id: h.slug, title: h.text }));
+
+  sections.push({ source, color, toc, Content });
+}
+
+const sources = sections.map(s => ({ name: s.source, color: s.color }));
+const sidebarSections = sections.map(s => ({
+  source: s.source,
+  color: s.color,
+  toc: s.toc,
+}));
+---
+
+<RulesLayout sections={sidebarSections} sources={sources} currentTab="research">
+  {sections.map(({ source, Content }) => (
+    <section class="file-section" data-source={source}>
+      <Content />
+    </section>
+  ))}
+</RulesLayout>

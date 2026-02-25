@@ -18,7 +18,7 @@ interface SectionGroup {
 interface Props {
   sections: SectionGroup[];
   sources: { name: string; color: string }[];
-  currentTab?: 'rules' | 'campaigns' | 'dm-screen';
+  currentTab?: 'rules' | 'campaigns' | 'dm-screen' | 'research';
 }
 const { sections, sources, currentTab = 'rules' } = Astro.props;
 const showComments = !import.meta.env.PROD;
@@ -39,6 +39,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <nav class="tab-nav">
       <a href={`${base}/`} class={currentTab === 'rules' ? 'active' : ''}>Rules</a>
       <a href={`${base}/campaigns`} class={currentTab === 'campaigns' ? 'active' : ''}>Campaigns</a>
+      <a href={`${base}/research`} class={currentTab === 'research' ? 'active' : ''}>Research</a>
       {showDmScreen && (
         <a href={`${base}/dm-screen`} class={currentTab === 'dm-screen' ? 'active' : ''}>DM Screen</a>
       )}

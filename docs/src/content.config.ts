@@ -13,4 +13,8 @@ const dmScreen = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/dm-screen' }),
 });
 
-export const collections = { rules, campaigns, dmScreen };
+const research = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/research' }),
+});
+
+export const collections = { rules, campaigns, dmScreen, research };
