@@ -294,11 +294,11 @@ Repeat until the fight ends.
 
 Everything in combat falls into one of three lanes:
 
-**Hurting an enemy?** Attack. Roll your weapon die, deal damage.
+**Hurting an enemy?** Combat roll. Roll your weapon die, deal damage. Gambits come from the combat list.
 
-**Changing the battlefield?** Gambits. Sacrifice a die from your attack roll for a guaranteed side effect. Anything that shifts the tactical situation costs a die.
+**Changing the battlefield?** Gambits. Sacrifice a die from your combat roll for a guaranteed side effect. Anything that shifts the tactical situation costs a die.
 
-**Doing something else entirely?** Stakes roll. Hack a terminal, barricade a door, hotwire a van, call for backup, talk an enemy down, flee under fire. GM sets stakes, you roll the relevant stat. Not an attack, doesn't use weapon dice.
+**Doing something else entirely?** Stakes roll. Hack a terminal, barricade a door, hotwire a van, call for backup, talk an enemy down, flee under fire, seal a breach, jury-rig a broken device. GM sets stakes, you roll the relevant stat. Not an attack, doesn't use weapon dice. Gambits are open negotiation. Setup works here too.
 
 ### Your Turn
 
@@ -453,7 +453,7 @@ Two universal axioms govern all player action:
 1. **Any roll, any context:** sacrifice a die showing 4+ for a gambit.
 2. **Any roll, any context:** spend Drain before rolling for +1d.
 
-These are not contextual rules. They apply to attack, defense, and stakes rolls without exception. Every roll has two questions: what did I get, and what can I trade?
+These are not contextual rules. They apply to combat rolls, stakes rolls, defense, and saves without exception. Every roll has two questions: what did I get, and what can I trade?
 
 Gambits are the player's leverage. Stakes, consequences, enemy behavior: the GM controls all of that. Gambits are where control shifts. You see the dice and decide to spend one. The GM honors it if the fiction allows.
 
@@ -461,9 +461,11 @@ Gambits are the player's leverage. Stakes, consequences, enemy behavior: the GM 
 
 Sacrifice a die showing **4+**. Any die in the pool is eligible: weapon die, Boon d6s, Drain d6. You see the dice first, then decide. One gambit per die sacrificed. Multiple dice, multiple gambits. No duplicates per roll.
 
-**In combat,** gambits come from a fixed list with specific outputs (see Combat Gambits). The battlefield is constrained enough that specific verbs mean specific things.
+**On combat rolls** (attacks and defense), gambits come from a fixed list with specific outputs (see Combat Gambits). The battlefield is constrained enough that specific verbs mean specific things.
 
-**On stakes rolls,** gambits are open negotiation. Name something within reach of what you're already doing. Not a second goal. A small thing the moment made possible. The GM approves or vetoes based on the fiction.
+**On stakes rolls** (everything else: social, exploration, investigation, saves, doing something crazy mid-fight), gambits are open negotiation. Name something within reach of what you're already doing. Not a second goal. A small thing the moment made possible. The GM approves or vetoes based on the fiction.
+
+**Setup works on both.** Bank a die on a combat roll, spend it on a stakes roll. Bank on a stakes roll, spend it in combat. The banked die crosses the boundary because it has no context-specific output. It's just a die with a number.
 
 ### Three Sacrifice Patterns
 
@@ -636,7 +638,7 @@ Grit (body), Sharp (senses), Nerve (will). Rated 1-4. Sum = 6.
 Boon = +1d. Snag = -1d. Cancel 1-for-1. Min 0d (2d6 take lowest). On attacks: Snags remove bonus dice first, then weapon die. 0d = 2d6 take lowest, both dice spendable for Gambits.
 
 ### Stakes
-GM declares consequences. Accept, change approach, or back off. Combat has three lanes: attack (weapon die), gambit (sacrifice die), stakes roll (everything else).
+GM declares consequences. Accept, change approach, or back off. Combat has three lanes: combat roll (weapon die + combat gambits), gambit (sacrifice die), stakes roll (stat die + open gambits). Setup crosses both.
 
 ### Guard & Drain
 Guard = 2 + highest stat (cap 10). Recovers in genuine safety. Drain = 4 boxes (+1d, -2 dmg, act while Critical, device gambit). Crack when empty.
