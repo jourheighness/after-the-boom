@@ -47,7 +47,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <Search />
     <FilterBar sources={sources} />
     {showComments && (
-      <button class="comment-toggle-btn" onclick="toggleCommentsPanel()">
+      <button class="comment-toggle-btn" id="commentToggleBtn">
         Comments <span class="comment-badge zero" id="commentBadge">0</span>
       </button>
     )}
@@ -79,9 +79,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       document.querySelectorAll('.file-section').forEach(sec => {
         sec.classList.toggle('hidden', !activeFilters.has((sec as HTMLElement).dataset.source!));
       });
+      document.dispatchEvent(new CustomEvent('filters-changed'));
     }
-    // Expose for comment system integration
-    (window as any).__applyFilters = applyFilters;
 
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {

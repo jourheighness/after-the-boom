@@ -301,8 +301,16 @@ body {
   font-family: system-ui, sans-serif; font-size: 14px; font-weight: 600;
   color: var(--heading); margin: 0;
 }
+.comments-panel-header-right {
+  display: flex; align-items: center; gap: 6px;
+}
+.panel-close-btn {
+  background: none; border: none; font-size: 18px; line-height: 1;
+  color: var(--text-muted); cursor: pointer; padding: 0 2px;
+}
+.panel-close-btn:hover { color: var(--text); }
 .sync-indicator {
-  font-size: 10px; margin-left: 6px; transition: opacity 0.3s;
+  font-size: 10px; transition: opacity 0.3s;
 }
 .sync-ok { color: #5a9a5a; }
 .sync-err { color: #a04040; }
@@ -311,6 +319,10 @@ body {
   color: var(--text-muted); letter-spacing: 0.5px;
   margin: 12px 0 4px; padding: 2px 0;
   border-bottom: 1px solid var(--border);
+}
+.panel-group-hint {
+  font-size: 10px; color: var(--text-muted); font-style: italic;
+  margin: 0 0 4px; padding: 0 2px;
 }
 .panel-comment {
   padding: 6px 8px; margin: 4px 0; border-radius: 4px;
