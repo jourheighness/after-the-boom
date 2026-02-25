@@ -1,0 +1,23 @@
+{
+  "name": "comments-server",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "migrate": "tsx src/migrate.ts",
+    "mcp": "tsx src/mcp-server.ts",
+    "index": "tsx src/index-all.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.0",
+    "better-sqlite3": "^12.6.0",
+    "diff": "^8.0.0",
+    "chokidar": "^5.0.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.0",
+    "@types/diff": "^7.0.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.0"
+  }
+}

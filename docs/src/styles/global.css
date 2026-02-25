@@ -377,6 +377,12 @@ body {
 }
 .comment-badge.zero { background: rgba(255,255,255,0.2); }
 
+/* Diff display */
+.diff-display { font-size: 11px; margin: 6px 0; padding: 6px 8px; background: rgba(0,0,0,0.03); border-radius: 4px; max-height: 100px; overflow-y: auto; white-space: pre-wrap; }
+.diff-add { color: #2d7a2d; background: rgba(45,122,45,0.08); }
+.diff-del { color: #a03030; background: rgba(160,48,48,0.08); text-decoration: line-through; }
+.panel-diff-badge { font-size: 9px; color: #d47a20; margin-left: 4px; font-style: normal; }
+
 /* Mobile */
 @media (max-width: 768px) {
   .sidebar { transform: translateX(-100%); transition: transform 0.2s; width: 280px; }

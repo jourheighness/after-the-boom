@@ -1,5 +1,5 @@
 <!--
-  Comment system: select text to annotate, localStorage + optional dev server sync.
+  Comment system: select text to annotate, SSE live sync with SQLite backend.
   Note: innerHTML usage below is safe because all user-supplied strings are escaped
   via escHtml() (which uses textContent assignment) before insertion into templates.
 -->
@@ -29,11 +29,10 @@ interface Comment {
   createdAt: string;
   resolvedAt: string | null;
   _orphaned?: boolean;
-  _userReopened?: boolean;
+  _diffText?: string;
 }
 
 let comments: Comment[] = [];
-let _syncTimer: ReturnType<typeof setTimeout> | null = null;
 let pendingSelection: {
   text: string;
   contextBefore: string;
@@ -47,9 +46,9 @@ let pendingSelection: {
 } | null = null;
 
 // --- Cached element refs ---
-const $popover = $popover;
-const $floatBtn = $floatBtn;
-const $panel = $panel;
+const $popover = document.getElementById('commentPopover')!;
+const $floatBtn = document.getElementById('commentFloatBtn')!;
+const $panel = document.getElementById('commentsPanel')!;
 
 // --- Escaping (all user content passes through this before innerHTML) ---
 function escHtml(str: string): string {
@@ -72,38 +71,34 @@ function positionPopover(popover: HTMLElement, anchorRect: DOMRect) {
   popover.style.top = top + 'px';
 }
 
-// --- Data Layer ---
-function loadComments() {
-  let stored: Comment[] = [];
+// --- Data Layer: Server is source of truth, localStorage is cache ---
+
+function loadFromCache() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) stored = JSON.parse(raw);
-  } catch (e) { if (IS_DEV) console.warn('loadComments parse error:', e); stored = []; }
-  comments = stored;
-  comments.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
-}
-
-function saveComments() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
-  updateBadge();
-  if (IS_DEV) syncToServer();
-}
-
-function syncToServer() {
-  const data = { version: 1, comments };
-  fetch('/api/comments', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  }).then(r => {
-    const ind = document.getElementById('syncIndicator');
-    if (ind) {
-      ind.textContent = r.ok ? 'saved' : 'error';
-      ind.className = 'sync-indicator ' + (r.ok ? 'sync-ok' : 'sync-err');
-      if (_syncTimer) clearTimeout(_syncTimer);
-      _syncTimer = setTimeout(() => { ind.textContent = ''; ind.className = 'sync-indicator'; }, 2000);
+    if (raw) {
+      comments = JSON.parse(raw);
+      comments.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
     }
-  }).catch((e) => { if (IS_DEV) console.warn('syncToServer error:', e); });
+  } catch { comments = []; }
+}
+
+function saveToCache() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
+}
+
+async function fetchAllComments() {
+  if (!IS_DEV) return;
+  try {
+    const res = await fetch('/api/comments');
+    const data = await res.json();
+    comments = Array.isArray(data) ? data : (data.comments || []);
+    comments.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
+    saveToCache();
+    applyHighlights();
+    updateBadge();
+    if ($panel.classList.contains('open')) renderCommentsPanel();
+  } catch (e) { console.warn('fetchAllComments:', e); }
 }
 
 function updateBadge() {
@@ -116,6 +111,68 @@ function updateBadge() {
 
 function generateId() {
   return 'c_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5);
+}
+
+function showSyncStatus(ok: boolean) {
+  const ind = document.getElementById('syncIndicator');
+  if (!ind) return;
+  ind.textContent = ok ? 'saved' : 'error';
+  ind.className = 'sync-indicator ' + (ok ? 'sync-ok' : 'sync-err');
+  setTimeout(() => { ind.textContent = ''; ind.className = 'sync-indicator'; }, 2000);
+}
+
+// --- SSE: Real-time updates from server ---
+let _eventSource: EventSource | null = null;
+let _sseReconnectTimer: ReturnType<typeof setTimeout> | null = null;
+
+function connectSSE() {
+  if (!IS_DEV || _eventSource) return;
+
+  _eventSource = new EventSource('/api/comments/stream');
+
+  _eventSource.addEventListener('connected', () => {
+    if (_sseReconnectTimer) { clearTimeout(_sseReconnectTimer); _sseReconnectTimer = null; }
+  });
+
+  _eventSource.addEventListener('update', (e) => {
+    const event = JSON.parse(e.data);
+    handleServerEvent(event);
+  });
+
+  _eventSource.onerror = () => {
+    _eventSource?.close();
+    _eventSource = null;
+    _sseReconnectTimer = setTimeout(connectSSE, 5000);
+  };
+}
+
+function handleServerEvent(event: { type: string; comment?: Comment; id?: string }) {
+  if (event.type === 'bulk_update') {
+    fetchAllComments();
+    return;
+  }
+  if (event.type === 'upsert' && event.comment) {
+    const idx = comments.findIndex(c => c.id === event.comment!.id);
+    if (idx >= 0) {
+      comments[idx] = { ...comments[idx], ...event.comment };
+    } else {
+      comments.push(event.comment!);
+    }
+  } else if (event.type === 'status_change' && event.comment) {
+    const idx = comments.findIndex(c => c.id === event.comment!.id);
+    if (idx >= 0) comments[idx] = { ...comments[idx], ...event.comment };
+  } else if (event.type === 'delete' && event.id) {
+    comments = comments.filter(c => c.id !== event.id);
+  } else if (event.type === 'reanchor' && event.comment) {
+    const idx = comments.findIndex(c => c.id === event.comment!.id);
+    if (idx >= 0) comments[idx] = { ...comments[idx], ...event.comment };
+  }
+
+  comments.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
+  saveToCache();
+  applyHighlights();
+  updateBadge();
+  if ($panel.classList.contains('open')) renderCommentsPanel();
 }
 
 // --- Text Anchoring ---
@@ -271,13 +328,11 @@ function wrapMultiNodeMatch(
   commentId: string,
   cls: string
 ) {
-  // Collect all text nodes between startNode and endNode (inclusive)
   const textNodes: Text[] = [];
   const range = document.createRange();
   range.setStart(match.startNode, match.startOffset);
   range.setEnd(match.endNode, match.endOffset);
 
-  // Walk the common ancestor to find text nodes within the range
   const ancestor = range.commonAncestorContainer;
   const walker = document.createTreeWalker(
     ancestor.nodeType === 3 ? ancestor.parentElement! : ancestor,
@@ -291,7 +346,6 @@ function wrapMultiNodeMatch(
     if (node === match.endNode) break;
   }
 
-  // Wrap each text node segment
   for (const tn of textNodes) {
     const start = tn === match.startNode ? match.startOffset : 0;
     const end = tn === match.endNode ? match.endOffset : tn.textContent!.length;
@@ -308,7 +362,6 @@ function wrapMultiNodeMatch(
 }
 
 function applyHighlights() {
-  // Clean up previous highlights
   document.querySelectorAll('.commented-text').forEach(span => {
     const parent = span.parentNode!;
     while (span.firstChild) parent.insertBefore(span.firstChild, span);
@@ -332,7 +385,6 @@ function applyHighlights() {
       ? getSectionContentElements(sectionEl)
       : [sectionEl];
 
-    // For resolved comments with resolvedText, highlight the new text instead
     const highlightText = (c.status === 'resolved' && c.resolvedText) ? c.resolvedText : c.selectedText;
     const ctxBefore = (c.status === 'resolved' && c.resolvedText) ? '' : c.contextBefore;
     const ctxAfter = (c.status === 'resolved' && c.resolvedText) ? '' : c.contextAfter;
@@ -351,7 +403,6 @@ function applyHighlights() {
           span.dataset.commentId = c.id;
           range.surroundContents(span);
         } else {
-          // Multi-node: wrap each text node segment individually
           wrapMultiNodeMatch(match, c.id, cls);
         }
       } catch (e) {
@@ -361,7 +412,7 @@ function applyHighlights() {
       continue;
     }
 
-    // Fallback: try paragraph-index anchoring
+    // Fallback: paragraph-index anchoring
     if (c.paragraphIndex != null && /^H[1-4]$/.test(sectionEl.tagName)) {
       const heading = sectionEl;
       const level = parseInt(heading.tagName[1]);
@@ -385,7 +436,7 @@ function applyHighlights() {
     c._orphaned = true;
   }
 
-  // Add orphan indicators next to headings for orphaned comments
+  // Orphan indicators
   for (const c of comments) {
     if (!c._orphaned || c.status === 'dismissed') continue;
     const heading = document.getElementById(c.sectionId);
@@ -393,8 +444,10 @@ function applyHighlights() {
     const dot = document.createElement('span');
     dot.className = 'orphan-indicator';
     dot.dataset.commentId = c.id;
-    dot.title = 'Orphaned comment — text was edited';
-    dot.innerHTML = '<span class="orphan-dot"></span>';
+    dot.title = 'Orphaned comment: text was edited';
+    const dotInner = document.createElement('span');
+    dotInner.className = 'orphan-dot';
+    dot.appendChild(dotInner);
     dot.addEventListener('click', (e) => {
       e.stopPropagation();
       $panel.classList.add('open');
@@ -413,6 +466,28 @@ function findSourceLine(node: Node): number | undefined {
     el = el.parentElement;
   }
   return undefined;
+}
+
+// --- Diff display ---
+function renderDiff(diffText: string): string {
+  const lines = diffText.split('\n');
+  const parts: string[] = [];
+  for (const line of lines) {
+    if (line.startsWith('+') && !line.startsWith('+++')) {
+      const span = document.createElement('span');
+      span.className = 'diff-add';
+      span.textContent = line;
+      parts.push(span.outerHTML + '\n');
+    } else if (line.startsWith('-') && !line.startsWith('---')) {
+      const span = document.createElement('span');
+      span.className = 'diff-del';
+      span.textContent = line;
+      parts.push(span.outerHTML + '\n');
+    } else {
+      parts.push(escHtml(line) + '\n');
+    }
+  }
+  return parts.join('');
 }
 
 // --- Selection & Creation ---
@@ -471,25 +546,41 @@ function showCreatePopover() {
     ? pendingSelection.text.slice(0, 57) + '...'
     : pendingSelection.text;
 
-  // Safe: preview is escaped via escHtml before insertion
-  $popover.innerHTML = `
-    <div class="popover-selected">"${escHtml(preview)}"</div>
-    <textarea id="commentInput" placeholder="Your comment..."></textarea>
-    <div class="popover-actions">
-      <button id="popoverCancel">Cancel</button>
-      <button class="primary" id="popoverSave">Save</button>
-    </div>
-  `;
+  // Safe: preview is escaped via escHtml
+  const selectedDiv = document.createElement('div');
+  selectedDiv.className = 'popover-selected';
+  selectedDiv.textContent = `"${preview}"`;
 
-  $popover.querySelector('#popoverCancel')!.addEventListener('click', closePopover);
-  $popover.querySelector('#popoverSave')!.addEventListener('click', saveNewComment);
+  const textarea = document.createElement('textarea');
+  textarea.id = 'commentInput';
+  textarea.placeholder = 'Your comment...';
+
+  const actionsDiv = document.createElement('div');
+  actionsDiv.className = 'popover-actions';
+
+  const cancelBtn = document.createElement('button');
+  cancelBtn.textContent = 'Cancel';
+  cancelBtn.addEventListener('click', closePopover);
+
+  const saveBtn = document.createElement('button');
+  saveBtn.className = 'primary';
+  saveBtn.textContent = 'Save';
+  saveBtn.addEventListener('click', saveNewComment);
+
+  actionsDiv.appendChild(cancelBtn);
+  actionsDiv.appendChild(saveBtn);
+
+  $popover.textContent = '';
+  $popover.appendChild(selectedDiv);
+  $popover.appendChild(textarea);
+  $popover.appendChild(actionsDiv);
 
   positionPopover($popover, pendingSelection.range.getBoundingClientRect());
 
-  setTimeout(() => (document.getElementById('commentInput') as HTMLTextAreaElement)?.focus(), 50);
+  setTimeout(() => textarea.focus(), 50);
 }
 
-function saveNewComment() {
+async function saveNewComment() {
   if (!pendingSelection) return;
   const input = document.getElementById('commentInput') as HTMLTextAreaElement;
   const text = input?.value.trim();
@@ -521,10 +612,23 @@ function saveNewComment() {
     createdAt: new Date().toISOString(),
     resolvedAt: null
   };
-  comments.push(c);
-  saveComments();
 
-  // Flash "Saved" feedback before closing
+  comments.push(c);
+  saveToCache();
+  updateBadge();
+
+  if (IS_DEV) {
+    try {
+      const res = await fetch('/api/comments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(c)
+      });
+      showSyncStatus(res.ok);
+    } catch { showSyncStatus(false); }
+  }
+
+  // Flash "Saved" feedback
   $popover.textContent = '';
   const msg = document.createElement('div');
   msg.style.cssText = 'text-align:center;padding:8px;color:var(--accent);font-weight:600;';
@@ -542,7 +646,7 @@ function saveNewComment() {
 let _hoverTimeout: ReturnType<typeof setTimeout> | null = null;
 
 if (mainEl) {
-  mainEl.addEventListener('mouseover', (e) => {
+  mainEl.addEventListener('pointerenter', (e) => {
     const span = (e.target as Element).closest('.commented-text') as HTMLElement;
     if (!span) return;
     if (_hoverTimeout) clearTimeout(_hoverTimeout);
@@ -550,16 +654,16 @@ if (mainEl) {
     const c = comments.find(x => x.id === cid);
     if (!c) return;
     _hoverTimeout = setTimeout(() => showViewPopover(c, span), 200);
-  });
+  }, true);
 
-  mainEl.addEventListener('mouseout', (e) => {
+  mainEl.addEventListener('pointerleave', (e) => {
     const span = (e.target as Element).closest('.commented-text');
     if (!span) return;
     if (_hoverTimeout) clearTimeout(_hoverTimeout);
     _hoverTimeout = setTimeout(() => {
       if (!$popover.matches(':hover')) closePopover();
-    }, 300);
-  });
+    }, 400);
+  }, true);
 
   mainEl.addEventListener('click', (e) => {
     const span = (e.target as Element).closest('.commented-text, .commented-block');
@@ -569,83 +673,135 @@ if (mainEl) {
   });
 }
 
-$popover.addEventListener('mouseenter', () => { if (_hoverTimeout) clearTimeout(_hoverTimeout); });
-$popover.addEventListener('mouseleave', () => { _hoverTimeout = setTimeout(closePopover, 300); });
+$popover.addEventListener('pointerenter', () => { if (_hoverTimeout) clearTimeout(_hoverTimeout); });
+$popover.addEventListener('pointerleave', () => { _hoverTimeout = setTimeout(closePopover, 400); });
 
 function showViewPopover(c: Comment, span: HTMLElement) {
   const rect = span.getBoundingClientRect();
 
-  let actions = '';
-  if (c.status === 'open') {
-    actions = `<button data-action="delete" data-id="${escHtml(c.id)}">Delete</button>`;
-  } else if (c.status === 'resolved') {
-    actions = `
-      <button data-action="reopen" data-id="${escHtml(c.id)}">Reopen</button>
-      <button class="primary" data-action="dismiss" data-id="${escHtml(c.id)}">Dismiss</button>
-    `;
+  // Build popover with DOM methods for safety
+  $popover.textContent = '';
+
+  const selectedDiv = document.createElement('div');
+  selectedDiv.className = 'popover-selected';
+  selectedDiv.textContent = `"${c.selectedText.slice(0, 60)}"`;
+  $popover.appendChild(selectedDiv);
+
+  const commentDiv = document.createElement('div');
+  commentDiv.style.cssText = 'margin:6px 0;font-size:12px;';
+  commentDiv.textContent = c.comment;
+  $popover.appendChild(commentDiv);
+
+  if (c.resolution) {
+    const resDiv = document.createElement('div');
+    resDiv.className = 'resolution-note';
+    const strong = document.createElement('strong');
+    strong.textContent = 'Resolution: ';
+    resDiv.appendChild(strong);
+    resDiv.appendChild(document.createTextNode(c.resolution));
+    $popover.appendChild(resDiv);
   }
 
-  const resolutionHtml = c.resolution
-    ? `<div class="resolution-note"><strong>Resolution:</strong> ${escHtml(c.resolution)}</div>`
-    : '';
+  if (c._diffText) {
+    const diffDiv = document.createElement('div');
+    diffDiv.className = 'diff-display';
+    // renderDiff uses escHtml and createElement for safe output
+    diffDiv.innerHTML = renderDiff(c._diffText);
+    $popover.appendChild(diffDiv);
+  }
 
-  // Safe: all dynamic content escaped via escHtml
-  $popover.innerHTML = `
-    <div class="popover-selected">"${escHtml(c.selectedText.slice(0, 60))}"</div>
-    <div style="margin:6px 0;font-size:12px;">${escHtml(c.comment)}</div>
-    ${resolutionHtml}
-    <div class="comment-meta">${escHtml(c.status)} &middot; ${escHtml(new Date(c.createdAt).toLocaleDateString())}</div>
-    <div class="popover-actions">${actions}</div>
-  `;
+  const metaDiv = document.createElement('div');
+  metaDiv.className = 'comment-meta';
+  metaDiv.textContent = `${c.status} \u00b7 ${new Date(c.createdAt).toLocaleDateString()}`;
+  $popover.appendChild(metaDiv);
 
-  $popover.querySelectorAll('[data-action]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const action = (btn as HTMLElement).dataset.action;
-      const id = (btn as HTMLElement).dataset.id!;
-      if (action === 'delete') deleteComment(id);
-      else if (action === 'reopen') reopenComment(id);
-      else if (action === 'dismiss') dismissComment(id);
-    });
-  });
+  const actionsDiv = document.createElement('div');
+  actionsDiv.className = 'popover-actions';
 
+  if (c.status === 'open') {
+    const delBtn = document.createElement('button');
+    delBtn.textContent = 'Delete';
+    delBtn.addEventListener('click', () => deleteComment(c.id));
+    actionsDiv.appendChild(delBtn);
+  } else if (c.status === 'resolved') {
+    const reopenBtn = document.createElement('button');
+    reopenBtn.textContent = 'Reopen';
+    reopenBtn.addEventListener('click', () => reopenComment(c.id));
+    actionsDiv.appendChild(reopenBtn);
+
+    const dismissBtn = document.createElement('button');
+    dismissBtn.className = 'primary';
+    dismissBtn.textContent = 'Dismiss';
+    dismissBtn.addEventListener('click', () => dismissComment(c.id));
+    actionsDiv.appendChild(dismissBtn);
+  }
+
+  $popover.appendChild(actionsDiv);
   positionPopover($popover, rect);
 }
 
-function deleteComment(id: string) {
+async function deleteComment(id: string) {
   if (!confirm('Delete this comment?')) return;
   comments = comments.filter(x => x.id !== id);
-  saveComments();
+  saveToCache();
+  updateBadge();
   closePopover();
   applyHighlights();
   renderCommentsPanel();
+
+  if (IS_DEV) {
+    try { await fetch(`/api/comments/${encodeURIComponent(id)}`, { method: 'DELETE' }); }
+    catch (e) { console.warn('deleteComment:', e); }
+  }
 }
 
-function reopenComment(id: string) {
+async function reopenComment(id: string) {
   const c = comments.find(x => x.id === id);
   if (!c) return;
   c.status = 'open';
-  c._userReopened = true;
   c.resolution = null;
   c.resolvedAt = null;
-  saveComments();
+  saveToCache();
+  updateBadge();
   closePopover();
   applyHighlights();
   renderCommentsPanel();
+
+  if (IS_DEV) {
+    try {
+      await fetch(`/api/comments/${encodeURIComponent(id)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'open' })
+      });
+    } catch (e) { console.warn('reopenComment:', e); }
+  }
 }
 
-function dismissComment(id: string) {
+async function dismissComment(id: string) {
   const c = comments.find(x => x.id === id);
   if (!c) return;
   c.status = 'dismissed';
-  saveComments();
+  saveToCache();
+  updateBadge();
   closePopover();
   applyHighlights();
   renderCommentsPanel();
+
+  if (IS_DEV) {
+    try {
+      await fetch(`/api/comments/${encodeURIComponent(id)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'dismissed' })
+      });
+    } catch (e) { console.warn('dismissComment:', e); }
+  }
 }
 
 function closePopover() {
   $popover.style.display = 'none';
-  $popover.innerHTML = '';
+  $popover.textContent = '';
   $floatBtn.style.display = 'none';
   pendingSelection = null;
 }
@@ -655,37 +811,53 @@ function toggleCommentsPanel() {
   $panel.classList.toggle('open');
   renderCommentsPanel();
 }
-// Header toggle button
 document.getElementById('commentToggleBtn')?.addEventListener('click', toggleCommentsPanel);
 
 function renderCommentsPanel() {
   const active = comments.filter(c => c.status !== 'dismissed');
-
-  // Safe: all dynamic content escaped via escHtml
   const openCount = active.filter(c => c.status === 'open').length;
   const countLabel = active.length > 0 ? ` (${openCount} open / ${active.length} total)` : '';
 
-  let html = `
-    <div class="comments-panel-header">
-      <h3>Comments${escHtml(countLabel)}</h3>
-      <div class="comments-panel-header-right">
-        <span id="syncIndicator" class="sync-indicator"></span>
-        <button class="panel-close-btn" id="panelCloseBtn" aria-label="Close">&times;</button>
-      </div>
-    </div>
-  `;
+  // Build header with DOM
+  $panel.textContent = '';
+  const header = document.createElement('div');
+  header.className = 'comments-panel-header';
+
+  const h3 = document.createElement('h3');
+  h3.textContent = `Comments${countLabel}`;
+  header.appendChild(h3);
+
+  const headerRight = document.createElement('div');
+  headerRight.className = 'comments-panel-header-right';
+  const syncInd = document.createElement('span');
+  syncInd.id = 'syncIndicator';
+  syncInd.className = 'sync-indicator';
+  headerRight.appendChild(syncInd);
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'panel-close-btn';
+  closeBtn.setAttribute('aria-label', 'Close');
+  closeBtn.textContent = '\u00d7';
+  closeBtn.addEventListener('click', () => $panel.classList.remove('open'));
+  headerRight.appendChild(closeBtn);
+  header.appendChild(headerRight);
+  $panel.appendChild(header);
 
   if (active.length === 0) {
-    html += '<p style="color:var(--text-muted);font-size:12px;">No comments yet. Select text and press <kbd>c</kbd> or click "+ Comment" to add one.</p>';
-    $panel.innerHTML = html;
+    const p = document.createElement('p');
+    p.style.cssText = 'color:var(--text-muted);font-size:12px;';
+    p.textContent = 'No comments yet. Select text and press c or click "+ Comment" to add one.';
+    $panel.appendChild(p);
     return;
   }
 
   const orphaned = active.filter(c => c._orphaned);
   if (orphaned.length > 0) {
-    html += '<div class="panel-group-label">Orphaned</div>';
-    html += '<div class="panel-group-hint">Text was changed or removed. These comments can no longer be anchored.</div>';
-    for (const c of orphaned) html += renderPanelComment(c, 'orphaned');
+    appendGroupLabel($panel, 'Orphaned');
+    const hint = document.createElement('div');
+    hint.className = 'panel-group-hint';
+    hint.textContent = 'Text was changed or removed. These comments can no longer be anchored.';
+    $panel.appendChild(hint);
+    for (const c of orphaned) appendPanelComment($panel, c, 'orphaned');
   }
 
   const grouped: Record<string, Comment[]> = {};
@@ -695,61 +867,78 @@ function renderCommentsPanel() {
     grouped[key].push(c);
   }
   for (const [src, items] of Object.entries(grouped)) {
-    html += `<div class="panel-group-label">${escHtml(src)}</div>`;
-    for (const c of items) html += renderPanelComment(c, c.status);
+    appendGroupLabel($panel, src);
+    for (const c of items) appendPanelComment($panel, c, c.status);
   }
-
-  $panel.innerHTML = html;
-
-  // Close button
-  $panel.querySelector('#panelCloseBtn')?.addEventListener('click', () => {
-    $panel.classList.remove('open');
-  });
-
-  // Attach event listeners via delegation
-  $panel.querySelectorAll('.panel-comment').forEach(el => {
-    el.addEventListener('click', () => {
-      const id = (el as HTMLElement).dataset.commentId!;
-      scrollToComment(id);
-    });
-  });
-  $panel.querySelectorAll('.panel-action').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const action = (btn as HTMLElement).dataset.action;
-      const id = (btn as HTMLElement).dataset.id!;
-      if (action === 'delete') deleteComment(id);
-      else if (action === 'reopen') reopenComment(id);
-      else if (action === 'dismiss') dismissComment(id);
-    });
-  });
 }
 
-function renderPanelComment(c: Comment, statusClass: string): string {
+function appendGroupLabel(parent: HTMLElement, text: string) {
+  const div = document.createElement('div');
+  div.className = 'panel-group-label';
+  div.textContent = text;
+  parent.appendChild(div);
+}
+
+function appendPanelComment(parent: HTMLElement, c: Comment, statusClass: string) {
   const pill = statusClass === 'orphaned' ? 'pill-orphaned'
     : c.status === 'resolved' ? 'pill-resolved' : 'pill-open';
   const label = statusClass === 'orphaned' ? 'orphaned' : c.status;
 
-  let actions = '';
+  const div = document.createElement('div');
+  div.className = `panel-comment status-${statusClass}`;
+  div.dataset.commentId = c.id;
+  div.addEventListener('click', () => scrollToComment(c.id));
+
+  const selectedText = document.createElement('div');
+  selectedText.className = 'panel-selected-text';
+  selectedText.textContent = `"${c.selectedText.slice(0, 50)}"`;
+  if (c._diffText) {
+    const badge = document.createElement('span');
+    badge.className = 'panel-diff-badge';
+    badge.textContent = 'text changed';
+    selectedText.appendChild(badge);
+  }
+  div.appendChild(selectedText);
+
+  const commentText = document.createElement('div');
+  commentText.className = 'panel-comment-text';
+  commentText.textContent = c.comment;
+  div.appendChild(commentText);
+
+  const footer = document.createElement('div');
+  footer.className = 'panel-comment-footer';
+
+  const statusSpan = document.createElement('span');
+  statusSpan.className = `panel-status ${pill}`;
+  statusSpan.textContent = label;
+  footer.appendChild(statusSpan);
+
+  const actionsSpan = document.createElement('span');
+  actionsSpan.className = 'panel-actions';
+
   if (c.status === 'open' || statusClass === 'orphaned') {
-    actions = `<span class="panel-action panel-action-danger" data-action="delete" data-id="${escHtml(c.id)}">Delete</span>`;
+    const del = document.createElement('span');
+    del.className = 'panel-action panel-action-danger';
+    del.textContent = 'Delete';
+    del.addEventListener('click', (e) => { e.stopPropagation(); deleteComment(c.id); });
+    actionsSpan.appendChild(del);
   } else if (c.status === 'resolved') {
-    actions = `
-      <span class="panel-action" data-action="reopen" data-id="${escHtml(c.id)}">Reopen</span>
-      <span class="panel-action" data-action="dismiss" data-id="${escHtml(c.id)}">Dismiss</span>
-    `;
+    const reopen = document.createElement('span');
+    reopen.className = 'panel-action';
+    reopen.textContent = 'Reopen';
+    reopen.addEventListener('click', (e) => { e.stopPropagation(); reopenComment(c.id); });
+    actionsSpan.appendChild(reopen);
+
+    const dismiss = document.createElement('span');
+    dismiss.className = 'panel-action';
+    dismiss.textContent = 'Dismiss';
+    dismiss.addEventListener('click', (e) => { e.stopPropagation(); dismissComment(c.id); });
+    actionsSpan.appendChild(dismiss);
   }
 
-  return `
-    <div class="panel-comment status-${escHtml(statusClass)}" data-comment-id="${escHtml(c.id)}">
-      <div class="panel-selected-text">"${escHtml(c.selectedText.slice(0, 50))}"</div>
-      <div class="panel-comment-text">${escHtml(c.comment)}</div>
-      <div class="panel-comment-footer">
-        <span class="panel-status ${pill}">${escHtml(label)}</span>
-        <span class="panel-actions">${actions}</span>
-      </div>
-    </div>
-  `;
+  footer.appendChild(actionsSpan);
+  div.appendChild(footer);
+  parent.appendChild(div);
 }
 
 function scrollToComment(id: string) {
@@ -804,70 +993,13 @@ document.addEventListener('mousedown', (e) => {
   }
 });
 
-// --- Dev server sync: poll for external changes ---
-function pollServerComments() {
-  if (!IS_DEV) return;
-  if (document.hidden) {
-    // Don't poll while tab is hidden; visibilitychange listener will resume
-    return;
-  }
-  fetch('/api/comments').then(r => r.json()).then((serverData: any) => {
-    const serverComments: Comment[] = serverData?.comments || serverData || [];
-    if (!serverComments || serverComments.length === 0) {
-      setTimeout(pollServerComments, 3000);
-      return;
-    }
-    const byId: Record<string, Comment> = {};
-    for (const c of comments) byId[c.id] = c;
-    let changed = false;
-    for (const c of serverComments) {
-      if (!byId[c.id]) {
-        byId[c.id] = c;
-        changed = true;
-      } else {
-        const local = byId[c.id];
-        if (c.status !== local.status && !local._userReopened) {
-          local.status = c.status;
-          changed = true;
-        }
-        if (c.resolution !== local.resolution) {
-          local.resolution = c.resolution;
-          local.resolvedAt = c.resolvedAt;
-          changed = true;
-        }
-        if (c.status === 'open' && local._userReopened) {
-          delete local._userReopened;
-        }
-      }
-    }
-    if (changed) {
-      comments = Object.values(byId);
-      comments.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
-      applyHighlights();
-      updateBadge();
-      if ($panel.classList.contains('open')) {
-        renderCommentsPanel();
-      }
-    }
-    setTimeout(pollServerComments, 3000);
-  }).catch((e) => {
-    if (IS_DEV) console.warn('pollServerComments error:', e);
-    setTimeout(pollServerComments, 5000);
-  });
-}
-
 // Re-apply highlights when filters change
 document.addEventListener('filters-changed', () => applyHighlights());
 
-// Resume polling when tab becomes visible again
-document.addEventListener('visibilitychange', () => {
-  if (!document.hidden && IS_DEV) pollServerComments();
-});
-
 // --- Init ---
-loadComments();
+loadFromCache();
 applyHighlights();
 updateBadge();
-pollServerComments();
+fetchAllComments();
+connectSSE();
 </script>

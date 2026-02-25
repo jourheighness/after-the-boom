@@ -98,6 +98,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
     // --- Scroll spy ---
     let spyTimeout: ReturnType<typeof setTimeout> | null = null;
+    let _pointerInSidebar = false;
+    const sidebarEl = document.getElementById('sidebar');
+    sidebarEl?.addEventListener('pointerenter', () => _pointerInSidebar = true);
+    sidebarEl?.addEventListener('pointerleave', () => _pointerInSidebar = false);
+
     window.addEventListener('scroll', () => {
       if (spyTimeout) clearTimeout(spyTimeout);
       spyTimeout = setTimeout(updateScrollSpy, 100);
@@ -116,10 +121,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       links.forEach(l => l.classList.remove('active'));
       if (active) {
         active.classList.add('active');
-        const sidebar = document.getElementById('sidebar');
-        if (sidebar) {
+        if (sidebarEl && !_pointerInSidebar) {
           const rect = active.getBoundingClientRect();
-          const sidebarRect = sidebar.getBoundingClientRect();
+          const sidebarRect = sidebarEl.getBoundingClientRect();
           if (rect.top < sidebarRect.top || rect.bottom > sidebarRect.bottom) {
             active.scrollIntoView({ block: 'nearest' });
           }

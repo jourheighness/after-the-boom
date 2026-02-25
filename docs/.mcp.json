@@ -15,6 +15,14 @@
         "--headless"
       ],
       "type": "stdio"
+    },
+    "comments": {
+      "command": "npx",
+      "args": [
+        "tsx",
+        "../tools/comments-server/src/mcp-server.ts"
+      ],
+      "type": "stdio"
     }
   }
 }
