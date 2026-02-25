@@ -57,19 +57,18 @@ Custom system (MONDAS Core Rules Engine). Rules live in `rules/`. Core mechanic:
 ## Search — HARD RULES
 grepai is configured as an MCP server. Tools are prefixed `mcp__grepai__`. Use `ToolSearch` with query `grepai` to load them before first use.
 
-**Config:** bge-m3 embeddings (1024d), hybrid search on, rules/ boosted 1.3x, docs/src/ penalized 0.5x.
+**Config:** bge-m3 embeddings (1024d), hybrid search on, rules/ boosted 1.3x.
 
 ### Tool usage
-1. **Always use `grepai_search` first** when looking for content, lore, rules, or code across the project. Semantic search finds what you need faster than Grep/Glob.
-2. **Use `grepai_trace_callers` / `grepai_trace_callees`** for understanding code dependencies in the docs site.
-3. **Fall back to Grep/Glob only** when grepai returns no results or you need exact string/pattern matching.
-4. **Never skip grepai** for multi-file research, consistency checks, or "find where X is defined/used" tasks.
+1. **Always use `grepai_search`** for all content search across the project. Grep and Glob are banned project-wide (denied in settings.json).
+2. For exact string matching, use `grepai_search` with specific queries or `Bash(rg ...)` as last resort.
+3. **Never skip grepai** for multi-file research, consistency checks, or "find where X is defined/used" tasks.
 
 ### Efficiency (always apply)
 - **Always pass `compact: true`** to reduce token usage ~80%.
 - **Always pass `format: "toon"`** for token-efficient output.
 - **Limit results:** default is 10, use `limit: 5` or less unless you need breadth.
-- **Use `path` filter** when you know the directory (e.g. `path: "rules/"` to skip docs duplication).
+- **Use `path` filter** when you know the directory (e.g. `path: "rules/"`).
 
 ### When to delegate to subagent
 - **Multi-file research** (consistency checks, "where is X defined across all files"): use `deep-explore` subagent which has grepai access.
@@ -77,7 +76,7 @@ grepai is configured as an MCP server. Tools are prefixed `mcp__grepai__`. Use `
 - Subagent prompt must include: "Use grepai_search with compact:true, format:toon. Final response under 2000 characters."
 
 ## Working Conventions
-1. **Local markdown + GitHub is the source of truth.** The Astro docs site in `docs/` is the reader.
+1. **Local markdown + GitHub is the source of truth.**
 2. **Never spoil planned twists** in session recaps or player-facing content.
 3. **When generating NPC dialogue**, read their voice card first. Stay in character.
 4. **When world-building**, check existing lore for consistency before inventing new content.
