@@ -329,7 +329,7 @@ Sacrifice all dice = 0 damage, pure Gambit effects. One die with no Boons or Dra
 
 ### Defense
 
-When an enemy attacks, the targeted player rolls to defend. No separate reaction. The defense roll IS your response.
+Defense is a stakes roll. The stakes are incoming damage: 6 = none, 4-5 = half, 1-3 = full. The GM doesn't need to state them. They're always the same.
 
 **Pick your stat from the fiction:**
 - **Sharp:** dodge, duck, reflexes
@@ -346,13 +346,13 @@ Roll [stat]d6, minus Snags from enemy Threat (see Enemies). Drain for +1d before
 
 Then apply Armor → Guard → Harm as normal.
 
-Gambits apply on defense rolls. Sacrifice a die showing 4+ for a combat gambit, same as attacks. A banked die from Setup can be added to a defense roll.
+Gambits apply. The combat gambit list is a menu, not a restriction. Sacrifice a 4+ to Push the attacker back, Cover yourself, Read a weakness, or anything the fiction supports. A banked die from Setup can be added post-roll.
 
 **Multiple attackers:** Defend separately against each. The GM may combine identical mooks into one roll at combined damage.
 
 ### Combat Gambits
 
-Seven verbs. Every player has these on every combat roll. The base list covers what any competent person can do. Character gambits (from Edges, equipment, backgrounds) add capabilities the base list can't express.
+Seven verbs. Every player has access to these. On combat rolls, this is the list. On defense and other stakes rolls, it's a menu of known options alongside open negotiation. Character gambits (from Edges, equipment, backgrounds) add capabilities the base list can't express.
 
 Sacrifice a die showing **4+** for a standard gambit. Sacrifice a die showing **6+** for a strong gambit. On d6 pool dice, only a 6 qualifies. Weapon dice (d8, d10, d12) can roll higher, making heavier weapons better gambit fuel.
 
@@ -453,7 +453,7 @@ Two universal axioms govern all player action:
 1. **Any roll, any context:** sacrifice a die showing 4+ for a gambit.
 2. **Any roll, any context:** spend Drain before rolling for +1d.
 
-These are not contextual rules. They apply to combat rolls, stakes rolls, defense, and saves without exception. Every roll has two questions: what did I get, and what can I trade?
+These are not contextual rules. They apply to every roll without exception. There are only two roll types: **combat rolls** (dealing damage) and **stakes rolls** (everything else, including defense, saves, and non-attack actions mid-fight). Every roll has two questions: what did I get, and what can I trade?
 
 Gambits are the player's leverage. Stakes, consequences, enemy behavior: the GM controls all of that. Gambits are where control shifts. You see the dice and decide to spend one. The GM honors it if the fiction allows.
 
@@ -461,9 +461,9 @@ Gambits are the player's leverage. Stakes, consequences, enemy behavior: the GM 
 
 Sacrifice a die showing **4+**. Any die in the pool is eligible: weapon die, Boon d6s, Drain d6. You see the dice first, then decide. One gambit per die sacrificed. Multiple dice, multiple gambits. No duplicates per roll.
 
-**On combat rolls** (attacks and defense), gambits come from a fixed list with specific outputs (see Combat Gambits). The battlefield is constrained enough that specific verbs mean specific things.
+**On combat rolls** (attacks), gambits come from a fixed list with specific outputs (see Combat Gambits). The battlefield is constrained enough that specific verbs mean specific things.
 
-**On stakes rolls** (everything else: social, exploration, investigation, saves, doing something crazy mid-fight), gambits are open negotiation. Name something within reach of what you're already doing. Not a second goal. A small thing the moment made possible. The GM approves or vetoes based on the fiction.
+**On stakes rolls** (defense, saves, social, exploration, investigation, doing something crazy mid-fight), gambits are open negotiation. Name something within reach of what you're already doing. Not a second goal. A small thing the moment made possible. The GM approves or vetoes based on the fiction. The combat gambit list is available as a menu during defense rolls, but you're not limited to it.
 
 **Setup works on both.** Bank a die on a combat roll, spend it on a stakes roll. Bank on a stakes roll, spend it in combat. The banked die crosses the boundary because it has no context-specific output. It's just a die with a number.
 
@@ -637,8 +637,8 @@ Grit (body), Sharp (senses), Nerve (will). Rated 1-4. Sum = 6.
 ### Modifiers
 Boon = +1d. Snag = -1d. Cancel 1-for-1. Min 0d (2d6 take lowest). On attacks: Snags remove bonus dice first, then weapon die. 0d = 2d6 take lowest, both dice spendable for Gambits.
 
-### Stakes
-GM declares consequences. Accept, change approach, or back off. Combat has three lanes: combat roll (weapon die + combat gambits), gambit (sacrifice die), stakes roll (stat die + open gambits). Setup crosses both.
+### Two Roll Types
+**Combat roll:** weapon die, deal damage, combat gambit list. **Stakes roll:** stat die, everything else (defense, saves, social, exploration, third lane in combat). Open gambits. Combat gambit list available as menu on defense. Setup crosses both.
 
 ### Guard & Drain
 Guard = 2 + highest stat (cap 10). Recovers in genuine safety. Drain = 4 boxes (+1d, -2 dmg, act while Critical, device gambit). Crack when empty.
@@ -659,11 +659,11 @@ GM never rolls. Static profiles: Threat (defense Snags 0-3), Damage (flat), Guar
 ### Positioning
 Close (melee), Near (room), Far (field). Move = one band. Cover: partial +1, full +2 Armor (ranged only). Flanking = Boon. Setup phase = stat roll before round 1 (6 = Boon, 1-3 = complication, gambits apply). Ambush = stakes roll, skips setup.
 
-### Attacking
+### Combat Roll (Attacking)
 Auto-hit. Roll weapon die (+ Boon d6s + Drain d6). Sacrifice 4+ for gambits. Highest remaining = damage. 0d = 2d6 take lowest, both dice spendable.
 
-### Defense
-Roll [stat]d6. 6 = none, 4-5 = half, 1-3 = full damage. Threat imposes Snags (0 to -3d).
+### Stakes Roll (Defense)
+Roll [stat]d6. 6 = none, 4-5 = half, 1-3 = full damage. Threat imposes Snags (0 to -3d). Gambits: combat list as menu + open negotiation.
 
 ### Combat Gambits
 Sacrifice 4+ = standard, 6+ = strong (weapon dice count). Push (one band / Strong: + Prone), Pull (one band toward / Strong: + Boon), Pin (can't move, Act to escape / Strong: Act + Move), Read (detail / Strong: + Boon), Break (Impaired -2 dmg / Strong: Exposed +2 dmg taken), Cover (+1 Armor / Strong: +2), Setup (bank for self or ally, post-roll / Strong: self AND ally). Open clause: similar scope, GM approves. Banked dice added post-roll, immune to Snags. Strong through all Threat.
