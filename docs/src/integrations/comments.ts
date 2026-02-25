@@ -229,6 +229,7 @@ function normalizeComment(raw: Record<string, unknown>, toComment: Function) {
     contextBefore: (raw.contextBefore as string) || '',
     contextAfter: (raw.contextAfter as string) || '',
     comment: raw.comment as string,
+    category: (raw.category as string) || 'note',
     sectionId: raw.sectionId as string,
     sourceFile: raw.sourceFile as string,
     filePath: raw.filePath as string | null,

@@ -31,12 +31,13 @@ const server = new McpServer({
 
 server.tool(
   'list_comments',
-  'List comments, optionally filtered by status or file_path',
-  { status: z.string().optional(), file_path: z.string().optional() },
-  async ({ status, file_path }) => {
+  'List comments, optionally filtered by status, file_path, or category',
+  { status: z.string().optional(), file_path: z.string().optional(), category: z.string().optional() },
+  async ({ status, file_path, category }) => {
     const comments = getComments(db, {
       status: status || undefined,
       filePath: file_path || undefined,
+      category: category || undefined,
     });
     return {
       content: [{ type: 'text', text: JSON.stringify(comments, null, 2) }],
@@ -117,7 +118,7 @@ server.tool(
 
 server.tool(
   'add_comment',
-  'Add a new comment',
+  'Add a new comment with optional category (note, copy, clarify, design, bug, todo)',
   {
     selected_text: z.string(),
     comment: z.string(),
@@ -129,6 +130,7 @@ server.tool(
     nearest_heading_line: z.number().optional(),
     source_line: z.number().optional(),
     paragraph_index: z.number().optional(),
+    category: z.enum(['note', 'copy', 'clarify', 'design', 'bug', 'todo']).optional(),
   },
   async (params) => {
     const id = 'c_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5);
@@ -138,6 +140,7 @@ server.tool(
       contextBefore: params.context_before || '',
       contextAfter: params.context_after || '',
       comment: params.comment,
+      category: params.category || 'note',
       sectionId: params.section_id,
       sourceFile: params.source_file,
       filePath: params.file_path || null,

@@ -2,12 +2,15 @@ import Database from 'better-sqlite3';
 
 // --- Types ---
 
+export type CommentCategory = 'note' | 'copy' | 'clarify' | 'design' | 'bug' | 'todo';
+
 export interface Comment {
   id: string;
   selectedText: string;
   contextBefore: string;
   contextAfter: string;
   comment: string;
+  category: CommentCategory;
   sectionId: string;
   sourceFile: string;
   filePath: string | null;
@@ -55,7 +58,17 @@ export function openDb(dbPath: string): Database.Database {
   db.pragma('journal_mode = WAL');
   db.pragma('foreign_keys = ON');
   createTables(db);
+  migrateDb(db);
   return db;
+}
+
+function migrateDb(db: Database.Database) {
+  // Add category column if missing (safe: no user input in SQL)
+  try {
+    db.prepare("ALTER TABLE comments ADD COLUMN category TEXT NOT NULL DEFAULT 'note'").run();
+  } catch {
+    // Column already exists
+  }
 }
 
 function createTables(db: Database.Database) {
@@ -73,6 +86,7 @@ function createTables(db: Database.Database) {
       nearest_heading_line INTEGER,
       source_line INTEGER,
       paragraph_index INTEGER,
+      category TEXT NOT NULL DEFAULT 'note',
       status TEXT NOT NULL CHECK(status IN ('open', 'resolved', 'dismissed')),
       resolution TEXT,
       resolved_text TEXT,
@@ -152,6 +166,7 @@ function toRow(c: Comment): Record<string, unknown> {
     context_before: c.contextBefore,
     context_after: c.contextAfter,
     comment: c.comment,
+    category: c.category || 'note',
     section_id: c.sectionId,
     source_file: c.sourceFile,
     file_path: c.filePath,
@@ -174,6 +189,7 @@ export function toComment(row: Record<string, unknown>): Comment {
     contextBefore: (row.context_before as string) ?? '',
     contextAfter: (row.context_after as string) ?? '',
     comment: row.comment as string,
+    category: (row.category as CommentCategory) || 'note',
     sectionId: row.section_id as string,
     sourceFile: row.source_file as string,
     filePath: row.file_path as string | null,
@@ -217,7 +233,7 @@ function toConcept(row: Record<string, unknown>): Concept {
 
 export function getComments(
   db: Database.Database,
-  filter?: { status?: string; filePath?: string }
+  filter?: { status?: string; filePath?: string; category?: string }
 ): Comment[] {
   let sql = 'SELECT * FROM comments';
   const conditions: string[] = [];
@@ -230,6 +246,10 @@ export function getComments(
   if (filter?.filePath) {
     conditions.push('file_path = ?');
     params.push(filter.filePath);
+  }
+  if (filter?.category) {
+    conditions.push('category = ?');
+    params.push(filter.category);
   }
   if (conditions.length > 0) {
     sql += ' WHERE ' + conditions.join(' AND ');
@@ -256,12 +276,12 @@ export function upsertComment(db: Database.Database, c: Comment): void {
   const row = toRow(c);
   db.prepare(`
     INSERT OR REPLACE INTO comments (
-      id, selected_text, context_before, context_after, comment,
+      id, selected_text, context_before, context_after, comment, category,
       section_id, source_file, file_path, nearest_heading_line, source_line,
       paragraph_index, status, resolution, resolved_text, resolved_at,
       created_at, orphaned
     ) VALUES (
-      @id, @selected_text, @context_before, @context_after, @comment,
+      @id, @selected_text, @context_before, @context_after, @comment, @category,
       @section_id, @source_file, @file_path, @nearest_heading_line, @source_line,
       @paragraph_index, @status, @resolution, @resolved_text, @resolved_at,
       @created_at, @orphaned

@@ -11,12 +11,23 @@
 const STORAGE_KEY = 'mondas-reader-comments';
 const IS_DEV = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
+type CommentCategory = 'note' | 'copy' | 'clarify' | 'design' | 'bug' | 'todo';
+const CATEGORIES: { key: CommentCategory; label: string; placeholder: string }[] = [
+  { key: 'note', label: 'Note', placeholder: 'Your comment...' },
+  { key: 'copy', label: 'Copy', placeholder: 'What should this say?' },
+  { key: 'clarify', label: 'Clarify', placeholder: "What's unclear?" },
+  { key: 'design', label: 'Design', placeholder: 'Design question...' },
+  { key: 'bug', label: 'Bug', placeholder: "What's wrong?" },
+  { key: 'todo', label: 'Todo', placeholder: 'What needs doing?' },
+];
+
 interface Comment {
   id: string;
   selectedText: string;
   contextBefore: string;
   contextAfter: string;
   comment: string;
+  category?: CommentCategory;
   sectionId: string;
   sourceFile: string;
   filePath?: string;
@@ -393,7 +404,8 @@ function applyHighlights() {
     if (match) {
       c._orphaned = false;
       try {
-        const cls = 'commented-text' + (c.status === 'resolved' ? ' resolved' : '');
+        const catCls = c.category && c.category !== 'note' ? ` cat-${c.category}` : '';
+        const cls = 'commented-text' + (c.status === 'resolved' ? ' resolved' : '') + catCls;
         if (!match.multiNode) {
           const range = document.createRange();
           range.setStart(match.node, match.offset);
@@ -498,6 +510,13 @@ if (mainEl) {
   });
 }
 
+function getBlockAncestor(node: Node): Element {
+  let el = node.nodeType === 3 ? (node as Text).parentElement! : node as Element;
+  const inlineEls = new Set(['SPAN','STRONG','EM','B','I','CODE','A','MARK','SUB','SUP','SMALL','DEL','INS']);
+  while (el.parentElement && inlineEls.has(el.tagName)) el = el.parentElement;
+  return el;
+}
+
 function handleSelection(_e: Event) {
   const sel = window.getSelection();
 
@@ -514,13 +533,29 @@ function handleSelection(_e: Event) {
   }
 
   const text = sel.toString().trim();
-  const range = sel.getRangeAt(0);
+  const range = sel.getRangeAt(0).cloneRange();
   const rect = range.getBoundingClientRect();
 
-  const startNode = range.startContainer;
-  const endNode = range.endContainer;
-  const ctxBefore = (startNode.textContent || '').slice(Math.max(0, range.startOffset - 20), range.startOffset);
-  const ctxAfter = (endNode.textContent || '').slice(range.endOffset, range.endOffset + 20);
+  // Use block-ancestor approach for reliable context across inline tags
+  const blockEl = getBlockAncestor(range.startContainer);
+  const { entries, full } = collectTextNodes([blockEl]);
+
+  // Compute offset of selection start within the block's text
+  let selStart = 0;
+  for (const entry of entries) {
+    if (entry.node === range.startContainer) {
+      selStart = entry.start + range.startOffset;
+      break;
+    }
+    // If startContainer is an element, find the first text node in range
+    if (range.startContainer.contains(entry.node)) {
+      selStart = entry.start;
+      break;
+    }
+  }
+
+  const ctxBefore = full.slice(Math.max(0, selStart - 30), selStart);
+  const ctxAfter = full.slice(selStart + text.length, selStart + text.length + 30);
 
   const heading = findClosestHeading(range.startContainer);
   const sectionId = heading?.id || 'unknown';
@@ -538,18 +573,37 @@ function handleSelection(_e: Event) {
 
 $floatBtn.addEventListener('click', showCreatePopover);
 
+let _selectedCategory: CommentCategory = 'note';
+
 function showCreatePopover() {
   if (!pendingSelection) return;
   $floatBtn.style.display = 'none';
+  _selectedCategory = 'note';
 
-  const preview = pendingSelection.text.length > 60
-    ? pendingSelection.text.slice(0, 57) + '...'
+  const preview = pendingSelection.text.length > 100
+    ? pendingSelection.text.slice(0, 97) + '...'
     : pendingSelection.text;
 
-  // Safe: preview is escaped via escHtml
   const selectedDiv = document.createElement('div');
   selectedDiv.className = 'popover-selected';
   selectedDiv.textContent = `"${preview}"`;
+
+  // Category selector
+  const catRow = document.createElement('div');
+  catRow.className = 'popover-categories';
+  for (const cat of CATEGORIES) {
+    const btn = document.createElement('button');
+    btn.className = 'popover-cat-btn' + (cat.key === 'note' ? ' active' : '');
+    btn.dataset.cat = cat.key;
+    btn.textContent = cat.label;
+    btn.addEventListener('click', () => {
+      catRow.querySelectorAll('.popover-cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      _selectedCategory = cat.key;
+      textarea.placeholder = cat.placeholder;
+    });
+    catRow.appendChild(btn);
+  }
 
   const textarea = document.createElement('textarea');
   textarea.id = 'commentInput';
@@ -572,9 +626,11 @@ function showCreatePopover() {
 
   $popover.textContent = '';
   $popover.appendChild(selectedDiv);
+  $popover.appendChild(catRow);
   $popover.appendChild(textarea);
   $popover.appendChild(actionsDiv);
 
+  // Use stored range rect for positioning (range was cloned, so it's stable)
   positionPopover($popover, pendingSelection.range.getBoundingClientRect());
 
   setTimeout(() => textarea.focus(), 50);
@@ -601,6 +657,7 @@ async function saveNewComment() {
     contextBefore: pendingSelection.contextBefore,
     contextAfter: pendingSelection.contextAfter,
     comment: text,
+    category: _selectedCategory,
     sectionId: pendingSelection.sectionId,
     sourceFile: sf,
     filePath: sf && sf !== 'UNKNOWN' ? `${pathPrefix}/${sf.toLowerCase().replace(/_/g, '-')}.md` : undefined,
@@ -712,7 +769,8 @@ function showViewPopover(c: Comment, span: HTMLElement) {
 
   const metaDiv = document.createElement('div');
   metaDiv.className = 'comment-meta';
-  metaDiv.textContent = `${c.status} \u00b7 ${new Date(c.createdAt).toLocaleDateString()}`;
+  const catLabel = c.category ? c.category : 'note';
+  metaDiv.textContent = `${catLabel} \u00b7 ${c.status} \u00b7 ${new Date(c.createdAt).toLocaleDateString()}`;
   $popover.appendChild(metaDiv);
 
   const actionsDiv = document.createElement('div');
@@ -807,6 +865,8 @@ function closePopover() {
 }
 
 // --- Comments Panel ---
+let _panelCategoryFilter: CommentCategory | 'all' = 'all';
+
 function toggleCommentsPanel() {
   $panel.classList.toggle('open');
   renderCommentsPanel();
@@ -850,9 +910,31 @@ function renderCommentsPanel() {
     return;
   }
 
-  const orphaned = active.filter(c => c._orphaned);
+  // Category filter bar
+  const filterRow = document.createElement('div');
+  filterRow.className = 'panel-cat-filter';
+  const allBtn = document.createElement('button');
+  allBtn.className = 'panel-cat-filter-btn' + (_panelCategoryFilter === 'all' ? ' active' : '');
+  allBtn.textContent = 'All';
+  allBtn.addEventListener('click', () => { _panelCategoryFilter = 'all'; renderCommentsPanel(); });
+  filterRow.appendChild(allBtn);
+  for (const cat of CATEGORIES) {
+    const btn = document.createElement('button');
+    btn.className = 'panel-cat-filter-btn' + (_panelCategoryFilter === cat.key ? ' active' : '');
+    btn.textContent = cat.label;
+    btn.addEventListener('click', () => { _panelCategoryFilter = cat.key; renderCommentsPanel(); });
+    filterRow.appendChild(btn);
+  }
+  $panel.appendChild(filterRow);
+
+  // Apply category filter
+  const filtered = _panelCategoryFilter === 'all'
+    ? active
+    : active.filter(c => (c.category || 'note') === _panelCategoryFilter);
+
+  const orphaned = filtered.filter(c => c._orphaned);
   if (orphaned.length > 0) {
-    appendGroupLabel($panel, 'Orphaned');
+    appendGroupLabel($panel, '\u26a0 Orphaned');
     const hint = document.createElement('div');
     hint.className = 'panel-group-hint';
     hint.textContent = 'Text was changed or removed. These comments can no longer be anchored.';
@@ -861,7 +943,7 @@ function renderCommentsPanel() {
   }
 
   const grouped: Record<string, Comment[]> = {};
-  for (const c of active.filter(x => !x._orphaned)) {
+  for (const c of filtered.filter(x => !x._orphaned)) {
     const key = c.sourceFile || 'UNKNOWN';
     if (!grouped[key]) grouped[key] = [];
     grouped[key].push(c);
@@ -913,6 +995,13 @@ function appendPanelComment(parent: HTMLElement, c: Comment, statusClass: string
   statusSpan.textContent = label;
   footer.appendChild(statusSpan);
 
+  // Category pill
+  const cat = c.category || 'note';
+  const catPill = document.createElement('span');
+  catPill.className = `panel-cat-pill pill-cat-${cat}`;
+  catPill.textContent = cat;
+  footer.appendChild(catPill);
+
   const actionsSpan = document.createElement('span');
   actionsSpan.className = 'panel-actions';
 
@@ -959,22 +1048,62 @@ function scrollToComment(id: string) {
   }
 }
 
-// --- Keyboard: 'c' for comment ---
+// --- Keyboard shortcuts ---
+function isInputFocused(): boolean {
+  const el = document.activeElement;
+  return !!el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || (el as HTMLElement).isContentEditable);
+}
+
 document.addEventListener('keydown', (e) => {
+  // Cmd/Ctrl+Enter in comment textarea: save
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+    const ta = document.activeElement;
+    if (ta?.id === 'commentInput') {
+      e.preventDefault();
+      saveNewComment();
+      return;
+    }
+  }
+
+  // 'c' for comment on selection
   if (e.key === 'c' && !e.ctrlKey && !e.metaKey && !e.altKey) {
-    const el = document.activeElement;
-    if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || (el as HTMLElement).isContentEditable)) return;
+    if (isInputFocused()) return;
     const sel = window.getSelection();
     if (sel && !sel.isCollapsed && sel.toString().trim().length >= 3) {
       e.preventDefault();
       handleSelection(e);
       if (pendingSelection) showCreatePopover();
     }
+    return;
   }
+
+  // 'p' toggles comments panel
+  if (e.key === 'p' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    if (isInputFocused()) return;
+    e.preventDefault();
+    toggleCommentsPanel();
+    return;
+  }
+
+  // '/' focuses search box
+  if (e.key === '/' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    if (isInputFocused()) return;
+    e.preventDefault();
+    (document.querySelector('.search-box input') as HTMLInputElement)?.focus();
+    return;
+  }
+
+  // Escape: close popover, panel, or blur search
   if (e.key === 'Escape') {
     if ($popover.style.display === 'block') {
       closePopover();
       e.stopPropagation();
+      return;
+    }
+    const searchInput = document.querySelector('.search-box input') as HTMLInputElement;
+    if (document.activeElement === searchInput) {
+      searchInput.blur();
+      return;
     }
     if ($panel.classList.contains('open')) {
       $panel.classList.remove('open');
