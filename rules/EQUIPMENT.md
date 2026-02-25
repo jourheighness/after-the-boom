@@ -75,9 +75,8 @@ Design principles, generation rules, and all tests live in `rules/DESIGN-EQUIPME
 
 | Category | Dice |
 |-|-|
-| Unarmed / Improvised | d4 |
 | Light | d6 |
-| Medium | d8 |
+| Standard | d8 |
 | Heavy | d10 |
 | Devastating | d12 |
 
@@ -87,10 +86,11 @@ Design principles, generation rules, and all tests live in `rules/DESIGN-EQUIPME
 |-|-|
 | Ranged | Near/Far, Snag at Close |
 | Sidearm | Close/Near, Snag at Far |
-| Thrown | Near, lost |
+| Thrown | Adds Near, single target, lost |
+| Area (range) | Hits all targets within range of impact, roll once |
 | Long | Close+Near, Boon at reach |
 | Loud | Ticks clocks |
-| Brutal | Crit = two dice |
+| Brutal | Crit = weapon die max + highest Boon die |
 | Subtle | Concealable |
 | Slow | No Move+attack |
 

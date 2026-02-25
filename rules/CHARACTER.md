@@ -79,7 +79,7 @@ Stats are **permanent.** They don't grow. Your character gets better through Edg
 **Thaumic implications of stats (Positives only):**
 - **Thaumatech rolls use the same stats as everything else.** The fiction determines which stat you roll — Grit to force it, Sharp to place it precisely, Nerve to hold it steady. See `rules/THAUMATECH.md`.
 - **Shaping stat comes from the fiction.** Grit forces energy through. Sharp finds the seam. Nerve holds the pattern. All three stats are valid approaches to shaping.
-- **Your highest stat** determines your starting Guard (the buffer that absorbs damage). A Grit 3 character has Guard 5 from toughness. A Sharp 3 character has Guard 5 from reflexes. A Nerve 3 character has Guard 5 from threat awareness. Guard also serves as the cost currency for shaping and over-spec thaumatech use.
+- **Your highest stat** determines your starting Guard (the buffer that absorbs damage). A Grit 3 character has Guard 5 from toughness. A Sharp 3 character has Guard 5 from reflexes. A Nerve 3 character has Guard 5 from threat awareness. Innate shaping costs are covered in `rules/MAGIC.md`.
 
 This means stat choices matter differently for every build. Zeroes pick stats for rolls and Guard. Positives also pick stats for which devices they excel with and which shaping approach they use.
 
@@ -89,7 +89,7 @@ This means stat choices matter differently for every build. Zeroes pick stats fo
 
 **Guard = 2 + your highest stat.** This is your readiness, the buffer that absorbs damage before real injuries start. Starting Guard ranges from 3 (highest stat 1) to 6 (highest stat 4). A tough character has Guard from endurance. A quick character has Guard from reflexes. A composed character has Guard from reading threats before they land. Guard refreshes when the danger has genuinely passed and you have a moment to collect yourself. The GM calls it. Not between scenes if danger persists. Not during a lull in combat. When you could sit down, breathe, and feel safe. If the chase follows the firefight, Guard stays where it is.
 
-**Push: 4 boxes.** Your reserve for digging deep. Recovers during downtime.
+**Drain: 4 boxes.** Your reserve for digging deep. Recovers during downtime.
 
 **Harm: empty.** Three levels, two slots each. You'll fill these soon enough.
 
@@ -124,15 +124,15 @@ You cannot operate personal thaumatech (contact plates read nothing). You carry 
 
 Your Knack Edge is a small, specific thaumic expression tied to your obsession. One sentence, one Boon condition. Always on, no drain. (See MAGIC.md, Knack.)
 
-### Sensitive
+### Sparked
 
-**3 Edges**: 1 Knack Edge + 1 Sensitive Edge + 1 free choice.
+**3 Edges**: 1 Knack Edge + 1 Sparked Edge + 1 free choice.
 
-Requires narrative justification for the Sensitive tier at creation. The GM should ask: why is this character already aware of their deeper thaumic connection? What happened to them?
+Requires narrative justification for the Sparked tier at creation. The GM should ask: why is this character already aware of their deeper thaumic connection? What happened to them?
 
 ### Shaper
 
-**3 Edges**: 1 Knack Edge + 1 Sensitive Edge + 1 Shaper Edge.
+**3 Edges**: 1 Knack Edge + 1 Sparked Edge + 1 Shaper Edge.
 
 Requires **explicit GM approval.** A Shaper at creation means the campaign is about shaping. The GM should only allow this if the spectrum ceiling supports it and every player at the table is ready for what comes with active shaping: DPA attention, heat clocks, Nerve saves, and the constant question of how much you're willing to spend.
 
@@ -140,7 +140,7 @@ The Shaper Edge defines your obsession's scope and your Tell. Work this out with
 
 ### Edge Selection
 
-The full Edge catalog is in `rules/EDGES.md` (212+ Edges across Combat, Survival, Social, Professional, Thaumatech, Sensitive, and Shaper categories). Pick Edges that match your character's Background and stat spread.
+The full Edge catalog is in `rules/EDGES.md` (see Edge catalog for Combat, Survival, Social, Professional, Thaumatech, Sparked, and Shaper categories). Pick Edges that match your character's Background and stat spread.
 
 Players can always propose custom Edges not in the catalog. The principle: one Edge, one specific benefit. If it applies to every roll, it's too broad. If it never applies, it's flavor, not an Edge. The GM approves. See the "Build Your Own" section in `rules/EDGES.md` for guidelines.
 
@@ -186,7 +186,7 @@ The social divide between zeroes and positives is the defining tension of post-B
 
 **At the table**, this tension is character material, not a balance problem. A zero PC is the highly trained professional who overcompensated. So good they stand next to a positive and hold their own on sheer prowess. They have more Edges (more breadth, more training), Thaumic Null (invisible to the surveillance apparatus), and conventional gear that works without asking permission.
 
-A positive PC has thaumic access. Contact plates respond to them. The magic system is open to them (Knacks, Sensitivity, Shaping). They can operate the tools that define modern Mondas.
+A positive PC has thaumic access. Contact plates respond to them. The magic system is open to them (Knacks, Sparked, Shaping). They can operate the tools that define modern Mondas.
 
 Neither is the lesser choice. A party with both creates friction, empathy, and stories about what it means to have something someone else doesn't.
 
@@ -216,7 +216,7 @@ Progression is slow, lateral, and character-driven. After ten sessions, a charac
 
 **Stats:** Grit 2, Sharp 3, Nerve 1.
 
-**Guard:** 5 (Sharp 3 + 2, highest stat). **Push:** 4. **Armor:** 1 (surplus tactical vest).
+**Guard:** 5 (Sharp 3 + 2, highest stat). **Drain:** 4. **Armor:** 1 (surplus tactical vest).
 
 **Edges (4):**
 1. Patch Expert (Field Medicine): When using healing consumables on others, they recover 1 additional Guard.
@@ -226,7 +226,7 @@ Progression is slow, lateral, and character-driven. After ten sessions, a charac
 
 **Trait:** Thaumic Null. Invisible to thaumic detection, BTC scans, ward triggers, thaumic targeting.
 
-**Gear:** Hunting rifle (1d8, Ranged, Loud), combat knife (1d6, Subtle), first-aid kit, binoculars, surplus tactical vest (Armor 1). No thaumatech. Contact plates don't read her.
+**Gear:** Hunting rifle (d8, Ranged, Loud), combat knife (d6, Subtle), first-aid kit, binoculars, surplus tactical vest (Armor 1). No thaumatech. Contact plates don't read her.
 
 **Bonds:**
 - "Eli saved my life in Ostreon. I haven't told him what I saw there."
@@ -240,14 +240,14 @@ Kara is competent, quiet, and invisible to the systems that track everyone else.
 
 **Stats:** Grit 3, Sharp 2, Nerve 1.
 
-**Guard:** 5 (Grit 3 + 2, highest stat). **Push:** 4. **Armor:** 0.
+**Guard:** 5 (Grit 3 + 2, highest stat). **Drain:** 4. **Armor:** 0.
 
 **Edges (3):**
 1. Knack: Metal warms slightly in his hands. Boon when working with metal or detecting metal stress/fatigue. (Obsession: the factory floor, the furnace, how things hold together.)
 2. Field Repair (Technician): Once per scene, restore a disabled thaumatech device to working condition.
 3. Union Voice (custom): Boon on Nerve rolls when negotiating with institutions, management, or bureaucrats. He's sat at the table before.
 
-**Gear:** Factory-issue thaumic scanner (thumb plate, reads structural integrity), heavy wrench (1d6), steel-toed boots, union card, coveralls.
+**Gear:** Factory-issue thaumic scanner (thumb plate, reads structural integrity), heavy wrench (d6), steel-toed boots, union card, coveralls.
 
 **Bonds:**
 - "Kara doesn't trust machines. I don't trust anything else."
@@ -263,8 +263,8 @@ Tomasz is blue-collar Mondas. His knack is subtle enough that most people think 
 1. **Table conversation:** Spectrum ceiling, premise, group composition.
 2. **Who are you:** Name, species, age, look, Background (one sentence, Boon domain).
 3. **Stats:** Grit, Sharp, Nerve. 6 points, min 1 each.
-4. **Derived values:** Guard = 2 + highest stat. Push = 4. Harm = empty. Armor = from gear.
-5. **Edges:** Zero: 4 free + Thaumic Null. Knack: 1 Knack + 2 free. Sensitive: 1 Knack + 1 Sensitive + 1 free. Shaper: 1 Knack + 1 Sensitive + 1 Shaper.
+4. **Derived values:** Guard = 2 + highest stat. Drain = 4. Harm = empty. Armor = from gear.
+5. **Edges:** Zero: 4 free + Thaumic Null. Knack: 1 Knack + 2 free. Sparked: 1 Knack + 1 Sparked + 1 free. Shaper: 1 Knack + 1 Sparked + 1 Shaper.
 6. **Bonds & Gear:** 2-3 Bonds (1 PC, 1+ NPC). Gear from Background.
 
 ### Edge Allocation
@@ -273,8 +273,8 @@ Tomasz is blue-collar Mondas. His knack is subtle enough that most people think 
 |-|-|-|
 | Zero (Mundane) | 4 free | Thaumic Null |
 | Knack | 1 Knack + 2 free (3 total) | |
-| Sensitive | 1 Knack + 1 Sensitive + 1 free (3 total) | |
-| Shaper | 1 Knack + 1 Sensitive + 1 Shaper (3 total) | |
+| Sparked | 1 Knack + 1 Sparked + 1 free (3 total) | |
+| Shaper | 1 Knack + 1 Sparked + 1 Shaper (3 total) | |
 
 ### Starting Guard
 

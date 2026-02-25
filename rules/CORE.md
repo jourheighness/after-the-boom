@@ -4,9 +4,9 @@
 
 You have three stats: **Grit** (body), **Sharp** (senses), **Nerve** (will). Each rated 1-4.
 
-When you do something risky, roll d6s equal to your stat. Read the highest die: **6** you do it, **4-5** you do it with a cost, **1-3** things go sideways. After you roll, you can sacrifice dice showing 4+ for guaranteed side effects called **Gambits**: trip someone, pocket a key, read a person's intent. Even when you fail, you get one free.
+When you do something risky, roll d6s equal to your stat. Read the highest die: **6** you do it, **4-5** you do it with a cost, **1-3** things go sideways. After you roll, you can sacrifice dice showing 4+ for guaranteed side effects called **Gambits**: trip someone, pocket a key, read a person's intent.
 
-In combat, attacks auto-hit. Roll your weapon die for damage. Boons from setup, flanking, or allies add d6s to the pool. Extra dice are Gambit fuel: sacrifice them to change the battlefield. One die = damage or effect, pick one. More dice = both. **Push** spends willpower for +1d when you need it most. **Guard** keeps you standing. When either empties, something breaks.
+In combat, attacks auto-hit. Roll your weapon die for damage. Boons from setup, flanking, or allies add d6s to the pool. Extra dice are Gambit fuel: sacrifice them to change the battlefield. One die = damage or effect, pick one. More dice = both. **Drain** spends willpower for +1d when you need it most. **Guard** keeps you standing. When either empties, something breaks.
 
 ---
 
@@ -21,9 +21,8 @@ When the outcome is uncertain and the stakes matter, a player rolls.
 | **6** | Full success. No strings. |
 | **4-5** | Partial success. Cost, complication, or reduced effect. |
 | **1-3** | Consequence. The GM makes a move. |
-| **Two or more 6s** | Critical. Full success, plus a bonus effect (see Combat for attack/defense criticals). |
 
-**Zero dice:** When modifiers reduce your pool below 1, roll 2d6 and take the **lowest**. Criticals are impossible at 0d.
+**Zero dice:** When modifiers reduce your pool below 1, roll 2d6 and take the **lowest**.
 
 The GM never calls for a roll when there's no risk. Safe actions just happen. Impossible actions just fail.
 
@@ -69,21 +68,22 @@ Modifiers that add or remove dice from the pool.
 
 **Snag (-1d):** Something works against you. Injury, poor positioning, enemy capability, bad conditions, improvised tools.
 
-Boons and Snags cancel 1-for-1. Only the net result applies. Maximum pool: **5d** (stat 4 + Boon). Minimum: **0d** (roll 2d6 take lowest). On attacks, Boons add d6s to the weapon die instead (see Combat).
+Boons and Snags cancel 1-for-1. Only the net result applies. Minimum: **0d** (roll 2d6 take lowest).
+
+On attacks, the pool is your weapon die + Boon d6s + Drain d6. Snags cancel bonus dice first (Boons, Drain). If no bonus dice remain, the weapon die is removed and you're at 0d.
 
 ### Sources of Boons
-- **Training/Background:** Relevant expertise for the situation.
+- **Background:** Relevant expertise for the situation.
 - **Gear:** The right tool for the job.
 - **Creative approach:** Using the environment, exploiting a weakness, leveraging preparation. Max 1 Boon from creativity per roll.
 - **Ally assist:** Another character helps. They describe how. Costs their Act (in combat) or exposes them to risk (out of combat).
-- **Raising the stakes:** Accept worse consequences for +1d (see Stakes).
+- **Edges:** Some Edges grant situational Boons.
 
 ### Sources of Snags
 - **Injury:** Wounds apply Snags when the injury interferes (see Taking Damage).
 - **Enemy Threat:** Powerful enemies impose Snags on defense rolls (see Defense).
 - **Environment:** Darkness, smoke, unstable ground.
 - **Improvisation:** Using the wrong tool.
-- **Playing it safe:** Accept -1d for softer stakes (see Stakes).
 
 ---
 
@@ -97,19 +97,11 @@ Before any roll, the GM states what's at risk.
 
 Stakes must be **specific and grounded.** Not "you take damage" but "the guard draws his weapon." Not "reduced effect" but "you get through the door but they hear you."
 
-### The Negotiation
-
 The player hears the stakes. Then they can:
 
-- **Accept and roll.** Most of the time.
-- **Raise the stakes.** Accept worse consequences, get a **Boon (+1d)**. More risk, better odds.
-- **Play it safe.** Accept softer consequences, take a **Snag (-1d)**. Less risk, worse odds.
+- **Build the pool.** Does your Background apply? Do you have the right gear? Are you in an advantageous position? Is your approach creative? Is an ally helping? Does an Edge apply? Each yes is a Boon. Drain for +1d if you need it. The player advocates, the GM confirms.
 - **Change approach.** Different action, new stakes, possibly different stat.
 - **Back off.** No roll, no consequence.
-
-> **Example (raising):** Lee needs to cross a dark parking lot under sniper observation. The GM says: "Sharp roll. On a 4-5, you make it but the sniper tracks your position. On a 1-3, you take fire crossing open ground." Lee raises: "I sprint flat out." GM: "On a 1-3, you take a hit and they know exactly where you're headed. But take a Boon."
->
-> **Example (playing safe):** Oliver needs to talk past a DPA desk clerk. Nerve roll. GM says: "On a 4-5, she lets you through but logs your name. On a 1-3, she calls it in and you're flagged." Oliver has Nerve 2 and the group can't afford being flagged. He plays it safe: "I just ask for directions, keep it casual, don't push." GM: "Snag, but on a 1-3, she just doesn't help. No flag." One die worse, but the floor is survivable. Sometimes the smart play is keeping the stakes low.
 
 ---
 
@@ -125,9 +117,9 @@ Saves use normal Boon/Snag rules. Powerful enemies impose Snags on defense rolls
 
 ---
 
-## Guard & Push
+## Guard & Drain
 
-Two resource tracks. Guard protects your body. Push fuels your will.
+Two resource tracks. Guard protects your body. Drain fuels your will.
 
 ### Guard
 
@@ -139,19 +131,19 @@ Guard is **not HP.** When Guard drops, you haven't been hurt yet. You've been pu
 
 **Recovery:** Guard refreshes when genuine safety occurs. If the characters would feel safe enough to sit down and breathe, Guard refreshes. Routine scenes (shopping, travel, safe conversation) always refresh. A tense social scene where violence is possible does not. Continuous threats (combat follows a negotiation, chase follows a break-in) do not refresh between them.
 
-### Push
+### Drain
 
 When the dice aren't enough, you dig deep.
 
-**Push track: 4 boxes.** Spend 1 Push to:
-- **Add +1d** to any roll (before rolling). One Push per roll.
+**Drain track: 4 boxes.** Spend 1 Drain to:
+- **Add +1d** to any roll (before rolling). One Drain per roll.
 - **Reduce incoming damage by 2** (after a defense roll).
 - **Act despite a Critical injury** (when you'd normally be incapacitated).
-- **Activate a device gambit**: thaumatech devices do things dice can't. Auto-succeed. GM sets Push cost from fiction. See `rules/THAUMATECH.md`.
+- **Activate a device gambit**: thaumatech devices do things dice can't. Auto-succeed. GM sets Drain cost from fiction. See `rules/THAUMATECH.md`.
 
-Device gambits can cost multiple Push. You can Push a roll (+1d) and activate a device gambit in the same turn, but both draw from the same 4-box track.
+Device gambits can cost multiple Drain. You can Drain a roll (+1d) and activate a device gambit in the same turn, but both draw from the same 4-box track.
 
-**Cracking:** When your Push track empties, you **Crack**: take a lasting condition that reflects how the pressure broke you.
+**Cracking:** When your Drain track empties, you **Crack**: take a lasting condition that reflects how the pressure broke you.
 - *Reckless:* you stop caring about safety
 - *Paranoid:* you trust no one
 - *Numb:* nothing reaches you
@@ -159,7 +151,7 @@ Device gambits can cost multiple Push. You can Push a roll (+1d) and activate a 
 
 A Crack has occasional mechanical weight (GM may impose Snags when it interferes). Cracks clear through significant narrative moments, not rest.
 
-**Recovery:** Push recovers during **downtime** by:
+**Recovery:** Drain recovers during **downtime** by:
 - Spending time with someone who matters
 - Doing something that reminds you who you are
 - Getting proper rest in a safe place
@@ -180,7 +172,7 @@ Damage → subtract Armor → subtract Guard → overflow = Harm
 **Step by step:**
 1. **Armor** reduces damage (flat 0-3)
 2. Remainder hits **Guard**
-3. If Guard reaches **0** (exact or overflow): you're **Marked**, take a **Scar**
+3. If Guard reaches **0** (exact or overflow): take a **Scar**
 4. Overflow past Guard becomes **Harm**
 
 > **Example:** A DPA agent hits you for 4 damage. You have Armor 1, Guard 3. Armor absorbs 1 (leaving 3). Guard absorbs 3 (reaching 0). Guard broke: take a Scar. No overflow, so no Harm.
@@ -208,7 +200,7 @@ When damage overflows Guard, you take real injuries. The Harm track has 3 levels
 |-|-|-|-|
 | 1 | **Hurt** | Snag when the injury is directly relevant | Grazed arm, twisted ankle |
 | 2 | **Wounded** | Snag on all rolls | Cracked ribs, deep laceration |
-| 3 | **Critical** | Must Push to act at all | Gut shot, shattered leg |
+| 3 | **Critical** | Must Drain to act at all | Gut shot, shattered leg |
 
 **Overflow determines Harm level:**
 
@@ -224,7 +216,7 @@ If both slots at a level are full, new Harm bumps up to the next level. If both 
 
 ### Scars
 
-When Guard drops to 0, you're Marked. Something changes permanently.
+When Guard drops to 0, something changes permanently.
 
 The player describes the Scar: a physical mark (split lip, burn scar), a psychological one (flinch at loud noises, can't sleep with lights off), or a material loss (weapon cracked, something precious broken).
 
@@ -248,9 +240,9 @@ Recovery is a **scene**, not a mechanic. The fiction determines what healing loo
 
 Some effects impose named conditions.
 
-**Stunned.** Can't act. No Move, no Act, no reaction. Defense at 0d (2d6, take lowest). Lasts until the end of your next action unless stated otherwise.
+**Stunned.** Can't act. No Move, no Act, no reaction. Defense at 0d (2d6, take lowest). Clears at the end of your next turn unless stated otherwise.
 
-**Shaken.** Rattled, panicked, or reeling. Snag on all rolls until cleared. Clears at end of scene, or earlier through intervention (ally help, Presence Anchor Gambit, comparable action the GM accepts).
+**Shaken.** Rattled, panicked, or reeling. Snag on all rolls until cleared. Clears at end of scene, or earlier through intervention (ally help, comparable action the GM accepts).
 
 **Prone.** On the ground. Standing costs your Move. Melee attacks against you get a Boon. Ranged attacks against you get a Snag. Can crawl at Close range without standing.
 
@@ -262,7 +254,7 @@ Some effects impose named conditions.
 
 ### Setup Phase
 
-When combat is expected (not an ambush), each player gets one setup roll before the first round. Describe your preparation: take cover, line up a shot, flank wide, ready a device. Roll the relevant stat.
+When combat is expected, each player gets one setup roll before the first round. Describe your preparation: take cover, line up a shot, flank wide, ready a device. Roll the relevant stat.
 
 | Result | Effect |
 |-|-|
@@ -272,7 +264,7 @@ When combat is expected (not an ambush), each player gets one setup roll before 
 
 This is a standard roll. Gambits apply: sacrifice a die showing 4+ for a side effect (Conceal, Scout, Read, Position). A 6 that also has spare dice can earn a Boon AND a Gambit.
 
-Skipped on ambush or surprise. See Ambush below.
+**From ambush or concealment:** This is a stakes roll, not setup. The GM sets consequences based on the fiction. On a miss, the ambush fails and combat starts on their terms. On a hit, the GM may grant: no defense roll on the opening attack, enemies act last in round one, or a Boon. Ambushers skip Setup Phase.
 
 ### Round Structure
 
@@ -292,7 +284,7 @@ Everything in combat falls into one of three lanes:
 
 **Changing the battlefield?** Gambits. Sacrifice a die from your attack roll. Shove, trip, disarm, create cover, blind, pin. Anything that shifts the tactical situation costs a die.
 
-**Doing something else entirely?** Stakes roll. Hack a terminal, barricade a door, hotwire a van, call for backup. GM sets stakes, you roll the relevant stat. Not an attack, doesn't use weapon dice.
+**Doing something else entirely?** Stakes roll. Hack a terminal, barricade a door, hotwire a van, call for backup, talk an enemy down, flee under fire. GM sets stakes, you roll the relevant stat. Not an attack, doesn't use weapon dice.
 
 ### Your Turn
 
@@ -310,16 +302,16 @@ Attacks auto-hit. You never roll to see *if* you connect. The roll determines *h
 **Procedure:**
 
 1. Declare your target and weapon
-2. Declare Push (+1d6) if spending it. Must be before the roll.
-3. Roll: weapon die + Boon d6s + Push d6
+2. Declare Drain (+1d6) if spending it. Must be before the roll.
+3. Roll: weapon die + Boon d6s + Drain d6
 4. **Choose:** keep dice for damage, or sacrifice dice showing 4+ for Gambits
 5. Highest remaining die = damage
 6. Subtract target's Armor
 7. Apply to Guard, overflow to Harm
 
-Sacrifice all dice = 0 damage, pure Gambit effects. One die with no Boons or Push = damage OR Gambit, pick one.
+Sacrifice all dice = 0 damage, pure Gambit effects. One die with no Boons or Drain = damage OR Gambit, pick one.
 
-**Criticals:** Roll the max on your weapon die (6 on d6, 8 on d8, 10 on d10, 12 on d12) and it's a crit. Full damage plus one free Strong Gambit. No sacrifice needed. Works even on a single die.
+**At 0d** (weapon die removed by Snags): roll 2d6, take lowest. Both dice are live for Gambits. The higher die doesn't affect your damage but can be sacrificed if it shows 4+. Sacrificing the lower die improves your damage to the remaining die.
 
 ### Defense
 
@@ -330,12 +322,11 @@ When an enemy attacks, the targeted player rolls to defend. No separate reaction
 - **Grit:** brace, absorb, power through
 - **Nerve:** hold steady, resist thaumic effects, stand your ground
 
-Roll [stat]d6, minus Snags from enemy Threat (see Enemies). Push for +1d before rolling.
+Roll [stat]d6, minus Snags from enemy Threat (see Enemies). Drain for +1d before rolling.
 
 | Roll | Damage Taken |
 |-|-|
 | **6** | None. |
-| **Critical (two+ 6s on stat dice)** | None, plus Boon on your next action. |
 | **4-5** | Half (round up). |
 | **1-3** | Full. |
 
@@ -354,7 +345,7 @@ Boons add +1d6 to attacks. Multiple Boons stack. Sources:
 - **Cover advantage:** Long weapon at Near vs Close-only attacker
 - **Edges:** Some Edges grant situational Boons
 
-**Snag on attacks** replaces your weapon die with 1d4. No Gambit access. A Boon cancels a Snag.
+**Snag on attacks** removes a die. Boons and Drain d6s are removed first. If none remain, the weapon die is removed (0d: 2d6 take lowest).
 
 ### Positioning
 
@@ -366,32 +357,17 @@ Three abstract ranges. Relative to entities, not a grid.
 | **Near** | Across a room. Pistol range, thrown objects. |
 | **Far** | Across a field. Rifle range, rooftop to street. |
 
-**Disengaging:** Moving away from Close costs your Move. If the enemy hasn't acted yet, they may respond (pursue, attack, grab). If they already acted, you leave clean. Some Gambits bypass this.
-
 **Cover:** Partial +1 Armor, Full +2 Armor, ranged attacks only. No effect at Close. Strong Gambits can destroy cover.
 
 **Flanking:** Two allies at Close from different angles. Both get a Boon. Breaks when the target moves.
-
-### Ambush
-
-Attack from concealment. Roll Sharp before combat. On 6: Boon on opening attack. On 4-5: attack normally. On 1-3: spotted, combat starts on their terms. Ambushers act first. Target gets no defense roll against the first attack.
-
-### Retreat
-
-Spend your Move, leave. Enemies may pursue.
-
-### De-escalation
-
-Spend your Act, roll Nerve. On 6: one enemy stops fighting. On 4-5: they hesitate, lose next action. On 1-3: they ignore you, next attack targets you specifically. Only works on enemies with Morale.
 
 ### Weapons
 
 | Category | Die | Examples |
 |-|-|-|
-| Unarmed / Improvised | d4 | Fists, bottle, chair leg |
-| Light | d6 | Knife, baton, small pistol |
-| Standard | d8 | Sword, shotgun, rifle |
-| Heavy | d10 | Two-handed weapon, high-caliber |
+| Light | d6 | Fists, knife, bottle, pool cue, brass knuckles |
+| Standard | d8 | Pistol, machete, baseball bat, rifle |
+| Heavy | d10 | Shotgun, sledgehammer, high-caliber |
 | Devastating | d12 | Vehicle ram, explosion, major thaumic discharge |
 
 **Properties** change how a weapon interacts with positioning and combat. They stack.
@@ -400,28 +376,33 @@ Spend your Act, roll Nerve. On 6: one enemy stops fighting. On 4-5: they hesitat
 |-|-|
 | **Ranged** | Attacks at Near and Far. Snag at Close. |
 | **Sidearm** | Attacks at Close and Near. Snag at Far. |
-| **Thrown** | Can attack at Near. Weapon lost unless recovered. |
+| **Thrown** | Adds Near to the weapon's ranges. Single target. Lost unless recovered. |
+| **Area (range)** | Hits all targets within the stated range of the impact point. Roll once, apply to each. At Close range, you're in the area. |
 | **Long** | Attacks at Close and Near. Boon at Near vs Close-only attacker. |
 | **Loud** | Heard at Far. Ticks attention/heat clocks. |
-| **Brutal** | On a critical: damage = weapon die max + highest Boon die (e.g. d8 crit with a Boon d6 showing 5 = 13). Solo crit = just the max. |
+| **Brutal** | *Open design question. Previous crit-dependent effect removed with crit simplification.* |
 | **Subtle** | Concealable. Drawing doesn't raise alarms. |
 | **Slow** | Cannot attack and Move in the same turn. |
 
+**Area adjudication.** You aim at a group or point, not a specific target. The GM declares who's within the Area range based on the fiction. Area (Close) is a tight cluster. Area (Near) is a room. Area (Far) is a building or block. The throw auto-lands; if placement is difficult (through a window, into a moving vehicle), the GM calls for a stakes roll. Gambits from Area attacks target one enemy of your choice in the blast.
+
 Full weapon catalog in `rules/EQUIPMENT.md`.
+
+### Common Area Weapons
+
+Single-use. Use your Act, spend the item.
+
+| Item | Die | Properties | Damage | Effect |
+|-|-|-|-|-|
+| Flashbang | — | Thrown, Area (Close), Loud | — | Sharp save or Snag on next action |
+| Smoke grenade | — | Thrown, Area (Close) | — | Breaks line of sight until end of next round |
+| Molotov | d6 | Thrown, Area (Close), Loud | Per target | Area alight |
+| Frag grenade | d8 | Thrown, Area (Close), Loud, Brutal | Per target | — |
+| Concussion charge | — | Thrown, Area (Close), Loud | — | Nerve save or lose next Act |
 
 ### Consumables
 
-Single-use items with the Thrown property. Use your Act, spend the item. Range is Near. Using explosives at Close catches you in the blast.
-
-| Item | Die | Properties | Effect |
-|-|-|-|-|
-| Flashbang | — | Thrown, Loud | Sharp save or Snag on next action |
-| Smoke grenade | — | Thrown | Breaks line of sight. Lasts until end of next round. |
-| Molotov | d6 | Thrown, Loud | Damage to all at Near + area alight |
-| Frag grenade | d8 | Thrown, Loud, Brutal | Damage to all at Close of impact |
-| Concussion charge | — | Thrown, Loud | Nerve save or lose next Act |
-
-Gear can also unlock Gambit effects (Flash, Obscure, Restrain). Sacrifice a die 4+ during an attack for the effect alongside damage, or use the item as your Act without attacking. Full gear catalog in `rules/EQUIPMENT.md`, full Gambit catalog in `rules/GAMBITS.md`.
+Single-use items applied to yourself or someone at Close. Use your Act, spend the item. See `rules/EQUIPMENT.md` for the full catalog.
 
 ---
 
@@ -445,15 +426,9 @@ Gambits are the player's leverage. After rolling, any die showing **4+** can be 
 
 **When a sacrifice drops your result a full tier, the GM matches the Gambit's scope to the cost.** A Gather that costs nothing learns one detail. A Gather that cost you the whole roll learns the full picture.
 
-### Fail Gambit
-
-When your final result is 1-3, whether you chose it or rolled it, you get one free Gambit. No die cost. The fiction of the failure creates one opening you grab on the way down. The fiction filter still applies: the situation has to make it possible.
-
-Every roll stays alive. You failed and noticed something, pocketed something, set something up.
-
 ### The Mechanics
 
-Sacrifice a die showing **4+** for a Gambit. This works on **any roll**, combat or otherwise. You see the dice first, then decide. One Gambit per die sacrificed. Multiple dice, multiple Gambits. No duplicates per roll.
+Sacrifice a die showing **4+** for a Gambit. Any die in the pool is eligible: weapon die, Boon d6s, Drain d6. This works on **any roll**, combat or otherwise. You see the dice first, then decide. One Gambit per die sacrificed. Multiple dice, multiple Gambits. No duplicates per roll.
 
 In combat, you trade damage for effect. On any other roll, you trade outcome quality for effect.
 
@@ -475,7 +450,7 @@ If the same Gambit name appears in multiple sources, you have it once, not twice
 
 ### Strong Gambits
 
-Two ways to get one: sacrifice a die showing **6**, or roll a critical (weapon die max). Strong Gambits:
+Sacrifice a die showing **6**. Strong Gambits:
 - Go through resistance at **any Threat level**
 - Produce **greater effect:** destroy cover, break a weapon, hurl someone across the room
 
@@ -510,7 +485,7 @@ Output: changes people or institutions.
 #### Fight
 Output: physical combat effects. Bodies and objects move.
 
-- **Shove:** Push target one range band or into an obstacle.
+- **Shove:** Force target one range band or into an obstacle.
 - **Trip:** Knock prone. Stand costs Move.
 - **Disarm:** Force weapon drop.
 - **Pin:** Hold target in place. They spend an Act to break free.
@@ -520,13 +495,13 @@ Output: physical combat effects. Bodies and objects move.
 
 ### Gambit Resistance
 
-Strong Gambits (sacrificed a 6) go through resistance. They land at full effect regardless of Threat level.
+**Strong Gambits** (sacrificed a 6) go through resistance. They land at full effect regardless of Threat level.
 
-Standard Gambits (sacrificed a 4-5) can be resisted by tougher enemies. The GM judges based on Threat: mooks eat everything, dangerous enemies shrug off standard effects unless the fiction justifies it.
+**Standard Gambits** (sacrificed a 4-5) land on Threat 0-1 enemies. Threat 2+ enemies resist standard Gambits unless the fiction justifies it.
 
 ### Thaumatech Device Gambits
 
-Different from gear gambits. Device gambits cost **Push** (not a sacrificed die), auto-succeed, and do things dice can't. See `rules/THAUMATECH.md`.
+Different from gear gambits. Device gambits cost **Drain** (not a sacrificed die), auto-succeed, and do things dice can't. See `rules/THAUMATECH.md`.
 
 ---
 
@@ -575,22 +550,18 @@ A priority list that tells the GM what an enemy does. Reduces cognitive load.
 
 **Street Tough**
 Threat 0 | Damage 3 | Guard 2 | Harm 2 | Armor 0 | Morale: yes
-*Knife (d6, Subtle) or bat (d6)*
 Behavior: Threaten first. Flee if Staggered. Won't fight alone.
 
 **DPA Field Agent**
 Threat 1 | Damage 4 | Guard 5 | Harm 4 | Armor 1 | Morale: yes
-*Service pistol (d6, Sidearm, Loud), thaumatech scanner*
 Behavior: Contain and call backup. Withdraw if outgunned. Never engages a confirmed shaper alone.
 
 **CSS Kill-Team Operator**
 Threat 2 | Damage 6 | Guard 6 | Harm 6 | Armor 2 | Morale: yes (on signal)
-*Assault rifle (d8, Ranged, Loud, Brutal), combat knife (d6, Subtle)*
 Behavior: Eliminate primary target. Suppress others. Retreat on signal only.
 
 **Unbound Thaumic Entity**
 Threat 3 | Damage 8 | Guard 8 | Harm 10 | Armor 0 | Morale: no
-*Thaumic discharge (d12, ignores mundane Armor)*
 Behavior: Drawn to highest BTC source. Passes through mundane obstacles. Retreats from sustained suppression. Does not negotiate.
 
 ---
@@ -619,7 +590,7 @@ Clocks track any complex situation with measurable progress:
 
 **Segments:** 4 (straightforward), 6 (complex), 8 (daunting).
 
-**Ticking from rolls:** Full success = 2 ticks. Partial = 1. Critical = 3. Consequences may tick enemy or threat clocks instead.
+**Ticking from rolls:** Full success = 2 ticks. Partial = 1. Consequences may tick enemy or threat clocks instead.
 
 Clocks are visible to all players. No hidden progress.
 
@@ -645,7 +616,7 @@ No lead? No roll. Either the PC already knows (Background, Knack, common knowled
 
 ### Projects
 
-When the answer is too big for one lead: mapping a conspiracy, tracing a supply chain, decoding a dead language. The GM starts a **clock** (4, 6, or 8 segments). Each lead ticks it: 1 on a partial, 2 on a full, 3 on a critical. When full, the PC gets the full picture.
+When the answer is too big for one lead: mapping a conspiracy, tracing a supply chain, decoding a dead language. The GM starts a **clock** (4, 6, or 8 segments). Each lead ticks it: 1 on a partial, 2 on a full. When full, the PC gets the full picture.
 
 Each lead costs time and may carry its own stakes. A partial might tick the clock *and* alert someone.
 
@@ -665,7 +636,7 @@ Use for: sneaking past a checkpoint, crossing a collapsing bridge, talking throu
 
 ### Group Effort
 
-Everyone rolls individually. The GM sets a **clock** (4, 6, or 8). Each roll ticks it: 1 on a partial, 2 on a full, 3 on a critical. A miss ticks nothing and may trigger a complication. When full, the group succeeds.
+Everyone rolls individually. The GM sets a **clock** (4, 6, or 8). Each roll ticks it: 1 on a partial, 2 on a full. A miss ticks nothing and may trigger a complication. When full, the group succeeds.
 
 If the clock isn't full after everyone rolls, the GM decides: another round (with escalating stakes) or partial success based on progress.
 
@@ -676,25 +647,25 @@ Use for: searching a building, fortifying a position, fleeing through a crowd, p
 ## Quick Reference
 
 ### The Roll
-Roll [stat]d6, read highest. 6 = full, 4-5 = partial, 1-3 = consequence. Crit: two+ 6s on stat rolls, weapon die max on attacks. Free Strong Gambit.
+Roll [stat]d6, read highest. 6 = full, 4-5 = partial, 1-3 = consequence.
 
 ### Stats
 Grit (body), Sharp (senses), Nerve (will). Rated 1-4. Sum = 6.
 
 ### Modifiers
-Boon = +1d. Snag = -1d. Cancel 1-for-1. Max 5d, min 0d (2d6 take lowest). On attacks: Boon/Push = +1d6, Snag = replace weapon die with 1d4 (Boon cancels).
+Boon = +1d. Snag = -1d. Cancel 1-for-1. Min 0d (2d6 take lowest). On attacks: Snags remove bonus dice first, then weapon die. 0d = 2d6 take lowest, both dice spendable for Gambits.
 
 ### Stakes
-GM declares consequences. Raise (+1d, worse stakes), play safe (-1d, softer), change approach, back off. Combat has three lanes: attack (weapon die), gambit (sacrifice die), stakes roll (everything else).
+GM declares consequences. Accept, change approach, or back off. Combat has three lanes: attack (weapon die), gambit (sacrifice die), stakes roll (everything else).
 
-### Guard & Push
-Guard = 2 + highest stat (cap 10). Recovers in genuine safety. Push = 4 boxes (+1d, -2 dmg, act while Critical, device gambit). Crack when empty.
+### Guard & Drain
+Guard = 2 + highest stat (cap 10). Recovers in genuine safety. Drain = 4 boxes (+1d, -2 dmg, act while Critical, device gambit). Crack when empty.
 
 ### Damage Pipeline
 Damage → Armor → Guard → overflow = Harm. Guard hits 0 = Scar (+1 max Guard, once/session).
 
 ### Harm
-L1 Hurt (Snag when relevant), L2 Wounded (Snag all), L3 Critical (Push to act). Overflow: 1-2 = L1, 3-4 = L2, 5+ = L3.
+L1 Hurt (Snag when relevant), L2 Wounded (Snag all), L3 Critical (Drain to act). Overflow: 1-2 = L1, 3-4 = L2, 5+ = L3.
 
 ### Conditions (PCs)
 Stunned = can't act, 0d defense. Shaken = Snag all, clears end of scene. Prone = stand costs Move.
@@ -703,16 +674,16 @@ Stunned = can't act, 0d defense. Shaken = Snag all, clears end of scene. Prone =
 GM never rolls. Static profiles: Threat (defense Snags 0-3), Damage (flat), Guard (buffer), Harm Threshold (damage past Guard to drop), Armor, Morale. Guard breaks = Staggered (Morale check). Harm fills = out.
 
 ### Positioning
-Close (melee), Near (room), Far (field). Move = one band. Cover: partial +1, full +2 Armor (ranged only). Flanking = Boon. Setup phase = stat roll before round 1 (6 = Boon, 1-3 = complication, Gambits apply). Skipped on ambush.
+Close (melee), Near (room), Far (field). Move = one band. Cover: partial +1, full +2 Armor (ranged only). Flanking = Boon. Setup phase = stat roll before round 1 (6 = Boon, 1-3 = complication, Gambits apply). Ambush = stakes roll, skips setup.
 
 ### Attacking
-Auto-hit. Roll weapon die (+ Boon d6s). Sacrifice 4+ for Gambits. Highest remaining = damage.
+Auto-hit. Roll weapon die (+ Boon d6s + Drain d6). Sacrifice 4+ for Gambits. Highest remaining = damage. 0d = 2d6 take lowest, both dice spendable.
 
 ### Defense
 Roll [stat]d6. 6 = none, 4-5 = half, 1-3 = full damage. Threat imposes Snags (0 to -3d).
 
 ### Gambits
-Sacrifice die 4+ for effect on any roll. Fail (1-3) = one free Gambit, no die cost. Tier drop = GM scales scope to match cost. Strong = 6. Strong Gambits go through resistance. Categories: Maneuver, Assess, Influence, Fight.
+Sacrifice die 4+ for effect on any roll. Tier drop = GM scales scope to match cost. Strong = sacrifice a 6. Strong Gambits go through resistance. Categories: Maneuver, Assess, Influence, Fight.
 
 ### Weapons
-d4 improvised, d6 light, d8 standard, d10 heavy, d12 devastating. Properties: Ranged, Sidearm, Thrown, Long, Loud, Brutal, Subtle, Slow.
+d6 light, d8 standard, d10 heavy, d12 devastating. Properties: Ranged, Sidearm, Thrown, Area (range), Long, Loud, Brutal, Subtle, Slow.

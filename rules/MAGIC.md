@@ -62,7 +62,7 @@ The obsession crosses the line from perception to expression. The fire-fixated K
 
 This is usually the moment of fear. Because now you can do something. And everyone who sees it knows what you are.
 
-**Mechanically:** An Edge (requires a Knack Edge). Grants one small, specific, deliberate expression of the obsession. Base expression costs 1 Guard, no roll. Pushing the expression beyond its comfortable scope is a standard roll (stat from fiction) with Guard cost in the GM's stakes. Sparked characters also unlock base shaping Gambits: **Muffle** (reduce Heat), **Anchor** (hide Tell), **Contain** (suppress bleed). See `rules/EDGES.md` for full Sparked design rules.
+**Mechanically:** An Edge (requires a Knack Edge). Grants one small, specific, deliberate expression of the obsession. Base expression costs 1 Guard, no roll. Draining the expression beyond its comfortable scope is a standard roll (stat from fiction) with Guard cost in the GM's stakes. Sparked characters also unlock base shaping Gambits: **Muffle** (reduce Heat), **Anchor** (hide Tell), **Contain** (suppress bleed). See `rules/EDGES.md` for full Sparked design rules.
 
 **The Tell.** This is where Tells begin. The Tell grows from whatever physical habit the obsession already produced. The zippo tricks became the lighter flick that transfers flame. The habit of pressing hands against walls became the two-palm push that finds the fault line. The Tell is observable, identifiable, and blockable. Take the zippo away and the fire trick stops.
 
@@ -236,7 +236,7 @@ When a Shaper channels:
    - **6:** The effect works. Guard cost as stated (the expected price).
    - **4-5:** The effect works at reduced intensity, or full effect at higher Guard cost. A thaumic side effect.
    - **1-3:** The Guard cost hits and the effect doesn't. Or the effect goes wrong. Or both. Physical harm from channeling backlash.
-3. **Roll your stat.** The fiction determines which stat. Grit forces energy through like bending steel. Sharp finds the seam and places the effect precisely. Nerve holds the pattern through composure and will. Same pool as any other roll. Boons and Snags apply normally: ally assist, clever positioning, taking extra time, or Snags from injury, Tell impairment, hostile conditions. **Push** for +1d by spending a Push box (same as any roll, one per roll).
+3. **Roll your stat.** The fiction determines which stat. Grit forces energy through like bending steel. Sharp finds the seam and places the effect precisely. Nerve holds the pattern through composure and will. Same pool as any other roll. Boons and Snags apply normally: ally assist, clever positioning, taking extra time, or Snags from injury, Tell impairment, hostile conditions. **Drain** for +1d by spending a Drain box (same as any roll, one per roll).
 4. **Sacrifice dice for shaping Gambits.** Any die showing 4+ can be sacrificed for a shaping Gambit instead of contributing to the result. Shapers have access to the full shaping Gambit list: Muffle, Anchor, Contain (from Sparked), plus Thread, Redirect, Siphon, Veil, Split. Shaper Edges can extend or add to this list.
 5. **Tick the Heat clock.** The number of ticks depends on **how visible the magic was** (reduced by 1 if the Muffle Gambit was used):
 
@@ -293,11 +293,11 @@ Bargains are different from Stakes: Stakes are tied to roll results (partial = t
 | Scope | Determined by device | Shaped by obsession, agreed with GM |
 | Technique | Contact plates, rated function | Tell: personal, observable, blockable |
 | Base cost | Free (device enables action) | Guard in stakes (body cost) |
-| Beyond base | Device gambits cost Push (will cost) | Escalated stakes (more Guard) |
+| Beyond base | Device gambits cost Drain (will cost) | Escalated stakes (more Guard) |
 | Depletion | Crack (mental break) | Scar (physical mark) |
 | Background heat | 0 ticks (regulated, expected) | 1-3 ticks per use (visibility-scaled) |
 | Flexibility | Limited to device function | Anything within obsession scope |
-| Tactical layer | Device gambits (auto-succeed, Push cost) | Shaping Gambits (Muffle, Anchor, Contain, Thread, Redirect, Siphon, Veil, Split) |
+| Tactical layer | Device gambits (auto-succeed, Drain cost) | Shaping Gambits (Muffle, Anchor, Contain, Thread, Redirect, Siphon, Veil, Split) |
 | Device risk | Quality vs. stretch, 2d6 roll | No device to break |
 | Vulnerability | Device breaks, operator cracks | Tell can be identified, countered, suppressed |
 
@@ -309,7 +309,7 @@ The only advantage of innate: no device limits your imagination within your obse
 
 Drain is the cost of channeling thaumic energy. **Innate shaping drains Guard** (body cost). The channeling physically hurts: nosebleeds, nerve pain, burst capillaries. Guard cost lives in the GM's stakes: even a full success costs Guard. A consequence costs Guard and the effect fails. The shaper paid and got nothing.
 
-**Thaumatech drains Push** (will cost). The contact plates draw from your concentration and willpower. Device gambits cost Push, sized by the GM from fiction. See `rules/THAUMATECH.md`. Operators don't scar. They crack: Numb, Volatile, Paranoid. These are industrial injuries.
+**Thaumatech drains Drain** (will cost). The contact plates draw from your concentration and willpower. Device gambits cost Drain, sized by the GM from fiction. See `rules/THAUMATECH.md`. Operators don't scar. They crack: Numb, Volatile, Paranoid. These are industrial injuries.
 
 Guard damage from innate shaping follows the same overflow rules as combat damage:
 
@@ -325,7 +325,7 @@ In combat, a shaper's Guard is being eaten from **two directions**: enemy attack
 
 This is the low-magic feel. Not "you can't cast," but every cast makes you more vulnerable to the mundane. The bullet doesn't care that you just shaped a ward. Your Guard is gone either way.
 
-Meanwhile, **Push is being spent in both directions too.** Push a shaping roll for +1d, and that's one fewer Push box for the defense roll, the escape attempt, or the moment you take a Critical and need to Push to act. Guard and Push are both finite. Shaping eats both.
+Meanwhile, **Drain is being spent in both directions too.** Drain a shaping roll for +1d, and that's one fewer Drain box for the defense roll, the escape attempt, or the moment you take a Critical and need to Drain to act. Guard and Drain are both finite. Shaping eats both.
 
 ---
 
@@ -353,7 +353,7 @@ A Break transcends obsession scope. It transcends the Tell. In that moment, the 
 
 A Break is always voluntary. The player declares it. The GM cannot force a Break.
 
-The player states what they want to happen. There are no obsession limits, no Tell requirements, no rated outputs, no scope restrictions. Shield the whole crowd. Push the nightmare back. Slow time for three seconds. Whatever the moment demands.
+The player states what they want to happen. There are no obsession limits, no Tell requirements, no rated outputs, no scope restrictions. Shield the whole crowd. Drain the nightmare back. Slow time for three seconds. Whatever the moment demands.
 
 ### The Rules
 
@@ -407,8 +407,8 @@ A Break is a moment where a character decides that what they're protecting is wo
 - **Personal thaumatech** (weapons, armor, scanners): contact plates, positives only
 - **Grid thauma-ware** (appliances, heating, infrastructure): buttons and switches, anyone
 - Base use: free (roll stat, device enables action)
-- Device gambits: cost Push (GM sizes from fiction). Auto-succeed. Binary capabilities.
-- Device risk: GM calls it based on quality vs. Push stretch. Roll 2d6. 6 = fine, 4-5 = breaks (repairable), 1-3 = catastrophic (breaks + feedback). Push the roll for +1d.
+- Device gambits: cost Drain (GM sizes from fiction). Auto-succeed. Binary capabilities.
+- Device risk: GM calls it based on quality vs. Drain stretch. Roll 2d6. 6 = fine, 4-5 = breaks (repairable), 1-3 = catastrophic (breaks + feedback). Drain the roll for +1d.
 - Repair: downtime scene. Destruction is narrative only.
 - Sustained: costs Act each round
 - Heat clock: 0 ticks (it's supposed to look like technology)
@@ -417,7 +417,7 @@ A Break is a moment where a character decides that what they're protecting is wo
 - Obsession scope determines what you can affect; Tell determines how
 - Standard roll (stat from fiction: Grit forces, Sharp places, Nerve holds)
 - Guard cost in the GM's stakes (success = expected cost, partial = higher cost, consequence = cost hits and effect fails)
-- Push for +1d (same Push track as any roll, one per roll)
+- Drain for +1d (same Drain track as any roll, one per roll)
 - Heat clock: 1-3 ticks per use (visibility-scaled, reduced by Muffle Gambit)
 - Stakes always escalated (thaumic side effects + Guard cost)
 - Sustained: costs Act each round
@@ -431,8 +431,8 @@ A Break is a moment where a character decides that what they're protecting is wo
 
 ### Drain
 - **Innate shaping:** Guard cost in stakes (body). Overflow to Harm (1-2 = L1, 3-4 = L2, 5+ = L3). Shapers scar.
-- **Thaumatech:** Device gambits cost Push (will). Empty = Crack. Operators crack.
-- Push is shared across all uses: +1d on any roll, device gambits, act while Critical, reduce damage. Both combat and thaumatech deplete the same 4-box track.
+- **Thaumatech:** Device gambits cost Drain (will). Empty = Crack. Operators crack.
+- Drain is shared across all uses: +1d on any roll, device gambits, act while Critical, reduce damage. Both combat and thaumatech deplete the same 4-box track.
 
 ### Break (Innate Only)
 - Player declares. Effect succeeds fully. Transcends obsession scope and Tell.

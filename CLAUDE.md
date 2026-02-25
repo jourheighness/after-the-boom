@@ -41,15 +41,18 @@ Mondas is Earth, but in 1972 "The Boom" spiked the global Background Thaumic Cou
 - `campaigns/pips/threads.md` — Active plot threads (P.I.P.S.)
 - `campaigns/pips/gm-notes.md` — GM secrets and plans
 
+## Rules Design Principles
+
+These are hard constraints. Reference them when designing, reviewing, or proposing any mechanic.
+
+1. **No special cases.** If a rule only applies to one narrow situation, it's the wrong rule. Mechanics must cover an area, not an edge case. If you're writing "except when..." or "in this specific situation...", redesign the rule to be general.
+2. **One mechanic, one verb.** A named mechanic does one thing everywhere it appears. If "Snag" means -1d on stat rolls but "replace with d4" on attacks, that's two mechanics sharing a name. Fix it.
+3. **Fiction first, mechanics confirm.** The player describes what they do. The mechanic confirms whether it works and how well. Never the reverse.
+4. **Fewer moving parts.** If two rules accomplish similar things, merge them or cut one. Every rule competes for table-time attention. The bar for inclusion is: does this produce decisions the other rules can't?
+5. **Desperate, not dead.** Bad situations should narrow options, not remove them. A player with nothing left should still have one move to make.
+
 ## Rules System
-Modified D&D 5e (homebrew rules TBD — will be added to `rules/`). Currently using standard 5e as base with setting-specific reskins:
-- Wizard → Thaumaturgist (academic magic)
-- Warlock → Contractor (corporate/infernal pact, KPI-based)
-- Cleric → varies (Oliver channels Saint Nobody without formal worship)
-- Monk → Somatic Kinesiology (physical therapy / ki-as-thaumic-channeling)
-- Paladin → Vengeance track (Brian's union-forged oath)
-- Ranger → Field Researcher (Brenor's investigation/perception focus)
-- Fighter → Soldier (Jack's military background)
+Custom system (MONDAS Core Rules Engine). Rules live in `rules/`. Core mechanic: roll d6 pool, read highest. Gambits (sacrifice dice for side effects) are the tactical layer. See `rules/CORE.md`.
 
 ## Search — HARD RULES
 grepai is configured as an MCP server. Tools are prefixed `mcp__grepai__`. Use `ToolSearch` with query `grepai` to load them before first use.

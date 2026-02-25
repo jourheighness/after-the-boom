@@ -10,7 +10,7 @@ Design principles and generation rules live in `rules/DESIGN-GAMBITS.md`. Read t
 
 ## Base Gambits (Reference)
 
-The 15 base gambits are defined and locked in `rules/CORE.md` (D42). Listed here for reference. Do not modify; changes go through CORE.md.
+The 15 base gambits are defined and locked in `rules/CORE.md`. Listed here for reference. Do not modify; changes go through CORE.md.
 
 **Maneuver (4):** Position, Escape, Conceal, Stall
 **Assess (3):** Gather, Read, Scout
@@ -25,7 +25,7 @@ The base gambits work in social scenes. Same dice, same sacrifice. The fiction c
 
 - **Pressure** becomes leveraging a deadline. **Shift** becomes persuasion. **De-escalate** becomes defusing tension.
 - **Read** becomes reading body language. **Gather** becomes extracting information mid-conversation.
-- **Stonewall** (Grit): you hold your position through something that should break it. **Endure** isn't separate; it's how Grit expresses any Maneuver gambit socially.
+- A Grit-based Maneuver in a social scene looks like stonewalling: holding your position through something that should break it.
 
 No separate social gambit list. The base 15 cover it. If a player describes a social effect that maps to a base gambit, it works.
 
@@ -35,7 +35,7 @@ Players can propose effects not on any list. The GM judges plausibility. The pri
 
 ### Defensive Gambits
 
-Sacrifice a die 4+ from your attack roll on your turn. The effect persists until your next turn. You're trading offense for protection.
+Sacrifice a die 4+ from your attack roll on your turn. The effect persists until the start of your next turn. You're trading offense for protection.
 
 *Catalog in progress.*
 
@@ -56,7 +56,7 @@ Available to any weapon with the matching property. If the same gambit name appe
 Available to any weapon used at Close range (all melee weapons, plus Sidearm weapons at Close).
 
 <!-- Catalog entries follow this format:
-**[Name].** [Standard/Strong (8+)] [Effect.] [Range.] [Requirements if any.]
+**[Name].** [Standard/Strong] [Effect.] [Range.] [Requirements if any.]
 -->
 
 *Catalog in progress. See `rules/archive/GAMBITS-v1.md` for draft entries pending redesign.*
@@ -172,11 +172,10 @@ See `rules/DESIGN-EDGES.md` for Shaper Edge design rules.
 | Source | Where Defined | Available To |
 |-|-|-|
 | Base (15) | `rules/CORE.md` | Everyone, every roll |
-| Weapon-specific (1 per weapon) | `rules/EQUIPMENT.md` | Anyone wielding that weapon |
+| Weapon/gear-specific | `rules/EQUIPMENT.md` | Anyone wielding that weapon or carrying that gear |
 | Property-category | This file | Any weapon with that property |
 | Defensive | This file | Anyone attacking (trade offense for defense) |
 | Act Replacements | This file | Anyone (replaces attack entirely) |
-| Gear Gambits | `rules/EQUIPMENT.md` | Anyone carrying the gear |
 | Sparked shaping (3) | This file | Sparked+ characters on shaping rolls |
 | Shaper shaping (5) | This file | Shaper characters on shaping rolls |
 | Edge-granted | `rules/DESIGN-EDGES.md` | Characters with the specific Edge |
