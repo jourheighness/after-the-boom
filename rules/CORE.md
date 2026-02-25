@@ -364,9 +364,11 @@ Sacrifice a die showing **4+** for a standard gambit. Sacrifice a die showing **
 | **Read** | **Detail.** Learn one hidden thing. | Detail + **Boon** from what you learned. |
 | **Break** | **Impaired.** Target deals -2 damage, one turn. | **Exposed.** Target takes +2 damage, one turn. |
 | **Cover** | **+1 Armor** until you move. | **+2 Armor** until you move. |
-| **Setup** | **Bank the die** (keep its value). Add to any of your rolls or spend on a gambit. One max per person. Gone at end of combat. | Bank it for an **ally.** Hand them the die. Frees your slot. |
+| **Setup** | **Bank the die** (keep its value) for yourself or an **ally.** Add to any roll post-roll or spend on a gambit. One banked die max per person. Gone at end of combat. | Bank for yourself **and** an ally. Same value, two dice. |
 
 **Plus the open clause:** anything of similar scope. You describe it, GM approves.
+
+**Banked dice timing.** A banked die is not in the pool. Build pool (weapon + Boons + Drain), apply Snags, roll, then choose to add the banked die to your results. Snags can't remove what isn't there yet. The banked die is always guaranteed.
 
 **Gambit resistance.** Strong gambits go through at any Threat level. Standard gambits land on Threat 0-1 enemies. Threat 2+ enemies resist standard gambits *that target them* unless the fiction justifies it. Gambits that target you (Cover, Setup) or the environment always land.
 
@@ -662,7 +664,7 @@ Auto-hit. Roll weapon die (+ Boon d6s + Drain d6). Sacrifice 4+ for gambits. Hig
 Roll [stat]d6. 6 = none, 4-5 = half, 1-3 = full damage. Threat imposes Snags (0 to -3d).
 
 ### Combat Gambits
-Sacrifice 4+ = standard, 6+ = strong (weapon dice count). Push (one band / Strong: + Prone), Pull (one band toward / Strong: + Boon), Pin (can't move, Act to escape / Strong: Act + Move), Read (detail / Strong: + Boon), Break (Impaired -2 dmg / Strong: Exposed +2 dmg taken), Cover (+1 Armor / Strong: +2), Setup (bank a die / Strong: bank for ally). Open clause: similar scope, GM approves. Strong through all Threat.
+Sacrifice 4+ = standard, 6+ = strong (weapon dice count). Push (one band / Strong: + Prone), Pull (one band toward / Strong: + Boon), Pin (can't move, Act to escape / Strong: Act + Move), Read (detail / Strong: + Boon), Break (Impaired -2 dmg / Strong: Exposed +2 dmg taken), Cover (+1 Armor / Strong: +2), Setup (bank for self or ally, post-roll / Strong: self AND ally). Open clause: similar scope, GM approves. Banked dice added post-roll, immune to Snags. Strong through all Threat.
 
 ### Weapons
 d6 light, d8 standard, d10 heavy, d12 devastating. Properties: Ranged, Sidearm, Thrown, Area (range), Long, Loud, Brutal, Subtle, Slow.

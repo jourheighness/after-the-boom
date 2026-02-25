@@ -503,6 +503,14 @@ All canonical design decisions. Each decision is recorded once here. Individual 
 |-|-|-|-|
 | - | Background format | Job title + Boon domain (2-3 areas) + example uses (2-3). Specific job, not genre. | P2, P16, P17 |
 
+### Playtest Decisions
+
+| # | Decision | Answer | Laws |
+|-|-|-|-|
+| D65 | Setup timing | Banked dice are added post-roll, after Snags resolve. Not in pool when Snags remove dice. Immune to Snag removal by timing, not exemption. | P6, P15 |
+| D66 | Setup for ally is standard | Standard Setup (4+): bank for self OR ally. Strong Setup (6): bank for self AND ally (same value, two dice). | P6, P9, P10 |
+| D67 | Assist vs Setup distinction | Assist: costs Act, gives random d6 pre-roll (in pool, Snag-vulnerable). Setup for ally: costs a 4+ die from your roll, known value, post-roll injection, Snag-immune. Assist is the floor when you can't contribute otherwise. Setup is the reward for rolling well. | P6, P10, P15 |
+
 ---
 
 ## Open Questions
