@@ -686,6 +686,77 @@ server.registerTool(
   }
 );
 
+// --- Session tools ---
+
+server.registerTool(
+  'begin_changes',
+  {
+    title: 'Begin Change Session',
+    description: 'Start an isolated git branch for concept edits. All changes happen on this branch until commit or rollback. Only one session at a time.',
+    inputSchema: {
+      description: z.string().describe('Short description of planned changes (used in branch name)'),
+    },
+    annotations: { destructiveHint: true },
+  },
+  async ({ description }) => {
+    if (sessionBranch) {
+      return { content: [{ type: 'text', text: `Session already active on branch "${sessionBranch}". Commit or rollback first.` }], isError: true };
+    }
+    const slug = description.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
+    const timestamp = Date.now();
+    const branchName = `concept-edit/${slug}-${timestamp}`;
+
+    const currentBranch = await git('rev-parse', '--abbrev-ref', 'HEAD');
+    await git('add', '-A');
+    try {
+      await git('commit', '--allow-empty', '-m', `checkpoint: pre-${slug}`);
+    } catch { /* nothing to commit is fine */ }
+    await git('checkout', '-b', branchName);
+
+    sessionBranch = branchName;
+    sessionBaseBranch = currentBranch;
+
+    return { content: [{ type: 'text', text: `Session started on branch "${branchName}" (base: ${currentBranch}). Make edits, then preview_changes or commit_changes.` }] };
+  }
+);
+
+server.registerTool(
+  'preview_changes',
+  {
+    title: 'Preview Session Changes',
+    description: 'Show all changes in the current session: committed diffs, staged, and working tree.',
+    inputSchema: {},
+    annotations: { readOnlyHint: true },
+  },
+  async () => {
+    if (!sessionBranch || !sessionBaseBranch) {
+      return { content: [{ type: 'text', text: 'No active session. Call begin_changes first.' }], isError: true };
+    }
+
+    const parts: string[] = [];
+
+    // Committed changes on session branch
+    try {
+      const committed = await git('diff', `${sessionBaseBranch}...HEAD`);
+      if (committed) parts.push('## Committed on session branch\n' + committed);
+    } catch { /* no commits yet */ }
+
+    // Staged changes
+    const staged = await git('diff', '--cached');
+    if (staged) parts.push('## Staged\n' + staged);
+
+    // Working tree changes
+    const working = await git('diff');
+    if (working) parts.push('## Working tree\n' + working);
+
+    if (parts.length === 0) {
+      return { content: [{ type: 'text', text: `Session "${sessionBranch}": no changes yet.` }] };
+    }
+
+    return { content: [{ type: 'text', text: parts.join('\n\n') }] };
+  }
+);
+
 // --- Start ---
 
 const transport = new StdioServerTransport();
