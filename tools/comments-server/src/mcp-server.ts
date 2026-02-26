@@ -26,6 +26,21 @@ import {
 } from './db.ts';
 import { readFile } from 'node:fs/promises';
 import { relative } from 'node:path';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { replaceInMarkdownFiles } from './prose-replace.ts';
+
+const execFileAsync = promisify(execFile);
+
+async function git(...args: string[]): Promise<string> {
+  const { stdout } = await execFileAsync('git', args, { cwd: ROOT_DIR });
+  return stdout.trim();
+}
+
+let sessionBranch: string | null = null;
+let sessionBaseBranch: string | null = null;
+
+const SESSION_REQUIRED = { content: [{ type: 'text' as const, text: 'Session required for write-through operations. Call begin_changes first.' }], isError: true };
 import { indexFile } from './indexer.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -63,19 +78,39 @@ const server = new McpServer(
   {
     instructions: `MONDAS Concept Graph — knowledge base for a TTRPG rules engine (~164 game concepts).
 
-ROUTING — when discussion produces concept changes, use these tools:
-| Change | Tool | Cascade |
-| New named thing | create_concept | DB + full mention scan |
-| Definition/type change | update_concept | DB only |
-| Name change | rename_concept | DB + reindex affected files |
-| Connection discovered | link_concepts | DB only |
-| Remove connection | unlink_concepts | DB only |
-| Thing removed | deprecate_concept | DB + unlink mentions |
-| Two things are one | merge_concepts | DB + reindex both |
+TWO OPERATIONAL MODES:
+- DB-only (safe): changes stay in the database. No prose files touched.
+- Write-through (prose-affecting): changes cascade to .md files. rename_concept and merge_concepts replace old names in markdown prose automatically.
+
+SESSION WORKFLOW for write-through edits:
+1. begin_changes "description" — creates git branch, checkpoint on base
+2. Make edits (rename, merge, create, etc.)
+3. preview_changes — see all diffs before committing
+4. commit_changes — merges branch back, reindexes, runs audit triage
+   OR rollback_changes — discards everything, restores DB
+
+ROUTING TABLE:
+| Change | Tool | Mode |
+| New named thing | create_concept | DB + reindex |
+| Definition/type change | update_concept | DB-only |
+| Name change | rename_concept | Write-through |
+| Connection discovered | link_concepts | DB-only |
+| Remove connection | unlink_concepts | DB-only |
+| Thing removed | deprecate_concept | DB-only |
+| Two things are one | merge_concepts | Write-through |
 | Review auto-detected | review_candidates | Read-only |
+| Refresh index | reindex_files | DB reindex |
+| Health check | audit_concepts | Read-only |
+| Start session | begin_changes | Git branch |
+| See diffs | preview_changes | Read-only |
+| Finish session | commit_changes | Git merge + audit |
+| Discard session | rollback_changes | Git reset |
 
 BEFORE modifying a concept, call trace_concept to see its current state and relations.
 AFTER creating concepts, the system auto-reindexes rules files to find mentions. No manual step needed.
+Write-through tools (rename, merge) REQUIRE an active session. They will reject without begin_changes.
+
+TRIAGE: audit_concepts is always available. It reports orphaned concepts, uncategorized concepts, stale relations, and top candidates. It never auto-acts. Present findings for human decision.
 
 TAXONOMY — two axes:
 - layer: mechanic (table-level named things), subsystem (multi-step procedures), principle (design axioms)
@@ -364,7 +399,7 @@ server.registerTool(
   {
     title: 'Trace Concept Relations',
     description: `Traverse the concept graph: get a concept's definition, type (mechanic/subsystem/principle), and all one-hop relations.
-Typed relations: COSTS, PRODUCES, MODIFIES, GATES, CONTAINS, OPPOSES, ENABLES, GOVERNS, VARIANT, RELATES_TO.
+Typed relations: COSTS, PRODUCES, MODIFIES, GATES, CONTAINS, OPPOSES, ENABLES, GOVERNS, VARIANT_OF, RELATES_TO.
 Use to answer "what connects to X?", "how does X work?", or "why is X designed this way?" (follow GOVERNS to principles).`,
     inputSchema: {
       name: z.string().describe('Concept name (case-insensitive). Examples: Guard, Damage Pipeline, Cost Must Hurt'),
@@ -517,14 +552,19 @@ server.registerTool(
     },
   },
   async ({ old_name, new_name }) => {
+    if (!sessionBranch) return SESSION_REQUIRED;
     const conceptId = renameConcept(db, old_name, new_name);
     if (!conceptId) {
       return { content: [{ type: 'text', text: `Concept not found: "${old_name}"` }], isError: true };
     }
     const files = getFilesWithMentions(db, conceptId);
+    const replaceResults = await replaceInMarkdownFiles(ROOT_DIR, old_name, new_name, files);
     const reindexed = await reindexFiles(files);
+    const replaceSummary = replaceResults.length > 0
+      ? `\nProse updated in ${replaceResults.length} file(s): ${replaceResults.map(r => `${r.filePath} (${r.replacements})`).join(', ')}`
+      : '\nNo prose replacements needed.';
     return {
-      content: [{ type: 'text', text: `Renamed "${old_name}" → "${new_name}". Reindexed ${reindexed} files.` }],
+      content: [{ type: 'text', text: `Renamed "${old_name}" → "${new_name}". Reindexed ${reindexed} files.${replaceSummary}` }],
     };
   }
 );
@@ -602,6 +642,7 @@ server.registerTool(
     },
   },
   async ({ source, target }) => {
+    if (!sessionBranch) return SESSION_REQUIRED;
     const srcRow = db.prepare('SELECT id FROM concepts WHERE name = ? COLLATE NOCASE')
       .get(source) as { id: number } | undefined;
     const tgtRow = db.prepare('SELECT id FROM concepts WHERE name = ? COLLATE NOCASE')
@@ -617,9 +658,13 @@ server.registerTool(
     if (!result.merged) {
       return { content: [{ type: 'text', text: 'Merge failed' }], isError: true };
     }
+    const replaceResults = await replaceInMarkdownFiles(ROOT_DIR, source, target, allFiles);
     const reindexed = await reindexFiles(allFiles);
+    const replaceSummary = replaceResults.length > 0
+      ? `\nProse updated in ${replaceResults.length} file(s): ${replaceResults.map(r => `${r.filePath} (${r.replacements})`).join(', ')}`
+      : '\nNo prose replacements needed.';
     return {
-      content: [{ type: 'text', text: `Merged "${source}" → "${target}". Moved ${result.mentionsMoved} mentions. Reindexed ${reindexed} files.` }],
+      content: [{ type: 'text', text: `Merged "${source}" → "${target}". Moved ${result.mentionsMoved} mentions. Reindexed ${reindexed} files.${replaceSummary}` }],
     };
   }
 );
@@ -643,6 +688,255 @@ server.registerTool(
       `${c.name} (score: ${c.score}) — ${c.signals.rulesFiles} files, ${c.signals.totalMentions} mentions`
     );
     return { content: [{ type: 'text', text: lines.join('\n') }] };
+  }
+);
+
+// --- Reindex tool ---
+
+server.registerTool(
+  'reindex_files',
+  {
+    title: 'Reindex Files',
+    description: 'Reindex rules files to refresh concept mentions and sections. Defaults to all rules files if no paths given.',
+    inputSchema: {
+      paths: z.array(z.string()).optional().describe('Relative file paths to reindex. Omit for full reindex.'),
+    },
+  },
+  async ({ paths }) => {
+    const count = paths && paths.length > 0
+      ? await reindexFiles(paths)
+      : await reindexAllRules();
+    return { content: [{ type: 'text', text: `Reindexed ${count} files.` }] };
+  }
+);
+
+// --- Session tools ---
+
+server.registerTool(
+  'begin_changes',
+  {
+    title: 'Begin Change Session',
+    description: 'Start an isolated git branch for concept edits. All changes happen on this branch until commit or rollback. Only one session at a time.',
+    inputSchema: {
+      description: z.string().describe('Short description of planned changes (used in branch name)'),
+    },
+    annotations: { destructiveHint: true },
+  },
+  async ({ description }) => {
+    if (sessionBranch) {
+      return { content: [{ type: 'text', text: `Session already active on branch "${sessionBranch}". Commit or rollback first.` }], isError: true };
+    }
+    const slug = description.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
+    const timestamp = Date.now();
+    const branchName = `concept-edit/${slug}-${timestamp}`;
+
+    const currentBranch = await git('rev-parse', '--abbrev-ref', 'HEAD');
+    await git('add', '-A');
+    try {
+      await git('commit', '--allow-empty', '-m', `checkpoint: pre-${slug}`);
+    } catch { /* nothing to commit is fine */ }
+    await git('checkout', '-b', branchName);
+
+    sessionBranch = branchName;
+    sessionBaseBranch = currentBranch;
+
+    return { content: [{ type: 'text', text: `Session started on branch "${branchName}" (base: ${currentBranch}). Make edits, then preview_changes or commit_changes.` }] };
+  }
+);
+
+server.registerTool(
+  'preview_changes',
+  {
+    title: 'Preview Session Changes',
+    description: 'Show all changes in the current session: committed diffs, staged, and working tree.',
+    inputSchema: {},
+    annotations: { readOnlyHint: true },
+  },
+  async () => {
+    if (!sessionBranch || !sessionBaseBranch) {
+      return { content: [{ type: 'text', text: 'No active session. Call begin_changes first.' }], isError: true };
+    }
+
+    const parts: string[] = [];
+
+    // Committed changes on session branch
+    try {
+      const committed = await git('diff', `${sessionBaseBranch}...HEAD`);
+      if (committed) parts.push('## Committed on session branch\n' + committed);
+    } catch { /* no commits yet */ }
+
+    // Staged changes
+    const staged = await git('diff', '--cached');
+    if (staged) parts.push('## Staged\n' + staged);
+
+    // Working tree changes
+    const working = await git('diff');
+    if (working) parts.push('## Working tree\n' + working);
+
+    if (parts.length === 0) {
+      return { content: [{ type: 'text', text: `Session "${sessionBranch}": no changes yet.` }] };
+    }
+
+    return { content: [{ type: 'text', text: parts.join('\n\n') }] };
+  }
+);
+
+// --- Audit ---
+
+interface AuditReport {
+  orphaned: string[];
+  uncategorized: string[];
+  staleRelations: { source: string; target: string; relation: string }[];
+  topCandidates: { name: string; mentions: number }[];
+}
+
+function runAudit(auditDb: typeof db, focus?: { layer?: string; category?: string }): AuditReport {
+  const layerFilter = focus?.layer;
+  const categoryFilter = focus?.category;
+
+  // 1. Orphaned: approved+curated concepts with zero mentions
+  let orphanedSql = `
+    SELECT c.name FROM concepts c
+    LEFT JOIN concept_mentions cm ON cm.concept_id = c.id
+    WHERE c.approved = 1 AND c.curated = 1
+  `;
+  const orphanedParams: unknown[] = [];
+  if (layerFilter) { orphanedSql += ' AND (c.layer = ? OR c.type = ?)'; orphanedParams.push(layerFilter, layerFilter); }
+  if (categoryFilter) { orphanedSql += ' AND c.category = ?'; orphanedParams.push(categoryFilter); }
+  orphanedSql += ' GROUP BY c.id HAVING COUNT(cm.section_id) = 0 ORDER BY c.name';
+  const orphaned = (auditDb.prepare(orphanedSql).all(...orphanedParams) as { name: string }[]).map(r => r.name);
+
+  // 2. Uncategorized: approved concepts missing layer or category
+  let uncatSql = `
+    SELECT c.name FROM concepts c
+    WHERE c.approved = 1 AND (c.layer IS NULL OR c.category IS NULL)
+  `;
+  const uncatParams: unknown[] = [];
+  if (layerFilter) { uncatSql += ' AND (c.layer = ? OR c.type = ?)'; uncatParams.push(layerFilter, layerFilter); }
+  if (categoryFilter) { uncatSql += ' AND c.category = ?'; uncatParams.push(categoryFilter); }
+  uncatSql += ' ORDER BY c.name';
+  const uncategorized = (auditDb.prepare(uncatSql).all(...uncatParams) as { name: string }[]).map(r => r.name);
+
+  // 3. Stale relations: relations where either side has zero mentions
+  const staleRelations = auditDb.prepare(`
+    SELECT cs.name as source, ct.name as target, cr.relation
+    FROM concept_relations cr
+    JOIN concepts cs ON cs.id = cr.source_id
+    JOIN concepts ct ON ct.id = cr.target_id
+    WHERE NOT EXISTS (SELECT 1 FROM concept_mentions cm WHERE cm.concept_id = cr.source_id)
+       OR NOT EXISTS (SELECT 1 FROM concept_mentions cm WHERE cm.concept_id = cr.target_id)
+    ORDER BY cs.name, ct.name
+  `).all() as { source: string; target: string; relation: string }[];
+
+  // 4. Top candidates: unapproved concepts by mention count
+  const topCandidates = auditDb.prepare(`
+    SELECT c.name, COUNT(cm.section_id) as mentions
+    FROM concepts c
+    JOIN concept_mentions cm ON cm.concept_id = c.id
+    WHERE c.approved = 0
+    GROUP BY c.id
+    ORDER BY mentions DESC
+    LIMIT 10
+  `).all() as { name: string; mentions: number }[];
+
+  return { orphaned, uncategorized, staleRelations, topCandidates };
+}
+
+function formatAudit(report: AuditReport): string {
+  const parts: string[] = [];
+  if (report.orphaned.length > 0) parts.push(`Orphaned (${report.orphaned.length}): ${report.orphaned.join(', ')}`);
+  if (report.uncategorized.length > 0) parts.push(`Uncategorized (${report.uncategorized.length}): ${report.uncategorized.join(', ')}`);
+  if (report.staleRelations.length > 0) parts.push(`Stale relations (${report.staleRelations.length}): ${report.staleRelations.map(r => `${r.source} -[${r.relation}]-> ${r.target}`).join(', ')}`);
+  if (report.topCandidates.length > 0) parts.push(`Top candidates (${report.topCandidates.length}): ${report.topCandidates.map(c => `${c.name} (${c.mentions})`).join(', ')}`);
+  return parts.length > 0 ? parts.join('\n') : 'All clear.';
+}
+
+server.registerTool(
+  'audit_concepts',
+  {
+    title: 'Audit Concept Health',
+    description: 'Triage report: orphaned concepts (no mentions), uncategorized concepts, stale relations, and top unapproved candidates. Never auto-acts. Present findings for human decision.',
+    inputSchema: {
+      layer: z.enum(['mechanic', 'subsystem', 'principle']).optional().describe('Focus on one layer'),
+      category: z.string().optional().describe('Focus on one category'),
+    },
+    annotations: { readOnlyHint: true },
+  },
+  async ({ layer, category }) => {
+    const report = runAudit(db, { layer, category });
+    return { content: [{ type: 'text', text: formatAudit(report) }] };
+  }
+);
+
+// --- Session tools (commit + rollback) ---
+
+server.registerTool(
+  'commit_changes',
+  {
+    title: 'Commit Change Session',
+    description: 'Commit all session changes: stages everything, merges session branch back into base with --no-ff, reindexes, and runs audit triage.',
+    inputSchema: {
+      message: z.string().optional().describe('Commit message (auto-generated if omitted)'),
+    },
+    annotations: { destructiveHint: true },
+  },
+  async ({ message }) => {
+    if (!sessionBranch || !sessionBaseBranch) {
+      return { content: [{ type: 'text', text: 'No active session. Call begin_changes first.' }], isError: true };
+    }
+
+    const commitMsg = message || `concept-edit: session ${sessionBranch}`;
+    await git('add', '-A');
+    try {
+      await git('commit', '-m', commitMsg);
+    } catch { /* nothing to commit */ }
+
+    const branch = sessionBranch;
+    const base = sessionBaseBranch;
+    await git('checkout', base);
+    await git('merge', '--no-ff', branch, '-m', `Merge ${branch}`);
+    await git('branch', '-d', branch);
+
+    sessionBranch = null;
+    sessionBaseBranch = null;
+
+    const reindexed = await reindexAllRules();
+    const audit = runAudit(db);
+    const auditText = formatAudit(audit);
+
+    return {
+      content: [{ type: 'text', text: `Session merged into ${base}. Reindexed ${reindexed} files.\n\n## Triage\n${auditText}` }],
+    };
+  }
+);
+
+server.registerTool(
+  'rollback_changes',
+  {
+    title: 'Rollback Change Session',
+    description: 'Discard all session changes: resets working tree, switches back to base branch, deletes session branch, reindexes to restore DB.',
+    inputSchema: {},
+    annotations: { destructiveHint: true },
+  },
+  async () => {
+    if (!sessionBranch || !sessionBaseBranch) {
+      return { content: [{ type: 'text', text: 'No active session. Nothing to rollback.' }], isError: true };
+    }
+
+    const branch = sessionBranch;
+    const base = sessionBaseBranch;
+
+    await git('checkout', '--', '.');
+    await git('checkout', base);
+    await git('branch', '-D', branch);
+
+    sessionBranch = null;
+    sessionBaseBranch = null;
+
+    const reindexed = await reindexAllRules();
+    return {
+      content: [{ type: 'text', text: `Session "${branch}" discarded. Restored to ${base}. Reindexed ${reindexed} files.` }],
+    };
   }
 );
 
