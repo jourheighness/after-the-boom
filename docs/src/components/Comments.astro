@@ -428,10 +428,32 @@ function applyHighlights() {
     for (const key of CSS.highlights.keys()) {
       if (key.startsWith('cat-')) CSS.highlights.delete(key);
     }
-    CSS.highlights.delete('comment-hover');
 
     for (const [key, ranges] of rangesByHighlight) {
       CSS.highlights.set(key, new Highlight(...ranges));
+    }
+  }
+
+  // Render gutter markers
+  document.querySelectorAll('.comment-gutter-mark').forEach(el => el.remove());
+  if (mainEl) {
+    for (const [commentId, range] of _commentRanges) {
+      const c = comments.find(x => x.id === commentId);
+      if (!c) continue;
+      const rects = range.getClientRects();
+      if (rects.length === 0) continue;
+      const firstRect = rects[0];
+      const dot = document.createElement('div');
+      dot.className = `comment-gutter-mark cat-mark-${c.category || 'note'}`;
+      dot.dataset.commentId = commentId;
+      dot.style.top = (firstRect.top + window.scrollY) + 'px';
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        $panel.classList.add('open');
+        renderCommentsPanel();
+        setTimeout(() => highlightPanelComment(commentId), 50);
+      });
+      mainEl.appendChild(dot);
     }
   }
 
@@ -711,10 +733,7 @@ async function saveNewComment() {
   }, 300);
 }
 
-// --- Hover/Click on highlighted comments (range-based hit-testing) ---
-let _hoverTimeout: ReturnType<typeof setTimeout> | null = null;
-let _hoveredCommentId: string | null = null;
-
+// --- Click on highlighted comments (range-based hit-testing) ---
 function findCommentAtPoint(x: number, y: number): string | null {
   const caretRange = document.caretRangeFromPoint(x, y);
   if (!caretRange) return null;
@@ -729,144 +748,36 @@ function findCommentAtPoint(x: number, y: number): string | null {
   return null;
 }
 
-let _lastHoverCheck = 0;
-if (mainEl) {
-  mainEl.addEventListener('mousemove', (e: MouseEvent) => {
-    // Throttle to ~50ms
-    const now = Date.now();
-    if (now - _lastHoverCheck < 50) return;
-    _lastHoverCheck = now;
+function highlightPanelComment(id: string) {
+  const el = $panel.querySelector(`[data-comment-id="${CSS.escape(id)}"]`);
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  el.classList.add('panel-comment-flash');
+  setTimeout(() => el.classList.remove('panel-comment-flash'), 1500);
+}
 
-    // Don't interfere when popover is showing a create form
+if (mainEl) {
+  mainEl.addEventListener('click', (e) => {
+    // Don't interfere with create flow
     if (pendingSelection && $popover.style.display === 'block') return;
 
     const commentId = findCommentAtPoint(e.clientX, e.clientY);
-
-    if (commentId === _hoveredCommentId) return;
-
-    if (_hoverTimeout) clearTimeout(_hoverTimeout);
-
-    if (!commentId) {
-      // Left highlighted area
-      _hoveredCommentId = null;
-      if (CSS.highlights) CSS.highlights.delete('comment-hover');
-      _hoverTimeout = setTimeout(() => {
-        if (!$popover.matches(':hover')) closePopover();
-      }, 400);
-      return;
-    }
-
-    // Entered a new comment area
-    _hoveredCommentId = commentId;
-    const c = comments.find(x => x.id === commentId);
-    if (!c) return;
-
-    // Show hover highlight
-    const hoverRange = _commentRanges.get(commentId);
-    if (hoverRange && CSS.highlights) {
-      CSS.highlights.set('comment-hover', new Highlight(hoverRange));
-    }
-
-    _hoverTimeout = setTimeout(() => {
-      showViewPopover(c, _commentRanges.get(commentId)!);
-    }, 200);
-  });
-
-  mainEl.addEventListener('mouseleave', () => {
-    _hoveredCommentId = null;
-    if (CSS.highlights) CSS.highlights.delete('comment-hover');
-    if (_hoverTimeout) clearTimeout(_hoverTimeout);
-    _hoverTimeout = setTimeout(() => {
-      if (!$popover.matches(':hover')) closePopover();
-    }, 400);
-  });
-
-  mainEl.addEventListener('click', (e) => {
-    const commentId = findCommentAtPoint(e.clientX, e.clientY);
     if (commentId) {
+      e.preventDefault();
       $panel.classList.add('open');
       renderCommentsPanel();
+      setTimeout(() => highlightPanelComment(commentId), 50);
       return;
     }
     // Fallback: paragraph-level block highlights
     const block = (e.target as Element).closest('.commented-block');
     if (block) {
+      const cid = (block as HTMLElement).dataset.commentId;
       $panel.classList.add('open');
       renderCommentsPanel();
+      if (cid) setTimeout(() => highlightPanelComment(cid), 50);
     }
   });
-}
-
-$popover.addEventListener('mouseenter', () => { if (_hoverTimeout) clearTimeout(_hoverTimeout); });
-$popover.addEventListener('mouseleave', () => {
-  _hoveredCommentId = null;
-  if (CSS.highlights) CSS.highlights.delete('comment-hover');
-  _hoverTimeout = setTimeout(closePopover, 400);
-});
-
-function showViewPopover(c: Comment, rangeOrEl: Range | HTMLElement) {
-  const rect = rangeOrEl.getBoundingClientRect();
-
-  // Build popover with DOM methods for safety
-  $popover.textContent = '';
-
-  const selectedDiv = document.createElement('div');
-  selectedDiv.className = 'popover-selected';
-  selectedDiv.textContent = `"${c.selectedText.slice(0, 60)}"`;
-  $popover.appendChild(selectedDiv);
-
-  const commentDiv = document.createElement('div');
-  commentDiv.style.cssText = 'margin:6px 0;font-size:12px;';
-  commentDiv.textContent = c.comment;
-  $popover.appendChild(commentDiv);
-
-  if (c.resolution) {
-    const resDiv = document.createElement('div');
-    resDiv.className = 'resolution-note';
-    const strong = document.createElement('strong');
-    strong.textContent = 'Resolution: ';
-    resDiv.appendChild(strong);
-    resDiv.appendChild(document.createTextNode(c.resolution));
-    $popover.appendChild(resDiv);
-  }
-
-  if (c._diffText) {
-    const diffDiv = document.createElement('div');
-    diffDiv.className = 'diff-display';
-    // renderDiff uses escHtml and createElement for safe output
-    diffDiv.innerHTML = renderDiff(c._diffText);
-    $popover.appendChild(diffDiv);
-  }
-
-  const metaDiv = document.createElement('div');
-  metaDiv.className = 'comment-meta';
-  const catLabel = c.category ? c.category : 'note';
-  metaDiv.textContent = `${catLabel} \u00b7 ${c.status} \u00b7 ${new Date(c.createdAt).toLocaleDateString()}`;
-  $popover.appendChild(metaDiv);
-
-  const actionsDiv = document.createElement('div');
-  actionsDiv.className = 'popover-actions';
-
-  if (c.status === 'open') {
-    const delBtn = document.createElement('button');
-    delBtn.textContent = 'Delete';
-    delBtn.addEventListener('click', () => deleteComment(c.id));
-    actionsDiv.appendChild(delBtn);
-  } else if (c.status === 'resolved') {
-    const reopenBtn = document.createElement('button');
-    reopenBtn.textContent = 'Reopen';
-    reopenBtn.addEventListener('click', () => reopenComment(c.id));
-    actionsDiv.appendChild(reopenBtn);
-
-    const dismissBtn = document.createElement('button');
-    dismissBtn.className = 'primary';
-    dismissBtn.textContent = 'Dismiss';
-    dismissBtn.addEventListener('click', () => dismissComment(c.id));
-    actionsDiv.appendChild(dismissBtn);
-  }
-
-  $popover.appendChild(actionsDiv);
-  positionPopover($popover, rect);
 }
 
 async function deleteComment(id: string) {
@@ -1043,7 +954,6 @@ function appendPanelComment(parent: HTMLElement, c: Comment, statusClass: string
   const div = document.createElement('div');
   div.className = `panel-comment status-${statusClass}`;
   div.dataset.commentId = c.id;
-  div.addEventListener('click', () => scrollToComment(c.id));
 
   const selectedText = document.createElement('div');
   selectedText.className = 'panel-selected-text';
@@ -1060,6 +970,33 @@ function appendPanelComment(parent: HTMLElement, c: Comment, statusClass: string
   commentText.className = 'panel-comment-text';
   commentText.textContent = c.comment;
   div.appendChild(commentText);
+
+  // Expanded-only content (resolution note, diff) — hidden until expanded
+  const expandedContent = document.createElement('div');
+  expandedContent.className = 'panel-expanded-content';
+  if (c.resolution) {
+    const resDiv = document.createElement('div');
+    resDiv.className = 'resolution-note';
+    const strong = document.createElement('strong');
+    strong.textContent = 'Resolution: ';
+    resDiv.appendChild(strong);
+    resDiv.appendChild(document.createTextNode(c.resolution));
+    expandedContent.appendChild(resDiv);
+  }
+  if (c._diffText) {
+    const diffDiv = document.createElement('div');
+    diffDiv.className = 'diff-display';
+    // renderDiff uses createElement+textContent and escHtml for safe output
+    const safeHtml = renderDiff(c._diffText);
+    diffDiv.insertAdjacentHTML('beforeend', safeHtml);
+    expandedContent.appendChild(diffDiv);
+  }
+  const metaDiv = document.createElement('div');
+  metaDiv.className = 'comment-meta';
+  metaDiv.style.cssText = 'font-size:10px;color:var(--text-muted);margin-top:4px;';
+  metaDiv.textContent = `${new Date(c.createdAt).toLocaleDateString()}`;
+  expandedContent.appendChild(metaDiv);
+  div.appendChild(expandedContent);
 
   const footer = document.createElement('div');
   footer.className = 'panel-comment-footer';
@@ -1101,33 +1038,32 @@ function appendPanelComment(parent: HTMLElement, c: Comment, statusClass: string
 
   footer.appendChild(actionsSpan);
   div.appendChild(footer);
+
+  // Click to expand/collapse + scroll to text
+  div.addEventListener('click', (e) => {
+    if ((e.target as Element).closest('.panel-actions')) return;
+    const isExpanded = div.classList.toggle('expanded');
+    if (isExpanded) {
+      scrollToComment(c.id);
+    }
+  });
+
   parent.appendChild(div);
 }
 
 function scrollToComment(id: string) {
-  // Try CSS Highlight range first
   const range = _commentRanges.get(id);
   if (range) {
     const rect = range.getBoundingClientRect();
     window.scrollTo({
-      top: rect.top + window.scrollY - window.innerHeight / 2,
+      top: rect.top + window.scrollY - window.innerHeight / 3,
       behavior: 'smooth',
     });
-    // Flash the hover highlight briefly
-    if (CSS.highlights) {
-      CSS.highlights.set('comment-hover', new Highlight(range));
-      setTimeout(() => CSS.highlights.delete('comment-hover'), 2000);
-    }
     return;
   }
-  // Fallback: paragraph-level block highlight
   const escaped = CSS.escape(id);
   const block = document.querySelector(`.commented-block[data-comment-id="${escaped}"]`) as HTMLElement;
-  if (block) {
-    block.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return;
-  }
-  // Last resort: scroll to section heading
+  if (block) { block.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
   const c = comments.find(x => x.id === id);
   if (c?.sectionId) {
     const heading = document.getElementById(c.sectionId);
