@@ -96,6 +96,9 @@ function migrateDb(db: Database.Database) {
   }
   // Backfill layer from type for existing data
   db.prepare("UPDATE concepts SET layer = type WHERE layer IS NULL AND type IS NOT NULL").run();
+
+  // Normalize VARIANT -> VARIANT_OF in concept_relations
+  db.prepare("UPDATE concept_relations SET relation = 'VARIANT_OF' WHERE relation = 'VARIANT'").run();
 }
 
 function createTables(db: Database.Database) {

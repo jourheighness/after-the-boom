@@ -399,7 +399,7 @@ server.registerTool(
   {
     title: 'Trace Concept Relations',
     description: `Traverse the concept graph: get a concept's definition, type (mechanic/subsystem/principle), and all one-hop relations.
-Typed relations: COSTS, PRODUCES, MODIFIES, GATES, CONTAINS, OPPOSES, ENABLES, GOVERNS, VARIANT, RELATES_TO.
+Typed relations: COSTS, PRODUCES, MODIFIES, GATES, CONTAINS, OPPOSES, ENABLES, GOVERNS, VARIANT_OF, RELATES_TO.
 Use to answer "what connects to X?", "how does X work?", or "why is X designed this way?" (follow GOVERNS to principles).`,
     inputSchema: {
       name: z.string().describe('Concept name (case-insensitive). Examples: Guard, Damage Pipeline, Cost Must Hurt'),
