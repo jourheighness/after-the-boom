@@ -26,6 +26,7 @@ import {
 } from './db.ts';
 import { readFile } from 'node:fs/promises';
 import { relative } from 'node:path';
+import { replaceInMarkdownFiles } from './prose-replace.ts';
 import { indexFile } from './indexer.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -522,9 +523,13 @@ server.registerTool(
       return { content: [{ type: 'text', text: `Concept not found: "${old_name}"` }], isError: true };
     }
     const files = getFilesWithMentions(db, conceptId);
+    const replaceResults = await replaceInMarkdownFiles(ROOT_DIR, old_name, new_name, files);
     const reindexed = await reindexFiles(files);
+    const replaceSummary = replaceResults.length > 0
+      ? `\nProse updated in ${replaceResults.length} file(s): ${replaceResults.map(r => `${r.filePath} (${r.replacements})`).join(', ')}`
+      : '\nNo prose replacements needed.';
     return {
-      content: [{ type: 'text', text: `Renamed "${old_name}" → "${new_name}". Reindexed ${reindexed} files.` }],
+      content: [{ type: 'text', text: `Renamed "${old_name}" → "${new_name}". Reindexed ${reindexed} files.${replaceSummary}` }],
     };
   }
 );
@@ -617,9 +622,13 @@ server.registerTool(
     if (!result.merged) {
       return { content: [{ type: 'text', text: 'Merge failed' }], isError: true };
     }
+    const replaceResults = await replaceInMarkdownFiles(ROOT_DIR, source, target, allFiles);
     const reindexed = await reindexFiles(allFiles);
+    const replaceSummary = replaceResults.length > 0
+      ? `\nProse updated in ${replaceResults.length} file(s): ${replaceResults.map(r => `${r.filePath} (${r.replacements})`).join(', ')}`
+      : '\nNo prose replacements needed.';
     return {
-      content: [{ type: 'text', text: `Merged "${source}" → "${target}". Moved ${result.mentionsMoved} mentions. Reindexed ${reindexed} files.` }],
+      content: [{ type: 'text', text: `Merged "${source}" → "${target}". Moved ${result.mentionsMoved} mentions. Reindexed ${reindexed} files.${replaceSummary}` }],
     };
   }
 );
