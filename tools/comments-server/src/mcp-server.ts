@@ -26,7 +26,19 @@ import {
 } from './db.ts';
 import { readFile } from 'node:fs/promises';
 import { relative } from 'node:path';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { replaceInMarkdownFiles } from './prose-replace.ts';
+
+const execFileAsync = promisify(execFile);
+
+async function git(...args: string[]): Promise<string> {
+  const { stdout } = await execFileAsync('git', args, { cwd: ROOT_DIR });
+  return stdout.trim();
+}
+
+let sessionBranch: string | null = null;
+let sessionBaseBranch: string | null = null;
 import { indexFile } from './indexer.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -652,6 +664,25 @@ server.registerTool(
       `${c.name} (score: ${c.score}) — ${c.signals.rulesFiles} files, ${c.signals.totalMentions} mentions`
     );
     return { content: [{ type: 'text', text: lines.join('\n') }] };
+  }
+);
+
+// --- Reindex tool ---
+
+server.registerTool(
+  'reindex_files',
+  {
+    title: 'Reindex Files',
+    description: 'Reindex rules files to refresh concept mentions and sections. Defaults to all rules files if no paths given.',
+    inputSchema: {
+      paths: z.array(z.string()).optional().describe('Relative file paths to reindex. Omit for full reindex.'),
+    },
+  },
+  async ({ paths }) => {
+    const count = paths && paths.length > 0
+      ? await reindexFiles(paths)
+      : await reindexAllRules();
+    return { content: [{ type: 'text', text: `Reindexed ${count} files.` }] };
   }
 );
 
