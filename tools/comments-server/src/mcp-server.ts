@@ -76,19 +76,39 @@ const server = new McpServer(
   {
     instructions: `MONDAS Concept Graph — knowledge base for a TTRPG rules engine (~164 game concepts).
 
-ROUTING — when discussion produces concept changes, use these tools:
-| Change | Tool | Cascade |
-| New named thing | create_concept | DB + full mention scan |
-| Definition/type change | update_concept | DB only |
-| Name change | rename_concept | DB + reindex affected files |
-| Connection discovered | link_concepts | DB only |
-| Remove connection | unlink_concepts | DB only |
-| Thing removed | deprecate_concept | DB + unlink mentions |
-| Two things are one | merge_concepts | DB + reindex both |
+TWO OPERATIONAL MODES:
+- DB-only (safe): changes stay in the database. No prose files touched.
+- Write-through (prose-affecting): changes cascade to .md files. rename_concept and merge_concepts replace old names in markdown prose automatically.
+
+SESSION WORKFLOW for write-through edits:
+1. begin_changes "description" — creates git branch, checkpoint on base
+2. Make edits (rename, merge, create, etc.)
+3. preview_changes — see all diffs before committing
+4. commit_changes — merges branch back, reindexes, runs audit triage
+   OR rollback_changes — discards everything, restores DB
+
+ROUTING TABLE:
+| Change | Tool | Mode |
+| New named thing | create_concept | DB + reindex |
+| Definition/type change | update_concept | DB-only |
+| Name change | rename_concept | Write-through |
+| Connection discovered | link_concepts | DB-only |
+| Remove connection | unlink_concepts | DB-only |
+| Thing removed | deprecate_concept | DB-only |
+| Two things are one | merge_concepts | Write-through |
 | Review auto-detected | review_candidates | Read-only |
+| Refresh index | reindex_files | DB reindex |
+| Health check | audit_concepts | Read-only |
+| Start session | begin_changes | Git branch |
+| See diffs | preview_changes | Read-only |
+| Finish session | commit_changes | Git merge + audit |
+| Discard session | rollback_changes | Git reset |
 
 BEFORE modifying a concept, call trace_concept to see its current state and relations.
 AFTER creating concepts, the system auto-reindexes rules files to find mentions. No manual step needed.
+For write-through tools (rename, merge), use begin_changes first if you want safe rollback.
+
+TRIAGE: audit_concepts is always available. It reports orphaned concepts, uncategorized concepts, stale relations, and top candidates. It never auto-acts. Present findings for human decision.
 
 TAXONOMY — two axes:
 - layer: mechanic (table-level named things), subsystem (multi-step procedures), principle (design axioms)
