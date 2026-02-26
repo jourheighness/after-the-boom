@@ -12,3 +12,4 @@ docs/.astro/
 .grepai/
 tools/comments.db
 tools/comments-server/node_modules/
+.worktrees/
