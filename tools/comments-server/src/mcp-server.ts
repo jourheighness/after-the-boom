@@ -757,6 +757,100 @@ server.registerTool(
   }
 );
 
+// --- Audit stubs (replaced in Task 6) ---
+
+interface AuditReport {
+  orphaned: string[];
+  uncategorized: string[];
+  staleRelations: { source: string; target: string; relation: string }[];
+  topCandidates: { name: string; mentions: number }[];
+}
+
+function runAudit(_db: typeof db, _focus?: { layer?: string; category?: string }): AuditReport {
+  return { orphaned: [], uncategorized: [], staleRelations: [], topCandidates: [] };
+}
+
+function formatAudit(report: AuditReport): string {
+  const parts: string[] = [];
+  if (report.orphaned.length > 0) parts.push(`Orphaned (${report.orphaned.length}): ${report.orphaned.join(', ')}`);
+  if (report.uncategorized.length > 0) parts.push(`Uncategorized (${report.uncategorized.length}): ${report.uncategorized.join(', ')}`);
+  if (report.staleRelations.length > 0) parts.push(`Stale relations (${report.staleRelations.length}): ${report.staleRelations.map(r => `${r.source}->${r.target}`).join(', ')}`);
+  if (report.topCandidates.length > 0) parts.push(`Top candidates (${report.topCandidates.length}): ${report.topCandidates.map(c => `${c.name}(${c.mentions})`).join(', ')}`);
+  return parts.length > 0 ? parts.join('\n') : 'All clear.';
+}
+
+// --- Session tools (commit + rollback) ---
+
+server.registerTool(
+  'commit_changes',
+  {
+    title: 'Commit Change Session',
+    description: 'Commit all session changes: stages everything, merges session branch back into base with --no-ff, reindexes, and runs audit triage.',
+    inputSchema: {
+      message: z.string().optional().describe('Commit message (auto-generated if omitted)'),
+    },
+    annotations: { destructiveHint: true },
+  },
+  async ({ message }) => {
+    if (!sessionBranch || !sessionBaseBranch) {
+      return { content: [{ type: 'text', text: 'No active session. Call begin_changes first.' }], isError: true };
+    }
+
+    const commitMsg = message || `concept-edit: session ${sessionBranch}`;
+    await git('add', '-A');
+    try {
+      await git('commit', '-m', commitMsg);
+    } catch { /* nothing to commit */ }
+
+    const branch = sessionBranch;
+    const base = sessionBaseBranch;
+    await git('checkout', base);
+    await git('merge', '--no-ff', branch, '-m', `Merge ${branch}`);
+    await git('branch', '-d', branch);
+
+    sessionBranch = null;
+    sessionBaseBranch = null;
+
+    const reindexed = await reindexAllRules();
+    const audit = runAudit(db);
+    const auditText = formatAudit(audit);
+
+    return {
+      content: [{ type: 'text', text: `Session merged into ${base}. Reindexed ${reindexed} files.\n\n## Triage\n${auditText}` }],
+    };
+  }
+);
+
+server.registerTool(
+  'rollback_changes',
+  {
+    title: 'Rollback Change Session',
+    description: 'Discard all session changes: resets working tree, switches back to base branch, deletes session branch, reindexes to restore DB.',
+    inputSchema: {},
+    annotations: { destructiveHint: true },
+  },
+  async () => {
+    if (!sessionBranch || !sessionBaseBranch) {
+      return { content: [{ type: 'text', text: 'No active session. Nothing to rollback.' }], isError: true };
+    }
+
+    const branch = sessionBranch;
+    const base = sessionBaseBranch;
+
+    await git('checkout', '--', '.');
+    await git('checkout', base);
+    await git('branch', '-D', branch);
+
+    sessionBranch = null;
+    sessionBaseBranch = null;
+
+    const reindexed = await reindexAllRules();
+    return {
+      content: [{ type: 'text', text: `Session "${branch}" discarded. Restored to ${base}. Reindexed ${reindexed} files.` }],
+    };
+  }
+);
+
 // --- Start ---
 
 const transport = new StdioServerTransport();
