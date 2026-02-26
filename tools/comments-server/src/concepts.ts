@@ -74,7 +74,7 @@ export const CURATED_CONCEPTS: CuratedConcept[] = [
 /** Insert curated concepts into the DB if not already present. */
 export function seedConcepts(db: Database.Database): void {
   for (const c of CURATED_CONCEPTS) {
-    upsertConcept(db, c.name, c.aliases.join(',') || undefined, true);
+    upsertConcept(db, c.name, { aliases: c.aliases.join(',') || undefined, curated: true });
   }
 }
 

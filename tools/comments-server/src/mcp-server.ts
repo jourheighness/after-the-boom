@@ -14,18 +14,107 @@ import {
   findSimilar,
   getConcepts,
   upsertConcept,
+  upsertConceptRelation,
   scoreCandidates,
+  getConceptGraph,
+  renameConcept,
+  deprecateConcept,
+  mergeConcepts,
+  deleteConceptRelation,
+  getFilesWithMentions,
   type Comment,
 } from './db.ts';
+import { readFile } from 'node:fs/promises';
+import { relative } from 'node:path';
+import { indexFile } from './indexer.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DB_PATH = resolve(__dirname, '../../comments.db');
 const db = openDb(DB_PATH);
 
-const server = new McpServer({
-  name: 'comments',
-  version: '1.0.0',
-});
+const ROOT_DIR = resolve(__dirname, '../../..');
+
+async function reindexAllRules(): Promise<number> {
+  const { glob } = await import('node:fs/promises');
+  let count = 0;
+  for await (const filePath of glob(resolve(ROOT_DIR, 'rules/**/*.md'))) {
+    const content = await readFile(filePath, 'utf-8');
+    const relPath = relative(ROOT_DIR, filePath);
+    await indexFile(db, relPath, content);
+    count++;
+  }
+  return count;
+}
+
+async function reindexFiles(relPaths: string[]): Promise<number> {
+  let count = 0;
+  for (const relPath of relPaths) {
+    try {
+      const content = await readFile(resolve(ROOT_DIR, relPath), 'utf-8');
+      await indexFile(db, relPath, content);
+      count++;
+    } catch { /* file may have been deleted */ }
+  }
+  return count;
+}
+
+const server = new McpServer(
+  { name: 'comments', version: '1.1.0' },
+  {
+    instructions: `MONDAS Concept Graph — knowledge base for a TTRPG rules engine (~164 game concepts).
+
+ROUTING — when discussion produces concept changes, use these tools:
+| Change | Tool | Cascade |
+| New named thing | create_concept | DB + full mention scan |
+| Definition/type change | update_concept | DB only |
+| Name change | rename_concept | DB + reindex affected files |
+| Connection discovered | link_concepts | DB only |
+| Remove connection | unlink_concepts | DB only |
+| Thing removed | deprecate_concept | DB + unlink mentions |
+| Two things are one | merge_concepts | DB + reindex both |
+| Review auto-detected | review_candidates | Read-only |
+
+BEFORE modifying a concept, call trace_concept to see its current state and relations.
+AFTER creating concepts, the system auto-reindexes rules files to find mentions. No manual step needed.
+
+TAXONOMY — two axes:
+- layer: mechanic (table-level named things), subsystem (multi-step procedures), principle (design axioms)
+- category: stat, resource, modifier, gambit, condition, weapon_property, clock, magic, etc.
+
+RELATION TYPES: COSTS, PRODUCES, MODIFIES, GATES, CONTAINS, OPPOSES, ENABLES, GOVERNS, VARIANT_OF, RELATES_TO
+
+Read concepts://taxonomy resource for live counts by layer and category.`,
+  }
+);
+
+// --- Resources ---
+
+server.registerResource(
+  'concept_taxonomy',
+  'concepts://taxonomy',
+  { description: 'Live concept taxonomy: layers, categories, and counts' },
+  async () => {
+    const rows = db.prepare(`
+      SELECT COALESCE(layer, type, 'unclassified') as lyr,
+             COALESCE(category, 'uncategorized') as cat,
+             COUNT(*) as cnt
+      FROM concepts WHERE curated = 1 AND approved = 1
+      GROUP BY lyr, cat ORDER BY lyr, cat
+    `).all() as { lyr: string; cat: string; cnt: number }[];
+
+    const taxonomy: Record<string, Record<string, number>> = {};
+    for (const r of rows) {
+      (taxonomy[r.lyr] ??= {})[r.cat] = r.cnt;
+    }
+    return {
+      contents: [{
+        uri: 'concepts://taxonomy',
+        text: JSON.stringify(taxonomy, null, 2),
+        mimeType: 'application/json',
+      }],
+    };
+  }
+);
 
 // --- Comment tools ---
 
@@ -204,33 +293,356 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   'list_concepts',
-  'List known game concepts. Use scored=true for ranked unapproved candidates.',
-  { curated_only: z.boolean().optional(), unapproved: z.boolean().optional(), scored: z.boolean().optional(), limit: z.number().optional() },
-  async ({ curated_only, unapproved, scored, limit }) => {
+  {
+    title: 'Browse Concept Graph',
+    description: `List game concepts from the MONDAS rules knowledge graph. Three layers:
+- mechanic: Named things at the table (Guard, Drain, Boon, Gambit verbs, weapon properties, conditions)
+- subsystem: Named procedures with steps (The Roll, Damage Pipeline, Combat Roll, Work a Lead)
+- principle: Design axioms governing mechanics (Fiction Determines Stat, Cost Must Hurt, Escalation)
+Use layer/category filters to browse. Default output is compact (names grouped by layer/category). Set compact=false for full details.`,
+    inputSchema: {
+      type: z.enum(['mechanic', 'subsystem', 'principle']).optional().describe('Filter by layer (legacy alias)'),
+      layer: z.enum(['mechanic', 'subsystem', 'principle']).optional().describe('Filter by abstraction layer'),
+      category: z.string().optional().describe('Filter by functional category'),
+      curated_only: z.boolean().optional().describe('Only curated concepts (default true)'),
+      unapproved: z.boolean().optional().describe('Show unapproved auto-detected candidates'),
+      scored: z.boolean().optional().describe('Rank unapproved candidates by likelihood score'),
+      compact: z.boolean().optional().describe('Names only grouped by layer/category (default true). Set false for full JSON with definitions.'),
+      limit: z.number().optional().describe('Max results for scored mode'),
+    },
+    annotations: { readOnlyHint: true },
+  },
+  async ({ type, layer, category, curated_only, unapproved, scored, compact, limit }) => {
     if (scored) {
       const candidates = scoreCandidates(db, limit || 50);
       return { content: [{ type: 'text', text: JSON.stringify(candidates, null, 2) }] };
     }
     const concepts = getConcepts(db, {
-      curatedOnly: curated_only || false,
+      curatedOnly: curated_only ?? true,
       unapproved: unapproved || false,
+      layer: layer || type || undefined,
+      category: category || undefined,
     });
+
+    if (compact !== false) {
+      const grouped: Record<string, string[]> = {};
+      for (const c of concepts) {
+        const key = `${c.layer || c.type || 'untyped'}/${c.category || 'uncategorized'}`;
+        (grouped[key] ??= []).push(c.name);
+      }
+      const lines = Object.entries(grouped).map(([k, names]) => `${k} (${names.length}): ${names.join(', ')}`);
+      return { content: [{ type: 'text', text: lines.join('\n') }] };
+    }
+
     return { content: [{ type: 'text', text: JSON.stringify(concepts, null, 2) }] };
   }
 );
 
-server.tool(
+server.registerTool(
   'approve_concept',
-  'Approve or reject an auto-detected concept',
-  { name: z.string(), approved: z.boolean() },
+  {
+    title: 'Approve/Reject Concept',
+    description: 'Approve or reject an auto-detected concept candidate',
+    inputSchema: {
+      name: z.string().describe('Exact concept name'),
+      approved: z.boolean().describe('true to approve, false to reject'),
+    },
+  },
   async ({ name, approved }) => {
     const result = db.prepare('UPDATE concepts SET approved = ? WHERE name = ?').run(approved ? 1 : 0, name);
     if (result.changes === 0) {
       return { content: [{ type: 'text', text: `Concept not found: ${name}` }], isError: true };
     }
     return { content: [{ type: 'text', text: `${name}: approved=${approved}` }] };
+  }
+);
+
+server.registerTool(
+  'trace_concept',
+  {
+    title: 'Trace Concept Relations',
+    description: `Traverse the concept graph: get a concept's definition, type (mechanic/subsystem/principle), and all one-hop relations.
+Typed relations: COSTS, PRODUCES, MODIFIES, GATES, CONTAINS, OPPOSES, ENABLES, GOVERNS, VARIANT, RELATES_TO.
+Use to answer "what connects to X?", "how does X work?", or "why is X designed this way?" (follow GOVERNS to principles).`,
+    inputSchema: {
+      name: z.string().describe('Concept name (case-insensitive). Examples: Guard, Damage Pipeline, Cost Must Hurt'),
+    },
+    outputSchema: {
+      name: z.string().describe('Canonical concept name'),
+      type: z.string().nullable().describe('mechanic, subsystem, or principle (legacy)'),
+      layer: z.string().nullable().describe('mechanic, subsystem, or principle'),
+      category: z.string().nullable().describe('Functional category (stat, resource, combat_gambit, etc.)'),
+      definition: z.string().nullable().describe('One-sentence definition'),
+      aliases: z.string().nullable().describe('Comma-separated aliases'),
+      outgoing: z.array(z.object({
+        relation: z.string().describe('Relation type (e.g. COSTS, PRODUCES, GOVERNS)'),
+        target: z.string().describe('Target concept name'),
+        description: z.string().nullable().describe('Context note'),
+      })).describe('Relations FROM this concept'),
+      incoming: z.array(z.object({
+        relation: z.string().describe('Relation type'),
+        source: z.string().describe('Source concept name'),
+        description: z.string().nullable().describe('Context note'),
+      })).describe('Relations TO this concept'),
+    },
+    annotations: { readOnlyHint: true },
+  },
+  async ({ name }) => {
+    const graph = getConceptGraph(db, name);
+    if (!graph) {
+      return { content: [{ type: 'text', text: `Concept not found: "${name}"` }], isError: true };
+    }
+
+    const structuredContent = {
+      name: graph.concept.name,
+      type: graph.concept.type,
+      layer: graph.concept.layer,
+      category: graph.concept.category,
+      definition: graph.concept.definition,
+      aliases: graph.concept.aliases,
+      outgoing: graph.outgoing,
+      incoming: graph.incoming,
+    };
+
+    // Text fallback for clients without structured output support
+    const lines: string[] = [];
+    const c = graph.concept;
+    lines.push(`## ${c.name} (${c.layer || c.type || '?'}/${c.category || '?'})`);
+    if (c.definition) lines.push(c.definition);
+    if (c.aliases) lines.push(`Aliases: ${c.aliases}`);
+    if (graph.outgoing.length > 0) {
+      lines.push('', '### Outgoing');
+      for (const r of graph.outgoing) {
+        lines.push(`- ${r.relation} -> ${r.target}${r.description ? ` (${r.description})` : ''}`);
+      }
+    }
+    if (graph.incoming.length > 0) {
+      lines.push('', '### Incoming');
+      for (const r of graph.incoming) {
+        lines.push(`- ${r.source} -> ${r.relation}${r.description ? ` (${r.description})` : ''}`);
+      }
+    }
+
+    return {
+      content: [{ type: 'text', text: lines.join('\n') }],
+      structuredContent,
+    };
+  }
+);
+
+// --- Concept mutation tools ---
+
+const RELATION_TYPES = [
+  'COSTS', 'PRODUCES', 'MODIFIES', 'GATES', 'CONTAINS',
+  'OPPOSES', 'ENABLES', 'GOVERNS', 'VARIANT_OF', 'RELATES_TO',
+] as const;
+
+server.registerTool(
+  'create_concept',
+  {
+    title: 'Create Concept',
+    description: 'Create a new game concept. Triggers full reindex of rules files to find mentions.',
+    inputSchema: {
+      name: z.string().describe('Concept name (Title Case)'),
+      layer: z.enum(['mechanic', 'subsystem', 'principle']),
+      category: z.string().describe('Functional category (stat, resource, modifier, combat_gambit, procedure, axiom, design_law, etc.)'),
+      definition: z.string().describe('One-sentence definition'),
+      aliases: z.string().optional().describe('Comma-separated alternative names'),
+      relations: z.array(z.object({
+        target: z.string().describe('Target concept name'),
+        relation: z.enum(RELATION_TYPES),
+        description: z.string().optional(),
+      })).optional().describe('Relations to existing concepts'),
+    },
+  },
+  async ({ name, layer, category, definition, aliases, relations }) => {
+    const id = upsertConcept(db, name, {
+      aliases, curated: true, type: layer, layer, category, definition,
+    });
+    if (relations) {
+      for (const r of relations) {
+        const target = db.prepare('SELECT id FROM concepts WHERE name = ? COLLATE NOCASE')
+          .get(r.target) as { id: number } | undefined;
+        if (target) {
+          upsertConceptRelation(db, id, target.id, r.relation, r.description ?? null);
+        }
+      }
+    }
+    const filesIndexed = await reindexAllRules();
+    return {
+      content: [{ type: 'text', text: `Created "${name}" (${layer}/${category}), id=${id}. Reindexed ${filesIndexed} files.` }],
+    };
+  }
+);
+
+server.registerTool(
+  'update_concept',
+  {
+    title: 'Update Concept',
+    description: 'Update a concept\'s definition, layer, category, or aliases. DB-only, no reindex needed.',
+    inputSchema: {
+      name: z.string().describe('Concept name (case-insensitive lookup)'),
+      definition: z.string().optional(),
+      layer: z.enum(['mechanic', 'subsystem', 'principle']).optional(),
+      category: z.string().optional(),
+      aliases: z.string().optional().describe('Comma-separated, replaces existing'),
+    },
+  },
+  async ({ name, definition, layer, category, aliases }) => {
+    const existing = db.prepare('SELECT id FROM concepts WHERE name = ? COLLATE NOCASE')
+      .get(name) as { id: number } | undefined;
+    if (!existing) {
+      return { content: [{ type: 'text', text: `Concept not found: "${name}"` }], isError: true };
+    }
+    upsertConcept(db, name, {
+      ...(definition !== undefined && { definition }),
+      ...(layer !== undefined && { layer, type: layer }),
+      ...(category !== undefined && { category }),
+      ...(aliases !== undefined && { aliases }),
+    });
+    return { content: [{ type: 'text', text: `Updated "${name}"` }] };
+  }
+);
+
+server.registerTool(
+  'rename_concept',
+  {
+    title: 'Rename Concept',
+    description: 'Rename a concept. Old name becomes an alias. Reindexes files that mentioned the old name.',
+    inputSchema: {
+      old_name: z.string(),
+      new_name: z.string(),
+    },
+  },
+  async ({ old_name, new_name }) => {
+    const conceptId = renameConcept(db, old_name, new_name);
+    if (!conceptId) {
+      return { content: [{ type: 'text', text: `Concept not found: "${old_name}"` }], isError: true };
+    }
+    const files = getFilesWithMentions(db, conceptId);
+    const reindexed = await reindexFiles(files);
+    return {
+      content: [{ type: 'text', text: `Renamed "${old_name}" → "${new_name}". Reindexed ${reindexed} files.` }],
+    };
+  }
+);
+
+server.registerTool(
+  'link_concepts',
+  {
+    title: 'Link Concepts',
+    description: 'Add a typed relation between two concepts. DB-only.',
+    inputSchema: {
+      source: z.string().describe('Source concept name'),
+      target: z.string().describe('Target concept name'),
+      relation: z.enum(RELATION_TYPES),
+      description: z.string().optional(),
+    },
+  },
+  async ({ source, target, relation, description }) => {
+    const src = db.prepare('SELECT id FROM concepts WHERE name = ? COLLATE NOCASE')
+      .get(source) as { id: number } | undefined;
+    const tgt = db.prepare('SELECT id FROM concepts WHERE name = ? COLLATE NOCASE')
+      .get(target) as { id: number } | undefined;
+    if (!src) return { content: [{ type: 'text', text: `Source not found: "${source}"` }], isError: true };
+    if (!tgt) return { content: [{ type: 'text', text: `Target not found: "${target}"` }], isError: true };
+    upsertConceptRelation(db, src.id, tgt.id, relation, description ?? null);
+    return { content: [{ type: 'text', text: `${source} —[${relation}]→ ${target}` }] };
+  }
+);
+
+server.registerTool(
+  'unlink_concepts',
+  {
+    title: 'Unlink Concepts',
+    description: 'Remove a typed relation between two concepts. DB-only.',
+    inputSchema: {
+      source: z.string(),
+      target: z.string(),
+      relation: z.enum(RELATION_TYPES),
+    },
+  },
+  async ({ source, target, relation }) => {
+    const src = db.prepare('SELECT id FROM concepts WHERE name = ? COLLATE NOCASE')
+      .get(source) as { id: number } | undefined;
+    const tgt = db.prepare('SELECT id FROM concepts WHERE name = ? COLLATE NOCASE')
+      .get(target) as { id: number } | undefined;
+    if (!src || !tgt) return { content: [{ type: 'text', text: 'Concept not found' }], isError: true };
+    const ok = deleteConceptRelation(db, src.id, tgt.id, relation);
+    return { content: [{ type: 'text', text: ok ? `Removed ${relation}` : 'Relation not found' }] };
+  }
+);
+
+server.registerTool(
+  'deprecate_concept',
+  {
+    title: 'Deprecate Concept',
+    description: 'Soft-delete a concept: marks unapproved and removes mention links. Concept row preserved for history.',
+    inputSchema: {
+      name: z.string(),
+    },
+  },
+  async ({ name }) => {
+    const ok = deprecateConcept(db, name);
+    if (!ok) return { content: [{ type: 'text', text: `Concept not found: "${name}"` }], isError: true };
+    return { content: [{ type: 'text', text: `Deprecated "${name}"` }] };
+  }
+);
+
+server.registerTool(
+  'merge_concepts',
+  {
+    title: 'Merge Concepts',
+    description: 'Merge source into target: moves mentions, relations, aliases. Deletes source. Reindexes affected files.',
+    inputSchema: {
+      source: z.string().describe('Concept to merge FROM (will be deleted)'),
+      target: z.string().describe('Concept to merge INTO (will be kept)'),
+    },
+  },
+  async ({ source, target }) => {
+    const srcRow = db.prepare('SELECT id FROM concepts WHERE name = ? COLLATE NOCASE')
+      .get(source) as { id: number } | undefined;
+    const tgtRow = db.prepare('SELECT id FROM concepts WHERE name = ? COLLATE NOCASE')
+      .get(target) as { id: number } | undefined;
+    if (!srcRow || !tgtRow) {
+      return { content: [{ type: 'text', text: 'Concept not found' }], isError: true };
+    }
+    const srcFiles = getFilesWithMentions(db, srcRow.id);
+    const tgtFiles = getFilesWithMentions(db, tgtRow.id);
+    const allFiles = [...new Set([...srcFiles, ...tgtFiles])];
+
+    const result = mergeConcepts(db, source, target);
+    if (!result.merged) {
+      return { content: [{ type: 'text', text: 'Merge failed' }], isError: true };
+    }
+    const reindexed = await reindexFiles(allFiles);
+    return {
+      content: [{ type: 'text', text: `Merged "${source}" → "${target}". Moved ${result.mentionsMoved} mentions. Reindexed ${reindexed} files.` }],
+    };
+  }
+);
+
+server.registerTool(
+  'review_candidates',
+  {
+    title: 'Review Concept Candidates',
+    description: 'List auto-detected concept candidates ranked by likelihood score. Use to find new terms that appeared in rules files.',
+    inputSchema: {
+      limit: z.number().optional().describe('Max results (default 20)'),
+    },
+    annotations: { readOnlyHint: true },
+  },
+  async ({ limit }) => {
+    const candidates = scoreCandidates(db, limit || 20);
+    if (candidates.length === 0) {
+      return { content: [{ type: 'text', text: 'No unapproved candidates found.' }] };
+    }
+    const lines = candidates.map(c =>
+      `${c.name} (score: ${c.score}) — ${c.signals.rulesFiles} files, ${c.signals.totalMentions} mentions`
+    );
+    return { content: [{ type: 'text', text: lines.join('\n') }] };
   }
 );
 

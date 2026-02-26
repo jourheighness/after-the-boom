@@ -41,6 +41,10 @@ export interface Concept {
   id: number;
   name: string;
   aliases: string | null;
+  type: string | null;       // legacy — kept in schema, read from layer
+  layer: string | null;      // mechanic | subsystem | principle
+  category: string | null;   // functional domain (stat, gambit, etc.)
+  definition: string | null;
   curated: number;
   approved: number;
 }
@@ -49,6 +53,13 @@ export interface ConceptMention {
   sectionId: number;
   conceptId: number;
   context: string | null;
+}
+
+export interface ConceptRelation {
+  sourceId: number;
+  targetId: number;
+  relation: string;
+  description: string | null;
 }
 
 // --- Database setup ---
@@ -63,12 +74,28 @@ export function openDb(dbPath: string): Database.Database {
 }
 
 function migrateDb(db: Database.Database) {
-  // Add category column if missing (safe: no user input in SQL)
+  // Add category column if missing
   try {
     db.prepare("ALTER TABLE comments ADD COLUMN category TEXT NOT NULL DEFAULT 'note'").run();
-  } catch {
-    // Column already exists
+  } catch { /* already exists */ }
+
+  // Add concept graph columns (safe: no user input, all static SQL)
+  const cols = db.prepare("PRAGMA table_info(concepts)").all() as { name: string }[];
+  const colNames = new Set(cols.map(c => c.name));
+  if (!colNames.has('type')) {
+    db.prepare("ALTER TABLE concepts ADD COLUMN type TEXT").run();
   }
+  if (!colNames.has('definition')) {
+    db.prepare("ALTER TABLE concepts ADD COLUMN definition TEXT").run();
+  }
+  if (!colNames.has('layer')) {
+    db.prepare("ALTER TABLE concepts ADD COLUMN layer TEXT").run();
+  }
+  if (!colNames.has('category')) {
+    db.prepare("ALTER TABLE concepts ADD COLUMN category TEXT").run();
+  }
+  // Backfill layer from type for existing data
+  db.prepare("UPDATE concepts SET layer = type WHERE layer IS NULL AND type IS NOT NULL").run();
 }
 
 function createTables(db: Database.Database) {
@@ -147,6 +174,14 @@ function createTables(db: Database.Database) {
       generated_at TEXT
     );
 
+    CREATE TABLE IF NOT EXISTS concept_relations (
+      source_id INTEGER NOT NULL REFERENCES concepts(id) ON DELETE CASCADE,
+      target_id INTEGER NOT NULL REFERENCES concepts(id) ON DELETE CASCADE,
+      relation TEXT NOT NULL,
+      description TEXT,
+      PRIMARY KEY (source_id, target_id, relation)
+    );
+
     -- Indexes
     CREATE INDEX IF NOT EXISTS idx_comments_status ON comments(status);
     CREATE INDEX IF NOT EXISTS idx_comments_file_path ON comments(file_path);
@@ -154,6 +189,8 @@ function createTables(db: Database.Database) {
     CREATE INDEX IF NOT EXISTS idx_sections_file ON sections(file_path);
     CREATE INDEX IF NOT EXISTS idx_sections_hash ON sections(content_hash);
     CREATE INDEX IF NOT EXISTS idx_concept_mentions_concept ON concept_mentions(concept_id);
+    CREATE INDEX IF NOT EXISTS idx_concept_relations_source ON concept_relations(source_id);
+    CREATE INDEX IF NOT EXISTS idx_concept_relations_target ON concept_relations(target_id);
   `);
 }
 
@@ -224,6 +261,10 @@ function toConcept(row: Record<string, unknown>): Concept {
     id: row.id as number,
     name: row.name as string,
     aliases: row.aliases as string | null,
+    type: (row.type as string | null) ?? null,
+    layer: (row.layer as string | null) ?? null,
+    category: (row.category as string | null) ?? null,
+    definition: (row.definition as string | null) ?? null,
     curated: row.curated as number,
     approved: row.approved as number,
   };
@@ -404,39 +445,72 @@ export function getSections(
 export function upsertConcept(
   db: Database.Database,
   name: string,
-  aliases?: string,
-  curated?: boolean
+  opts?: {
+    aliases?: string;
+    curated?: boolean;
+    type?: string;
+    layer?: string;
+    category?: string;
+    definition?: string;
+  }
 ): number {
   const existing = db.prepare('SELECT id FROM concepts WHERE name = ?').get(name) as { id: number } | undefined;
   if (existing) {
-    if (aliases !== undefined || curated !== undefined) {
-      db.prepare(`
-        UPDATE concepts SET aliases = COALESCE(?, aliases), curated = COALESCE(?, curated) WHERE id = ?
-      `).run(aliases ?? null, curated !== undefined ? (curated ? 1 : 0) : null, existing.id);
+    const sets: string[] = [];
+    const params: unknown[] = [];
+    if (opts?.aliases !== undefined) { sets.push('aliases = ?'); params.push(opts.aliases); }
+    if (opts?.curated !== undefined) { sets.push('curated = ?'); params.push(opts.curated ? 1 : 0); }
+    if (opts?.type !== undefined) { sets.push('type = ?'); params.push(opts.type); }
+    if (opts?.layer !== undefined) { sets.push('layer = ?'); params.push(opts.layer); }
+    if (opts?.category !== undefined) { sets.push('category = ?'); params.push(opts.category); }
+    if (opts?.definition !== undefined) { sets.push('definition = ?'); params.push(opts.definition); }
+    // When layer is set, keep type in sync for backward compat
+    if (opts?.layer !== undefined && opts?.type === undefined) {
+      sets.push('type = ?'); params.push(opts.layer);
+    }
+    if (sets.length > 0) {
+      params.push(existing.id);
+      db.prepare(`UPDATE concepts SET ${sets.join(', ')} WHERE id = ?`).run(...params);
     }
     return existing.id;
   }
 
+  const layer = opts?.layer ?? null;
+  const type = opts?.type ?? layer;
   const result = db.prepare(`
-    INSERT INTO concepts (name, aliases, curated, approved)
-    VALUES (?, ?, ?, ?)
-  `).run(name, aliases ?? null, curated ? 1 : 0, curated ? 1 : 0);
+    INSERT INTO concepts (name, aliases, curated, approved, type, definition, layer, category)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    name, opts?.aliases ?? null,
+    opts?.curated ? 1 : 0, opts?.curated ? 1 : 0,
+    type, opts?.definition ?? null,
+    layer, opts?.category ?? null
+  );
   return Number(result.lastInsertRowid);
 }
 
 export function getConcepts(
   db: Database.Database,
-  filter?: { curatedOnly?: boolean; unapproved?: boolean }
+  filter?: { curatedOnly?: boolean; unapproved?: boolean; type?: string; layer?: string; category?: string }
 ): Concept[] {
   let sql = 'SELECT * FROM concepts';
   const conditions: string[] = [];
+  const params: unknown[] = [];
 
   if (filter?.curatedOnly) conditions.push('curated = 1');
   if (filter?.unapproved) conditions.push('approved = 0');
+  if (filter?.layer) {
+    conditions.push('(layer = ? OR (layer IS NULL AND type = ?))');
+    params.push(filter.layer, filter.layer);
+  } else if (filter?.type) {
+    conditions.push('(layer = ? OR type = ?)');
+    params.push(filter.type, filter.type);
+  }
+  if (filter?.category) { conditions.push('category = ?'); params.push(filter.category); }
   if (conditions.length > 0) sql += ' WHERE ' + conditions.join(' AND ');
   sql += ' ORDER BY name';
 
-  return db.prepare(sql).all().map((r) => toConcept(r as Record<string, unknown>));
+  return db.prepare(sql).all(...params).map((r) => toConcept(r as Record<string, unknown>));
 }
 
 export interface ScoredCandidate {
@@ -596,6 +670,134 @@ export function findMentions(db: Database.Database, conceptName: string): Sectio
     ORDER BY s.file_path, s.line_start
   `).all(conceptName, conceptName);
   return rows.map((r) => toSection(r as Record<string, unknown>));
+}
+
+export function upsertConceptRelation(
+  db: Database.Database,
+  sourceId: number,
+  targetId: number,
+  relation: string,
+  description?: string | null
+): void {
+  db.prepare(`
+    INSERT OR REPLACE INTO concept_relations (source_id, target_id, relation, description)
+    VALUES (?, ?, ?, ?)
+  `).run(sourceId, targetId, relation, description ?? null);
+}
+
+export function getConceptGraph(
+  db: Database.Database,
+  conceptName: string
+): {
+  concept: Concept;
+  outgoing: { relation: string; target: string; description: string | null }[];
+  incoming: { relation: string; source: string; description: string | null }[];
+} | null {
+  const row = db.prepare('SELECT * FROM concepts WHERE name = ? COLLATE NOCASE')
+    .get(conceptName) as Record<string, unknown> | undefined;
+  if (!row) return null;
+
+  const concept = toConcept(row);
+
+  const outgoing = db.prepare(`
+    SELECT cr.relation, cr.description, c.name as target_name
+    FROM concept_relations cr
+    JOIN concepts c ON c.id = cr.target_id
+    WHERE cr.source_id = ?
+    ORDER BY cr.relation, c.name
+  `).all(concept.id) as { relation: string; description: string | null; target_name: string }[];
+
+  const incoming = db.prepare(`
+    SELECT cr.relation, cr.description, c.name as source_name
+    FROM concept_relations cr
+    JOIN concepts c ON c.id = cr.source_id
+    WHERE cr.target_id = ?
+    ORDER BY cr.relation, c.name
+  `).all(concept.id) as { relation: string; description: string | null; source_name: string }[];
+
+  return {
+    concept,
+    outgoing: outgoing.map(r => ({ relation: r.relation, target: r.target_name, description: r.description })),
+    incoming: incoming.map(r => ({ relation: r.relation, source: r.source_name, description: r.description })),
+  };
+}
+
+export function renameConcept(db: Database.Database, oldName: string, newName: string): number | null {
+  const row = db.prepare('SELECT id, aliases FROM concepts WHERE name = ? COLLATE NOCASE')
+    .get(oldName) as { id: number; aliases: string | null } | undefined;
+  if (!row) return null;
+  const existingAliases = row.aliases ? row.aliases.split(',').map(a => a.trim()) : [];
+  if (!existingAliases.includes(oldName)) existingAliases.push(oldName);
+  db.prepare('UPDATE concepts SET name = ?, aliases = ? WHERE id = ?')
+    .run(newName, existingAliases.join(','), row.id);
+  return row.id;
+}
+
+export function deprecateConcept(db: Database.Database, name: string): boolean {
+  const row = db.prepare('SELECT id FROM concepts WHERE name = ? COLLATE NOCASE')
+    .get(name) as { id: number } | undefined;
+  if (!row) return false;
+  db.prepare('UPDATE concepts SET approved = 0 WHERE id = ?').run(row.id);
+  db.prepare('DELETE FROM concept_mentions WHERE concept_id = ?').run(row.id);
+  return true;
+}
+
+export function mergeConcepts(
+  db: Database.Database,
+  sourceName: string,
+  targetName: string
+): { merged: boolean; mentionsMoved: number } {
+  const src = db.prepare('SELECT id, name, aliases FROM concepts WHERE name = ? COLLATE NOCASE')
+    .get(sourceName) as { id: number; name: string; aliases: string | null } | undefined;
+  const tgt = db.prepare('SELECT id, name, aliases FROM concepts WHERE name = ? COLLATE NOCASE')
+    .get(targetName) as { id: number; name: string; aliases: string | null } | undefined;
+  if (!src || !tgt) return { merged: false, mentionsMoved: 0 };
+
+  // Move mentions from source to target (skip duplicates)
+  const moved = db.prepare(`
+    INSERT OR IGNORE INTO concept_mentions (section_id, concept_id, context)
+    SELECT section_id, ?, context FROM concept_mentions WHERE concept_id = ?
+  `).run(tgt.id, src.id);
+
+  // Repoint concept_relations
+  db.prepare('UPDATE OR IGNORE concept_relations SET source_id = ? WHERE source_id = ?').run(tgt.id, src.id);
+  db.prepare('UPDATE OR IGNORE concept_relations SET target_id = ? WHERE target_id = ?').run(tgt.id, src.id);
+  // Clean up any self-referencing or duplicate relations
+  db.prepare('DELETE FROM concept_relations WHERE source_id = ? OR target_id = ?').run(src.id, src.id);
+
+  // Merge aliases
+  const srcAliases = src.aliases ? src.aliases.split(',').map(a => a.trim()) : [];
+  srcAliases.push(src.name);
+  const tgtAliases = tgt.aliases ? tgt.aliases.split(',').map(a => a.trim()) : [];
+  const merged = [...new Set([...tgtAliases, ...srcAliases])].filter(a => a && a !== tgt.name);
+  db.prepare('UPDATE concepts SET aliases = ? WHERE id = ?').run(merged.join(','), tgt.id);
+
+  // Delete source
+  db.prepare('DELETE FROM concept_mentions WHERE concept_id = ?').run(src.id);
+  db.prepare('DELETE FROM concepts WHERE id = ?').run(src.id);
+
+  return { merged: true, mentionsMoved: moved.changes };
+}
+
+export function deleteConceptRelation(
+  db: Database.Database,
+  sourceId: number,
+  targetId: number,
+  relation: string
+): boolean {
+  const result = db.prepare(
+    'DELETE FROM concept_relations WHERE source_id = ? AND target_id = ? AND relation = ?'
+  ).run(sourceId, targetId, relation);
+  return result.changes > 0;
+}
+
+export function getFilesWithMentions(db: Database.Database, conceptId: number): string[] {
+  const rows = db.prepare(`
+    SELECT DISTINCT s.file_path FROM sections s
+    JOIN concept_mentions cm ON cm.section_id = s.id
+    WHERE cm.concept_id = ?
+  `).all(conceptId) as { file_path: string }[];
+  return rows.map(r => r.file_path);
 }
 
 export function upsertEmbedding(

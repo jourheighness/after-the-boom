@@ -5,7 +5,8 @@
     "build": "tsc",
     "migrate": "tsx src/migrate.ts",
     "mcp": "tsx src/mcp-server.ts",
-    "index": "tsx src/index-all.ts"
+    "index": "tsx src/index-all.ts",
+    "import-concepts": "tsx src/import-concepts.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.27.0",

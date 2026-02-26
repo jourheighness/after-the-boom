@@ -29,6 +29,12 @@
   --cat-bug: #a04040;
   --cat-todo: #5a9a5a;
 }
+/* Custom selection highlight (persists when popover takes focus) */
+::highlight(pending-selection) {
+  background-color: rgba(139, 115, 85, 0.25);
+  color: inherit;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); }
 body {
@@ -212,30 +218,15 @@ body {
   font-size: 11px;
 }
 
-/* Comment highlights */
-.commented-text {
-  background: rgba(255, 200, 50, 0.25);
-  border-bottom: 1.5px dashed #c8a020;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-.commented-text:hover { background: rgba(255, 200, 50, 0.4); }
-.commented-text.resolved {
-  background: rgba(100, 180, 100, 0.15);
-  border-bottom: 1.5px solid #5a9a5a;
-}
-.commented-text.resolved:hover { background: rgba(100, 180, 100, 0.3); }
-.commented-text.orphaned { opacity: 0.5; }
-.commented-text.cat-copy { background: rgba(107,140,186,0.2); border-bottom-color: #6b8cba; }
-.commented-text.cat-copy:hover { background: rgba(107,140,186,0.35); }
-.commented-text.cat-clarify { background: rgba(176,136,64,0.2); border-bottom-color: #b08840; }
-.commented-text.cat-clarify:hover { background: rgba(176,136,64,0.35); }
-.commented-text.cat-design { background: rgba(155,89,182,0.2); border-bottom-color: #9b59b6; }
-.commented-text.cat-design:hover { background: rgba(155,89,182,0.35); }
-.commented-text.cat-bug { background: rgba(160,64,64,0.2); border-bottom-color: #a04040; }
-.commented-text.cat-bug:hover { background: rgba(160,64,64,0.35); }
-.commented-text.cat-todo { background: rgba(90,154,90,0.2); border-bottom-color: #5a9a5a; }
-.commented-text.cat-todo:hover { background: rgba(90,154,90,0.35); }
+/* Comment highlights — CSS Custom Highlight API (no DOM spans needed) */
+::highlight(cat-note) { background-color: rgba(255, 200, 50, 0.25); }
+::highlight(cat-copy) { background-color: rgba(107, 140, 186, 0.2); }
+::highlight(cat-clarify) { background-color: rgba(176, 136, 64, 0.2); }
+::highlight(cat-design) { background-color: rgba(155, 89, 182, 0.2); }
+::highlight(cat-bug) { background-color: rgba(160, 64, 64, 0.2); }
+::highlight(cat-todo) { background-color: rgba(90, 154, 90, 0.2); }
+::highlight(cat-resolved) { background-color: rgba(100, 180, 100, 0.15); }
+::highlight(comment-hover) { background-color: rgba(255, 200, 50, 0.45); }
 
 /* Paragraph-level fallback highlight (when exact text no longer matches) */
 .commented-block {
@@ -488,6 +479,6 @@ body {
 @media print {
   .header, .sidebar, .comments-panel, .comment-float-btn, .comment-popover { display: none; }
   .main { margin: 0; padding: 10px; max-width: none; }
-  .commented-text { background: none; border: none; }
+  /* CSS Custom Highlight API highlights don't print — no cleanup needed */
   h2 { page-break-before: always; }
 }

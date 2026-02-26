@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "concepts": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "tsx",
+        "tools/comments-server/src/mcp-server.ts"
+      ],
+      "env": {}
+    }
+  }
+}

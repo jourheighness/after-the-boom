@@ -131,7 +131,7 @@ export async function indexFile(
     // Auto-detect new concept candidates from headings and bold terms
     const newCandidates = autoDetectNewConcepts(section.heading || '', section.content, conceptNameSet);
     for (const candidate of newCandidates) {
-      upsertConcept(db, candidate, undefined, false); // curated=false, approved=0 by default
+      upsertConcept(db, candidate, { curated: false });
     }
 
     // Generate embedding if provider available
