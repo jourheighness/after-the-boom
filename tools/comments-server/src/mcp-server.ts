@@ -39,6 +39,8 @@ async function git(...args: string[]): Promise<string> {
 
 let sessionBranch: string | null = null;
 let sessionBaseBranch: string | null = null;
+
+const SESSION_REQUIRED = { content: [{ type: 'text' as const, text: 'Session required for write-through operations. Call begin_changes first.' }], isError: true };
 import { indexFile } from './indexer.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -106,7 +108,7 @@ ROUTING TABLE:
 
 BEFORE modifying a concept, call trace_concept to see its current state and relations.
 AFTER creating concepts, the system auto-reindexes rules files to find mentions. No manual step needed.
-For write-through tools (rename, merge), use begin_changes first if you want safe rollback.
+Write-through tools (rename, merge) REQUIRE an active session. They will reject without begin_changes.
 
 TRIAGE: audit_concepts is always available. It reports orphaned concepts, uncategorized concepts, stale relations, and top candidates. It never auto-acts. Present findings for human decision.
 
@@ -550,6 +552,7 @@ server.registerTool(
     },
   },
   async ({ old_name, new_name }) => {
+    if (!sessionBranch) return SESSION_REQUIRED;
     const conceptId = renameConcept(db, old_name, new_name);
     if (!conceptId) {
       return { content: [{ type: 'text', text: `Concept not found: "${old_name}"` }], isError: true };
@@ -639,6 +642,7 @@ server.registerTool(
     },
   },
   async ({ source, target }) => {
+    if (!sessionBranch) return SESSION_REQUIRED;
     const srcRow = db.prepare('SELECT id FROM concepts WHERE name = ? COLLATE NOCASE')
       .get(source) as { id: number } | undefined;
     const tgtRow = db.prepare('SELECT id FROM concepts WHERE name = ? COLLATE NOCASE')
