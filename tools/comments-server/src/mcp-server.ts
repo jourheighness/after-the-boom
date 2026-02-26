@@ -757,7 +757,7 @@ server.registerTool(
   }
 );
 
-// --- Audit stubs (replaced in Task 6) ---
+// --- Audit ---
 
 interface AuditReport {
   orphaned: string[];
@@ -766,18 +766,83 @@ interface AuditReport {
   topCandidates: { name: string; mentions: number }[];
 }
 
-function runAudit(_db: typeof db, _focus?: { layer?: string; category?: string }): AuditReport {
-  return { orphaned: [], uncategorized: [], staleRelations: [], topCandidates: [] };
+function runAudit(auditDb: typeof db, focus?: { layer?: string; category?: string }): AuditReport {
+  const layerFilter = focus?.layer;
+  const categoryFilter = focus?.category;
+
+  // 1. Orphaned: approved+curated concepts with zero mentions
+  let orphanedSql = `
+    SELECT c.name FROM concepts c
+    LEFT JOIN concept_mentions cm ON cm.concept_id = c.id
+    WHERE c.approved = 1 AND c.curated = 1
+  `;
+  const orphanedParams: unknown[] = [];
+  if (layerFilter) { orphanedSql += ' AND (c.layer = ? OR c.type = ?)'; orphanedParams.push(layerFilter, layerFilter); }
+  if (categoryFilter) { orphanedSql += ' AND c.category = ?'; orphanedParams.push(categoryFilter); }
+  orphanedSql += ' GROUP BY c.id HAVING COUNT(cm.section_id) = 0 ORDER BY c.name';
+  const orphaned = (auditDb.prepare(orphanedSql).all(...orphanedParams) as { name: string }[]).map(r => r.name);
+
+  // 2. Uncategorized: approved concepts missing layer or category
+  let uncatSql = `
+    SELECT c.name FROM concepts c
+    WHERE c.approved = 1 AND (c.layer IS NULL OR c.category IS NULL)
+  `;
+  const uncatParams: unknown[] = [];
+  if (layerFilter) { uncatSql += ' AND (c.layer = ? OR c.type = ?)'; uncatParams.push(layerFilter, layerFilter); }
+  if (categoryFilter) { uncatSql += ' AND c.category = ?'; uncatParams.push(categoryFilter); }
+  uncatSql += ' ORDER BY c.name';
+  const uncategorized = (auditDb.prepare(uncatSql).all(...uncatParams) as { name: string }[]).map(r => r.name);
+
+  // 3. Stale relations: relations where either side has zero mentions
+  const staleRelations = auditDb.prepare(`
+    SELECT cs.name as source, ct.name as target, cr.relation
+    FROM concept_relations cr
+    JOIN concepts cs ON cs.id = cr.source_id
+    JOIN concepts ct ON ct.id = cr.target_id
+    WHERE NOT EXISTS (SELECT 1 FROM concept_mentions cm WHERE cm.concept_id = cr.source_id)
+       OR NOT EXISTS (SELECT 1 FROM concept_mentions cm WHERE cm.concept_id = cr.target_id)
+    ORDER BY cs.name, ct.name
+  `).all() as { source: string; target: string; relation: string }[];
+
+  // 4. Top candidates: unapproved concepts by mention count
+  const topCandidates = auditDb.prepare(`
+    SELECT c.name, COUNT(cm.section_id) as mentions
+    FROM concepts c
+    JOIN concept_mentions cm ON cm.concept_id = c.id
+    WHERE c.approved = 0
+    GROUP BY c.id
+    ORDER BY mentions DESC
+    LIMIT 10
+  `).all() as { name: string; mentions: number }[];
+
+  return { orphaned, uncategorized, staleRelations, topCandidates };
 }
 
 function formatAudit(report: AuditReport): string {
   const parts: string[] = [];
   if (report.orphaned.length > 0) parts.push(`Orphaned (${report.orphaned.length}): ${report.orphaned.join(', ')}`);
   if (report.uncategorized.length > 0) parts.push(`Uncategorized (${report.uncategorized.length}): ${report.uncategorized.join(', ')}`);
-  if (report.staleRelations.length > 0) parts.push(`Stale relations (${report.staleRelations.length}): ${report.staleRelations.map(r => `${r.source}->${r.target}`).join(', ')}`);
-  if (report.topCandidates.length > 0) parts.push(`Top candidates (${report.topCandidates.length}): ${report.topCandidates.map(c => `${c.name}(${c.mentions})`).join(', ')}`);
+  if (report.staleRelations.length > 0) parts.push(`Stale relations (${report.staleRelations.length}): ${report.staleRelations.map(r => `${r.source} -[${r.relation}]-> ${r.target}`).join(', ')}`);
+  if (report.topCandidates.length > 0) parts.push(`Top candidates (${report.topCandidates.length}): ${report.topCandidates.map(c => `${c.name} (${c.mentions})`).join(', ')}`);
   return parts.length > 0 ? parts.join('\n') : 'All clear.';
 }
+
+server.registerTool(
+  'audit_concepts',
+  {
+    title: 'Audit Concept Health',
+    description: 'Triage report: orphaned concepts (no mentions), uncategorized concepts, stale relations, and top unapproved candidates. Never auto-acts. Present findings for human decision.',
+    inputSchema: {
+      layer: z.enum(['mechanic', 'subsystem', 'principle']).optional().describe('Focus on one layer'),
+      category: z.string().optional().describe('Focus on one category'),
+    },
+    annotations: { readOnlyHint: true },
+  },
+  async ({ layer, category }) => {
+    const report = runAudit(db, { layer, category });
+    return { content: [{ type: 'text', text: formatAudit(report) }] };
+  }
+);
 
 // --- Session tools (commit + rollback) ---
 
