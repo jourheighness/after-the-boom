@@ -10,7 +10,7 @@ Size the effect to the sacrifice and the character. Spare die = small. Best die 
 
 ### Combat Examples
 
-> **Free fuel:** Brian swings a heavy wrench (d10) with a Boon from flanking (+1d6). Rolls 8 and 4. Keeps 8 for damage, spends the 4 on Push. 8 damage AND the target goes back a band. The Push cost zero damage.
+> **Free fuel:** Brian swings a heavy wrench (d10) with a Boon from flanking (+1d6). Rolls 8 and 4. Keeps 8 for damage, spends the 4 on Push. 8 damage AND the target goes back a band. The Push was free — it didn't touch his damage at all.
 >
 > **Hard trade:** Murph stabs a guard with a knife (d6). Rolls 5. His only die. Keep it for 5 damage, or sacrifice for Pin (hold the guard so Max can get past). Murph sacrifices. 0 damage. Board state matters more than the hit.
 

@@ -334,9 +334,9 @@ Sacrifice all dice = 0 damage, pure Gambit effects. One die with no Boons or Dra
 Defense is a stakes roll. The stakes are incoming damage: 6 = none, 4-5 = half, 1-3 = full. The GM doesn't need to state them. They're always the same.
 
 **Pick your stat from the fiction:**
-- **Sharp:** dodge, duck, reflexes
-- **Grit:** brace, absorb, power through
-- **Nerve:** hold steady, resist thaumic effects, stand your ground
+- **Sharp:** dodge, duck, dive behind something, reflexes
+- **Grit:** rip a door off for cover, shoulder through to a better position, body-block someone behind you
+- **Nerve:** hold steady under fire, resist a thaumic intrusion, stand your ground when everything says run
 
 Roll [stat]d6, minus Snags from enemy Threat (see Enemies). Drain for +1d before rolling.
 
@@ -374,7 +374,11 @@ Sacrifice a die showing **4+** for a standard gambit. Sacrifice a die showing **
 
 **Gambit resistance.** Strong gambits go through at any Threat level. Standard gambits land on Threat 0-1 enemies. Threat 2+ enemies resist standard gambits *that target them* unless the fiction justifies it. Gambits that target you (Cover, Setup) or the environment always land.
 
-> **When does fiction justify it?** A Read during a fight where your approach naturally involves observation (martial awareness, sniper patience, watching body language) goes through. A Read where you have no basis for that knowledge gets resisted. The question is: could your character plausibly notice this while doing what they're doing?
+> **When does fiction justify it?** The question is: could your character plausibly do this while doing what they're already doing?
+>
+> **Good:** A sniper Reads from a rooftop — she's watching through a scope, observation is the whole approach. A brawler Pushes while throwing a haymaker — the shove is built into the swing. A soldier Covers behind a flipped table — he's already near it and the flip is one motion.
+>
+> **Bad:** A knife-fighter Reads an enemy's thaumic signature — nothing in the fiction gives him that information. A character at Far range Pins someone — you can't pin from across a field. A character Breaks an enemy's weapon by shooting it — stylish, but Break means compromised form, not trick shots.
 
 ### Boon Sources
 
@@ -383,9 +387,10 @@ Boons add +1d6 to attacks. Multiple Boons stack. Sources:
 - **Setup phase:** Roll 6 during setup
 - **Flanking:** Two allies at Close with the same enemy from different angles
 - **Assist:** An ally spends their Act to help you
-- **Setup gambit:** Bank a die now, use it later
 - **Cover advantage:** Long weapon at Near vs Close-only attacker
 - **Edges:** Some Edges grant situational Boons
+
+**Banked dice** (from the Setup gambit) are not Boons. They're added post-roll and can't be removed by Snags. See Combat Gambits: Setup.
 
 **Snag on attacks** removes a die. Boons and Drain d6s are removed first. If none remain, the weapon die is removed (0d: 2d6 take lowest).
 
@@ -422,7 +427,7 @@ Three abstract ranges. Relative to entities, not a grid.
 | **Area (range)** | Hits all targets within the stated range of the impact point. Roll once, apply to each. At Close range, you're in the area. |
 | **Long** | Attacks at Close and Near. Boon at Near vs Close-only attacker. |
 | **Loud** | Heard at Far. Ticks attention/heat clocks. |
-| **Brutal** | *Open design question. Previous crit-dependent effect removed with crit simplification.* |
+| **Brutal** | +2 overflow when damage breaks Guard. Heavy weapons wreck what's behind the defense. |
 | **Subtle** | Concealable. Drawing doesn't raise alarms. |
 | **Slow** | Cannot attack and Move in the same turn. |
 
@@ -459,15 +464,9 @@ These are not contextual rules. They apply to every roll without exception. Ther
 
 Gambits are the player's leverage. Stakes, consequences, enemy behavior: the GM controls all of that. Gambits are where control shifts. You see the dice and decide to spend one. The GM honors it if the fiction allows.
 
-### The Mechanics
+### Stakes Gambits
 
-Sacrifice a die showing **4+**. Any die in the pool is eligible: weapon die, Boon d6s, Drain d6. You see the dice first, then decide. One gambit per die sacrificed. Multiple dice, multiple gambits. No duplicates per roll.
-
-**On combat rolls** (attacks), gambits come from a fixed list with specific outputs (see Combat Gambits). The battlefield is constrained enough that specific verbs mean specific things.
-
-**On stakes rolls** (social, exploration, investigation, setup, doing something crazy mid-fight), sacrifice a die showing 4+ to grab something extra from the moment. Sacrifice a 6 for something big. Name it in one sentence — something concrete the action made possible. It adds to the scene. It never erases what happened.
-
-**On defense rolls**, the combat gambit list is the menu. Defense is reactive — side effects come from the same seven verbs plus the open clause.
+On any stakes roll — social, exploration, investigation, setup, doing something crazy mid-fight — sacrifice a die showing 4+ to grab something extra from the moment. Sacrifice a 6 for something big. Name it in one sentence — something concrete the action made possible. It adds to the scene. It never erases what happened.
 
 | You're... | You could gambit to... |
 |-|-|
@@ -475,8 +474,6 @@ Sacrifice a die showing **4+**. Any die in the pool is eligible: weapon die, Boo
 | **Talking to someone** | read a tell, plant an idea, establish a reputation, create an alibi |
 | **Reading the situation** | spot a detail, sense a shift, connect two facts, anticipate what's next |
 | **Working an angle** | lift something, plant something, leave a false trail, time a pattern |
-
-**Setup works on both.** Bank a die on a combat roll, spend it on a stakes roll. Bank on a stakes roll, spend it in combat. The banked die crosses the boundary because it has no context-specific output. It's just a die with a number.
 
 ### Sizing Gambits
 
@@ -540,8 +537,8 @@ Threat 1 | Damage 4 | Guard 5 | Harm 4 | Armor 1 | Morale: yes
 Behavior: Contain and call backup. Withdraw if outgunned. Never engages a confirmed shaper alone.
 
 **CSS Kill-Team Operator**
-Threat 2 | Damage 6 | Guard 6 | Harm 6 | Armor 2 | Morale: yes (on signal)
-Behavior: Eliminate primary target. Suppress others. Retreat on signal only.
+Threat 2 | Damage 6 | Guard 6 | Harm 6 | Armor 2 | Morale: yes (command signal only)
+Behavior: Eliminate primary target. Suppress others. Will not break or flee independently — retreats only on command signal from handler.
 
 **Unbound Thaumic Entity**
 Threat 3 | Damage 8 | Guard 8 | Harm 10 | Armor 0 | Morale: no
