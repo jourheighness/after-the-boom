@@ -132,4 +132,4 @@ Encounters include threats that require thaumatech. The entity can't be fought w
 | Track | Domain | Drained by | Consequence when empty |
 |-|-|-|-|
 | Guard | Body | Enemy attacks, innate shaping, environment | Scar |
-| Drain | Will | Thaumatech stakes, voluntary effort (+1d), damage reduction, acting while Critical | Crack |
+| Drain | Will | Thaumatech stakes, voluntary effort (+1d), acting while Critical | Crack |

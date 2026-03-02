@@ -137,9 +137,10 @@ When the dice aren't enough, you dig deep.
 
 **Drain track: 4 boxes.** Spend 1 Drain to:
 - **Add +1d** to any roll (before rolling). One Drain per roll.
-- **Reduce incoming damage by 2** (after a defense roll).
 - **Act despite a Critical injury** (when you'd normally be incapacitated).
 - **Thaumatech use** puts Drain in the stakes. The GM sizes the cost based on how hard you're pushing the device. See `rules/THAUMATECH.md`.
+
+Every Drain spend is a commitment — you decide before you know the outcome.
 
 **Cracking:** When your Drain track empties, you **Crack**. Something breaks inside. The player names what it is and plays it. **Snag on all rolls until the Crack clears.** This is not occasional — it's constant. Every roll, every action, until the character deals with what broke.
 
@@ -650,7 +651,7 @@ Boon = +1d. Snag = -1d. Cancel 1-for-1. Min 0d (2d6 take lowest). On attacks: Sn
 **Combat roll:** weapon die, deal damage, combat gambit list. **Stakes roll:** stat die, everything else (defense, saves, social, exploration, third lane in combat). Stakes gambits: sacrifice 4+ to name a side effect (6 = strong). Combat gambit list available as menu on defense. Setup crosses both.
 
 ### Guard & Drain
-Guard = 2 + highest stat (cap 10). Recovers in genuine safety. Drain = 4 boxes (+1d, -2 dmg, act while Critical, device gambit). Crack when empty.
+Guard = 2 + highest stat (cap 10). Recovers in genuine safety. Drain = 4 boxes (+1d before rolling, act while Critical, thaumatech stakes). Crack when empty = Snag on all rolls.
 
 ### Damage Pipeline
 Damage → Armor → Guard → overflow = Harm. Guard hits 0 = Scar (+1 max Guard, once/session).
