@@ -97,7 +97,7 @@ Boons and Snags cancel 1-for-1. Only the net result applies. Minimum: **0d** (ro
 
 ### Sources of Snags
 - **Injury:** Wounds apply Snags when the injury interferes (see Taking Damage).
-- **Enemy Threat:** Powerful enemies impose Snags on defense rolls (see Defense).
+- **Enemy Threat:** Powerful enemies impose Snags on your defense rolls based on their Threat level (0 to -3d).
 - **Environment:** Darkness, smoke, unstable ground.
 - **Improvisation:** Using the wrong tool.
 
@@ -136,8 +136,6 @@ Using a thaumatech device is a stakes roll. The GM puts Drain in the stakes base
 ---
 
 ## Guard & Drain
-
-Two resource tracks, described below.
 
 A **scene** is a continuous stretch of action in one situation. When the situation changes, the scene ends. **Downtime** is unstructured time between dangerous situations: hours or days where characters rest, recover, and pursue personal goals.
 
