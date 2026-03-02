@@ -79,11 +79,21 @@ When the stakes say "device at risk," the device is strained. **Snag on all roll
 
 ---
 
-## Thaumatech in Combat
+## Thaumatech Weapons in Combat
 
-Standard attack rules apply. Roll the device's weapon dice (a thaumatech wrench is d8, a discharge rod is d6). Combat gambits work as normal — sacrifice a die showing 4+ for Push, Pin, Read, etc.
+Three modes. The player chooses before rolling.
 
-Thaumatech use in combat follows the same stakes framework. Attacking with a thaumatech weapon at base function is a combat roll (weapon die, damage, gambits). Pushing the device beyond base — activating a special function mid-fight — is a stakes roll with Drain in the stakes. You can do one or the other on your turn, not both.
+**Thumb off plate.** Normal attack. Combat roll, weapon die, standard gambits (sacrifice a die). Free. The weapon works like any mundane weapon. A thaumatic rifle fires. A rock breaker swings. No Drain.
+
+**Thumb on plate.** Combat roll, full damage AND the weapon's listed thaumatech gambit fires. 1 Drain. No die sacrifice needed for the thaumatech effect — the cost comes from your willpower, not your roll. Standard gambits are still available on top (sacrifice a die as normal).
+
+> *Rock Breaker Sledgehammer (d10, Slow, Brutal).* Thumb on plate, 1 Drain: damage + Prone. The contact plate channels a shockwave through the impact.
+>
+> *The Sticker (d6, Sidearm).* Thumb on trigger, 1 Drain: damage + Pin. A thaumic nail holds them to whatever surface they're against.
+>
+> *Discharge Rod (d6).* Thumb on plate, 1 Drain: damage + Sustained d4 thaumic bleed.
+
+**Past spec.** You want the weapon to do something its listed gambit can't. That's a stakes roll with Drain in the stakes. Takes your Act — you're not attacking, you're pushing the device. Same stretch tiers as any thaumatech use (simple/stretching/way past spec).
 
 ---
 
