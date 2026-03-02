@@ -443,9 +443,13 @@ Single-use. Use your Act, spend the item.
 |-|-|-|-|-|
 | Flashbang | — | Thrown, Area (Close), Loud | — | Sharp save or Snag on next action |
 | Smoke grenade | — | Thrown, Area (Close) | — | Breaks line of sight until end of next round |
-| Molotov | d6 | Thrown, Area (Close), Loud | Per target | Area alight |
+| Molotov | d6 | Thrown, Area (Close), Loud | Per target | Sustained d6 fire |
 | Frag grenade | d8 | Thrown, Area (Close), Loud, Brutal | Per target | — |
 | Concussion charge | — | Thrown, Area (Close), Loud | — | Nerve save or lose next Act |
+
+### Sustained Effects
+
+Some damage keeps going — fire, acid, thaumic bleed, psychic intrusion. The GM assigns a die based on severity: d4 (embers, minor splash), d6 (molotov, chemical burn), d8 (industrial fire, concentrated acid), d10 (catastrophic, unbound entity contact). At the start of your turn, roll the die. That's damage through the normal pipeline. On a 1, it burns out on its own. Otherwise, the fiction decides how you end it: spend your Act (smother flames, scrape off acid), spend your Move (get out of the reactor, break line of sight), or make a resist roll if the source demands it (Nerve save to look away from the deep one, Grit save to push through the radiation).
 
 ### Consumables
 
