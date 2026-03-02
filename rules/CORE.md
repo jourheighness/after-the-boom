@@ -451,6 +451,10 @@ Single-use. Use your Act, spend the item.
 
 Some damage keeps going — fire, acid, thaumic bleed, psychic intrusion. The GM assigns a die based on severity: d4 (embers, minor splash), d6 (molotov, chemical burn), d8 (industrial fire, concentrated acid), d10 (catastrophic, unbound entity contact). At the start of your turn, roll the die. That's damage through the normal pipeline. On a 1, it burns out on its own. Otherwise, the fiction decides how you end it: spend your Act (smother flames, scrape off acid), spend your Move (get out of the reactor, break line of sight), or make a resist roll if the source demands it (Nerve save to look away from the deep one, Grit save to push through the radiation).
 
+You don't want this continuing. Spend your Act, your Move, or make a resist roll — whatever the fiction demands — to end it.
+
+**Enemies burn too.** When an enemy is affected, the player who caused it rolls the die at the start of that enemy's turn. Armor reduces it as normal.
+
 ### Consumables
 
 Single-use items applied to yourself or someone at Close. Use your Act, spend the item. See `rules/EQUIPMENT.md` for the full catalog.
