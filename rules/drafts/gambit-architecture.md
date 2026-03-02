@@ -7,20 +7,22 @@
 
 Not contextual. Attack, defense, stakes. No exceptions. Every roll has two questions: what did I get, and what can I trade?
 
-## Stakes Rolls: The Negotiation
+## Stakes Rolls: Prompted Side Effects
 
-No gambit list here. Just the conversation:
+Sacrifice a die showing 4+ to grab something extra from the moment. Sacrifice a 6 for something big. Name it in one sentence. It adds — it never erases.
 
-1. You declare. GM sets stakes. You roll.
-2. "Can I also get something?" Sacrifice a die, name the thing. It has to be within reach of what you're already doing. Not a second goal. A small thing the moment made possible.
-3. GM approves or vetoes based on the fiction.
-4. Three patterns:
-   - **Free fuel.** Spare dice below your highest weren't affecting the result. Gambit costs nothing.
-   - **Softening.** Partial success. Spend a spare die to edit the consequence. The partial still lands, but you shaped it.
-   - **The bargain.** Sacrifice your best die. Result drops a tier. You grab something from the wreckage. GM matches the scope of the complication to the scope of the gain.
-5. Want greater effect? Accept a bigger consequence. GM sizes both.
+No fixed verbs. Instead, a prompt table by fictional mode:
 
-That's the whole fiction gambit. It's not a subsystem. It's how stakes rolls play.
+| You're... | You could gambit to... |
+|-|-|
+| **Forcing something** | create cover, block a path, control the approach, break something free |
+| **Talking to someone** | read a tell, plant an idea, establish a reputation, create an alibi |
+| **Reading the situation** | spot a detail, sense a shift, connect two facts, anticipate what's next |
+| **Working an angle** | lift something, plant something, leave a false trail, time a pattern |
+
+**GM sizing:** Match the effect to the sacrifice and the character. Spare die = small. Best die = big. In their wheelhouse = generous. A stretch = narrow. No mechanical gating — the specialist gets better deals, not exclusive access.
+
+**The bright-line test:** the gambit adds a new fact. It never erases a consequence. If the partial still hurts after the gambit, it's legal.
 
 ## Combat: The Fixed List
 
@@ -42,8 +44,8 @@ Acquisition is the leveler: anyone can build toward any gambit. Specialization i
 
 Stakes, consequences, enemy behavior — the GM controls all of that. Gambits are where control shifts. The player sees the dice and decides to spend, and the GM honors it if the fiction allows. This is the one moment in the system where the player has unilateral authority over the fiction.
 
-## CORE.md Structure (planned)
+## CORE.md Structure
 
-- **Stakes Roll section:** Two axioms, three sacrifice patterns, the negotiation flow. No gambit list.
-- **Combat chapter:** 7-verb combat gambit list, Strong gambits, Gambit Resistance, combat effects vocabulary (Impaired, Exposed, Prone, Pinned).
+- **Gambits section:** Two axioms, stakes gambit rule + prompt table, sizing principle, examples.
+- **Combat Gambits section:** 7-verb list, standard/strong thresholds, Gambit Resistance, combat effects vocabulary (Impaired, Exposed, Prone, Pinned).
 - **Character section (or Edges/Equipment):** Character gambit philosophy and acquisition.

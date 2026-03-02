@@ -268,7 +268,7 @@ Enemies don't roll dice. Their conditions affect flat numbers.
 
 ### Setup Phase
 
-When combat is expected, each player gets one setup roll before the first round. Describe your preparation: take cover, line up a shot, flank wide, ready a device. Roll the relevant stat.
+When you see a threat coming — expected combat, an ambush you're laying, a hostile situation you're walking into aware — each player gets one setup roll before the first round. Describe your preparation: take cover, line up a shot, flank wide, ready a device, lay an ambush. Roll the relevant stat.
 
 | Result | Effect |
 |-|-|
@@ -276,9 +276,11 @@ When combat is expected, each player gets one setup roll before the first round.
 | **4-5** | In position. Nothing extra. |
 | **1-3** | Complication. Spotted early, bad angle, dropped something. |
 
-This is a standard roll. Gambits apply: sacrifice a die showing 4+ for a side effect (Read the room, Setup a banked die, Cover an angle). A 6 with spare dice can earn a Boon AND a gambit. The Boon from rolling 6 is separate from a banked die: you can have both.
+This is a stakes roll. Stakes gambits apply: sacrifice a 4+ die to grab something extra from the preparation (spot the alarm panel, clock the exit route, palm a weapon, get into cover).
 
-**From ambush or concealment:** This is a stakes roll, not setup. The GM sets consequences based on the fiction. On a miss, the ambush fails and combat starts on their terms. On a hit, the GM may grant: no defense roll on the opening attack, enemies act last in round one, or a Boon. Ambushers skip Setup Phase.
+**From ambush or concealment:** The GM sets higher stakes. On a 6 the GM may grant: no defense roll on the opening attack, enemies act last in round one, or a Boon on top of the setup Boon. On a 1-3 the ambush fails and combat starts on their terms. The fiction determines the scale — a prepared ambush earns more than walking in ready.
+
+**No setup?** If you're ambushed or a previous stakes roll went badly enough to trigger combat, there is no setup roll. Enemies act first. You're reacting from round one.
 
 ### Round Structure
 
@@ -298,7 +300,7 @@ Everything in combat falls into one of three lanes:
 
 **Changing the battlefield?** Gambits. Sacrifice a die from your combat roll for a guaranteed side effect. Anything that shifts the tactical situation costs a die.
 
-**Doing something else entirely?** Stakes roll. Hack a terminal, barricade a door, hotwire a van, call for backup, talk an enemy down, flee under fire, seal a breach, jury-rig a broken device. GM sets stakes, you roll the relevant stat. Not an attack, doesn't use weapon dice. Gambits are open negotiation. Setup works here too.
+**Doing something else entirely?** Stakes roll. Hack a terminal, barricade a door, hotwire a van, call for backup, talk an enemy down, flee under fire, seal a breach, jury-rig a broken device. GM sets stakes, you roll the relevant stat. Not an attack, doesn't use weapon dice. Stakes gambits apply: sacrifice a 4+ die to name a side effect. Setup works here too.
 
 ### Your Turn
 
@@ -346,13 +348,13 @@ Roll [stat]d6, minus Snags from enemy Threat (see Enemies). Drain for +1d before
 
 Then apply Armor → Guard → Harm as normal.
 
-Gambits apply. The combat gambit list is a menu, not a restriction. Sacrifice a 4+ to Push the attacker back, Cover yourself, Read a weakness, or anything the fiction supports. A banked die from Setup can be added post-roll.
+Gambits apply. The combat gambit list is the menu: Push the attacker back, Cover yourself, Read a weakness, find an exit. Open clause for anything of similar scope. A banked die from Setup can be added post-roll.
 
 **Multiple attackers:** Defend separately against each. The GM may combine identical mooks into one roll at combined damage.
 
 ### Combat Gambits
 
-Seven verbs. Every player has access to these. On combat rolls, this is the list. On defense and other stakes rolls, it's a menu of known options alongside open negotiation. Character gambits (from Edges, equipment, backgrounds) add capabilities the base list can't express.
+Seven verbs. Every player has access to these. On combat rolls, this is the list. On defense and other stakes rolls, it's a menu of known options alongside stakes gambits. Character gambits (from Edges, equipment, backgrounds) add capabilities the base list can't express.
 
 Sacrifice a die showing **4+** for a standard gambit. Sacrifice a die showing **6+** for a strong gambit. On d6 pool dice, only a 6 qualifies. Weapon dice (d8, d10, d12) can roll higher, making heavier weapons better gambit fuel.
 
@@ -463,27 +465,34 @@ Sacrifice a die showing **4+**. Any die in the pool is eligible: weapon die, Boo
 
 **On combat rolls** (attacks), gambits come from a fixed list with specific outputs (see Combat Gambits). The battlefield is constrained enough that specific verbs mean specific things.
 
-**On stakes rolls** (defense, saves, social, exploration, investigation, doing something crazy mid-fight), gambits are open negotiation. Name something within reach of what you're already doing. Not a second goal. A small thing the moment made possible. The GM approves or vetoes based on the fiction. The combat gambit list is available as a menu during defense rolls, but you're not limited to it.
+**On stakes rolls** (social, exploration, investigation, setup, doing something crazy mid-fight), sacrifice a die showing 4+ to grab something extra from the moment. Sacrifice a 6 for something big. Name it in one sentence — something concrete the action made possible. It adds to the scene. It never erases what happened.
+
+**On defense rolls**, the combat gambit list is the menu. Defense is reactive — side effects come from the same seven verbs plus the open clause.
+
+| You're... | You could gambit to... |
+|-|-|
+| **Forcing something** | create cover, block a path, control the approach, break something free |
+| **Talking to someone** | read a tell, plant an idea, establish a reputation, create an alibi |
+| **Reading the situation** | spot a detail, sense a shift, connect two facts, anticipate what's next |
+| **Working an angle** | lift something, plant something, leave a false trail, time a pattern |
 
 **Setup works on both.** Bank a die on a combat roll, spend it on a stakes roll. Bank on a stakes roll, spend it in combat. The banked die crosses the boundary because it has no context-specific output. It's just a die with a number.
 
-### Three Sacrifice Patterns
+### Sizing Gambits
 
-- **Free fuel.** Spare dice below your highest weren't affecting the result. Gambit costs nothing. This is the natural reward for pool investment: more dice means more gambit fuel.
-- **Softening.** Partial success. Spend a spare die to edit the consequence. The partial still lands, but you shaped it.
-- **The bargain.** Sacrifice your best die. Result drops a tier. You grab something from the wreckage. The GM matches the scope of the complication to the scope of the gain.
+Size the effect to the sacrifice and the character. Spare die = small. Best die = big. In their wheelhouse = generous. A stretch = narrow. The consequence still stands — the gambit adds a fact beside it.
 
-When a sacrifice drops your result a full tier, the GM sizes the gambit's effect to match the cost. A detail that costs nothing learns one thing. A detail that cost you the whole roll learns the full picture.
-
-> **Example (free fuel):** Brian swings a heavy wrench (d10) with a Boon from flanking (+1d6). Rolls 8 and 4. Keeps 8 for damage, spends the 4 on Push. 8 damage AND the target goes back a band. The Push cost zero damage.
+> **Example (combat, free fuel):** Brian swings a heavy wrench (d10) with a Boon from flanking (+1d6). Rolls 8 and 4. Keeps 8 for damage, spends the 4 on Push. 8 damage AND the target goes back a band. The Push cost zero damage.
 >
-> **Example (hard trade):** Murph stabs a guard with a knife (d6). Rolls 5. His only die. Keep it for 5 damage, or sacrifice for Pin (hold the guard so Max can get past). Murph sacrifices. 0 damage. Board state matters more than the hit.
+> **Example (combat, hard trade):** Murph stabs a guard with a knife (d6). Rolls 5. His only die. Keep it for 5 damage, or sacrifice for Pin (hold the guard so Max can get past). Murph sacrifices. 0 damage. Board state matters more than the hit.
 >
-> **Example (the bargain):** Oliver fast-talks a receptionist. Nerve 3, rolls 5, 3, 3. Partial: she's not buying it but hasn't called security. He spots a keycard on the desk. Sacrifices the 5 to palm it. Highest drops to 3, full failure, she calls security. But Oliver has the keycard.
+> **Example (stakes, spare die):** Murph bluffs past a DPA checkpoint. Nerve 4, rolls 5, 4, 3, 1. Partial: through but they radio his description. Sacrifices the 4. "I clock the shift schedule on the clipboard." GM gives it — spare die, bit of a stretch into perception. Next rotation is in 20 minutes, no more detail.
+>
+> **Example (stakes, strong):** Oliver calms a panicking crowd. Nerve 3, rolls 6, 4, 2. Full success — crowd settles. Sacrifices the 6. "I notice who in the crowd *isn't* panicking." That's a strong gambit: he gave up a clean success. GM: one face, sharp eyes, watching from the back — and now Oliver's highest is 4, a partial. The crowd mostly calms but some bolt. He traded his perfect result for a lead.
 
 ### Thaumatech Device Gambits
 
-Different from combat and fiction gambits. Device gambits cost **Drain** (not a sacrificed die), auto-succeed, and do things dice can't. See `rules/THAUMATECH.md`.
+Different from combat and stakes gambits. Device gambits cost **Drain** (not a sacrificed die), auto-succeed, and do things dice can't. See `rules/THAUMATECH.md`.
 
 ---
 
@@ -638,7 +647,7 @@ Grit (body), Sharp (senses), Nerve (will). Rated 1-4. Sum = 6.
 Boon = +1d. Snag = -1d. Cancel 1-for-1. Min 0d (2d6 take lowest). On attacks: Snags remove bonus dice first, then weapon die. 0d = 2d6 take lowest, both dice spendable for Gambits.
 
 ### Two Roll Types
-**Combat roll:** weapon die, deal damage, combat gambit list. **Stakes roll:** stat die, everything else (defense, saves, social, exploration, third lane in combat). Open gambits. Combat gambit list available as menu on defense. Setup crosses both.
+**Combat roll:** weapon die, deal damage, combat gambit list. **Stakes roll:** stat die, everything else (defense, saves, social, exploration, third lane in combat). Stakes gambits: sacrifice 4+ to name a side effect (6 = strong). Combat gambit list available as menu on defense. Setup crosses both.
 
 ### Guard & Drain
 Guard = 2 + highest stat (cap 10). Recovers in genuine safety. Drain = 4 boxes (+1d, -2 dmg, act while Critical, device gambit). Crack when empty.
@@ -663,7 +672,10 @@ Close (melee), Near (room), Far (field). Move = one band. Cover: partial +1, ful
 Auto-hit. Roll weapon die (+ Boon d6s + Drain d6). Sacrifice 4+ for gambits. Highest remaining = damage. 0d = 2d6 take lowest, both dice spendable.
 
 ### Stakes Roll (Defense)
-Roll [stat]d6. 6 = none, 4-5 = half, 1-3 = full damage. Threat imposes Snags (0 to -3d). Gambits: combat list as menu + open negotiation.
+Roll [stat]d6. 6 = none, 4-5 = half, 1-3 = full damage. Threat imposes Snags (0 to -3d). Combat gambits only: Push, Cover, Read, Setup + open clause.
+
+### Stakes Gambit Prompts
+Forcing: cover, block, control approach. Talking: read a tell, plant idea, create alibi. Reading: spot detail, connect facts, anticipate. Working an angle: lift, plant, false trail, time a pattern.
 
 ### Combat Gambits
 Sacrifice 4+ = standard, 6+ = strong (weapon dice count). Push (one band / Strong: + Prone), Pull (one band toward / Strong: + Boon), Pin (can't move, Act to escape / Strong: Act + Move), Read (detail / Strong: + Boon), Break (Impaired -2 dmg / Strong: Exposed +2 dmg taken), Cover (+1 Armor / Strong: +2), Setup (bank for self or ally, post-roll / Strong: self AND ally). Open clause: similar scope, GM approves. Banked dice added post-roll, immune to Snags. Strong through all Threat.
