@@ -161,7 +161,7 @@ These apply to ALL content creation across all domain files. Domain-specific pri
 
 ### One Trigger, One Effect
 
-Every piece of game content (Edge, weapon gambit, equipment entry, background domain) does one thing. One sentence to describe the trigger. One sentence to describe the effect. If it takes a paragraph, it's two things. Split it.
+**One Trigger, One Effect:** every piece of game content (Edge, weapon gambit, equipment entry, background domain) does one thing. One sentence to describe the trigger. One sentence to describe the effect. If it takes a paragraph, it's two things. Split it.
 
 ### Fiction First, Mechanic Second
 
@@ -185,7 +185,7 @@ The best content creates interactions across three systems simultaneously. A wea
 
 ### Cost Must Hurt
 
-If the cost of using something is ignorable, the choice isn't real. Guard spent on shaping is Guard not available for defense. A Push box spent on a desperate action is one fewer for survival. Equipment that's Loud ticks attention clocks. Every benefit has a price the player feels.
+**Cost Must Hurt:** if the cost of using something is ignorable, the choice isn't real. Guard spent on shaping is Guard not available for defense. A Push box spent on a desperate action is one fewer for survival. Equipment that's Loud ticks attention clocks. Every benefit has a price the player feels.
 
 ### Catalog Balance Targets
 
@@ -210,7 +210,7 @@ These are not rules. They are design principles and guidance that emerged from p
 
 ### Background is Mechanical, Not Decorative
 
-When a character's Background directly explains why a situation is familiar territory, give a Boon. Don't ask for justification. Don't negotiate. The Background already made the case.
+**Background is Mechanical:** when a character's Background directly explains why a situation is familiar territory, give a Boon. Don't ask for justification. Don't negotiate. The Background already made the case.
 
 A former DPA auditor walking into a corporate lobby has done this a hundred times. A CSS riot veteran closing on a dissenter knows exactly how bodies move under pressure. The Boon isn't a reward. It's the system acknowledging that experience is real, and it shows up at the table as a die.
 
@@ -349,7 +349,7 @@ These are not rules. They are language. The specific Guard costs and consequence
 
 #### Scope Zones
 
-The character's obsession defines three zones. Know them before the session starts.
+**Scope Zones:** the character's obsession defines three zones. Know them before the session starts.
 
 **Core.** Directly within the obsession. No scope negotiation needed. The fire shaper heating things. The structural shaper feeling weak points. The perception shaper reading the room. If the effect is clearly inside the obsession, approve it and size the tier.
 

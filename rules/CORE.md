@@ -161,7 +161,7 @@ A Crack has occasional mechanical weight (GM may impose Snags when it interferes
 
 ## Taking Damage
 
-When damage hits you, follow this pipeline:
+When damage hits you, it flows through the **Damage Pipeline**:
 
 ```
 Damage → subtract Armor → subtract Guard → overflow = Harm
@@ -589,7 +589,7 @@ Clocks are visible to all players. No hidden progress.
 
 ## Work a Lead
 
-When a PC has something concrete to go on, a **lead**, they can work it. A lead is a name, an address, a document, a device, a contact, a rumor, a thaumic signature. Something specific that points somewhere.
+When players have something concrete to go on — a name, an address, a document, a contact — they can **Work a Lead**. A lead is a name, an address, a document, a device, a contact, a rumor, a thaumic signature. Something specific that points somewhere.
 
 The player names the lead. The GM states what working it costs: time, exposure, risk. Then the player rolls.
 
@@ -615,11 +615,11 @@ Each lead costs time and may carry its own stakes. A partial might tick the cloc
 
 ## Group Checks
 
-When the whole group faces something together.
+When the whole group faces something together, use a **Group Check**.
 
 ### Weakest Link
 
-Everyone rolls. The **worst result** is the group result.
+In a **Weakest Link** check, everyone rolls. The **worst result** is the group result.
 
 **Cover:** Before rolling, a PC can cover for someone who'd be the weak link. The covering PC takes a **Snag**. The covered PC skips, folded into the cover. One cover per PC, must be plausible in fiction.
 
@@ -627,7 +627,7 @@ Use for: sneaking past a checkpoint, crossing a collapsing bridge, talking throu
 
 ### Group Effort
 
-Everyone rolls individually. The GM sets a **clock** (4, 6, or 8). Each roll ticks it: 1 on a partial, 2 on a full. A miss ticks nothing and may trigger a complication. When full, the group succeeds.
+In a **Group Effort**, everyone rolls individually. The GM sets a **clock** (4, 6, or 8). Each roll ticks it: 1 on a partial, 2 on a full. A miss ticks nothing and may trigger a complication. When full, the group succeeds.
 
 If the clock isn't full after everyone rolls, the GM decides: another round (with escalating stakes) or partial success based on progress.
 
