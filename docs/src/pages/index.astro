@@ -2,24 +2,27 @@
 import { getCollection, render } from 'astro:content';
 import RulesLayout from '../layouts/RulesLayout.astro';
 
-// Same order as the Python build script
+// Core system → catalogs → design docs (bible on top)
 const SOURCE_ORDER = [
+  // --- Core system ---
   'CORE',
-  'DESIGN-CORE',
-  'MAGIC',
-  'DESIGN-MAGIC',
   'CHARACTER',
-  'DESIGN-CHARACTER',
-  'EDGES',
-  'DESIGN-EDGES',
   'THAUMATECH',
-  'EQUIPMENT',
-  'DESIGN-EQUIPMENT',
+  'MAGIC',
+  // --- Catalogs ---
+  'EDGES',
   'GAMBITS',
-  'DESIGN-GAMBITS',
+  'EQUIPMENT',
   'BACKGROUNDS',
-  'DESIGN-BACKGROUNDS',
+  // --- Design ---
   'DESIGN',
+  'DESIGN-CORE',
+  'DESIGN-CHARACTER',
+  'DESIGN-MAGIC',
+  'DESIGN-EDGES',
+  'DESIGN-GAMBITS',
+  'DESIGN-EQUIPMENT',
+  'DESIGN-BACKGROUNDS',
 ];
 
 const FILE_COLORS: Record<string, string> = {
@@ -66,6 +69,10 @@ interface SectionData {
   color: string;
   toc: TocEntry[];
   Content: any;
+  rawMd: string;
+  entryId: string;
+  title: string;
+  titleId: string;
 }
 
 const sections: SectionData[] = [];
@@ -77,11 +84,14 @@ for (const entry of entries) {
 
   // Use Astro's heading slugs directly (already prefixed by remark plugin)
   // H1 titles are system-builder metadata — skip them in the sidebar
+  const h1 = headings.find(h => h.depth === 1);
+  const title = h1?.text || source;
+  const titleId = h1?.slug || source.toLowerCase();
   const toc: TocEntry[] = headings
     .filter(h => h.depth >= 2 && h.depth <= 3)
     .map(h => ({ level: h.depth, id: h.slug, title: h.text }));
 
-  sections.push({ source, color, toc, Content });
+  sections.push({ source, color, toc, Content, rawMd: entry.body, entryId: entry.id, title, titleId });
 }
 
 // Build sidebar sections
@@ -89,13 +99,16 @@ const sidebarSections = sections.map(s => ({
   source: s.source,
   color: s.color,
   toc: s.toc,
+  title: s.title,
+  titleId: s.titleId,
 }));
 ---
 
 <RulesLayout sections={sidebarSections} currentTab="rules">
-  {sections.map(({ source, color, Content, toc }) => (
-    <section class="file-section" data-source={source}>
+  {sections.map(({ source, color, Content, toc, rawMd, entryId }) => (
+    <section class="file-section" data-source={source} data-collection="rules" data-entry-id={entryId}>
       <Content />
+      {!import.meta.env.PROD && <template class="raw-md">{rawMd}</template>}
     </section>
   ))}
 </RulesLayout>

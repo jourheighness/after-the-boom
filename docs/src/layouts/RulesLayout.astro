@@ -2,6 +2,7 @@
 import Sidebar from '../components/Sidebar.astro';
 import Search from '../components/Search.astro';
 import Comments from '../components/Comments.astro';
+import Editor from '../components/Editor.astro';
 import '../styles/global.css';
 
 interface TocEntry {
@@ -20,6 +21,7 @@ interface Props {
 }
 const { sections, currentTab = 'rules' } = Astro.props;
 const showComments = !import.meta.env.PROD;
+const showEditor = !import.meta.env.PROD;
 const showDmScreen = !import.meta.env.PROD;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
@@ -43,11 +45,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       )}
     </nav>
     <Search />
-    {showComments && (
-      <button class="comment-toggle-btn" id="commentToggleBtn">
-        Comments <span class="comment-badge zero" id="commentBadge">0</span>
-      </button>
-    )}
   </div>
 
   <Sidebar sections={sections} />
@@ -56,7 +53,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <slot />
   </main>
 
-  {showComments && <Comments />}
+  {showEditor && <Editor />}
 
   <script>
     // --- Sidebar toggle (mobile) ---
@@ -67,41 +64,122 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       document.getElementById('sidebar')?.classList.remove('open');
     });
 
-    // --- Scroll spy ---
-    let spyTimeout: ReturnType<typeof setTimeout> | null = null;
-    let _pointerInSidebar = false;
+    // --- Scroll spy (position-based) ---
+    // Matches sidebar links to content headings by position within data-source groups.
+    // No dependency on heading IDs — immune to ProseMirror DOM node recycling.
     const sidebarEl = document.getElementById('sidebar');
+    let _pointerInSidebar = false;
     sidebarEl?.addEventListener('pointerenter', () => _pointerInSidebar = true);
     sidebarEl?.addEventListener('pointerleave', () => _pointerInSidebar = false);
 
-    window.addEventListener('scroll', () => {
-      if (spyTimeout) clearTimeout(spyTimeout);
-      spyTimeout = setTimeout(updateScrollSpy, 100);
-    });
+    let currentActive: Element | null = null;
+    let spyRaf: number | null = null;
+    let userHasScrolled = false;
+    let cachedPairs: Array<[Element, Element]> | null = null;
+
+    /**
+     * Build heading↔link pairs by matching content sections to sidebar groups
+     * via data-source, then matching headings to links by document order.
+     * Cached — invalidated on sidebar DOM mutation.
+     */
+    function getHeadingLinkPairs(): Array<[Element, Element]> {
+      if (cachedPairs) {
+        // Quick staleness check: first heading still in DOM
+        if (cachedPairs.length === 0 || cachedPairs[0][0].isConnected) return cachedPairs;
+        cachedPairs = null;
+      }
+
+      const pairs: Array<[Element, Element]> = [];
+      if (!sidebarEl) return (cachedPairs = pairs);
+
+      for (const group of sidebarEl.querySelectorAll('.nav-group')) {
+        const source = group.getAttribute('data-source');
+        if (!source) continue;
+        const section = document.querySelector(`.file-section[data-source="${source}"]`);
+        if (!section) continue;
+
+        const pm = section.querySelector('.ProseMirror');
+        const container = pm || section;
+
+        const titleLink = group.querySelector('a.nav-source');
+        const navLinks = group.querySelectorAll('.nav-link');
+
+        let subIdx = 0;
+        for (const h of container.querySelectorAll('h1, h2, h3')) {
+          const level = parseInt(h.tagName[1]);
+          if (level === 1) {
+            if (titleLink) pairs.push([h, titleLink]);
+          } else {
+            if (subIdx < navLinks.length) {
+              pairs.push([h, navLinks[subIdx]]);
+              subIdx++;
+            }
+          }
+        }
+      }
+
+      return (cachedPairs = pairs);
+    }
 
     function updateScrollSpy() {
-      const links = document.querySelectorAll('.nav-link');
-      const scrollY = window.scrollY + 80;
-      let active: Element | null = null;
-      for (const link of links) {
-        const href = link.getAttribute('href');
-        if (!href) continue;
-        const target = document.getElementById(href.slice(1));
-        if (target && target.offsetTop <= scrollY) active = link;
+      const threshold = 80;
+      let best: Element | null = null;
+
+      for (const [heading, link] of getHeadingLinkPairs()) {
+        const rect = heading.getBoundingClientRect();
+        if (rect.top <= threshold) best = link;
       }
-      links.forEach(l => l.classList.remove('active'));
-      if (active) {
-        active.classList.add('active');
-        if (sidebarEl && !_pointerInSidebar) {
-          const rect = active.getBoundingClientRect();
+
+      if (best && best !== currentActive) {
+        currentActive?.classList.remove('active');
+        best.classList.add('active');
+        currentActive = best;
+
+        if (userHasScrolled && sidebarEl && !_pointerInSidebar) {
+          const rect = best.getBoundingClientRect();
           const sidebarRect = sidebarEl.getBoundingClientRect();
           if (rect.top < sidebarRect.top || rect.bottom > sidebarRect.bottom) {
-            active.scrollIntoView({ block: 'nearest' });
+            best.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
           }
         }
       }
     }
-    updateScrollSpy();
+
+    window.addEventListener('scroll', () => {
+      userHasScrolled = true;
+      if (spyRaf) cancelAnimationFrame(spyRaf);
+      spyRaf = requestAnimationFrame(updateScrollSpy);
+    }, { passive: true });
+
+    // Click-to-scroll: position-based lookup, doesn't rely on heading IDs
+    sidebarEl?.addEventListener('click', (e) => {
+      const link = (e.target as Element).closest('a.nav-source, a.nav-link');
+      if (!link) return;
+
+      e.preventDefault();
+
+      for (const [heading, sidebarLink] of getHeadingLinkPairs()) {
+        if (sidebarLink === link) {
+          heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (heading.id) history.replaceState(null, '', `#${heading.id}`);
+          return;
+        }
+      }
+    });
+
+    // Watch for sidebar DOM changes (editor rebuilds it) → invalidate cache, re-run spy
+    if (sidebarEl) {
+      let sidebarTimer: ReturnType<typeof setTimeout> | null = null;
+      const smo = new MutationObserver(() => {
+        cachedPairs = null;
+        if (sidebarTimer) clearTimeout(sidebarTimer);
+        sidebarTimer = setTimeout(updateScrollSpy, 200);
+      });
+      smo.observe(sidebarEl, { childList: true, subtree: true });
+    }
+
+    // Initial activation after hydration
+    setTimeout(updateScrollSpy, 300);
 
     // --- Escape closes sidebar on mobile ---
     document.addEventListener('keydown', (e) => {
