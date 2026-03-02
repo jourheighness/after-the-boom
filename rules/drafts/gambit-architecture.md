@@ -22,6 +22,8 @@ No fixed verbs. Instead, a prompt table by fictional mode:
 
 **GM sizing:** Match the effect to the sacrifice and the character. Spare die = small. Best die = big. In their wheelhouse = generous. A stretch = narrow. No mechanical gating — the specialist gets better deals, not exclusive access.
 
+**Narrative authority:** The player says what they do. The GM decides what they find. A gambit is a lens, not a pen. The GM can offer: a detail, a useful item, a contact, a lucky break, fate intervening. On a strong gambit, the GM reaches further — leads, connections, gear in the right place at the right time.
+
 **The bright-line test:** the gambit adds a new fact. It never erases a consequence. If the partial still hurts after the gambit, it's legal.
 
 ## Combat: The Fixed List

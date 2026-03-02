@@ -482,6 +482,8 @@ Sacrifice a die showing **4+**. Any die in the pool is eligible: weapon die, Boo
 
 Size the effect to the sacrifice and the character. Spare die = small. Best die = big. In their wheelhouse = generous. A stretch = narrow. The consequence still stands — the gambit adds a fact beside it.
 
+**The player points the camera. The GM decides what's in frame.** The player names what they do — "I glance at the desk," "I feel the lock mechanism," "I watch the crowd." The GM decides what that gets them: a detail, a useful item, a contact who could help, a lucky break. On a strong gambit, the GM can offer more — a lead, a connection, gear that happens to be right there, fate intervening at the right moment.
+
 > **Example (combat, free fuel):** Brian swings a heavy wrench (d10) with a Boon from flanking (+1d6). Rolls 8 and 4. Keeps 8 for damage, spends the 4 on Push. 8 damage AND the target goes back a band. The Push cost zero damage.
 >
 > **Example (combat, hard trade):** Murph stabs a guard with a knife (d6). Rolls 5. His only die. Keep it for 5 damage, or sacrifice for Pin (hold the guard so Max can get past). Murph sacrifices. 0 damage. Board state matters more than the hit.
