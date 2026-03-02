@@ -481,6 +481,8 @@ Some damage keeps going: fire, acid, thaumic bleed, psychic intrusion. The GM as
 
 You don't want this continuing. Spend your Act, your Move, or make a save. Whatever the fiction demands to end it.
 
+Multiple sustained effects each roll separately. One Act clears one effect.
+
 **Enemies burn too.** When an enemy is affected, the player who caused it rolls the die at the start of that enemy's turn. Armor reduces it as normal.
 
 ### Consumables
