@@ -72,6 +72,8 @@ Boons and Snags cancel 1-for-1. Only the net result applies. Minimum: **0d** (ro
 
 On attacks, the pool is your weapon die + Boon d6s + Drain d6. Snags cancel bonus dice first (Boons, Drain). If no bonus dice remain, the weapon die is removed and you're at 0d.
 
+> A Wounded character attacking without Boons or Drain is at 0d. This is intentional. Wounded means you need help — Drain, an ally's Assist, or flanking — to fight effectively.
+
 ### Sources of Boons
 - **Background:** Relevant expertise for the situation.
 - **Gear:** The right tool for the job.
@@ -154,6 +156,8 @@ Examples — the player picks or invents:
 - *Hollow:* the work ate something you can't name. You do the motions. The meaning is gone.
 
 Cracks clear through significant narrative moments, not rest. A conversation that reaches you. A choice that proves something. A moment where the character confronts what broke and decides who they are now.
+
+**Cracked + Critical + 0 Drain = incapacitated.** You're out of the fight. Same as two full Critical slots — the character is done until someone helps them.
 
 **Recovery:** Drain recovers during **downtime** by:
 - Spending time with someone who matters
@@ -331,7 +335,7 @@ Attacks auto-hit. You never roll to see *if* you connect. The roll determines *h
 
 Sacrifice all dice = 0 damage, pure Gambit effects. One die with no Boons or Drain = damage OR Gambit, pick one.
 
-**At 0d** (weapon die removed by Snags): roll 2d6, take lowest. Both dice are live for Gambits. The higher die doesn't affect your damage but can be sacrificed if it shows 4+. Sacrificing the lower die improves your damage to the remaining die.
+**At 0d** (weapon die removed by Snags): roll 2d6. Your damage is the lower die. Either die can be sacrificed for a gambit if it shows 4+. If you sacrifice the lower die, your damage becomes the higher die instead.
 
 ### Defense
 
@@ -408,7 +412,7 @@ Three abstract ranges. Relative to entities, not a grid.
 | **Near** | Across a room. Pistol range, thrown objects. |
 | **Far** | Across a field. Rifle range, rooftop to street. |
 
-**Cover:** Partial +1 Armor, Full +2 Armor, ranged attacks only. No effect at Close. Strong Gambits can destroy cover.
+**Cover:** Partial +1 Armor, Full +2 Armor, ranged attacks only. Melee ignores cover — they're in your face. A barricade at Close is an obstacle (costs Move to get around), not cover. Strong Gambits can destroy cover.
 
 **Flanking:** Two allies at Close from different angles. Both get a Boon. Breaks when the target moves.
 
@@ -445,11 +449,11 @@ Single-use. Use your Act, spend the item.
 
 | Item | Die | Properties | Damage | Effect |
 |-|-|-|-|-|
-| Flashbang | — | Thrown, Area (Close), Loud | — | Sharp save or Snag on next action |
+| Flashbang | — | Thrown, Area (Close), Loud | — | Enemies: Impaired. PCs: Sharp save or Impaired. |
 | Smoke grenade | — | Thrown, Area (Close) | — | Breaks line of sight until end of next round |
 | Molotov | d6 | Thrown, Area (Close), Loud | Per target | Sustained d6 fire |
 | Frag grenade | d8 | Thrown, Area (Close), Loud, Brutal | Per target | — |
-| Concussion charge | — | Thrown, Area (Close), Loud | — | Nerve save or lose next Act |
+| Concussion charge | — | Thrown, Area (Close), Loud | — | Enemies: lose next Act. PCs: Nerve save or lose next Act. |
 
 ### Sustained Effects
 
