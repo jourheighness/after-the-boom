@@ -139,17 +139,20 @@ When the dice aren't enough, you dig deep.
 - **Add +1d** to any roll (before rolling). One Drain per roll.
 - **Reduce incoming damage by 2** (after a defense roll).
 - **Act despite a Critical injury** (when you'd normally be incapacitated).
-- **Activate a device gambit**: thaumatech devices do things dice can't. Auto-succeed. GM sets Drain cost from fiction. See `rules/THAUMATECH.md`.
+- **Thaumatech use** puts Drain in the stakes. The GM sizes the cost based on how hard you're pushing the device. See `rules/THAUMATECH.md`.
 
-Device gambits can cost multiple Drain. You can Drain a roll (+1d) and activate a device gambit in the same turn, but both draw from the same 4-box track.
+**Cracking:** When your Drain track empties, you **Crack**. Something breaks inside. The player names what it is and plays it. **Snag on all rolls until the Crack clears.** This is not occasional — it's constant. Every roll, every action, until the character deals with what broke.
 
-**Cracking:** When your Drain track empties, you **Crack**: take a lasting condition that reflects how the pressure broke you.
-- *Reckless:* you stop caring about safety
-- *Paranoid:* you trust no one
-- *Numb:* nothing reaches you
-- *Volatile:* your temper is a lit fuse
+Examples — the player picks or invents:
+- *Reckless:* you stop caring about safety. You walk into gunfire because it doesn't matter.
+- *Paranoid:* you trust no one. You check every room twice. You sleep with your back to the wall.
+- *Numb:* nothing reaches you. Not pain, not fear, not the people who need you to feel something.
+- *Volatile:* your temper is a lit fuse. Every frustration is a fight. Every slight is personal.
+- *Dissociated:* you're watching yourself from the outside. Actions feel automatic, disconnected.
+- *Obsessive:* you fixate on one thing — a detail, a face, a sound — and can't let it go.
+- *Hollow:* the work ate something you can't name. You do the motions. The meaning is gone.
 
-A Crack has occasional mechanical weight (GM may impose Snags when it interferes). Cracks clear through significant narrative moments, not rest.
+Cracks clear through significant narrative moments, not rest. A conversation that reaches you. A choice that proves something. A moment where the character confronts what broke and decides who they are now.
 
 **Recovery:** Drain recovers during **downtime** by:
 - Spending time with someone who matters
@@ -487,9 +490,9 @@ On any stakes roll — social, exploration, investigation, setup, doing somethin
 
 See `rules/GM.md` for sizing guidance, narrative authority, temptation technique, and worked examples.
 
-### Thaumatech Device Gambits
+### Thaumatech
 
-Different from combat and stakes gambits. Device gambits cost **Drain** (not a sacrificed die), auto-succeed, and do things dice can't. See `rules/THAUMATECH.md`.
+Using a thaumatech device is a stakes roll. The GM puts Drain in the stakes based on how far past rated function you're pushing it. Simple use might cost nothing on a 6, but there's always a risk. Stretching costs more. Way past spec risks the device itself. See `rules/THAUMATECH.md` for the full framework.
 
 ---
 
