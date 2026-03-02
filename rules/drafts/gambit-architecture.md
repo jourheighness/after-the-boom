@@ -44,6 +44,6 @@ Stakes, consequences, enemy behavior — the GM controls all of that. Gambits ar
 
 ## CORE.md Structure (planned)
 
-- **The Roll section:** Two axioms, three sacrifice patterns, the negotiation flow. No gambit list.
+- **Stakes Roll section:** Two axioms, three sacrifice patterns, the negotiation flow. No gambit list.
 - **Combat chapter:** 7-verb combat gambit list, Strong gambits, Gambit Resistance, combat effects vocabulary (Impaired, Exposed, Prone, Pinned).
 - **Character section (or Edges/Equipment):** Character gambit philosophy and acquisition.

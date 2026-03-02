@@ -1,6 +1,5 @@
 ---
 import Sidebar from '../components/Sidebar.astro';
-import FilterBar from '../components/FilterBar.astro';
 import Search from '../components/Search.astro';
 import Comments from '../components/Comments.astro';
 import '../styles/global.css';
@@ -17,10 +16,9 @@ interface SectionGroup {
 }
 interface Props {
   sections: SectionGroup[];
-  sources: { name: string; color: string }[];
   currentTab?: 'rules' | 'campaigns' | 'dm-screen' | 'research';
 }
-const { sections, sources, currentTab = 'rules' } = Astro.props;
+const { sections, currentTab = 'rules' } = Astro.props;
 const showComments = !import.meta.env.PROD;
 const showDmScreen = !import.meta.env.PROD;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -45,7 +43,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       )}
     </nav>
     <Search />
-    <FilterBar sources={sources} />
     {showComments && (
       <button class="comment-toggle-btn" id="commentToggleBtn">
         Comments <span class="comment-badge zero" id="commentBadge">0</span>
@@ -68,32 +65,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     });
     document.getElementById('main')?.addEventListener('click', () => {
       document.getElementById('sidebar')?.classList.remove('open');
-    });
-
-    // --- Source filters ---
-    const activeFilters = new Set(
-      Array.from(document.querySelectorAll('.filter-btn')).map(b => (b as HTMLElement).dataset.source!)
-    );
-
-    function applyFilters() {
-      document.querySelectorAll('.file-section').forEach(sec => {
-        sec.classList.toggle('hidden', !activeFilters.has((sec as HTMLElement).dataset.source!));
-      });
-      document.dispatchEvent(new CustomEvent('filters-changed'));
-    }
-
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const src = (btn as HTMLElement).dataset.source!;
-        if (activeFilters.has(src)) {
-          activeFilters.delete(src);
-          btn.classList.remove('active');
-        } else {
-          activeFilters.add(src);
-          btn.classList.add('active');
-        }
-        applyFilters();
-      });
     });
 
     // --- Scroll spy ---

@@ -10,7 +10,7 @@ In combat, attacks auto-hit. Roll your weapon die for damage. Boons from flankin
 
 ---
 
-## The Roll
+## Stakes Roll
 
 When the outcome is uncertain and the stakes matter, a player rolls.
 
@@ -628,7 +628,7 @@ Use for: searching a building, fortifying a position, fleeing through a crowd, p
 
 ## Quick Reference
 
-### The Roll
+### Stakes Roll
 Roll [stat]d6, read highest. 6 = full, 4-5 = partial, 1-3 = consequence.
 
 ### Stats

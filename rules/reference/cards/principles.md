@@ -28,7 +28,7 @@ These laws govern every mechanical decision in MONDAS. When evaluating changes, 
 
 These hold across all files:
 
-1. **The Roll**: Stat dice (1d-5d), take highest. 6 = full, 4-5 = partial, 1-3 = consequence, double 6+ = critical. 0d = roll 2d6 take lowest.
+1. **Stakes Roll**: Stat dice (1d-5d), take highest. 6 = full, 4-5 = partial, 1-3 = consequence, double 6+ = critical. 0d = roll 2d6 take lowest.
 2. **Boons/Snags**: +1d / -1d. Cancel 1-for-1. Max 5d, min 0d. Sources stack but creativity capped at 1.
 3. **Guard**: 2 + highest stat (range 3-6). Damage buffer. Recovers in genuine safety. Scar when Guard hits 0.
 4. **Push**: 4-box track. Spend for +1d, -2 damage received, act while Critical, or device gambit (GM sizes cost). Once per roll for +1d. Crack when empty.

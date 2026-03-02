@@ -8,7 +8,7 @@ This document records the design decisions, rationale, and probability math behi
 
 Each principle tag (P1, P2, etc.) references the Design Laws in `rules/DESIGN.md`.
 
-- **P1, P4 (The Roll):** Every roll produces a result. No "nothing happens" outcome. A consequence on 1-3 is a complication, not a dead end.
+- **P1, P4 (Stakes Roll):** Every roll produces a result. No "nothing happens" outcome. A consequence on 1-3 is a complication, not a dead end.
 - **P2 (Stats):** Creativity rewarded by letting players choose approach, which determines stat. Bounded by fictional plausibility.
 - **P2 (Boons):** Creativity Boons capped at 1 per roll to prevent description stacking.
 - **P1, P6 (Stakes):** Stakes replace difficulty classes and position/effect. Raise the stakes / play safe trade gives agency over risk.

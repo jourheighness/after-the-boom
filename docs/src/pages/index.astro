@@ -84,9 +84,6 @@ for (const entry of entries) {
   sections.push({ source, color, toc, Content });
 }
 
-// Build sources for filter bar (DESIGN-* already excluded in prod via filtered)
-const sources = sections.map(s => ({ name: s.source, color: s.color }));
-
 // Build sidebar sections
 const sidebarSections = sections.map(s => ({
   source: s.source,
@@ -95,7 +92,7 @@ const sidebarSections = sections.map(s => ({
 }));
 ---
 
-<RulesLayout sections={sidebarSections} sources={sources} currentTab="rules">
+<RulesLayout sections={sidebarSections} currentTab="rules">
   {sections.map(({ source, color, Content, toc }) => (
     <section class="file-section" data-source={source}>
       <Content />

@@ -98,14 +98,6 @@ body {
   color: rgba(245,240,235,0.5); font-size: 14px;
 }
 .search-count { color: rgba(245,240,235,0.6); font-size: 11px; white-space: nowrap; }
-.filter-bar { display: flex; gap: 4px; flex-wrap: wrap; }
-.filter-btn {
-  padding: 4px 10px; border: none; border-radius: 3px;
-  font-family: inherit; font-size: 12px; cursor: pointer;
-  background: var(--btn-color); color: #f5f0eb; opacity: 1;
-  transition: opacity 0.15s;
-}
-.filter-btn:not(.active) { opacity: 0.35; }
 .hamburger {
   display: none; background: none; border: none; color: #f5f0eb;
   font-size: 22px; cursor: pointer; padding: 4px;
@@ -517,7 +509,6 @@ body {
   .main { margin-left: 0; padding: 16px; }
   .hamburger { display: block; }
   .header-title { font-size: 13px; }
-  .filter-bar { display: none; }
   .search-box { max-width: 200px; }
   .comments-panel { width: 100%; }
 }

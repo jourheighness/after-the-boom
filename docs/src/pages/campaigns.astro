@@ -44,7 +44,6 @@ for (const entry of entries) {
   sections.push({ source, color, toc, Content });
 }
 
-const sources = sections.map(s => ({ name: s.source, color: s.color }));
 const sidebarSections = sections.map(s => ({
   source: s.source,
   color: s.color,
@@ -52,7 +51,7 @@ const sidebarSections = sections.map(s => ({
 }));
 ---
 
-<RulesLayout sections={sidebarSections} sources={sources} currentTab="campaigns">
+<RulesLayout sections={sidebarSections} currentTab="campaigns">
   {sections.map(({ source, color, Content, toc }) => (
     <section class="file-section" data-source={source}>
       <Content />
