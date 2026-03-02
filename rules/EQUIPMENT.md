@@ -90,7 +90,7 @@ Design principles, generation rules, and all tests live in `rules/DESIGN-EQUIPME
 | Area (range) | Hits all targets within range of impact, roll once |
 | Long | Close+Near, Boon at reach |
 | Loud | Ticks clocks |
-| Brutal | Crit = weapon die max + highest Boon die |
+| Brutal | +2 overflow when damage breaks Guard |
 | Subtle | Concealable |
 | Slow | No Move+attack |
 
