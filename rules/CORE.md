@@ -484,6 +484,8 @@ Size the effect to the sacrifice and the character. Spare die = small. Best die 
 
 **The player points the camera. The GM decides what's in frame.** The player names what they do — "I glance at the desk," "I feel the lock mechanism," "I watch the crowd." The GM decides what that gets them: a detail, a useful item, a contact who could help, a lucky break. On a strong gambit, the GM can offer more — a lead, a connection, gear that happens to be right there, fate intervening at the right moment.
 
+**Tempt the sacrifice.** When a player's best die is their only 4+, the GM should see the trade before the player does. If sacrificing it drops them from full to partial: dangle something. "You've got a 6 and nothing else — clean success. But that vent is right there and your knack is tingling. Want to press your hand to it?" If it drops them to consequence: dangle something bigger. Seduce them into the bargain. Don't lay it all out — hint. Let the player decide if the cost is worth the mystery.
+
 > **Example (combat, free fuel):** Brian swings a heavy wrench (d10) with a Boon from flanking (+1d6). Rolls 8 and 4. Keeps 8 for damage, spends the 4 on Push. 8 damage AND the target goes back a band. The Push cost zero damage.
 >
 > **Example (combat, hard trade):** Murph stabs a guard with a knife (d6). Rolls 5. His only die. Keep it for 5 damage, or sacrifice for Pin (hold the guard so Max can get past). Murph sacrifices. 0 damage. Board state matters more than the hit.
