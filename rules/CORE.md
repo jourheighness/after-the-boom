@@ -133,14 +133,14 @@ Guard is **not HP.** When Guard drops, you haven't been hurt yet. You've been pu
 
 ### Drain
 
-When the dice aren't enough, you dig deep.
+When the dice aren't enough, you dig deep. Drain is willpower — everyone has it, zero or positive.
 
 **Drain track: 4 boxes.** Spend 1 Drain to:
 - **Add +1d** to any roll (before rolling). One Drain per roll.
 - **Act despite a Critical injury** (when you'd normally be incapacitated).
-- **Thaumatech use** puts Drain in the stakes. The GM sizes the cost based on how hard you're pushing the device. See `rules/THAUMATECH.md`.
+- **Thaumatech use** (positives only) puts Drain in the stakes. The GM sizes the cost based on how hard you're pushing the device. See `rules/THAUMATECH.md`.
 
-Every Drain spend is a commitment — you decide before you know the outcome.
+Every Drain spend is a commitment — you decide before you know the outcome. Zeroes dig deep on guts alone. Positives split the same 4 boxes between guts and gear.
 
 **Cracking:** When your Drain track empties, you **Crack**. Something breaks inside. The player names what it is and plays it. **Snag on all rolls until the Crack clears.** This is not occasional — it's constant. Every roll, every action, until the character deals with what broke.
 
