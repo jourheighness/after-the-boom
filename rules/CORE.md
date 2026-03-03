@@ -284,13 +284,33 @@ The player describes the Scar: a physical mark (split lip, burn scar), a psychol
 
 ### Recovery
 
-| Level            | Recovery                                                           |
-| ---------------- | ------------------------------------------------------------------ |
-| **Hurt** (1)     | Clears after the scene. A breather, a bandage.                     |
-| **Wounded** (2)  | Treatment and downtime. Medical attention, a few days off.         |
-| **Critical** (3) | Serious intervention. Hospital, skilled healer, long recovery arc. |
+| Level            | Clears when...                                                               |
+| ---------------- | ---------------------------------------------------------------------------- |
+| **Hurt** (1)     | Scene ends. A bandage kit clears it mid-scene (1 Act).                       |
+| **Wounded** (2)  | Healing clock fills (4 segments). Needs treatment.                           |
+| **Critical** (3) | Healing clock fills (6 segments, drops to Wounded). Needs serious treatment. |
 
-The fiction determines what healing looks like.
+A healing clock is a progress track divided into segments. Treatment fills it. (Clocks as a general mechanic: see the Clocks section.)
+
+Three ways to help someone:
+
+**Consumables.** Spend your Act, use the item. Automatic. A stim shot restores 3 Guard mid-scene. A stabilizer dose grants a Boon that cancels the wound Snag for the rest of the scene. You're still injured, still need treatment, but you can function. At Critical, the stabilizer cancels the Snag but you're still immobile.
+
+Thauma-pharmaceuticals need ambient magic to work. Inert in dead zones. Thaumatech devices run on operator Drain and work anywhere.
+
+**Treatment.** Stakes roll. Describe the work, GM sets stakes. Ticks the healing clock: full success = 2 ticks, partial = 1. Gear (first-aid kit, surgical tools) gives a Boon.
+
+Anyone can treat Wounded. Critical needs training: a relevant Edge or Background. Without training you can stabilize (consumable), not heal.
+
+One treatment attempt per patient per scene. Consumables don't count as attempts.
+
+**Thaumatech devices.** Treatment roll powered by the operator's Drain. Connect the patient, activate, roll. Standard thaumatech stakes apply (GM sizes the Drain cost). A trauma station handles Critical without an Edge but needs a power source and doesn't travel.
+
+**Drain** recovers during downtime through narrative beats: rest, connection, purpose, vice. Between scenes, a nerve stim (thauma-pharmaceutical, restricted) recovers 1 Drain with a Snag on the next roll. Requires 10 minutes of rest. Nothing recovers Drain mid-fight.
+
+**Cracks** clear through significant narrative moments. No item fixes a Crack.
+
+Full catalog in `rules/EQUIPMENT.md`.
 
 ***
 
@@ -711,6 +731,10 @@ Damage → Armor → Guard → overflow = Harm. Guard hits 0 = Scar (+1 max Guar
 ### Harm
 
 L1 Hurt (Snag when relevant), L2 Wounded (Snag all), L3 Critical (Drain to act). Overflow: 1-2 = L1, 3-4 = L2, 5+ = L3.
+
+### Recovery & Healing
+
+Hurt: clears after scene, or bandage kit (1 Act). Wounded: healing clock (4 segments), treatment roll ticks it (full = 2, partial = 1). Critical: healing clock (6 segments, drops to Wounded), needs Edge/Background to treat. Consumable = 1 Act, auto (stim: 3 Guard; stabilizer: Boon cancels wound Snag). Treatment = stakes roll, gear gives Boon, 1 attempt per patient per scene. Thaumatech device = treatment roll + Drain (GM sizes cost). Trauma station treats Critical without Edge. Thauma-pharmaceuticals need ambient magic; devices need operator Drain. Drain: narrative downtime only. Cracks: narrative moments only. Catalog in `rules/EQUIPMENT.md`.
 
 ### Conditions
 

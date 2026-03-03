@@ -375,82 +375,67 @@ function liftFromWrappers(ctx: any) {
   }
 }
 
-// ── Turn Into submenu item definitions ──
-// detect receives the resolved position $from so it can walk ancestors.
-// Order matters: specific leaf types first, then wrappers, then text (fallback).
-const TURN_INTO_ITEMS: Array<{
-  id: string; icon: string; label: string;
+// ── DOM helper ──
+function el<K extends keyof HTMLElementTagNameMap>(
+  tag: K, cls?: string, attrs?: Record<string, string>
+): HTMLElementTagNameMap[K] {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (attrs) for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  return e;
+}
+
+// ── Turn Into item type ──
+type TurnIntoItem = {
+  id: string; icon: string; label: string; short: string;
   run: (ctx: any) => void;
   detect: ($from: any, ctx: any) => boolean;
-}> = [
-  {
-    id: 'h1', icon: ICON_H1, label: 'Heading 1',
+};
+
+// ── Item factories (DRY: headings differ only by level, wrappers by schema) ──
+function headingItem(level: number, icon: string): TurnIntoItem {
+  return {
+    id: `h${level}`, icon, label: `Heading ${level}`, short: `H${level}`,
     run: (ctx) => {
       liftFromWrappers(ctx);
-      ctx.get(mk!.commandsCtx).call(mk!.setBlockTypeCommand.key, { nodeType: mk!.headingSchema.type(ctx), attrs: { level: 1 } });
+      ctx.get(mk!.commandsCtx).call(mk!.setBlockTypeCommand.key,
+        { nodeType: mk!.headingSchema.type(ctx), attrs: { level } });
     },
-    detect: ($from, ctx) => $from.parent.type === mk!.headingSchema.type(ctx) && $from.parent.attrs.level === 1,
-  },
+    detect: ($from, ctx) =>
+      $from.parent.type === mk!.headingSchema.type(ctx) && $from.parent.attrs.level === level,
+  };
+}
+
+function wrapperItem(id: string, icon: string, label: string, short: string,
+  getSchema: () => any): TurnIntoItem {
+  return {
+    id, icon, label, short,
+    run: (ctx) => ctx.get(mk!.commandsCtx).call(mk!.wrapInBlockTypeCommand.key,
+      { nodeType: getSchema().type(ctx) }),
+    detect: ($from, ctx) => hasAncestorOfType($from, getSchema().type(ctx)),
+  };
+}
+
+// Order: specific leaf types first, wrappers, text (fallback), non-detectable last
+const TURN_INTO_ITEMS: TurnIntoItem[] = [
+  headingItem(1, ICON_H1),
+  headingItem(2, ICON_H2),
+  headingItem(3, ICON_H3),
+  headingItem(4, ICON_H4),
   {
-    id: 'h2', icon: ICON_H2, label: 'Heading 2',
+    id: 'code', icon: ICON_CODE_BLOCK, label: 'Code Block', short: 'Code',
     run: (ctx) => {
       liftFromWrappers(ctx);
-      ctx.get(mk!.commandsCtx).call(mk!.setBlockTypeCommand.key, { nodeType: mk!.headingSchema.type(ctx), attrs: { level: 2 } });
-    },
-    detect: ($from, ctx) => $from.parent.type === mk!.headingSchema.type(ctx) && $from.parent.attrs.level === 2,
-  },
-  {
-    id: 'h3', icon: ICON_H3, label: 'Heading 3',
-    run: (ctx) => {
-      liftFromWrappers(ctx);
-      ctx.get(mk!.commandsCtx).call(mk!.setBlockTypeCommand.key, { nodeType: mk!.headingSchema.type(ctx), attrs: { level: 3 } });
-    },
-    detect: ($from, ctx) => $from.parent.type === mk!.headingSchema.type(ctx) && $from.parent.attrs.level === 3,
-  },
-  {
-    id: 'h4', icon: ICON_H4, label: 'Heading 4',
-    run: (ctx) => {
-      liftFromWrappers(ctx);
-      ctx.get(mk!.commandsCtx).call(mk!.setBlockTypeCommand.key, { nodeType: mk!.headingSchema.type(ctx), attrs: { level: 4 } });
-    },
-    detect: ($from, ctx) => $from.parent.type === mk!.headingSchema.type(ctx) && $from.parent.attrs.level === 4,
-  },
-  {
-    id: 'code', icon: ICON_CODE_BLOCK, label: 'Code Block',
-    run: (ctx) => {
-      liftFromWrappers(ctx);
-      ctx.get(mk!.commandsCtx).call(mk!.setBlockTypeCommand.key, { nodeType: mk!.codeBlockSchema.type(ctx) });
+      ctx.get(mk!.commandsCtx).call(mk!.setBlockTypeCommand.key,
+        { nodeType: mk!.codeBlockSchema.type(ctx) });
     },
     detect: ($from, ctx) => $from.parent.type === mk!.codeBlockSchema.type(ctx),
   },
-  // Wrapper types — walk ancestor chain
+  wrapperItem('quote', ICON_QUOTE, 'Quote', 'Quote', () => mk!.blockquoteSchema),
+  wrapperItem('bullet', ICON_BULLET_LIST, 'Bullet List', 'List', () => mk!.bulletListSchema),
+  wrapperItem('ordered', ICON_ORDERED_LIST, 'Numbered List', 'List', () => mk!.orderedListSchema),
   {
-    id: 'quote', icon: ICON_QUOTE, label: 'Quote',
-    run: (ctx) => {
-      const cmds = ctx.get(mk!.commandsCtx);
-      cmds.call(mk!.wrapInBlockTypeCommand.key, { nodeType: mk!.blockquoteSchema.type(ctx) });
-    },
-    detect: ($from, ctx) => hasAncestorOfType($from, mk!.blockquoteSchema.type(ctx)),
-  },
-  {
-    id: 'bullet', icon: ICON_BULLET_LIST, label: 'Bullet List',
-    run: (ctx) => {
-      const cmds = ctx.get(mk!.commandsCtx);
-      cmds.call(mk!.wrapInBlockTypeCommand.key, { nodeType: mk!.bulletListSchema.type(ctx) });
-    },
-    detect: ($from, ctx) => hasAncestorOfType($from, mk!.bulletListSchema.type(ctx)),
-  },
-  {
-    id: 'ordered', icon: ICON_ORDERED_LIST, label: 'Numbered List',
-    run: (ctx) => {
-      const cmds = ctx.get(mk!.commandsCtx);
-      cmds.call(mk!.wrapInBlockTypeCommand.key, { nodeType: mk!.orderedListSchema.type(ctx) });
-    },
-    detect: ($from, ctx) => hasAncestorOfType($from, mk!.orderedListSchema.type(ctx)),
-  },
-  // Text is the fallback — must be last
-  {
-    id: 'text', icon: ICON_TEXT, label: 'Text',
+    id: 'text', icon: ICON_TEXT, label: 'Text', short: 'T',
     run: (ctx) => {
       liftFromWrappers(ctx);
       ctx.get(mk!.commandsCtx).call(mk!.turnIntoTextCommand.key);
@@ -458,190 +443,144 @@ const TURN_INTO_ITEMS: Array<{
     detect: ($from, ctx) => $from.parent.type === mk!.paragraphSchema.type(ctx),
   },
   {
-    id: 'divider', icon: ICON_DIVIDER, label: 'Divider',
-    run: (ctx) => {
-      const cmds = ctx.get(mk!.commandsCtx);
-      cmds.call(mk!.addBlockTypeCommand.key, { nodeType: mk!.hrSchema.type(ctx) });
-    },
+    id: 'divider', icon: ICON_DIVIDER, label: 'Divider', short: 'T',
+    run: (ctx) => ctx.get(mk!.commandsCtx).call(mk!.addBlockTypeCommand.key,
+      { nodeType: mk!.hrSchema.type(ctx) }),
     detect: () => false,
   },
 ];
 
-// Track the currently open submenu globally (only one at a time)
+// Derive label map from items (no separate map to keep in sync)
+const BLOCK_LABELS = Object.fromEntries(TURN_INTO_ITEMS.map(i => [i.id, i.short]));
+
+// ── Submenu state (global: only one open at a time across all editors) ──
 let activeSubmenu: HTMLElement | null = null;
 let activeSubmenuCleanup: (() => void) | null = null;
 
 function closeActiveSubmenu() {
-  if (activeSubmenu) {
-    activeSubmenu.style.display = 'none';
-    activeSubmenu = null;
+  if (activeSubmenu) { activeSubmenu.style.display = 'none'; activeSubmenu = null; }
+  if (activeSubmenuCleanup) { activeSubmenuCleanup(); activeSubmenuCleanup = null; }
+}
+
+// ── Toolbar injection (called per editor after Crepe.create()) ──
+
+function createTurnIntoButton(): { btn: HTMLButtonElement; label: HTMLSpanElement } {
+  const btn = el('button', 'toolbar-turn-into', { type: 'button' });
+  const label = el('span', 'toolbar-turn-into-label');
+  label.textContent = 'T';
+  const chevron = el('span', 'toolbar-turn-into-chevron');
+  chevron.innerHTML = ICON_CHEVRON_DOWN; // safe: package SVG constant
+  btn.append(label, chevron);
+  return { btn, label };
+}
+
+function createSubmenuPanel(crepe: any): HTMLDivElement {
+  const panel = el('div', 'toolbar-submenu');
+  panel.style.display = 'none';
+
+  for (const item of TURN_INTO_ITEMS) {
+    const row = el('button', 'toolbar-submenu-item', { type: 'button' });
+    row.dataset.blockType = item.id;
+    const icon = el('span', 'toolbar-submenu-icon');
+    icon.innerHTML = item.icon; // safe: package SVG constant
+    const label = el('span', 'toolbar-submenu-label');
+    label.textContent = item.label;
+    const check = el('span', 'toolbar-submenu-check');
+    row.append(icon, label, check);
+    row.addEventListener('mousedown', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      crepe.editor.action((ctx: any) => {
+        item.run(ctx);
+        ctx.get(mk!.editorViewCtx).focus();
+      });
+      closeActiveSubmenu();
+    });
+    panel.appendChild(row);
   }
-  if (activeSubmenuCleanup) {
-    activeSubmenuCleanup();
-    activeSubmenuCleanup = null;
-  }
+  return panel;
+}
+
+function createCommentButton(): HTMLButtonElement {
+  const btn = el('button', 'toolbar-comment', { type: 'button' });
+  const icon = el('span');
+  icon.innerHTML = ICON_COMMENT; // safe: package SVG constant
+  const label = el('span');
+  label.textContent = 'Comment';
+  btn.append(icon, label);
+  btn.addEventListener('mousedown', (e) => {
+    e.preventDefault(); e.stopPropagation();
+    console.log('[toolbar] Comment button clicked');
+  });
+  return btn;
+}
+
+function detectBlockType(crepe: any): string {
+  let blockId = 'text';
+  try {
+    crepe.editor.action((ctx: any) => {
+      const { $from } = ctx.get(mk!.editorViewCtx).state.selection;
+      for (const item of TURN_INTO_ITEMS) {
+        if (item.detect($from, ctx)) { blockId = item.id; break; }
+      }
+    });
+  } catch {}
+  return blockId;
 }
 
 async function injectToolbarExtras(crepe: any, container: HTMLDivElement) {
   if (!mk) await ensureMilkdownImports();
-  const { editorViewCtx, headingSchema } = mk!;
-
   const toolbar = container.querySelector('.milkdown-toolbar');
   if (!toolbar) return;
 
-  // ── "Turn Into" button ──
-  const turnIntoBtn = document.createElement('button');
-  turnIntoBtn.className = 'toolbar-turn-into';
-  turnIntoBtn.type = 'button';
-  const turnIntoLabel = document.createElement('span');
-  turnIntoLabel.className = 'toolbar-turn-into-label';
-  turnIntoLabel.textContent = 'T';
-  turnIntoBtn.appendChild(turnIntoLabel);
-  const chevron = document.createElement('span');
-  chevron.className = 'toolbar-turn-into-chevron';
-  chevron.innerHTML = ICON_CHEVRON_DOWN; // safe: hardcoded SVG constant
-  turnIntoBtn.appendChild(chevron);
+  const { btn: turnIntoBtn, label: turnIntoLabel } = createTurnIntoButton();
+  const submenu = createSubmenuPanel(crepe);
 
-  // ── Submenu panel ──
-  const submenu = document.createElement('div');
-  submenu.className = 'toolbar-submenu';
-  submenu.style.display = 'none';
-
-  for (const item of TURN_INTO_ITEMS) {
-    const row = document.createElement('button');
-    row.className = 'toolbar-submenu-item';
-    row.type = 'button';
-    row.dataset.blockType = item.id;
-
-    // Build row content with safe DOM methods + hardcoded SVG constants
-    const iconSpan = document.createElement('span');
-    iconSpan.className = 'toolbar-submenu-icon';
-    iconSpan.innerHTML = item.icon; // safe: hardcoded SVG constant
-    const labelSpan = document.createElement('span');
-    labelSpan.className = 'toolbar-submenu-label';
-    labelSpan.textContent = item.label;
-    const checkSpan = document.createElement('span');
-    checkSpan.className = 'toolbar-submenu-check';
-    row.append(iconSpan, labelSpan, checkSpan);
-
-    row.addEventListener('mousedown', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      crepe.editor.action((ctx: any) => {
-        item.run(ctx);
-        ctx.get(editorViewCtx).focus();
-      });
-      closeActiveSubmenu();
-    });
-    submenu.appendChild(row);
-  }
-
-  // ── Divider before formatting buttons ──
-  const dividerLeft = document.createElement('span');
-  dividerLeft.className = 'toolbar-divider';
-
-  // ── Comment button ──
-  const commentBtn = document.createElement('button');
-  commentBtn.className = 'toolbar-comment';
-  commentBtn.type = 'button';
-  const commentIconSpan = document.createElement('span');
-  commentIconSpan.innerHTML = ICON_COMMENT; // safe: hardcoded SVG constant
-  const commentLabelSpan = document.createElement('span');
-  commentLabelSpan.textContent = 'Comment';
-  commentBtn.append(commentIconSpan, commentLabelSpan);
-  commentBtn.addEventListener('mousedown', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('[toolbar] Comment button clicked');
-  });
-
-  // ── Divider before comment ──
-  const dividerRight = document.createElement('span');
-  dividerRight.className = 'toolbar-divider';
-
-  // Insert into toolbar: [Turn Into] [divider] [existing buttons...] [divider] [Comment]
+  // Assemble: [Turn Into] [÷] [Crepe buttons] [÷] [Comment]
   toolbar.prepend(submenu);
-  toolbar.prepend(dividerLeft);
+  toolbar.prepend(el('span', 'toolbar-divider'));
   toolbar.prepend(turnIntoBtn);
-  toolbar.appendChild(dividerRight);
-  toolbar.appendChild(commentBtn);
+  toolbar.appendChild(el('span', 'toolbar-divider'));
+  toolbar.appendChild(createCommentButton());
 
-  // ── Toggle submenu on Turn Into click ──
+  // Submenu toggle
   turnIntoBtn.addEventListener('mousedown', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (activeSubmenu === submenu) {
-      closeActiveSubmenu();
-    } else {
-      closeActiveSubmenu();
-      submenu.style.display = 'flex';
-      activeSubmenu = submenu;
-      updateSubmenuChecks();
+    e.preventDefault(); e.stopPropagation();
+    if (activeSubmenu === submenu) { closeActiveSubmenu(); return; }
+    closeActiveSubmenu();
+    submenu.style.display = 'flex';
+    activeSubmenu = submenu;
+    updateToolbarState();
 
-      const onOutsideClick = (ev: MouseEvent) => {
-        if (!submenu.contains(ev.target as Node) && !turnIntoBtn.contains(ev.target as Node)) {
-          closeActiveSubmenu();
-        }
-      };
-      const onEscape = (ev: KeyboardEvent) => {
-        if (ev.key === 'Escape') closeActiveSubmenu();
-      };
-      document.addEventListener('mousedown', onOutsideClick, true);
-      document.addEventListener('keydown', onEscape, true);
-      activeSubmenuCleanup = () => {
-        document.removeEventListener('mousedown', onOutsideClick, true);
-        document.removeEventListener('keydown', onEscape, true);
-      };
-    }
+    const onOutside = (ev: MouseEvent) => {
+      if (!submenu.contains(ev.target as Node) && !turnIntoBtn.contains(ev.target as Node))
+        closeActiveSubmenu();
+    };
+    const onEscape = (ev: KeyboardEvent) => { if (ev.key === 'Escape') closeActiveSubmenu(); };
+    document.addEventListener('mousedown', onOutside, true);
+    document.addEventListener('keydown', onEscape, true);
+    activeSubmenuCleanup = () => {
+      document.removeEventListener('mousedown', onOutside, true);
+      document.removeEventListener('keydown', onEscape, true);
+    };
   });
 
-  // ── Detect current block type → update label + checkmarks ──
-  function detectCurrentBlockType(): string {
-    let blockId = 'text';
-    try {
-      crepe.editor.action((ctx: any) => {
-        const view = ctx.get(editorViewCtx);
-        const { $from } = view.state.selection;
-        for (const item of TURN_INTO_ITEMS) {
-          if (item.detect($from, ctx)) {
-            blockId = item.id;
-            break;
-          }
-        }
-      });
-    } catch {}
-    return blockId;
-  }
-
-  const BLOCK_LABELS: Record<string, string> = {
-    text: 'T', h1: 'H1', h2: 'H2', h3: 'H3', h4: 'H4',
-    bullet: 'List', ordered: 'List', code: 'Code', quote: 'Quote', divider: 'T',
-  };
-
-  function updateTurnIntoLabel() {
-    const blockId = detectCurrentBlockType();
+  // Unified state update: label + checkmarks in one detection pass
+  function updateToolbarState() {
+    const blockId = detectBlockType(crepe);
     turnIntoLabel.textContent = BLOCK_LABELS[blockId] || 'T';
-  }
-
-  function updateSubmenuChecks() {
-    const blockId = detectCurrentBlockType();
-    for (const row of submenu.querySelectorAll('.toolbar-submenu-item') as NodeListOf<HTMLElement>) {
-      const checkEl = row.querySelector('.toolbar-submenu-check')!;
-      // safe: ICON_CHECK is a hardcoded SVG constant
-      checkEl.innerHTML = row.dataset.blockType === blockId ? ICON_CHECK : '';
+    if (activeSubmenu === submenu) {
+      for (const row of submenu.querySelectorAll('.toolbar-submenu-item') as NodeListOf<HTMLElement>) {
+        row.querySelector('.toolbar-submenu-check')!.innerHTML =
+          row.dataset.blockType === blockId ? ICON_CHECK : '';
+      }
     }
   }
 
-  // Update when toolbar appears
-  const observer = new MutationObserver(() => {
-    const showing = toolbar.getAttribute('data-show') === 'true';
-    if (showing) {
-      updateTurnIntoLabel();
-    } else {
-      closeActiveSubmenu();
-    }
-  });
-  observer.observe(toolbar, { attributes: true, attributeFilter: ['data-show'] });
+  // React to toolbar show/hide
+  new MutationObserver(() => {
+    if (toolbar.getAttribute('data-show') === 'true') updateToolbarState();
+    else closeActiveSubmenu();
+  }).observe(toolbar, { attributes: true, attributeFilter: ['data-show'] });
 }
 
 function showIndicator(el: HTMLSpanElement, status: 'saving' | 'saved' | 'error') {
