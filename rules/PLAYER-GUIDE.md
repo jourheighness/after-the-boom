@@ -48,6 +48,50 @@ You'll meet six people throughout this guide. Each one teaches a different part 
 
 ## The Roll
 
+Night shift. Mae pulls a Yellow Slip from intake and the name doesn't match the discharge log. Same date, same processing clerk, different name. She pulls the original. Cross-references the case number. The fluorescent above her desk buzzes. Something is wrong in this file and she's going to find out what.
+
+The GM says: "Roll Sharp. On a partial, you find the discrepancy but the database flags your query. On a miss, the file's been redacted and your name is on the access log."
+
+That's how every roll works. The GM states what's at risk. You decide whether to roll, change approach, or back off. Then dice hit the table.
+
+### The Dice
+
+Roll **d6s equal to the relevant stat.** Read the **single highest die.**
+
+| Highest Die | Result |
+|-|-|
+| **6** | Full success. No strings. |
+| **4-5** | Partial success. Cost, complication, or reduced effect. |
+| **1-3** | Consequence. The GM makes a move. |
+
+Mae rolls Sharp (2d6). Before she picks up the dice, she builds the pool.
+
+### Building the Pool
+
+Before rolling, look for advantages. Each one adds a **Boon (+1d6):**
+
+- **Background relevant?** Mae knows DPA filing procedures inside out. +1d Boon.
+- **Right gear?** The proper tool for the job.
+- **Creative approach?** Using the environment or exploiting a weakness. Max 1 Boon from creativity per roll.
+- **Ally helping?** Someone describes how they assist. Costs their action.
+- **Edge applies?** Some Edges grant situational Boons.
+
+Disadvantages impose **Snags (-1d).** Boons and Snags cancel 1-for-1. Only the net result applies.
+
+Mae has Sharp 2 and her background applies (+1d Boon). She's rolling 3d6. Gets a 6, 3, 2. Full success. The discrepancy is real: two different names on the same intake record, and nobody flagged it in nine years. She has a follow-up question forming already.
+
+### Zero Dice
+
+Niv at a Free Marches border checkpoint. Sharp 3. But it's dark (Snag) and the guard just flagged her papers (Snag). Two Snags cancel two Boons she doesn't have, eating into her stat. Net pool: 1d6. If one more Snag hit, she'd be at **0d**: roll 2d6, take the **lowest.** The worst odds in the game. Niv has been there before.
+
+### Stakes
+
+Before any roll, the GM tells you two things: what happens on a partial, what happens on a miss. You hear the stakes. Then you decide. You can always back off. No roll, no consequence.
+
+> **The Roll:** [stat]d6, read highest. 6 = full, 4-5 = partial + cost, 1-3 = consequence. Boon = +1d, Snag = -1d, cancel 1:1. Min 0d = 2d6 take lowest. GM states stakes before you roll. You can always back off.
+
+---
+
 ## Gambits
 
 ## Getting Hurt
