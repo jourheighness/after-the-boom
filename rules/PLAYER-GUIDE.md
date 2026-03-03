@@ -212,9 +212,8 @@ Guard refreshes in **genuine safety.** If you'd feel safe enough to sit down and
 
 Spend 1 Drain to:
 - **Add +1d** to any roll (before rolling). One Drain per roll.
-- **Reduce incoming damage by 2** (after a defense roll).
 - **Act despite a Critical injury** (when you'd normally be incapacitated).
-- **Power a device gambit:** thaumatech can do things dice can't. The GM sets the Drain cost from the fiction.
+- **Thaumatech use** puts Drain in the stakes. The GM sizes the cost based on how hard you're pushing the device. See Your Gear.
 
 Zeroes dig deep on guts alone. Positives split the same 4 boxes between guts and gear.
 
@@ -224,7 +223,7 @@ End of a bad shift. Luka is at 1 Drain. Management wants one more extraction pas
 
 When your Drain track empties, something breaks. You **Crack.** The player names it.
 
-Luka names his: *Numb.* Nothing reaches him. Not pain, not fear, not the people who need him to feel something. When it interferes, the GM imposes Snags.
+Luka names his: *Numb.* Nothing reaches him. Not pain, not fear, not the people who need him to feel something. **Snag on all rolls until the Crack clears.**
 
 Cracks clear through significant narrative moments. A conversation that reaches you. A choice that proves something. Not rest. Not items. Not mechanics. Moments.
 
@@ -233,16 +232,15 @@ Cracks clear through significant narrative moments. A conversation that reaches 
 You have 4 boxes. Every spend is a question.
 
 - **Need to guarantee a roll?** +1d. The single most reliable use.
-- **Just got hit hard?** Reduce incoming damage by 2. Sometimes that's the difference between Hurt and Wounded.
 - **Critical injury but you have to move?** Spend 1 to act.
-- **Using thaumatech past spec?** The GM puts it in the stakes.
+- **Using thaumatech?** The GM puts it in the stakes. You don't choose the cost.
 - **At 1 Drain left?** Is this worth Cracking over?
 
 ### Recovery
 
 Drain recovers during **downtime.** Spending time with someone who matters. Doing something that reminds you who you are. Getting proper rest. Indulging a vice (quick, but the GM may complicate).
 
-> **Guard:** 2 + highest stat (cap 10). Refreshes in genuine safety. **Drain:** 4 boxes. +1d before rolling (1/roll), -2 incoming damage, act while Critical, device gambits. Empty = Crack (Snags when it interferes). Crack clears through narrative, not rest. Drain recovers in downtime.
+> **Guard:** 2 + highest stat (cap 10). Refreshes in genuine safety. **Drain:** 4 boxes. +1d before rolling (1/roll), act while Critical, thaumatech stakes. Empty = Crack (Snag all rolls). Crack clears through narrative, not rest. Drain recovers in downtime.
 
 ---
 
@@ -275,9 +273,9 @@ The guiding question: how far past rated function?
 
 ### Device at Risk
 
-When the GM declares a device at risk, roll **2d6, read highest.** 6 = fine. 4-5 = breaks (offline until downtime repair). 1-3 = breaks AND bites you (feedback, sparks, thaumic surge).
+When the stakes say "device at risk," the device is strained. **Snag on all rolls using this device** until you spend an Act to fix it: tighten the housing, reset the contact plate, clear the surge. If a strained device gets "at risk" again before you fix it, it breaks.
 
-A broken device is repaired in a downtime scene. Destruction is narrative, not mechanical. A device is only truly gone when the fiction demands it and the table feels the weight.
+A broken device is offline until repaired in a downtime scene. The player describes the work. Destruction is narrative, not mechanical. A device is only truly gone when the fiction demands it and the table feels the weight.
 
 ### Quality is Positioning
 
@@ -291,13 +289,13 @@ Hakim's sidearm. Three modes.
 
 **Thumb on the plate.** Damage + the weapon's listed thaumatech effect. Costs 1 Drain.
 
-**Past spec.** You want it to do something the listed effect can't. That's a device gambit: the GM sizes the Drain cost from the fiction, and the effect auto-succeeds.
+**Past spec.** You want the weapon to do something its listed effect can't. That's a stakes roll with Drain in the stakes. Takes your Act. Same stretch tiers as any thaumatech use (simple/stretching/way past spec).
 
 ### Consumables
 
 Single-use items. Apply to yourself or someone at Close range. Use your Act, spend the item. Stim shots, stabilizer doses, field patches. See the equipment catalog for the full list.
 
-> **Weapons:** d6 light, d8 standard, d10 heavy, d12 devastating. **Thaumatech tiers:** Simple (6=free, 4-5=1 Drain, 1-3=1+complication), Stretching (6=1, 4-5=2, 1-3=2+at risk), Way Past Spec (6=2, 4-5=3+at risk, 1-3=3+breaks). Device at risk: 2d6 read highest (6=fine, 4-5=breaks, 1-3=catastrophic). **Combat:** Thumb off = free. Thumb on = 1 Drain + effect. Past spec = device gambit.
+> **Weapons:** d6 light, d8 standard, d10 heavy, d12 devastating. **Thaumatech tiers:** Simple (6=free, 4-5=1 Drain, 1-3=1+complication), Stretching (6=1, 4-5=2, 1-3=2+at risk), Way Past Spec (6=2, 4-5=3+at risk, 1-3=3+breaks). Device at risk = Snag until fixed (1 Act). Strained again = breaks. **Combat:** Thumb off = free. Thumb on = 1 Drain + effect. Past spec = stakes roll + Drain.
 
 ---
 
@@ -452,7 +450,7 @@ Cracks clear through moments, not mechanics.
 
 **Guard:** 2 + highest stat (cap 10). Refreshes in genuine safety. First Scar per session = +1 max Guard.
 
-**Drain:** 4 boxes. +1d (1/roll), -2 incoming damage, act while Critical, device gambits. Empty = Crack (Snags when it interferes). Crack = narrative recovery. Drain = downtime recovery.
+**Drain:** 4 boxes. +1d (1/roll), act while Critical, thaumatech stakes. Empty = Crack (Snag all rolls). Crack = narrative recovery. Drain = downtime recovery.
 
 **Combat Gambits** (sacrifice 4+ = standard, 6+ = strong):
 
