@@ -194,6 +194,58 @@ Next surge: 4 damage. Guard is already at 0. All 4 overflows. Level 2 Wounded. S
 
 ## Guard & Drain
 
+Two tracks. Two currencies. Guard protects your body. Drain fuels your will.
+
+### Guard
+
+Your readiness: awareness, positioning, luck, the instinct that keeps you alive.
+
+**Starting Guard = 2 + your highest stat** (range 3-6, max 10 through Scars).
+
+When Guard drops, you haven't been hurt yet. You've been pushed, rattled, forced into worse positions. The first real injury comes when Guard breaks.
+
+Guard refreshes in **genuine safety.** If you'd feel safe enough to sit down and breathe, Guard comes back. A tense negotiation where violence is simmering? Guard stays where it is.
+
+### Drain
+
+**4 boxes.** When the dice aren't enough, you dig deep.
+
+Spend 1 Drain to:
+- **Add +1d** to any roll (before rolling). One Drain per roll.
+- **Reduce incoming damage by 2** (after a defense roll).
+- **Act despite a Critical injury** (when you'd normally be incapacitated).
+- **Power a device gambit:** thaumatech can do things dice can't. The GM sets the Drain cost from the fiction.
+
+Zeroes dig deep on guts alone. Positives split the same 4 boxes between guts and gear.
+
+### Cracking
+
+End of a bad shift. Luka is at 1 Drain. Management wants one more extraction pass. He pushes the siphon tap past rated function. The GM puts 2 Drain in the stakes. He rolls, gets a partial. 2 Drain spent. He's at 0.
+
+When your Drain track empties, something breaks. You **Crack.** The player names it.
+
+Luka names his: *Numb.* Nothing reaches him. Not pain, not fear, not the people who need him to feel something. Snag on all rolls until it clears.
+
+Cracks clear through significant narrative moments. A conversation that reaches you. A choice that proves something. Not rest. Not items. Not mechanics. Moments.
+
+### When Do You Spend Drain?
+
+You have 4 boxes. Every spend is a question.
+
+- **Need to guarantee a roll?** +1d. The single most reliable use.
+- **Just got hit hard?** Reduce incoming damage by 2. Sometimes that's the difference between Hurt and Wounded.
+- **Critical injury but you have to move?** Spend 1 to act.
+- **Using thaumatech past spec?** The GM puts it in the stakes.
+- **At 1 Drain left?** Is this worth Cracking over?
+
+### Recovery
+
+Drain recovers during **downtime.** Spending time with someone who matters. Doing something that reminds you who you are. Getting proper rest. Indulging a vice (quick, but the GM may complicate).
+
+> **Guard:** 2 + highest stat (cap 10). Refreshes in genuine safety. **Drain:** 4 boxes. +1d before rolling (1/roll), -2 incoming damage, act while Critical, device gambits. Empty = Crack (Snag all rolls). Crack clears through narrative, not rest. Drain recovers in downtime.
+
+---
+
 ## Your Gear
 
 ## Fighting
