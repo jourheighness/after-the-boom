@@ -6,6 +6,7 @@
 export interface MilkdownImports {
   commandsCtx: any;
   editorViewCtx: any;
+  parserCtx: any;
   turnIntoTextCommand: any;
   wrapInHeadingCommand: any;
   headingSchema: any;
@@ -42,6 +43,7 @@ export async function ensureMilkdownImports(): Promise<MilkdownImports> {
   mk = {
     commandsCtx: core.commandsCtx,
     editorViewCtx: core.editorViewCtx,
+    parserCtx: core.parserCtx,
     turnIntoTextCommand: cm.turnIntoTextCommand,
     wrapInHeadingCommand: cm.wrapInHeadingCommand,
     headingSchema: cm.headingSchema,

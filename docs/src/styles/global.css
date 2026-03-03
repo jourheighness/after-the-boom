@@ -153,6 +153,7 @@ a.nav-source:hover { color: var(--text); }
   padding: 24px 32px 80px;
   max-width: 900px;
   position: relative;
+  overflow: visible;
 }
 
 /* Typography — clean descending scale, no special cases */
@@ -506,7 +507,121 @@ a.nav-source:hover { color: var(--text); }
 }
 .save-indicator.saving { color: var(--warning); }
 .save-indicator.saved { color: var(--success); }
+.save-indicator.merged { color: var(--success); }
 .save-indicator.error { color: var(--danger); }
+.save-indicator.conflict { color: var(--warning); font-weight: 600; }
+
+/* Editor comment highlights (ProseMirror decoration-based) */
+/* Editor comment highlights — base state: subtle background, no underline.
+   Underline appears only on hover to signal interactivity. */
+[data-comment-id].comment-hl {
+  background: rgba(255, 200, 50, 0.18); cursor: pointer;
+  border-bottom: 2px solid transparent; transition: background 0.1s, border-color 0.15s;
+}
+[data-comment-id].comment-hl-note { background: rgba(139, 115, 85, 0.12); }
+[data-comment-id].comment-hl-copy { background: rgba(107, 140, 186, 0.12); }
+[data-comment-id].comment-hl-clarify { background: rgba(176, 136, 64, 0.12); }
+[data-comment-id].comment-hl-design { background: rgba(155, 89, 182, 0.12); }
+[data-comment-id].comment-hl-bug { background: rgba(160, 64, 64, 0.12); }
+[data-comment-id].comment-hl-todo { background: rgba(90, 154, 90, 0.12); }
+[data-comment-id].comment-hl-pending { background: rgba(255, 200, 50, 0.25); border-bottom-color: rgba(200, 160, 32, 0.5); }
+/* Hover state is applied via dynamic <style> injection in comment-cards.ts
+   to avoid ProseMirror re-render loops from class toggling on decoration spans.
+   The injected rule targets: [data-comment-id="X"].comment-hl { ... } */
+
+/* Comment cards (right margin) */
+.comment-card {
+  position: absolute; left: calc(100% + 16px); width: 240px;
+  background: var(--card); border: 1px solid var(--border-subtle);
+  border-radius: 8px; padding: 10px 12px;
+  font-family: system-ui, sans-serif; z-index: 50;
+  transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
+  overflow: visible;
+}
+.comment-card:hover, .comment-card-hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  border-color: var(--border);
+  transform: translateY(-1px);
+  z-index: 60;
+}
+.comment-card-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.comment-card-avatar {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.comment-card-meta { display: flex; align-items: baseline; gap: 6px; flex: 1; min-width: 0; }
+.comment-card-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.comment-card-time { font-size: 11px; color: var(--text-muted); }
+.comment-card-body { font-size: 13px; line-height: 1.5; color: var(--text); }
+
+/* Card action buttons (visible on hover) */
+.comment-card-actions {
+  display: flex; align-items: center; gap: 2px;
+  opacity: 0; transition: opacity 0.15s;
+}
+.comment-card:hover .comment-card-actions,
+.comment-card-hover .comment-card-actions { opacity: 1; }
+.comment-card-btn {
+  width: 26px; height: 26px; border: 1px solid var(--border-subtle);
+  border-radius: 4px; background: var(--card); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); padding: 0;
+}
+.comment-card-btn:hover { background: var(--surface-sunken); color: var(--text); border-color: var(--border); }
+.comment-card-btn svg { width: 14px; height: 14px; display: block; }
+
+/* More dropdown */
+.comment-card-dropdown {
+  position: absolute; top: 100%; right: 0; margin-top: 4px;
+  flex-direction: column; min-width: 120px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  padding: 4px; z-index: 200;
+}
+.comment-card-dropdown-item {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 5px 8px; border: none; border-radius: 4px;
+  background: transparent; color: var(--text);
+  font: 400 12px system-ui, sans-serif; cursor: pointer; text-align: left;
+}
+.comment-card-dropdown-item:hover { background: var(--surface-sunken); }
+.comment-card-dropdown-item svg { width: 14px; height: 14px; color: var(--text-muted); }
+.comment-card-dropdown-danger { color: var(--danger); }
+.comment-card-dropdown-danger svg { color: var(--danger); }
+.comment-card-dropdown-danger:hover { background: rgba(160,64,64,0.08); }
+
+/* Comment input popover (Notion-style, positioned right of editor) */
+.comment-input-popover {
+  position: absolute; left: calc(100% + 16px); width: 240px; z-index: 70;
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 10px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  z-index: 250;
+}
+.comment-input-field {
+  flex: 1; border: none; background: transparent;
+  font: 13px system-ui, sans-serif; color: var(--text);
+  outline: none; min-width: 0;
+}
+.comment-input-field::placeholder { color: var(--text-muted); }
+.comment-input-actions {
+  display: flex; align-items: center; gap: 2px; flex-shrink: 0;
+}
+.comment-input-icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border: none; border-radius: 50%;
+  background: transparent; cursor: pointer; color: var(--text-muted);
+  padding: 0;
+}
+.comment-input-icon:hover { background: var(--surface-sunken); color: var(--text); }
+.comment-input-icon svg { width: 16px; height: 16px; display: block; }
+.comment-input-submit { color: var(--accent); }
+.comment-input-submit:hover { color: var(--accent-hover); background: rgba(139,115,85,0.1); }
 /* Editor container */
 .editor-container .milkdown, .editor-container .ProseMirror { outline: none; }
 .editor-container .ProseMirror {
@@ -565,59 +680,51 @@ a.nav-source:hover { color: var(--text); }
 /* Lucide icons are stroke-based; Crepe's default fill floods them solid */
 .milkdown .milkdown-toolbar .toolbar-item svg { fill: none; }
 
-/* Toolbar dividers between groups */
-.milkdown .milkdown-toolbar .toolbar-divider {
+/* Custom toolbar elements — our own classes, no specificity war needed */
+.toolbar-divider {
   display: inline-block; width: 1px; height: 16px;
   background: var(--crepe-color-outline); opacity: 0.25;
   margin: 0 2px; vertical-align: middle; align-self: center;
 }
-
-/* "Turn Into" button */
-.milkdown .milkdown-toolbar .toolbar-turn-into {
+.toolbar-turn-into {
   display: inline-flex; align-items: center; gap: 2px;
   margin: 4px; padding: 3px 6px; border: none; border-radius: 4px;
   background: transparent; color: var(--crepe-color-outline);
   font: 600 12px system-ui, sans-serif; cursor: pointer;
   white-space: nowrap; line-height: 1;
 }
-.milkdown .milkdown-toolbar .toolbar-turn-into:hover { background: var(--crepe-color-hover); }
-.milkdown .milkdown-toolbar .toolbar-turn-into-chevron { display: flex; align-items: center; opacity: 0.6; }
-.milkdown .milkdown-toolbar .toolbar-turn-into-chevron svg { display: block; }
-
-/* Turn Into submenu panel */
-.milkdown .milkdown-toolbar .toolbar-submenu {
+.toolbar-turn-into:hover { background: var(--crepe-color-hover); }
+.toolbar-turn-into-chevron { display: flex; align-items: center; opacity: 0.6; }
+.toolbar-turn-into-chevron svg { display: block; }
+.toolbar-submenu {
   position: absolute; top: 100%; left: 0;
   flex-direction: column; min-width: 180px;
   background: var(--crepe-color-surface); border: 1px solid var(--border);
   border-radius: 6px; box-shadow: var(--crepe-shadow-2);
   padding: 4px; margin-top: 4px; z-index: 300;
 }
-
-/* Submenu row */
-.milkdown .milkdown-toolbar .toolbar-submenu-item {
+.toolbar-submenu-item {
   display: flex; align-items: center; gap: 8px;
   width: 100%; padding: 5px 8px; border: none; border-radius: 4px;
   background: transparent; color: var(--crepe-color-on-surface);
   font: 400 13px system-ui, sans-serif; cursor: pointer;
   text-align: left;
 }
-.milkdown .milkdown-toolbar .toolbar-submenu-item:hover { background: var(--crepe-color-hover); }
-.milkdown .milkdown-toolbar .toolbar-submenu-icon { display: flex; align-items: center; color: var(--crepe-color-outline); flex-shrink: 0; }
-.milkdown .milkdown-toolbar .toolbar-submenu-icon svg { display: block; }
-.milkdown .milkdown-toolbar .toolbar-submenu-label { flex: 1; }
-.milkdown .milkdown-toolbar .toolbar-submenu-check { display: flex; align-items: center; color: var(--accent); width: 14px; flex-shrink: 0; }
-.milkdown .milkdown-toolbar .toolbar-submenu-check svg { display: block; }
-
-/* Comment button */
-.milkdown .milkdown-toolbar .toolbar-comment {
+.toolbar-submenu-item:hover { background: var(--crepe-color-hover); }
+.toolbar-submenu-icon { display: flex; align-items: center; color: var(--crepe-color-outline); flex-shrink: 0; }
+.toolbar-submenu-icon svg { display: block; }
+.toolbar-submenu-label { flex: 1; }
+.toolbar-submenu-check { display: flex; align-items: center; color: var(--accent); width: 14px; flex-shrink: 0; }
+.toolbar-submenu-check svg { display: block; }
+.toolbar-comment {
   display: inline-flex; align-items: center; gap: 4px;
   margin: 4px; padding: 3px 8px; border: none; border-radius: 4px;
   background: transparent; color: var(--crepe-color-outline);
   font: 400 12px system-ui, sans-serif; cursor: pointer;
   white-space: nowrap; line-height: 1;
 }
-.milkdown .milkdown-toolbar .toolbar-comment:hover { background: var(--crepe-color-hover); }
-.milkdown .milkdown-toolbar .toolbar-comment svg { display: block; }
+.toolbar-comment:hover { background: var(--crepe-color-hover); }
+.toolbar-comment svg { display: block; }
 
 /* Virtual cursor must not affect layout */
 .prosemirror-virtual-cursor { position: absolute !important; }

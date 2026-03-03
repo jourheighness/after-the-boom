@@ -3,88 +3,23 @@
   Replaces rendered content with editable Milkdown instances on every section.
   Autosaves to disk via /api/editor/save. Astro HMR re-renders automatically.
   Includes: floating toolbar, slash menu, block handles, undo/redo (Ctrl+Z).
+  Comments persist to SQLite via /api/comments.
 -->
 
 <script>
+import { ensureMilkdownImports, getMk } from '../lib/editor/milkdown-imports';
+import { injectToolbarExtras, TOOLBAR_ICONS } from '../lib/editor/toolbar';
+import { rebuildSidebar } from '../lib/editor/sidebar';
+import { contentHash } from '../lib/editor/content-hash';
+import { trySave, showIndicator, checkForExternalChanges, resolveConflict, type EditorState } from '../lib/editor/autosave';
+import { commentsPlugin, commentsPluginKey, setComments } from '../lib/editor/comments-plugin';
+import { fetchComments, toCommentRange, formatTime, subscribeToComments, resolveComment, deleteComment } from '../lib/editor/comments-api';
+import { addCommentCard, removeCommentCard } from '../lib/editor/comment-cards';
+
 const AUTOSAVE_DELAY = 2000;
-
-// ── Lucide icons (SVG strings from lucide-static) ──
-import {
-  Bold as ICON_BOLD,
-  Italic as ICON_ITALIC,
-  Strikethrough as ICON_STRIKETHROUGH,
-  Code as ICON_CODE,
-  Link as ICON_LINK,
-  MessageSquareText as ICON_COMMENT,
-  ChevronDown as ICON_CHEVRON_DOWN,
-  Check as ICON_CHECK,
-  Type as ICON_TEXT,
-  Heading1 as ICON_H1,
-  Heading2 as ICON_H2,
-  Heading3 as ICON_H3,
-  Heading4 as ICON_H4,
-  List as ICON_BULLET_LIST,
-  ListOrdered as ICON_ORDERED_LIST,
-  SquareCode as ICON_CODE_BLOCK,
-  Quote as ICON_QUOTE,
-  Minus as ICON_DIVIDER,
-} from 'lucide-static';
-
-interface EditorState {
-  crepe: any;
-  container: HTMLDivElement;
-  indicator: HTMLSpanElement;
-  lastSavedMarkdown: string;
-  autosaveInterval: ReturnType<typeof setInterval> | null;
-}
 
 const editors = new Map<Element, EditorState>();
 let Crepe: any = null;
-let lastSidebarFingerprint = '';
-
-// Milkdown imports — cached after first editor mounts
-let mk: {
-  commandsCtx: any; editorViewCtx: any;
-  turnIntoTextCommand: any; wrapInHeadingCommand: any; headingSchema: any;
-  // Block conversion commands
-  clearTextInCurrentBlockCommand: any; setBlockTypeCommand: any;
-  wrapInBlockTypeCommand: any; addBlockTypeCommand: any;
-  // ProseMirror lift (unwrap from wrapper nodes)
-  lift: any;
-  // Schema types for block detection
-  paragraphSchema: any; blockquoteSchema: any; codeBlockSchema: any;
-  bulletListSchema: any; orderedListSchema: any; hrSchema: any;
-  listItemSchema: any;
-} | null = null;
-
-async function ensureMilkdownImports() {
-  if (mk) return mk;
-  const [cm, core, proseCmd] = await Promise.all([
-    import('@milkdown/kit/preset/commonmark'),
-    import('@milkdown/kit/core'),
-    import('@milkdown/kit/prose/commands'),
-  ]);
-  mk = {
-    commandsCtx: core.commandsCtx,
-    editorViewCtx: core.editorViewCtx,
-    turnIntoTextCommand: cm.turnIntoTextCommand,
-    wrapInHeadingCommand: cm.wrapInHeadingCommand,
-    headingSchema: cm.headingSchema,
-    clearTextInCurrentBlockCommand: cm.clearTextInCurrentBlockCommand,
-    setBlockTypeCommand: cm.setBlockTypeCommand,
-    wrapInBlockTypeCommand: cm.wrapInBlockTypeCommand,
-    addBlockTypeCommand: cm.addBlockTypeCommand,
-    paragraphSchema: cm.paragraphSchema,
-    blockquoteSchema: cm.blockquoteSchema,
-    codeBlockSchema: cm.codeBlockSchema,
-    bulletListSchema: cm.bulletListSchema,
-    orderedListSchema: cm.orderedListSchema,
-    hrSchema: cm.hrSchema,
-    listItemSchema: cm.listItemSchema,
-    lift: proseCmd.lift,
-  };
-  return mk;
-}
 
 async function initAllEditors() {
   const sections = document.querySelectorAll('.file-section[data-entry-id]');
@@ -103,105 +38,82 @@ async function initAllEditors() {
     await mountEditor(section as HTMLElement);
   }
 
-  // Server-rendered sidebar is kept as-is on init.
-  // Scroll spy is position-based, no ID dependency.
-  // rebuildSidebar() only runs on save to pick up heading changes.
-}
+  // Load existing comments after all editors are mounted
+  loadComments();
 
-let rebuildQueued = false;
-
-function rebuildSidebar() {
-  if (rebuildQueued) return;
-  rebuildQueued = true;
-  // Defer to idle time — never block typing or scrolling
-  (window.requestIdleCallback || ((cb: Function) => setTimeout(cb, 16)))(doRebuildSidebar);
-}
-
-function doRebuildSidebar() {
-  rebuildQueued = false;
-  const sidebar = document.getElementById('sidebar');
-  if (!sidebar) return;
-
-  // Single pass: collect heading data + build fingerprint together
-  const fpParts: string[] = [];
-  const sectionData: Array<{
-    source: string;
-    headings: Array<{ level: number; text: string; el: Element }>;
-  }> = [];
-
-  for (const [section] of editors) {
-    const pm = section.querySelector('.ProseMirror');
-    if (!pm) continue;
-    const source = section.getAttribute('data-source') || '';
-    const headings: typeof sectionData[0]['headings'] = [];
-
-    for (const h of pm.querySelectorAll('h1, h2, h3')) {
-      const text = h.textContent?.trim() || '';
-      headings.push({ level: parseInt(h.tagName[1]), text, el: h });
-      fpParts.push(h.tagName[1] + text);
+  // Subscribe to real-time comment updates
+  subscribeToComments((event) => {
+    if (event.type === 'bulk_update' || event.type === 'upsert') {
+      loadComments(); // Reload all on any change
     }
-    sectionData.push({ source, headings });
-  }
-
-  const fingerprint = fpParts.join('\n');
-  if (fingerprint === lastSidebarFingerprint) return;
-  lastSidebarFingerprint = fingerprint;
-
-  // Cache colors from existing sidebar before we clear it
-  const colorCache = new Map<string, string>();
-  for (const group of sidebar.querySelectorAll('.nav-group')) {
-    const src = group.getAttribute('data-source');
-    const title = group.querySelector('a.nav-source') as HTMLElement | null;
-    if (src && title?.style.borderLeftColor) colorCache.set(src, title.style.borderLeftColor);
-  }
-
-  // Build everything off-DOM in a fragment — single repaint when swapped in
-  const frag = document.createDocumentFragment();
-
-  for (const { source, headings } of sectionData) {
-    const group = document.createElement('div');
-    group.className = 'nav-group';
-    group.dataset.source = source;
-
-    const prefix = slugify(source);
-    const color = colorCache.get(source) || '#666';
-    let groupTitle: string | null = null;
-    let groupTitleId: string | null = null;
-
-    for (const { level, text, el } of headings) {
-      const id = `${prefix}-${slugify(text)}`;
-      el.id = id;
-
-      if (level === 1) {
-        groupTitle = text;
-        groupTitleId = id;
-        continue;
-      }
-
-      const link = document.createElement('a');
-      link.className = level === 3 ? 'nav-link nav-h3' : 'nav-link nav-h2';
-      link.href = `#${id}`;
-      link.textContent = text;
-      group.appendChild(link); // off-DOM, free
+    if (event.type === 'delete' || event.type === 'status_change') {
+      loadComments();
     }
-
-    const titleEl = document.createElement('a');
-    titleEl.className = 'nav-source';
-    titleEl.style.borderLeft = `3px solid ${color}`;
-    titleEl.href = groupTitleId ? `#${groupTitleId}` : '#';
-    titleEl.textContent = groupTitle || source;
-    group.prepend(titleEl);
-
-    frag.appendChild(group); // off-DOM, free
-  }
-
-  // One DOM write: clear + insert
-  sidebar.textContent = '';
-  sidebar.appendChild(frag);
+  });
 }
 
-function slugify(text: string): string {
-  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+/** Remove a single comment's highlight decoration. */
+function removeHighlightById(state: EditorState, mk: any, cid: string) {
+  if (!mk) return;
+  try {
+    state.crepe.editor.action((ctx: any) => {
+      const view = ctx.get(mk.editorViewCtx);
+      const current = commentsPluginKey.getState(view.state);
+      setComments(view, (current?.comments || []).filter((r: any) => r.id !== cid));
+    });
+  } catch {}
+}
+
+/** Load comments from the API and apply highlights + cards to all editors. */
+async function loadComments() {
+  let apiComments;
+  try {
+    apiComments = await fetchComments('open');
+  } catch {
+    return; // API not available
+  }
+
+  const mk = getMk();
+  if (!mk) return;
+
+  for (const [section, state] of editors) {
+    const sourceFile = section.getAttribute('data-source') || '';
+    // Filter comments for this section's source file
+    const sectionComments = apiComments.filter(c => c.source_file === sourceFile);
+    const ranges = sectionComments.map(toCommentRange);
+
+    // Update highlight decorations
+    try {
+      state.crepe.editor.action((ctx: any) => {
+        const view = ctx.get(mk.editorViewCtx);
+        setComments(view, ranges);
+      });
+    } catch {}
+
+    // Update cards
+    const container = state.container;
+    for (const c of sectionComments) {
+      addCommentCard(container, {
+        id: c.id,
+        selectedText: c.selected_text,
+        comment: c.comment,
+        author: 'Johannes',
+        timestamp: formatTime(c.created_at),
+      }, {
+        onResolve: async (cid) => {
+          removeCommentCard(container, cid);
+          removeHighlightById(state, mk, cid);
+          await resolveComment(cid);
+        },
+        onEdit: (cid) => console.log('[comment] Edit:', cid),
+        onDelete: async (cid) => {
+          removeCommentCard(container, cid);
+          removeHighlightById(state, mk, cid);
+          await deleteComment(cid);
+        },
+      });
+    }
+  }
 }
 
 async function mountEditor(section: HTMLElement) {
@@ -209,19 +121,17 @@ async function mountEditor(section: HTMLElement) {
   if (!template) return;
   const rawMd = template.content.textContent || '';
 
-  // Hide rendered content and strip all IDs to prevent getElementById collisions
+  // Hide rendered content and strip IDs to prevent getElementById collisions
   for (const child of Array.from(section.children)) {
     if (child.classList.contains('editor-container') || child.tagName === 'TEMPLATE' || child.classList.contains('save-indicator')) continue;
     (child as HTMLElement).style.display = 'none';
     child.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
   }
 
-  // Save indicator
   const indicator = document.createElement('span');
   indicator.className = 'save-indicator';
   section.appendChild(indicator);
 
-  // Editor container
   const container = document.createElement('div');
   container.className = 'editor-container';
   section.appendChild(container);
@@ -242,52 +152,54 @@ async function mountEditor(section: HTMLElement) {
       [Crepe.Feature.Latex]: false,
     },
     featureConfigs: {
-      [Crepe.Feature.Placeholder]: {
-        text: 'Type "/" for commands...',
-        mode: 'block',
-      },
-      [Crepe.Feature.Toolbar]: {
-        boldIcon: ICON_BOLD,
-        italicIcon: ICON_ITALIC,
-        strikethroughIcon: ICON_STRIKETHROUGH,
-        codeIcon: ICON_CODE,
-        linkIcon: ICON_LINK,
-      },
+      [Crepe.Feature.Placeholder]: { text: 'Type "/" for commands...', mode: 'block' },
+      [Crepe.Feature.Toolbar]: TOOLBAR_ICONS,
     },
   });
 
+  crepe.editor.use(commentsPlugin);
+
   const state: EditorState = {
-    crepe,
-    container,
-    indicator,
+    crepe, container, indicator,
     lastSavedMarkdown: rawMd,
+    lastKnownHash: contentHash(rawMd),
     autosaveInterval: null,
   };
   editors.set(section, state);
 
   await crepe.create();
 
-  // Inject Turn Into button, submenu, and Comment button into the toolbar
-  await injectToolbarExtras(crepe, container);
+  // Section context for comment creation
+  const sectionCtx = {
+    sectionId: section.getAttribute('data-source') || '',
+    sourceFile: section.getAttribute('data-source') || '',
+  };
+  await injectToolbarExtras(crepe, container, sectionCtx);
 
-  // Robust autosave: poll every AUTOSAVE_DELAY, compare content, save if changed
-  state.autosaveInterval = setInterval(() => {
-    trySave(section);
+  // Autosave
+  const onSaved = () => rebuildSidebar(editors);
+  state.autosaveInterval = setInterval(async () => {
+    const result = await trySave(section, editors, onSaved);
+    if (result === 'conflict') {
+      if (state.autosaveInterval) clearInterval(state.autosaveInterval);
+      state.autosaveInterval = null;
+      console.log(`[editor] Conflict in ${section.getAttribute('data-entry-id')} — autosave paused`);
+    }
   }, AUTOSAVE_DELAY);
 
-  // Backspace at start of heading → convert to paragraph (not cycle h3→h2→h1).
-  // Capture phase fires before ProseMirror's keymap handler.
+  // Backspace at start of heading → convert to paragraph
   container.addEventListener('keydown', (e: KeyboardEvent) => {
+    const mk = getMk();
     if (e.key !== 'Backspace' || !mk) return;
     try {
       crepe.editor.action((ctx: any) => {
-        const view = ctx.get(mk!.editorViewCtx);
+        const view = ctx.get(mk.editorViewCtx);
         const { $from, empty } = view.state.selection;
         if (!empty || $from.parentOffset !== 0) return;
         if ($from.parent.type.name !== 'heading') return;
         e.preventDefault();
         e.stopImmediatePropagation();
-        ctx.get(mk!.commandsCtx).call(mk!.turnIntoTextCommand.key);
+        ctx.get(mk.commandsCtx).call(mk.turnIntoTextCommand.key);
       });
     } catch {}
   }, true);
@@ -297,337 +209,12 @@ async function mountEditor(section: HTMLElement) {
     if ((e.metaKey || e.ctrlKey) && e.key === 's') {
       e.preventDefault();
       e.stopPropagation();
-      await trySave(section);
+      await trySave(section, editors, () => rebuildSidebar(editors));
     }
   });
 }
 
-async function trySave(section: Element) {
-  const state = editors.get(section);
-  if (!state) return;
+window.addEventListener('focus', () => checkForExternalChanges(editors));
 
-  let currentMd: string;
-  try {
-    currentMd = state.crepe.getMarkdown();
-  } catch {
-    return; // editor destroyed or not ready
-  }
-
-  // Only save if content actually changed
-  if (currentMd === state.lastSavedMarkdown) return;
-
-  const collection = section.getAttribute('data-collection');
-  const entry = section.getAttribute('data-entry-id');
-  if (!collection || !entry) return;
-
-  showIndicator(state.indicator, 'saving');
-
-  try {
-    const res = await fetch('/api/editor/save', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ collection, entry, content: currentMd }),
-    });
-
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error || 'Save failed');
-    }
-
-    state.lastSavedMarkdown = currentMd;
-    showIndicator(state.indicator, 'saved');
-    rebuildSidebar();
-  } catch (err) {
-    console.error('[editor] Save error:', err);
-    showIndicator(state.indicator, 'error');
-  }
-}
-
-// Helper: check if any ancestor node matches a type
-function hasAncestorOfType($from: any, nodeType: any): boolean {
-  for (let d = $from.depth; d >= 0; d--) {
-    if ($from.node(d).type === nodeType) return true;
-  }
-  return false;
-}
-
-// Lift selection out of blockquote/list wrappers before changing block type.
-// Calls ProseMirror's `lift` repeatedly until no wrapper remains.
-function liftFromWrappers(ctx: any) {
-  const view = ctx.get(mk!.editorViewCtx);
-  const wrapperTypes = [
-    mk!.blockquoteSchema.type(ctx),
-    mk!.bulletListSchema.type(ctx),
-    mk!.orderedListSchema.type(ctx),
-  ];
-  for (let i = 0; i < 5; i++) { // safety bound
-    const { $from } = view.state.selection;
-    let inWrapper = false;
-    for (let d = $from.depth; d > 0; d--) {
-      if (wrapperTypes.some((t: any) => $from.node(d).type === t)) {
-        inWrapper = true;
-        break;
-      }
-    }
-    if (!inWrapper) break;
-    const lifted = mk!.lift(view.state, view.dispatch);
-    if (!lifted) break;
-  }
-}
-
-// ── DOM helper ──
-function el<K extends keyof HTMLElementTagNameMap>(
-  tag: K, cls?: string, attrs?: Record<string, string>
-): HTMLElementTagNameMap[K] {
-  const e = document.createElement(tag);
-  if (cls) e.className = cls;
-  if (attrs) for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
-  return e;
-}
-
-// ── Turn Into item type ──
-type TurnIntoItem = {
-  id: string; icon: string; label: string; short: string;
-  run: (ctx: any) => void;
-  detect: ($from: any, ctx: any) => boolean;
-};
-
-// ── Item factories (DRY: headings differ only by level, wrappers by schema) ──
-function headingItem(level: number, icon: string): TurnIntoItem {
-  return {
-    id: `h${level}`, icon, label: `Heading ${level}`, short: `H${level}`,
-    run: (ctx) => {
-      liftFromWrappers(ctx);
-      ctx.get(mk!.commandsCtx).call(mk!.setBlockTypeCommand.key,
-        { nodeType: mk!.headingSchema.type(ctx), attrs: { level } });
-    },
-    detect: ($from, ctx) =>
-      $from.parent.type === mk!.headingSchema.type(ctx) && $from.parent.attrs.level === level,
-  };
-}
-
-function wrapperItem(id: string, icon: string, label: string, short: string,
-  getSchema: () => any): TurnIntoItem {
-  return {
-    id, icon, label, short,
-    run: (ctx) => ctx.get(mk!.commandsCtx).call(mk!.wrapInBlockTypeCommand.key,
-      { nodeType: getSchema().type(ctx) }),
-    detect: ($from, ctx) => hasAncestorOfType($from, getSchema().type(ctx)),
-  };
-}
-
-// Order: specific leaf types first, wrappers, text (fallback), non-detectable last
-const TURN_INTO_ITEMS: TurnIntoItem[] = [
-  headingItem(1, ICON_H1),
-  headingItem(2, ICON_H2),
-  headingItem(3, ICON_H3),
-  headingItem(4, ICON_H4),
-  {
-    id: 'code', icon: ICON_CODE_BLOCK, label: 'Code Block', short: 'Code',
-    run: (ctx) => {
-      liftFromWrappers(ctx);
-      ctx.get(mk!.commandsCtx).call(mk!.setBlockTypeCommand.key,
-        { nodeType: mk!.codeBlockSchema.type(ctx) });
-    },
-    detect: ($from, ctx) => $from.parent.type === mk!.codeBlockSchema.type(ctx),
-  },
-  wrapperItem('quote', ICON_QUOTE, 'Quote', 'Quote', () => mk!.blockquoteSchema),
-  wrapperItem('bullet', ICON_BULLET_LIST, 'Bullet List', 'List', () => mk!.bulletListSchema),
-  wrapperItem('ordered', ICON_ORDERED_LIST, 'Numbered List', 'List', () => mk!.orderedListSchema),
-  {
-    id: 'text', icon: ICON_TEXT, label: 'Text', short: 'T',
-    run: (ctx) => {
-      liftFromWrappers(ctx);
-      ctx.get(mk!.commandsCtx).call(mk!.turnIntoTextCommand.key);
-    },
-    detect: ($from, ctx) => $from.parent.type === mk!.paragraphSchema.type(ctx),
-  },
-  {
-    id: 'divider', icon: ICON_DIVIDER, label: 'Divider', short: 'T',
-    run: (ctx) => ctx.get(mk!.commandsCtx).call(mk!.addBlockTypeCommand.key,
-      { nodeType: mk!.hrSchema.type(ctx) }),
-    detect: () => false,
-  },
-];
-
-// Derive label map from items (no separate map to keep in sync)
-const BLOCK_LABELS = Object.fromEntries(TURN_INTO_ITEMS.map(i => [i.id, i.short]));
-
-// ── Submenu state (global: only one open at a time across all editors) ──
-let activeSubmenu: HTMLElement | null = null;
-let activeSubmenuCleanup: (() => void) | null = null;
-
-function closeActiveSubmenu() {
-  if (activeSubmenu) { activeSubmenu.style.display = 'none'; activeSubmenu = null; }
-  if (activeSubmenuCleanup) { activeSubmenuCleanup(); activeSubmenuCleanup = null; }
-}
-
-// ── Toolbar injection (called per editor after Crepe.create()) ──
-
-function createTurnIntoButton(): { btn: HTMLButtonElement; label: HTMLSpanElement } {
-  const btn = el('button', 'toolbar-turn-into', { type: 'button' });
-  const label = el('span', 'toolbar-turn-into-label');
-  label.textContent = 'T';
-  const chevron = el('span', 'toolbar-turn-into-chevron');
-  chevron.innerHTML = ICON_CHEVRON_DOWN; // safe: package SVG constant
-  btn.append(label, chevron);
-  return { btn, label };
-}
-
-function createSubmenuPanel(crepe: any): HTMLDivElement {
-  const panel = el('div', 'toolbar-submenu');
-  panel.style.display = 'none';
-
-  for (const item of TURN_INTO_ITEMS) {
-    const row = el('button', 'toolbar-submenu-item', { type: 'button' });
-    row.dataset.blockType = item.id;
-    const icon = el('span', 'toolbar-submenu-icon');
-    icon.innerHTML = item.icon; // safe: package SVG constant
-    const label = el('span', 'toolbar-submenu-label');
-    label.textContent = item.label;
-    const check = el('span', 'toolbar-submenu-check');
-    row.append(icon, label, check);
-    row.addEventListener('mousedown', (e) => {
-      e.preventDefault(); e.stopPropagation();
-      crepe.editor.action((ctx: any) => {
-        item.run(ctx);
-        ctx.get(mk!.editorViewCtx).focus();
-      });
-      closeActiveSubmenu();
-    });
-    panel.appendChild(row);
-  }
-  return panel;
-}
-
-function createCommentButton(): HTMLButtonElement {
-  const btn = el('button', 'toolbar-comment', { type: 'button' });
-  const icon = el('span');
-  icon.innerHTML = ICON_COMMENT; // safe: package SVG constant
-  const label = el('span');
-  label.textContent = 'Comment';
-  btn.append(icon, label);
-  btn.addEventListener('mousedown', (e) => {
-    e.preventDefault(); e.stopPropagation();
-    console.log('[toolbar] Comment button clicked');
-  });
-  return btn;
-}
-
-function detectBlockType(crepe: any): string {
-  let blockId = 'text';
-  try {
-    crepe.editor.action((ctx: any) => {
-      const { $from } = ctx.get(mk!.editorViewCtx).state.selection;
-      for (const item of TURN_INTO_ITEMS) {
-        if (item.detect($from, ctx)) { blockId = item.id; break; }
-      }
-    });
-  } catch {}
-  return blockId;
-}
-
-async function injectToolbarExtras(crepe: any, container: HTMLDivElement) {
-  if (!mk) await ensureMilkdownImports();
-  const toolbar = container.querySelector('.milkdown-toolbar');
-  if (!toolbar) return;
-
-  const { btn: turnIntoBtn, label: turnIntoLabel } = createTurnIntoButton();
-  const submenu = createSubmenuPanel(crepe);
-
-  // Assemble: [Turn Into] [÷] [Crepe buttons] [÷] [Comment]
-  toolbar.prepend(submenu);
-  toolbar.prepend(el('span', 'toolbar-divider'));
-  toolbar.prepend(turnIntoBtn);
-  toolbar.appendChild(el('span', 'toolbar-divider'));
-  toolbar.appendChild(createCommentButton());
-
-  // Submenu toggle
-  turnIntoBtn.addEventListener('mousedown', (e) => {
-    e.preventDefault(); e.stopPropagation();
-    if (activeSubmenu === submenu) { closeActiveSubmenu(); return; }
-    closeActiveSubmenu();
-    submenu.style.display = 'flex';
-    activeSubmenu = submenu;
-    updateToolbarState();
-
-    const onOutside = (ev: MouseEvent) => {
-      if (!submenu.contains(ev.target as Node) && !turnIntoBtn.contains(ev.target as Node))
-        closeActiveSubmenu();
-    };
-    const onEscape = (ev: KeyboardEvent) => { if (ev.key === 'Escape') closeActiveSubmenu(); };
-    document.addEventListener('mousedown', onOutside, true);
-    document.addEventListener('keydown', onEscape, true);
-    activeSubmenuCleanup = () => {
-      document.removeEventListener('mousedown', onOutside, true);
-      document.removeEventListener('keydown', onEscape, true);
-    };
-  });
-
-  // Unified state update: label + checkmarks in one detection pass
-  function updateToolbarState() {
-    const blockId = detectBlockType(crepe);
-    turnIntoLabel.textContent = BLOCK_LABELS[blockId] || 'T';
-    if (activeSubmenu === submenu) {
-      for (const row of submenu.querySelectorAll('.toolbar-submenu-item') as NodeListOf<HTMLElement>) {
-        row.querySelector('.toolbar-submenu-check')!.innerHTML =
-          row.dataset.blockType === blockId ? ICON_CHECK : '';
-      }
-    }
-  }
-
-  // React to toolbar show/hide
-  new MutationObserver(() => {
-    if (toolbar.getAttribute('data-show') === 'true') updateToolbarState();
-    else closeActiveSubmenu();
-  }).observe(toolbar, { attributes: true, attributeFilter: ['data-show'] });
-}
-
-function showIndicator(el: HTMLSpanElement, status: 'saving' | 'saved' | 'error') {
-  el.className = `save-indicator ${status}`;
-  el.textContent = status === 'saving' ? 'Saving...' : status === 'saved' ? 'Saved' : 'Save failed';
-  if (status !== 'saving') {
-    setTimeout(() => { el.textContent = ''; el.className = 'save-indicator'; }, 1500);
-  }
-}
-
-// Detect external file changes on window focus — reload content if disk differs
-async function checkForExternalChanges() {
-  for (const [section, state] of editors) {
-    const collection = section.getAttribute('data-collection');
-    const entry = section.getAttribute('data-entry-id');
-    if (!collection || !entry) continue;
-
-    try {
-      const res = await fetch(`/api/editor/read?collection=${collection}&entry=${entry}`);
-      if (!res.ok) continue;
-      const { content: diskContent } = await res.json();
-
-      // Compare disk content with what we last saved
-      if (diskContent !== state.lastSavedMarkdown) {
-        console.log(`[editor] External change detected in ${collection}/${entry}`);
-        state.lastSavedMarkdown = diskContent;
-        // Only reload if editor content also differs (avoid overwriting unsaved edits)
-        let editorContent: string;
-        try { editorContent = state.crepe.getMarkdown(); } catch { continue; }
-        if (editorContent !== diskContent) {
-          state.crepe.setMarkdown(diskContent);
-          showIndicator(state.indicator, 'saved');
-          state.indicator.textContent = 'Reloaded';
-        }
-      }
-    } catch {}
-  }
-}
-window.addEventListener('focus', checkForExternalChanges);
-
-// Sidebar navigation — IDs are transferred from rendered headings to editor headings,
-// so native anchor navigation works. No interception needed.
-
-// Block Astro's content-layer full-reload while editors are active.
-// Done server-side in editor.ts via ws.send interception.
-// External changes are detected on window focus via checkForExternalChanges.
-
-// Init
 initAllEditors();
 </script>

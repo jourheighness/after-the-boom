@@ -2,8 +2,6 @@
 
 MONDAS Core Rules | Player Reference v0.1
 
-***
-
 ## How This Works
 
 *The clicker on Élodie's desk ticks from green to amber. A Form 27-exception for necro-parts import, and the BTC is spiking. She feels it behind her eyes: the old authority, the silver-taste language, something vast and patient stirring in whatever she was before the Boom made her an elf in a customs office. Her pen hovers. She stamps the form. Files it. The clicker settles back to green. Tuesday.*

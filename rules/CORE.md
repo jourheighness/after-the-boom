@@ -1,7 +1,5 @@
 # CORE
 
-<br />
-
 Core Rules Engine v0.3
 
 ## In Two Minutes
@@ -350,7 +348,9 @@ The triggering effect defines the consequences, not the GM. If an enemy ability 
 
 Saves use normal Boon/Snag rules. Powerful enemies impose Snags on defense rolls (see Defense), but **not on saves**. Saves stand on their own.
 
-> **Default partial:** When a partial save feels ambiguous, the effect applies to the target's very next action only, or the target takes a Snag on their next roll.
+> ```
+> Default partial: When a partial save feels ambiguous, the effect applies to the target's very next action only, or the target takes a Snag on their next roll.
+> ```
 
 ***
 

@@ -4,6 +4,8 @@ import RulesLayout from '../layouts/RulesLayout.astro';
 
 // Core system → catalogs → design docs (bible on top)
 const SOURCE_ORDER = [
+  // --- Player-facing ---
+  'PLAYER-GUIDE',
   // --- Core system ---
   'CORE',
   'CHARACTER',
@@ -26,6 +28,7 @@ const SOURCE_ORDER = [
 ];
 
 const FILE_COLORS: Record<string, string> = {
+  'PLAYER-GUIDE':     '#5a7a8a',
   CORE:               '#8b7355',
   MAGIC:              '#7a5c7a',
   EDGES:              '#5c6a7a',
