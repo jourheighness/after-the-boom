@@ -94,6 +94,55 @@ Before any roll, the GM tells you two things: what happens on a partial, what ha
 
 ## Gambits
 
+Three hostiles, a cargo container, bad angles. Hakim fires his sidearm (d8) with a flanking Boon (+1d6). Rolls a 5, 5, 4. Three dice, two above threshold. He could keep all three for damage (highest = 5). Or sacrifice the 4 to Push one hostile into the open. Or sacrifice a 5 for a *strong* Push: target goes back a band AND hits the ground.
+
+That choice is a gambit. After any roll, you can sacrifice dice showing 4+ for guaranteed side effects. One die, one effect. The die is gone. It doesn't count for your result anymore.
+
+### The Decision
+
+You rolled. You see the dice. For each die showing 4+, you choose: keep it (damage or result) or sacrifice it (effect).
+
+- Sacrifice a **4-5** for a **standard** effect.
+- Sacrifice a **6** for a **strong** effect. On weapon dice (d8, d10, d12), anything 6+ qualifies for strong.
+
+Multiple dice, multiple gambits. No duplicates per roll.
+
+### Combat Gambits
+
+Seven verbs. Every player has access to these on attack and defense rolls.
+
+| Gambit | Standard (4-5) | Strong (6+) |
+|-|-|-|
+| **Push** | Target one range band back. | Push + **Prone.** |
+| **Pull** | Target one band toward you. | Pull + **Boon** on your next action against them. |
+| **Pin** | **Pinned.** Can't reposition. Act to escape. | Pinned + can't attack. **Act + Move** to escape. |
+| **Read** | Learn one hidden detail. | Detail + **Boon** from what you learned. |
+| **Break** | **Impaired.** Target deals -2 damage, one turn. | **Exposed.** Target takes +2 damage, one turn. |
+| **Cover** | **+1 Armor** until you move. | **+2 Armor** until you move. |
+| **Setup** | **Bank the die** for yourself or an ally. Add to any roll post-roll. One banked die max per person. Gone at end of combat. | Bank for yourself **and** an ally. Same value, two dice. |
+
+Plus the open clause: you can always pitch something else of similar scope. You describe it, the GM approves.
+
+Hakim keeps his two 5s for damage. Or he sacrifices the 4 to Push the hostile behind the container into the open, then keeps the 5 for damage. The Push cost him nothing on the damage. That's the magic of spare dice: they were below his highest anyway.
+
+### Stakes Gambits
+
+Élodie is talking down a smuggler at the customs desk. She rolls Nerve (3d6). Gets a 6, 4, 2. Full success. The smuggler is cooperating. But she also saw his hand go to his left pocket when she mentioned Grid 12. She sacrifices the 4 to Read that tell. Now she knows where the shipment is routed.
+
+On stakes rolls (defense, social, exploration, investigation, anything that isn't a direct attack), gambits are open negotiation. Name something concrete the moment made possible. Not a second goal. A small thing within reach of what you're already doing. The GM approves or vetoes based on the fiction. The combat gambit list is available as a menu on defense rolls, but you're not limited to it.
+
+### The Three Patterns
+
+**Free fuel.** Spare dice below your highest weren't affecting the result. Gambit costs nothing. More dice = more fuel.
+
+**Softening.** Partial success. Spend a spare die to shape the consequence. The partial still lands, but you chose how.
+
+**The bargain.** Sacrifice your best die. Your result drops a tier. You grab something from the wreckage. The GM sizes the complication to match the gain. A bargain that cost the whole roll learns the full picture.
+
+> **Gambits:** Sacrifice a die showing 4+ for an effect. 4-5 = standard, 6+ = strong. Combat: Push, Pull, Pin, Read, Break, Cover, Setup (+ open clause). Stakes: name something concrete the action made possible. Both types available on defense rolls.
+
+---
+
 ## Getting Hurt
 
 ## Guard & Drain
