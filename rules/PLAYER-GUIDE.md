@@ -248,6 +248,59 @@ Drain recovers during **downtime.** Spending time with someone who matters. Doin
 
 ## Your Gear
 
+Niv doesn't carry thaumatech. Her clicker reads 0.00. She carries two knives (d6 each, Subtle), three passports, and a reputation for arriving on time. The knives are light weapons. Concealable. No questions at checkpoints that would ask plenty about a contact plate.
+
+### Weapons
+
+| Category | Die | Examples |
+|-|-|-|
+| Light | d6 | Knife, fists, bottle, brass knuckles |
+| Standard | d8 | Pistol, machete, baseball bat, rifle |
+| Heavy | d10 | Shotgun, sledgehammer, high-caliber |
+| Devastating | d12 | Vehicle ram, explosion, major thaumic discharge |
+
+Key properties: **Ranged** (Near and Far, Snag at Close). **Sidearm** (Close and Near, Snag at Far). **Subtle** (concealable, no alarms). **Slow** (can't attack and Move same turn). **Loud** (heard at Far, ticks attention clocks).
+
+### Thaumatech
+
+A thaumatech device draws from your thaumic potential through contact plates on the skin. Positives only. The device enables the action. You roll your stat based on your approach. The GM puts Drain in the stakes based on how hard you're pushing.
+
+The guiding question: how far past rated function?
+
+**Luka, simple use.** The siphon tap does what it's rated for. He rolls. 6 = free, no Drain. 4-5 = 1 Drain. 1-3 = 1 Drain + complication.
+
+**Luka, stretching.** The tap reads through a wall it wasn't built for. 6 = 1 Drain. 4-5 = 2 Drain. 1-3 = 2 Drain + device at risk.
+
+**Dr. Osei, way past spec.** The stabilization rig suppresses a leyline breach. This rig was built for harmonic tuning, not containment. 6 = 2 Drain. 4-5 = 3 Drain + device at risk. 1-3 = 3 Drain + device breaks.
+
+### Device at Risk
+
+When the GM declares a device at risk, roll **2d6, read highest.** 6 = fine. 4-5 = breaks (offline until downtime repair). 1-3 = breaks AND bites you (feedback, sparks, thaumic surge).
+
+A broken device is repaired in a downtime scene. Destruction is narrative, not mechanical. A device is only truly gone when the fiction demands it and the table feels the weight.
+
+### Quality is Positioning
+
+Osei's military-spec rig suppressing a breach? The GM might call that stretching, not way-past-spec. Luka's industrial tap doing the same thing? Way past spec, immediately. Better gear means lower stakes. That's worth the felony, and that's why the black market exists.
+
+### Thaumatech in Combat
+
+Hakim's sidearm. Three modes.
+
+**Thumb off the plate.** Normal attack. Roll the weapon die. No Drain.
+
+**Thumb on the plate.** Damage + the weapon's listed thaumatech effect. Costs 1 Drain.
+
+**Past spec.** You want it to do something the listed effect can't. That's a device gambit: the GM sizes the Drain cost from the fiction, and the effect auto-succeeds.
+
+### Consumables
+
+Single-use items. Apply to yourself or someone at Close range. Use your Act, spend the item. Stim shots, stabilizer doses, field patches. See the equipment catalog for the full list.
+
+> **Weapons:** d6 light, d8 standard, d10 heavy, d12 devastating. **Thaumatech tiers:** Simple (6=free, 4-5=1 Drain, 1-3=1+complication), Stretching (6=1, 4-5=2, 1-3=2+at risk), Way Past Spec (6=2, 4-5=3+at risk, 1-3=3+breaks). Device at risk: 2d6 read highest (6=fine, 4-5=breaks, 1-3=catastrophic). **Combat:** Thumb off = free. Thumb on = 1 Drain + effect. Past spec = device gambit.
+
+---
+
 ## Fighting
 
 ## Between Fights
