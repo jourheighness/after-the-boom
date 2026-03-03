@@ -64,33 +64,23 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       document.getElementById('sidebar')?.classList.remove('open');
     });
 
-    // --- Scroll spy (position-based) ---
+    // --- Scroll spy (IntersectionObserver) ---
     // Matches sidebar links to content headings by position within data-source groups.
     // No dependency on heading IDs — immune to ProseMirror DOM node recycling.
+    // IntersectionObserver fires only when headings cross the threshold — no per-frame work.
+    const THRESHOLD = 80;
     const sidebarEl = document.getElementById('sidebar');
-    let _pointerInSidebar = false;
-    sidebarEl?.addEventListener('pointerenter', () => _pointerInSidebar = true);
-    sidebarEl?.addEventListener('pointerleave', () => _pointerInSidebar = false);
-
     let currentActive: Element | null = null;
-    let spyRaf: number | null = null;
     let userHasScrolled = false;
-    let cachedPairs: Array<[Element, Element]> | null = null;
+    let _pointerInSidebar = false;
 
-    /**
-     * Build heading↔link pairs by matching content sections to sidebar groups
-     * via data-source, then matching headings to links by document order.
-     * Cached — invalidated on sidebar DOM mutation.
-     */
-    function getHeadingLinkPairs(): Array<[Element, Element]> {
-      if (cachedPairs) {
-        // Quick staleness check: first heading still in DOM
-        if (cachedPairs.length === 0 || cachedPairs[0][0].isConnected) return cachedPairs;
-        cachedPairs = null;
-      }
+    sidebarEl?.addEventListener('pointerenter', () => (_pointerInSidebar = true));
+    sidebarEl?.addEventListener('pointerleave', () => (_pointerInSidebar = false));
 
+    /** Build heading↔link pairs fresh each time (no cache to go stale). */
+    function buildPairs(): Array<[Element, Element]> {
       const pairs: Array<[Element, Element]> = [];
-      if (!sidebarEl) return (cachedPairs = pairs);
+      if (!sidebarEl) return pairs;
 
       for (const group of sidebarEl.querySelectorAll('.nav-group')) {
         const source = group.getAttribute('data-source');
@@ -98,9 +88,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         const section = document.querySelector(`.file-section[data-source="${source}"]`);
         if (!section) continue;
 
-        const pm = section.querySelector('.ProseMirror');
-        const container = pm || section;
-
+        const container = section.querySelector('.ProseMirror') || section;
         const titleLink = group.querySelector('a.nav-source');
         const navLinks = group.querySelectorAll('.nav-link');
 
@@ -109,56 +97,76 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           const level = parseInt(h.tagName[1]);
           if (level === 1) {
             if (titleLink) pairs.push([h, titleLink]);
-          } else {
-            if (subIdx < navLinks.length) {
-              pairs.push([h, navLinks[subIdx]]);
-              subIdx++;
-            }
+          } else if (subIdx < navLinks.length) {
+            pairs.push([h, navLinks[subIdx]]);
+            subIdx++;
           }
         }
       }
-
-      return (cachedPairs = pairs);
+      return pairs;
     }
 
-    function updateScrollSpy() {
-      const threshold = 80;
+    function activateLink(link: Element) {
+      if (link === currentActive) return;
+      currentActive?.classList.remove('active');
+      link.classList.add('active');
+      currentActive = link;
+
+      if (userHasScrolled && sidebarEl && !_pointerInSidebar) {
+        const rect = link.getBoundingClientRect();
+        const sr = sidebarEl.getBoundingClientRect();
+        if (rect.top < sr.top || rect.bottom > sr.bottom) {
+          link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+      }
+    }
+
+    function syncSpy() {
       let best: Element | null = null;
-
-      for (const [heading, link] of getHeadingLinkPairs()) {
-        const rect = heading.getBoundingClientRect();
-        if (rect.top <= threshold) best = link;
+      for (const [heading, link] of buildPairs()) {
+        if (heading.getBoundingClientRect().top <= THRESHOLD) best = link;
       }
+      if (best) activateLink(best);
+    }
 
-      if (best && best !== currentActive) {
-        currentActive?.classList.remove('active');
-        best.classList.add('active');
-        currentActive = best;
+    // --- IntersectionObserver: fires when any heading crosses the threshold line ---
+    let headingObserver: IntersectionObserver | null = null;
 
-        if (userHasScrolled && sidebarEl && !_pointerInSidebar) {
-          const rect = best.getBoundingClientRect();
-          const sidebarRect = sidebarEl.getBoundingClientRect();
-          if (rect.top < sidebarRect.top || rect.bottom > sidebarRect.bottom) {
-            best.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-          }
-        }
+    function observeHeadings() {
+      headingObserver?.disconnect();
+      headingObserver = new IntersectionObserver(syncSpy, {
+        rootMargin: `-${THRESHOLD}px 0px 0px 0px`,
+        threshold: [0, 1],
+      });
+      for (const [heading] of buildPairs()) {
+        headingObserver.observe(heading);
       }
     }
 
+    // --- Re-observe when sidebar rebuilds (editor syncs TOC) ---
+    let rebuildTimer: ReturnType<typeof setTimeout>;
+    if (sidebarEl) {
+      new MutationObserver(() => {
+        clearTimeout(rebuildTimer);
+        rebuildTimer = setTimeout(() => { observeHeadings(); syncSpy(); }, 150);
+      }).observe(sidebarEl, { childList: true, subtree: true });
+    }
+
+    // --- Scroll: track interaction + safety-net sync after scrolling stops ---
+    let scrollTimer: ReturnType<typeof setTimeout>;
     window.addEventListener('scroll', () => {
       userHasScrolled = true;
-      if (spyRaf) cancelAnimationFrame(spyRaf);
-      spyRaf = requestAnimationFrame(updateScrollSpy);
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(syncSpy, 100);
     }, { passive: true });
 
-    // Click-to-scroll: position-based lookup, doesn't rely on heading IDs
+    // --- Click-to-scroll ---
     sidebarEl?.addEventListener('click', (e) => {
       const link = (e.target as Element).closest('a.nav-source, a.nav-link');
       if (!link) return;
-
       e.preventDefault();
 
-      for (const [heading, sidebarLink] of getHeadingLinkPairs()) {
+      for (const [heading, sidebarLink] of buildPairs()) {
         if (sidebarLink === link) {
           heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
           if (heading.id) history.replaceState(null, '', `#${heading.id}`);
@@ -167,19 +175,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       }
     });
 
-    // Watch for sidebar DOM changes (editor rebuilds it) → invalidate cache, re-run spy
-    if (sidebarEl) {
-      let sidebarTimer: ReturnType<typeof setTimeout> | null = null;
-      const smo = new MutationObserver(() => {
-        cachedPairs = null;
-        if (sidebarTimer) clearTimeout(sidebarTimer);
-        sidebarTimer = setTimeout(updateScrollSpy, 200);
-      });
-      smo.observe(sidebarEl, { childList: true, subtree: true });
-    }
-
-    // Initial activation after hydration
-    setTimeout(updateScrollSpy, 300);
+    // --- Init ---
+    observeHeadings();
+    setTimeout(syncSpy, 300);
 
     // --- Escape closes sidebar on mobile ---
     document.addEventListener('keydown', (e) => {

@@ -4,9 +4,11 @@ import rehypeSourceLines from './rehype-source-lines.mjs';
 import commentsIntegration from './src/integrations/comments.ts';
 import editorIntegration from './src/integrations/editor.ts';
 
+const isProd = process.env.NODE_ENV === 'production';
+
 export default defineConfig({
   site: 'https://johannessundman.github.io',
-  base: '/after-the-boom',
+  base: isProd ? '/after-the-boom' : '/',
   output: 'static',
   markdown: {
     remarkPlugins: [remarkPrefixIds],

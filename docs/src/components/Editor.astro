@@ -161,13 +161,23 @@ async function mountEditor(section: HTMLElement) {
 
   const state: EditorState = {
     crepe, container, indicator,
-    lastSavedMarkdown: rawMd,
-    lastKnownHash: contentHash(rawMd),
+    lastSavedMarkdown: rawMd, // temporary — updated after editor init
+    lastKnownHash: null,
     autosaveInterval: null,
   };
   editors.set(section, state);
 
   await crepe.create();
+
+  // Sync lastSavedMarkdown with editor's normalized output.
+  // Milkdown's parse→serialize round-trip normalizes whitespace/newlines,
+  // so getMarkdown() !== rawMd even with no user edits. Without this sync,
+  // every autosave tick thinks content changed and triggers a save storm.
+  try {
+    const normalized = crepe.getMarkdown();
+    state.lastSavedMarkdown = normalized;
+    state.lastKnownHash = contentHash(normalized);
+  } catch {}
 
   // Section context for comment creation
   const sectionCtx = {

@@ -682,7 +682,7 @@ async function saveNewComment() {
     'research': 'research',
     'dm-screen': 'dm-screen',
   };
-  const slug = window.location.pathname.replace(/.*\/after-the-boom\/?/, '').replace(/\/?(index\.html)?$/, '');
+  const slug = window.location.pathname.replace(/^(\/after-the-boom)?\//, '').replace(/\/?(index\.html)?$/, '');
   const pathPrefix = slugToDir[slug] ?? 'rules';
   const c: Comment = {
     id: generateId(),
