@@ -396,4 +396,44 @@ Three abstract ranges. Relative, not a grid.
 
 ## Between Fights
 
+### Recovery
+
+**Guard:** Refreshes in genuine safety. Sit down and breathe.
+
+**Hurt:** Clears when the scene ends. A breather, a bandage. Mid-scene: bandage kit costs your Act.
+
+**Wounded:** Healing clock, 4 segments. Treatment rolls tick it (full success = 2 ticks, partial = 1). Needs medical attention. Gear gives a Boon on the treatment roll.
+
+**Critical:** Healing clock, 6 segments (drops to Wounded when full). Needs training (relevant Edge or background) or a thaumatech trauma station.
+
+**Drain:** Downtime. Time with someone who matters. Rest. Purpose. Vice.
+
+**Crack:** Narrative moments only. No item fixes a Crack.
+
+### Clocks
+
+A circle divided into segments (4, 6, or 8). Healing, investigation, and long-term projects all use them. Full success = 2 ticks, partial = 1.
+
+### Work a Lead
+
+The false-bottom filing cabinet. Mae has a name. A positive who came in for registration nine years ago and never came out the other side. She rolls Sharp to cross-reference the intake log against discharge records.
+
+The GM says: "On a partial, you find the discrepancy but the night audit catches the query."
+
+6 = clear answer + a follow-up question free. 4-5 = you get it, but. 1-3 = dead end or worse.
+
+You need something concrete to work: a name, an address, a document, a device, a contact. **No lead, no roll.** Find one first. That's a scene, not a mechanic.
+
+**Stat from fiction:** Sharp to analyze, Nerve to lean on contacts, Grit to dig through wreckage.
+
+### Recovering from a Crack
+
+Luka has been Numb for three days. Nothing reaches him. Then his daughter calls. She's failing thaumic safety at school. The same class he aced twenty years ago. He stays on the phone for an hour, walking her through the contact plate diagrams. Something loosens. The Crack doesn't vanish. It becomes something he can carry.
+
+Cracks clear through moments, not mechanics.
+
+> **Recovery:** Guard = genuine safety. Hurt = scene ends (or bandage, 1 Act). Wounded = healing clock 4 segments. Critical = healing clock 6 (needs training or trauma station). Drain = downtime. Crack = narrative moment. **Work a Lead:** Need something concrete. [stat] roll. 6 = answer + follow-up, 4-5 = answer + cost, 1-3 = dead end or worse.
+
+---
+
 ## Quick Reference
