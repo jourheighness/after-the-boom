@@ -4,7 +4,7 @@ MONDAS Core Rules | Player Reference v0.1
 
 ## How This Works
 
-*The clicker on Élodie's desk ticks from green to amber. A Form 27-exception for necro-parts import, and the BTC is spiking. She feels it behind her eyes: the old authority, the silver-taste language, something vast and patient stirring in whatever she was before the Boom made her an elf in a customs office. Her pen hovers. She stamps the form. Files it. The clicker settles back to green. Tuesday.*
+*The clicker on Élodie's desk ticks from green to amber. A Form 27-exception for thaumatech imports, and the BTC is spiking. She feels it behind her eyes: something vast and patient stirring in whatever she was before the Boom made her an elf in a customs office. Her pen hovers. She stamps the form. Files it. The clicker settles back to green. Tuesday.*
 
 This is a game about people like Élodie. You have a character. You describe what they do. Dice determine what happens. The GM describes the consequences. You respond. That's the loop.
 
@@ -12,9 +12,9 @@ This is a game about people like Élodie. You have a character. You describe wha
 
 Three stats. Rated 1-4. You distribute 6 points across all three (minimum 1 each).
 
-**Grit:** Strength, toughness, endurance. Kicking down a door, taking a punch, hauling someone to safety.
+**Grit:** Strength, toughness, physic endurance. Kicking down a door, taking a punch, hauling someone to safety.
 
-**Sharp:** Awareness, reflexes, precision. Spotting danger, picking a lock, connecting dots.
+**Sharp:** Awareness, intelligence, reflexes, precision. Spotting danger, picking a lock, connecting dots.
 
 **Nerve:** Willpower, composure, influence. Keeping cool, lying convincingly, resisting a thaumic intrusion.
 
@@ -24,23 +24,9 @@ Common spreads: **3/2/1** (specialist) or **2/2/2** (generalist). A 3 means miss
 
 Edges are what make your character yours. Special training, innate talents, connections, knacks. Each one gives a specific mechanical benefit: bonus dice, new tactical options, thaumic abilities.
 
+Every person on Mondas is either a **Positive** (thaumic ability, you got the DPA Yellow Slip in high-school saying "So you might be different") or a **Zero** (no thaumic potential at all). Positives can use thaumatech through contact plates. Zeroes can't, but they're resourceful.
+
 Positives start with **3 Edges.** Zeroes start with **4** (broader training compensates for no thaumic access).
-
-### The Cast
-
-Six people throughout this guide. Each one lives through a different part of the rules.
-
-**Niv.** Goblin, zero. Bonded courier in the Free Marches. Sharp 3. Two knives, three passports, a clicker that reads 0.00.
-
-**Luka Stević.** Siphon technician, Rheinmark extraction facility. Eleven years on the line. His dosimeter badge is yellow. It should be green.
-
-**Dr. Emeka Osei.** Concordat harmonics inspector. When a leyline fault threatens to tear local reality, Emeka is the one they send. Four languages. Nightmares in all of them.
-
-**Mae Dalton.** DPA desk sergeant, night shift. Nine years of Yellow Slips. Filing cabinet with a false bottom. Building something.
-
-**Hakim al-Rashidi.** Private contractor. Sumerian Knot veteran. Three Scars. A military-fabricated sidearm nobody asked for back.
-
-**Élodie Marchetti.** Concordat customs clerk. Was something in Flone. Processes Form 27-exceptions now.
 
 ***
 
@@ -52,7 +38,7 @@ Two tracks. Two currencies. You need to understand these before anything else ma
 
 Your readiness: awareness, positioning, luck, the instinct that keeps you alive.
 
-**Starting Guard = 2 + your highest stat** (range 3-6, max 10 through Scars).
+**Starting Guard = 2 + your highest stat** (range 3-6, can grow to max 10).
 
 When Guard drops, you haven't been hurt yet. You've been pushed, rattled, forced into worse positions. The first real injury comes when Guard breaks.
 
@@ -74,7 +60,7 @@ Zeroes dig deep on guts alone. Positives split the same 4 boxes between guts and
 
 ### Cracking
 
-*End of a bad shift. Luka is at 1 Drain. Management wants one more extraction pass. He pushes the siphon tap past rated function. The GM puts 2 Drain in the stakes. He rolls. Partial. 2 Drain spent. He's at 0.*
+*End of a bad shift. Luka is at 2 Drain. Management wants one more extraction pass. He pushes the siphon tap past rated function. The GM puts 2 Drain in the stakes. He rolls. Partial. 2 Drain spent. He's at 0.*
 
 When your Drain track empties, something breaks. You **Crack.** The player names it.
 
@@ -82,11 +68,13 @@ When your Drain track empties, something breaks. You **Crack.** The player names
 
 Cracks clear through significant narrative moments. A conversation that reaches you. A choice that proves something. Not rest. Not items. Moments.
 
+**Cracked + Critical + 0 Drain = done.** You're incapacitated. Same as having both Critical slots full. Someone has to help you.
+
 ### Recovery
 
-Drain recovers during **downtime.** Spending time with someone who matters. Doing something that reminds you who you are. Getting proper rest. Indulging a vice (quick, but the GM may complicate).
+Drain recovers during **downtime.** Spending time with someone who matters. Doing something that reminds you who you are. Getting proper rest. Indulging a vice, something your character would do to feel better emotionally and mentally. Nothing recovers Drain mid-fight.
 
-> **Guard:** 2 + highest stat (cap 10). Refreshes in genuine safety. **Drain:** 4 boxes. +1d before rolling (1/roll), act while Critical, thaumatech stakes. Empty = Crack (Snag all rolls). Crack clears through narrative, not rest. Drain recovers in downtime.
+> **Guard:** 2 + highest stat (cap 10). Refreshes in genuine safety. **Drain:** 4 boxes. +1d before rolling (1/roll), act while Critical, thaumatech stakes. Empty = Crack (Snag all rolls). Cracked + Critical + 0 Drain = incapacitated. Crack clears through narrative. Drain recovers in downtime.
 
 ***
 
@@ -110,13 +98,13 @@ Roll **d6s equal to the relevant stat.** Read the **single highest die.**
 
 ### Building the Pool
 
-Before rolling, look for advantages. Each one adds a **Boon (+1d6):**
+Before rolling, look for advantages. Each one adds a **Boon (+1d6)** and only one\*\*:\*\*
 
-* **Background relevant?** Mae knows DPA filing procedures inside out. +1d.
+* **Background relevant?** Your character's history and expertise.
 
 * **Right gear?** The proper tool for the job.
 
-* **Creative approach?** Using the environment or exploiting a weakness. Max 1 from creativity.
+* **Creative approach?** Using the environment or exploiting a weakness.
 
 * **Ally helping?** Someone describes how they assist. Costs their action in combat.
 
@@ -140,9 +128,9 @@ Before any roll, the GM tells you two things: what happens on a partial, what ha
 
 ## Gambits
 
-*Three hostiles behind a cargo container. Bad angles. Hakim fires his sidearm (d8) with a flanking Boon (+1d6) and burns 1 Drain for another d6. Three dice hit the table: 5, 5, 4.*
+*Three hostiles behind a cargo container. Bad angles. Hakim fires his sidearm (d8) with a flanking Boon (+1d6) and burns 1 Drain for another d6. Three dice hit the table: 5, 4, 3.*
 
-*His damage is the single highest die: 5. The other two dice? Fuel. He can sacrifice any die showing 4+ for a guaranteed side effect. The 4 was never going to improve his damage. He spends it to Push one hostile into the open. Free.*
+*His damage is the single highest die: 5. The other two dice? Fuel. He can sacrifice any die showing 4+ for a guaranteed side effect. He keeps the 5 for damage and uses the four for a gambit. Break. He tells the GM "Hakim aims for the face plate glass of the hostile". The GM agrees and the hostile now has to remove his faceplate to be effective.*
 
 After any roll, you can sacrifice dice showing 4+ for guaranteed side effects called **gambits.** The sacrificed die is gone. Your damage (or result) is the highest die that remains.
 
@@ -174,13 +162,19 @@ Seven verbs. Every player has access to these on attack and defense rolls. On st
 
 Plus the open clause: pitch something else of similar scope. The GM approves.
 
+### Threat
+
+Dangerous enemies have a **Threat level** (0-3). Threat imposes Snags on your **defense rolls** (Threat 2 = -2d on defense). Threat does NOT affect saves or your attacks.
+
+Threat also resists gambits. **Strong gambits always land.** Standard gambits work on Threat 0-1 enemies. Threat 2+ enemies resist standard gambits *that target them* unless the fiction justifies it. If resisted, the die is still spent — the gambit fails but doesn't revert to damage. Gambits that target you (Cover, Setup) or the environment always land.
+
 ### Stakes Gambits
 
 *Élodie is talking down a smuggler at the customs desk. She rolls Nerve (3d6). Gets a 6, 4, 2. Full success. But she also saw his hand go to his left pocket when she mentioned Grid 12. She sacrifices the 4 to Read that tell. The 4 was below her highest anyway. Now she knows where the shipment is routed.*
 
 On any roll that isn't a direct attack, gambits are open negotiation. Name something concrete the moment made possible. Not a second goal. Something small, within reach of what you're already doing.
 
-> **Gambits:** Sacrifice a die showing 4+ for an effect. 4-5 = standard, 6+ = strong. Your damage/result = highest remaining die. Combat: Push, Pull, Pin, Read, Break, Cover, Setup (+ open clause). Stakes: name something concrete the action made possible. Both types available on defense.
+> **Gambits:** Sacrifice a die showing 4+ for an effect. 4-5 = standard, 6+ = strong. Your damage/result = highest remaining die. Combat: Push, Pull, Pin, Read, Break, Cover, Setup (+ open clause). Stakes: name something concrete the action made possible. Both types available on defense. **Threat 2+** resists standard gambits that target them; strong gambits always land.
 
 ***
 
@@ -192,14 +186,13 @@ Every hit follows the same path:
 
 **Damage → Armor → Guard → overflow = Harm.**
 
-*Armor absorbs 1. Five left. Guard absorbs 4 and hits 0. That's a Scar. One point overflows. Level 1 Harm: Hurt.*
+*Armor absorbs 1. Five left. Guard absorbs 4 and hits 0. One point overflows. Level 1 Harm: Hurt.*
 
 ### The Pipeline
 
 1. **Armor** reduces damage flat (0-3).
 2. Remainder hits **Guard.**
-3. Guard reaches **0** (exact or overflow): take a **Scar.**
-4. Overflow past Guard becomes **Harm.**
+3. Overflow past Guard becomes **Harm.**
 
 ### Harm
 
@@ -217,17 +210,17 @@ Both slots full at a level? New Harm bumps up. Both Critical slots full and you 
 
 ### Scars
 
-When Guard drops to 0, something changes permanently.
+When you take **Critical Harm**, something changes permanently.
 
 *Hakim has three. The shrapnel scar on his neck from the Knot. The ringing in his left ear when the BTC spikes. The thing in his sleep he doesn't talk about.*
 
-The player describes the Scar: physical, psychological, or material. **Scars make your character more defined, not less capable.** First Scar in a session: +1 max Guard (cap 10).
+The player describes the Scar: physical, psychological, or material. **Scars make your character more defined, not less capable.** You survived something that should have ended you — you come out tougher. First Scar in a session: **+1 max Guard** (cap 10) and **an Edge** (you choose what you learned).
 
 ### A Bad Shift
 
-*Luka's siphon feeds back. 3 damage, no armor. He's been at this all shift and his Guard is down to 2. Guard absorbs 2, hits 0. Scar. One point overflows: Hurt. His hands sting. He can work through it.*
+*Luka's siphon feeds back. 3 damage, no armor. He's been at this all shift and his Guard is down to 2. Guard absorbs 2, hits 0. One point overflows: Hurt. His hands sting. He can work through it.*
 
-*Next surge: 4 damage. Guard is gone. All 4 overflows. Wounded. Snag on everything. His vision is spotting at the edges and the siphon tap feels heavier in his hands.*
+*Next surge: 6 damage. Guard is gone. All 6 overflows. Critical. Scar. His whole left arm goes numb and the siphon cracks in his grip. He's not the same after this — but he learned something about pain. +1 max Guard, and he picks up an Edge.*
 
 ### Recovery
 
@@ -239,7 +232,9 @@ The player describes the Scar: physical, psychological, or material. **Scars mak
 
 One treatment attempt per patient per scene. Consumables don't count as attempts.
 
-> **Damage Pipeline:** Damage → Armor (0-3) → Guard → overflow = Harm. Guard hits 0 = Scar (+1 max Guard, cap 10). Harm: L1 Hurt (Snag when relevant), L2 Wounded (Snag all), L3 Critical (Drain to act). Overflow: 1-2 = L1, 3-4 = L2, 5+ = L3. Both slots full → bumps up. Both L3 full = done.
+**Drain:** Recovers in downtime. Between scenes, a nerve stim recovers 1 Drain (Snag on next roll). Nothing recovers Drain mid-fight.
+
+> **Damage Pipeline:** Damage → Armor (0-3) → Guard → overflow = Harm. Harm: L1 Hurt (Snag when relevant), L2 Wounded (Snag all), L3 Critical (Drain to act, Scar). Overflow: 1-2 = L1, 3-4 = L2, 5+ = L3. Both slots full → bumps up. Both L3 full = done. **Scar:** Critical Harm only. +1 max Guard (cap 10) + an Edge.
 
 ***
 
@@ -269,9 +264,9 @@ The triggering effect defines the consequences, not the GM. "Nerve save or Stunn
 
 | Category    | Die | Examples                                        |
 | ----------- | --- | ----------------------------------------------- |
-| Light       | d6  | Knife, fists, bottle, brass knuckles            |
-| Standard    | d8  | Pistol, machete, baseball bat, rifle            |
-| Heavy       | d10 | Shotgun, sledgehammer, high-caliber             |
+| Light       | d6  | Knife, fists, bottle, brass knuckles, pistol    |
+| Standard    | d8  | Revolver, machete, baseball bat, rifle, shotgun |
+| Heavy       | d10 | Sledgehammer, high-caliber rifle                |
 | Devastating | d12 | Vehicle ram, explosion, major thaumic discharge |
 
 Key properties: **Ranged** (Near and Far, Snag at Close). **Sidearm** (Close and Near, Snag at Far). **Subtle** (concealable). **Slow** (can't attack and Move same turn). **Loud** (heard at Far, ticks attention clocks). **Brutal** (+2 overflow when damage breaks Guard).
@@ -294,23 +289,27 @@ Device is strained. **Snag on all rolls using this device** until you spend an A
 
 A broken device is offline until repaired in a downtime scene. The player describes the work: the part sourced from a junkyard, the wiring replaced, the housing hammered straight. Destruction is narrative, not mechanical. A device is only truly gone when the fiction demands it.
 
-### Quality is Positioning
-
-*Osei's military-spec rig suppressing a breach? The GM might call that stretching. Luka's industrial tap doing the same thing? Way past spec, immediately.* Better gear means the GM sets lower stakes. That's worth the felony.
-
 ### Thaumatech in Combat
 
 *Hakim's sidearm. Three modes.*
 
 **Thumb off the plate.** Normal attack. Weapon die + Boons. No Drain.
 
-**Thumb on the plate.** Full damage AND the weapon's listed thaumatech effect fires. 1 Drain. Standard gambits still available on top.
+**Thumb on the plate.** Full damage AND the weapon's thaumatech effect fires. 1 Drain. Your weapon card lists the effect (concussive blast, thermal surge, binding thread, etc.). The flat cost pays for doing both at once. Gambits still available on top.
 
-**Past spec.** You want the weapon to do something its listed effect can't. That's a stakes roll with Drain in the stakes. Takes your Act. Same stretch tiers as any thaumatech use.
+**Past spec.** You want something the listed effect can't do. Stakes roll with Drain in the stakes. Takes your Act. Same tiers as any thaumatech use.
+
+The tier table (Simple/Stretching/Way Past Spec) is for device use outside of attacks. Thumb on the plate is a combat shortcut: one Drain, no second roll.
 
 ### Consumables
 
-Single-use items. 1 Act. Stim shots (restore 3 Guard mid-scene), stabilizer doses (Boon that cancels wound Snag for the rest of the scene). Thauma-pharmaceuticals need ambient magic to work. Thaumatech devices run on operator Drain and work anywhere.
+Single-use items. 1 Act. Thauma-pharmaceuticals need ambient magic to work. Thaumatech devices run on operator Drain and work anywhere.
+
+* **Stim shot:** Restore 3 Guard mid-scene.
+
+* **Stabilizer dose:** Boon that cancels a wound Snag for the rest of the scene.
+
+* **Nerve stim** (restricted): Recover 1 Drain with a Snag on your next roll.
 
 > **Weapons:** d6 light, d8 standard, d10 heavy, d12 devastating. **Thaumatech tiers:** Simple (6=free, 4-5=1 Drain, 1-3=1+complication), Stretching (6=1, 4-5=2, 1-3=2+at risk), Way Past Spec (6=2, 4-5=3+at risk, 1-3=3+breaks). Device at risk = Snag until fixed (1 Act). Strained again = breaks. **Combat:** Thumb off = free. Thumb on = 1 Drain + effect. Past spec = stakes roll + Drain.
 
@@ -322,7 +321,7 @@ Single-use items. 1 Act. Stim shots (restore 3 Guard mid-scene), stabilizer dose
 
 ### Setup
 
-When you see a fight coming, one roll before round 1. Describe your preparation: take cover, line up a shot, flank wide, ready a device.
+When you see a fight coming, one roll before round 1. Describe your preparation: take cover, line up a shot, flank wide, ready a device. Roll the relevant stat (Sharp to spot angles, Grit to fortify, Nerve to steady yourself).
 
 | Result  | Effect                                                     |
 | ------- | ---------------------------------------------------------- |
@@ -365,15 +364,27 @@ Attacks auto-hit. You never roll to see *if*. The roll determines *how hard* and
 5. **Highest remaining die = damage.**
 6. Subtract target's Armor, apply to Guard, overflow to Harm.
 
+No Boons, no Drain? You roll the weapon die alone. One die means damage OR gambit — pick one.
+
 Sacrifice all dice = 0 damage, pure gambit effects.
 
 **Snags on attacks** remove Boon and Drain dice first. If those are gone, the weapon die goes. A Wounded character attacking without Boons or Drain is at 0d (2d6, take the lower). Wounded means you need help: Drain, an ally's Assist, or flanking.
+
+**At 0d:** Roll 2d6. Damage is the lower die. Either die can be sacrificed for a gambit if it shows 4+. If you sacrifice the lower die, your damage becomes the higher die instead.
 
 *Hakim fires. d8 sidearm + 1d6 flanking Boon. Rolls 7, 4. Highest die: 7. The 4 is spare. He sacrifices it to Read his target. Learns the hostile is wearing a concealed vest. Damage 7, minus the target's Armor, into Guard. The Read was free. The 4 was never going to beat 7.*
 
 ### Defense
 
-Stakes roll. The stakes are always the same: 6 = no damage, 4-5 = half (round up), 1-3 = full.
+Stakes roll. Your result modifies the incoming damage before it enters the pipeline.
+
+| Result  | Damage taken     |
+| ------- | ---------------- |
+| **6**   | None.            |
+| **4-5** | Half (round up). |
+| **1-3** | Full.            |
+
+Then apply the damage normally: Armor → Guard → overflow → Harm.
 
 Pick your stat from the fiction:
 
@@ -383,7 +394,7 @@ Pick your stat from the fiction:
 
 * **Nerve:** hold steady under fire, resist a thaumic intrusion, stand your ground
 
-Roll \[stat]d6. Drain for +1d before rolling. Then Armor, Guard, Harm as normal. Gambits apply: the seven-verb list is your menu.
+Roll \[stat]d6, minus Snags from enemy Threat. Drain for +1d before rolling. Then Armor, Guard, Harm as normal. Gambits apply: the seven-verb list is your menu.
 
 *Niv, caught at a checkpoint. The guard fires. She's Sharp 3 but caught off-guard (Snag). 2d6. Rolls 4, 2. Partial: half damage. She dives behind the customs barrier, already planning the exit.*
 
@@ -399,7 +410,7 @@ Roll \[stat]d6. Drain for +1d before rolling. Then Armor, Guard, Harm as normal.
 
 **Flanking:** Two allies at Close from different angles. Both get a Boon.
 
-> **Turn:** Move + Act. **Attack:** Auto-hit. Weapon die + Boons + Drain. Sacrifice 4+ for gambits. Highest remaining = damage. Snags eat Boons first, then weapon die. **Defense:** \[stat]d6. 6=none, 4-5=half, 1-3=full.
+> **Turn:** Move + Act. **Attack:** Auto-hit. Weapon die + Boons + Drain. Sacrifice 4+ for gambits. Highest remaining = damage. Snags eat Boons first, then weapon die. 0d = 2d6, damage is lower die (can sacrifice lower, damage becomes higher). **Defense:** \[stat]d6 minus Threat. 6=none, 4-5=half (round up), 1-3=full. Halving before pipeline.
 
 ***
 
@@ -447,11 +458,11 @@ Cracks clear through moments, not mechanics.
 
 **The Roll:** \[stat]d6, read highest. 6 = full, 4-5 = partial + cost, 1-3 = consequence. Boon = +1d, Snag = -1d, cancel 1:1. 0d = 2d6 take lowest.
 
-**Guard:** 2 + highest stat (cap 10). Refreshes in genuine safety. First Scar per session = +1 max Guard.
+**Guard:** 2 + highest stat (cap 10). Refreshes in genuine safety. Scar = +1 max Guard (first per session).
 
 **Drain:** 4 boxes. +1d (1/roll), act while Critical, thaumatech stakes. Empty = Crack (Snag all rolls). Crack = narrative recovery. Drain = downtime.
 
-**Damage Pipeline:** Damage → Armor (0-3) → Guard → overflow = Harm. Guard hits 0 = Scar.
+**Damage Pipeline:** Damage → Armor (0-3) → Guard → overflow = Harm. Critical = Scar (+1 max Guard, +Edge).
 
 | Harm        | Effect             | Overflow | Slots |
 | ----------- | ------------------ | -------- | ----- |
@@ -461,25 +472,25 @@ Cracks clear through moments, not mechanics.
 
 **Saves:** Roll specified stat. 6 = resist, 4-5 = partial effect, 1-3 = full effect.
 
-**Conditions:** Stunned (can't act, 0d defense). Shaken (Snag all, clears end of scene). Prone (stand costs Move, melee Boon against you, ranged Snag against you).
+**Conditions:** Stunned (can't act, 0d defense). Shaken (Snag all, clears end of scene). Prone (stand costs Move, melee Boon against you, ranged Snag against you, your melee attacks get Snag).
 
 **Combat Gambits** (sacrifice 4+ = standard, 6+ = strong):
 
-| Gambit | Standard                  | Strong                     |
-| ------ | ------------------------- | -------------------------- |
-| Push   | One band back             | + Prone                    |
-| Pull   | One band toward           | + Boon next action         |
-| Pin    | Can't move, Act to escape | + can't attack, Act+Move   |
-| Read   | One detail                | + Boon from it             |
-| Break  | Impaired (-2 dmg, 1 turn) | Exposed (+2 taken, 1 turn) |
-| Cover  | +1 Armor until you move   | +2 Armor                   |
-| Setup  | Bank die for self or ally | Bank for self AND ally     |
+| Gambit | Standard                        | Strong                     |
+| ------ | ------------------------------- | -------------------------- |
+| Push   | One band back                   | + Prone                    |
+| Pull   | One band toward                 | + Boon next action         |
+| Pin    | Can't reposition, Act to escape | + can't attack, Act+Move   |
+| Read   | One detail                      | + Boon from it             |
+| Break  | Impaired (-2 dmg, 1 turn)       | Exposed (+2 taken, 1 turn) |
+| Cover  | +1 Armor until you move         | +2 Armor                   |
+| Setup  | Bank die for self or ally       | Bank for self AND ally     |
 
-Open clause: anything of similar scope, GM approves.
+Open clause: anything of similar scope, GM approves. **Threat 2+** resists standard gambits targeting them. Strong always lands.
 
-**Attack:** Auto-hit. Weapon die + Boon d6s + Drain d6. Sacrifice 4+ for gambits. Highest remaining = damage. Snags eat Boons/Drain first, then weapon die. 0d = 2d6, damage is the lower die.
+**Attack:** Auto-hit. Weapon die + Boon d6s + Drain d6. Sacrifice 4+ for gambits. Highest remaining = damage. Snags eat Boons/Drain first, then weapon die. 0d = 2d6, damage is the lower die (sacrifice lower → damage becomes higher).
 
-**Defense:** \[stat]d6. 6 = none, 4-5 = half, 1-3 = full. Gambits apply.
+**Defense:** \[stat]d6 minus Threat Snags. 6 = none, 4-5 = half (round up), 1-3 = full. Halving applies before pipeline. Gambits apply.
 
 **Weapons:** d6 light, d8 standard, d10 heavy, d12 devastating.
 
@@ -491,4 +502,4 @@ Open clause: anything of similar scope, GM approves.
 | Stretching    | 1 Drain | 2 Drain           | 2 Drain + at risk      |
 | Way Past Spec | 2 Drain | 3 Drain + at risk | 3 Drain + breaks       |
 
-**Recovery:** Guard = safety. Hurt = scene ends. Wounded = clock 4. Critical = clock 6 (needs training). Drain = downtime. Crack = narrative.
+**Recovery:** Guard = safety. Hurt = scene ends. Wounded = clock 4. Critical = clock 6 (needs training). Drain = downtime. Crack = narrative. Cracked + Critical + 0 Drain = incapacitated. **Consumables:** Stim shot (3 Guard), stabilizer (cancel wound Snag), nerve stim (between scenes: 1 Drain, Snag next roll).
