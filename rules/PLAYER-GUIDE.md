@@ -1,6 +1,6 @@
 # Player Guide
 
-MONDAS Core Rules — Player Reference v0.1
+MONDAS Core Rules | Player Reference v0.1
 
 ***
 
@@ -94,7 +94,7 @@ Before any roll, the GM tells you two things: what happens on a partial, what ha
 
 ## Gambits
 
-Three hostiles, a cargo container, bad angles. Hakim fires his sidearm (d8) with a flanking Boon (+1d6). Rolls a 5, 5, 4. Three dice, two above threshold. He could keep all three for damage (highest = 5). Or sacrifice the 4 to Push one hostile into the open. Or sacrifice a 5 for a *strong* Push: target goes back a band AND hits the ground.
+Three hostiles, a cargo container, bad angles. Hakim fires his sidearm (d8) with a flanking Boon (+1d6) and burns 1 Drain (+1d6). Three dice on the table. Rolls 5, 5, 4. Two above threshold. He could keep all three for damage (highest = 5). Or sacrifice the 4 to Push one hostile into the open. Or sacrifice a 5 for a *strong* Push: target goes back a band AND hits the ground.
 
 That choice is a gambit. After any roll, you can sacrifice dice showing 4+ for guaranteed side effects. One die, one effect. The die is gone. It doesn't count for your result anymore.
 
@@ -145,7 +145,7 @@ On stakes rolls (defense, social, exploration, investigation, anything that isn'
 
 ## Getting Hurt
 
-A CSS contractor catches Hakim in the open. 6 damage. Hakim has Armor 1 (tactical vest) and Guard 4.
+A CSS contractor catches Hakim in the open. 6 damage. Hakim has Armor 1 (padded coat, minor ward stitched into the lining) and Guard 4.
 
 Every hit follows the same path:
 
@@ -184,7 +184,7 @@ The first Scar in a session increases your maximum Guard by 1 (cap 10). Getting 
 
 ### A Bad Shift
 
-Luka's siphon feeds back. 3 damage, no armor. Guard absorbs 2, hits 0. Scar. Overflow 1 = Level 1 Hurt. His hands sting. He can work through it.
+Luka's siphon feeds back. 3 damage, no armor. He's been at this all shift. Guard is down to 2. Guard absorbs 2, hits 0. Scar. Overflow 1 = Level 1 Hurt. His hands sting. He can work through it.
 
 Next surge: 4 damage. Guard is already at 0. All 4 overflows. Level 2 Wounded. Snag on all rolls. His vision is spotting at the edges and everything he does is harder now.
 
@@ -224,7 +224,7 @@ End of a bad shift. Luka is at 1 Drain. Management wants one more extraction pas
 
 When your Drain track empties, something breaks. You **Crack.** The player names it.
 
-Luka names his: *Numb.* Nothing reaches him. Not pain, not fear, not the people who need him to feel something. Snag on all rolls until it clears.
+Luka names his: *Numb.* Nothing reaches him. Not pain, not fear, not the people who need him to feel something. When it interferes, the GM imposes Snags.
 
 Cracks clear through significant narrative moments. A conversation that reaches you. A choice that proves something. Not rest. Not items. Not mechanics. Moments.
 
@@ -242,7 +242,7 @@ You have 4 boxes. Every spend is a question.
 
 Drain recovers during **downtime.** Spending time with someone who matters. Doing something that reminds you who you are. Getting proper rest. Indulging a vice (quick, but the GM may complicate).
 
-> **Guard:** 2 + highest stat (cap 10). Refreshes in genuine safety. **Drain:** 4 boxes. +1d before rolling (1/roll), -2 incoming damage, act while Critical, device gambits. Empty = Crack (Snag all rolls). Crack clears through narrative, not rest. Drain recovers in downtime.
+> **Guard:** 2 + highest stat (cap 10). Refreshes in genuine safety. **Drain:** 4 boxes. +1d before rolling (1/roll), -2 incoming damage, act while Critical, device gambits. Empty = Crack (Snags when it interferes). Crack clears through narrative, not rest. Drain recovers in downtime.
 
 ---
 
@@ -452,7 +452,7 @@ Cracks clear through moments, not mechanics.
 
 **Guard:** 2 + highest stat (cap 10). Refreshes in genuine safety. First Scar per session = +1 max Guard.
 
-**Drain:** 4 boxes. +1d (1/roll), -2 incoming damage, act while Critical, device gambits. Empty = Crack (Snag all). Crack = narrative recovery. Drain = downtime recovery.
+**Drain:** 4 boxes. +1d (1/roll), -2 incoming damage, act while Critical, device gambits. Empty = Crack (Snags when it interferes). Crack = narrative recovery. Drain = downtime recovery.
 
 **Combat Gambits** (sacrifice 4+ = standard, 6+ = strong):
 
