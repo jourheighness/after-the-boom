@@ -145,6 +145,53 @@ On stakes rolls (defense, social, exploration, investigation, anything that isn'
 
 ## Getting Hurt
 
+A CSS contractor catches Hakim in the open. 6 damage. Hakim has Armor 1 (tactical vest) and Guard 4.
+
+Every hit follows the same path:
+
+**Damage → Armor → Guard → overflow = Harm.**
+
+Armor absorbs 1. Leaves 5. Guard absorbs 4, hits 0. That's a Scar. Overflow: 1. Level 1 Harm.
+
+### The Pipeline
+
+1. **Armor** reduces damage flat. Rating 0 (street clothes), 1 (padded coat, minor ward), 2 (tactical vest, shielding charm), 3 (full ballistic plate, rare and conspicuous).
+2. Remainder hits **Guard.**
+3. If Guard reaches **0** (exact or overflow): take a **Scar.**
+4. Overflow past Guard becomes **Harm.**
+
+### Harm
+
+When damage overflows Guard, you take real injuries. Three levels, two slots each.
+
+| Level | Name | Effect | Overflow |
+|-|-|-|-|
+| 1 | **Hurt** | Snag when the injury is directly relevant | 1-2 |
+| 2 | **Wounded** | Snag on all rolls | 3-4 |
+| 3 | **Critical** | Must spend Drain to act at all | 5+ |
+
+Each Harm is **named.** Player and GM agree on the injury from the fiction: grazed arm, cracked ribs, gut shot. The name determines when the Hurt penalty applies and how recovery works.
+
+If both slots at a level are full, new Harm bumps up. If both Level 3 slots are full and you take more: you're done. Dead, or a permanent consequence the table decides.
+
+### Scars
+
+When Guard drops to 0, something changes permanently. Hakim has three. The shrapnel scar on his neck. The ringing in his left ear when BTC spikes. The thing in his sleep he doesn't talk about.
+
+The player describes the Scar: physical (burn, split lip), psychological (flinch at loud noises, can't sleep with lights off), or material (weapon cracked, something precious broken). **Scars make your character more defined, not less capable.**
+
+The first Scar in a session increases your maximum Guard by 1 (cap 10). Getting hurt teaches you to protect yourself.
+
+### A Bad Shift
+
+Luka's siphon feeds back. 3 damage, no armor. Guard absorbs 2, hits 0. Scar. Overflow 1 = Level 1 Hurt. His hands sting. He can work through it.
+
+Next surge: 4 damage. Guard is already at 0. All 4 overflows. Level 2 Wounded. Snag on all rolls. His vision is spotting at the edges and everything he does is harder now.
+
+> **Damage Pipeline:** Damage → Armor (0-3) → Guard → overflow = Harm. Guard hits 0 = Scar (+1 max Guard, cap 10). Harm: L1 Hurt (Snag when relevant), L2 Wounded (Snag all), L3 Critical (Drain to act). Overflow: 1-2 = L1, 3-4 = L2, 5+ = L3. Both slots full → bumps up. Both L3 full = done.
+
+---
+
 ## Guard & Drain
 
 ## Your Gear
