@@ -10,7 +10,7 @@ Attacks **auto-hit**. Player rolls their weapon dice. Highest die = damage dealt
 
 **How much can enemies take?**
 - **Mooks (T0–T1):** One Harm drops them. Guard breaks → any overflow and they're done. A street tough with 2 Guard goes down to a single solid hit.
-- **Elites (T2):** Can take Hurt and keep fighting. Wounded (L2) puts them down or forces retreat. The precursor spawn flees at Staggered; the brute gets desperate.
+- **Elites (T2):** Can take Hurt and keep fighting. Wounded (L2) puts them down or forces retreat. The Herald flees at Staggered (and screams); the brute gets desperate.
 - **Bosses / Named NPCs:** Use the Behavior and Staggered lines. They shift tactics, escalate, or break — the fiction decides when they're out. Riley doesn't drop from one wound. Holt surrenders when cornered.
 
 ### Enemies Attack (GM turn)
@@ -24,20 +24,20 @@ You don't roll. Every enemy has a flat **Damage** number. The player rolls defen
 
 | Roll | What happens |
 |-|-|
-| **6 or crit** | No damage. Clean dodge/block. Crit = Boon on next action. |
+| **6** | No damage. Clean dodge/block. |
 | **4–5** | Half the enemy's damage (round up). |
 | **1–3** | Full damage. |
 
 5. **Subtract player's Armor** from whatever damage landed
 6. **Remainder hits Guard**, overflow becomes Harm
 
-**Example:** A JSOT Operator (Threat 2, Damage 5) fires at Brenor. Brenor has Sharp 3, so he rolls 3d6 to dodge — but Threat 2 means -2d, leaving him 1d6. He rolls a 4. Partial: half of 5 = 3 (round up). Brenor has Armor 0, Guard 5. Guard drops from 5 to 2. He's fine, but rattled. If he'd rolled 1–3: full 5 damage, Guard drops to 0, Staggered + Scar.
+**Example:** A JSOT Operator (Threat 2, Damage 5) fires at Brenor. Brenor has Sharp 3, so he rolls 3d6 to dodge — but Threat 2 means -2d, leaving him 1d6. He rolls a 4. Partial: half of 5 = 3 (round up). Brenor has Armor 0, Guard 6. Guard drops from 6 to 3. He's fine, but rattled. If he'd rolled 1–3: full 5 damage, Guard drops to 1.
 
 ### Guard & Harm (both sides)
 
 **Guard** = readiness buffer. Not health. When it hits 0 you're not hurt yet — you're *exposed*. The first real injury is the overflow.
 
-- **PC Guard** = 2 + highest stat (Jack with Grit 3 = Guard 5)
+- **PC Guard** = 2 + highest stat (Jack: Grit 3 = Guard 5. Brenor: Sharp 3 + Scar = Guard 6)
 - **Enemy Guard** = listed on stat block
 - Guard **refreshes** in genuine safety. If the scene is still tense, it stays down.
 
@@ -47,23 +47,22 @@ You don't roll. Every enemy has a flat **Damage** number. The player rolls defen
 |-|-|-|
 | 1–2 | **Hurt** | Minor. -1d when relevant. Clears after scene. |
 | 3–4 | **Wounded** | Serious. -1d on ALL rolls. Needs treatment + downtime. |
-| 5+ | **Critical** | Must Push to act at all. Hospital, healer, long recovery. |
+| 5+ | **Critical** | Must spend Drain to act at all. Hospital, healer, long recovery. Scar. |
 
 Two slots per level. If both slots at a level are full, bumps up. Both L3 slots full + more Harm = **dead** (or permanent consequence — table decides).
 
-### Push (safety valve)
+### Drain (safety valve)
 
-4 boxes. Spend 1 to: **+1d** on any roll, **-2 damage** after a defense roll, or **act while Critical**. One Push per roll. Recovers in downtime.
+4 boxes. Spend 1 to: **+1d** on any roll (before rolling), or **act while Critical**. One Drain per roll. Recovers in downtime. Empty = **Crack** (Snag all rolls). Cracked + Critical + 0 Drain = incapacitated.
 
 ### Quick Numbers
 
 | Weapon tier | Player dice | Enemy flat damage |
 |-|-|-|
-| Improvised (chair, wrench) | 1d4 | 2 |
-| Light (knife, pistol) | 1d6 | 4 |
-| Standard (rifle, crowbar) | 1d8 | 5 |
-| Heavy (shotgun, sledge) | 2d6 | 7 |
-| Devastating (mounted gun) | 2d8 | 9 |
+| Light (knife, pistol, fists) | d6 | 4 |
+| Standard (rifle, crowbar) | d8 | 5 |
+| Heavy (shotgun, sledge) | d10 | 7 |
+| Devastating (mounted gun, explosion) | d12 | 9 |
 
 | Armor | Source |
 |-|-|
@@ -77,7 +76,11 @@ Two slots per level. If both slots at a level are full, bumps up. Both L3 slots 
 | Partial (table, car hood) | +1 Armor vs ranged |
 | Full (wall, heavy barricade) | +2 Armor vs ranged |
 
-**Gambit threshold:** Sacrifice a die showing 4+ for a tactical effect. Strong gambits need 8+ (d8+ weapons only).
+**Gambits:** Sacrifice a die showing 4+ for a tactical effect. 4-5 = standard, 6+ = strong. Threat 2+ resists standard gambits targeting them. Strong always lands.
+
+**Combat Gambits:** Push (one band back / +Prone), Pull (toward / +Boon), Pin (can't reposition / +can't attack), Read (one detail / +Boon), Break (Impaired -2 dmg / Exposed +2 taken), Cover (+1 Armor / +2 Armor), Setup (bank die / bank for self AND ally). Open clause: anything similar, you approve.
+
+**Scars:** Critical Harm only. +1 max Guard (cap 10) + an Edge.
 
 ---
 
@@ -150,19 +153,22 @@ Behavior: Ambush. Grabs from vents, behind doors, through cracks. → [Severed] 
 - **Poisonous Contact.** 1 automatic damage per round while grabbed (ignores Armor).
 - **Vulnerability:** Fire seals the wound. A severed and burned tendril doesn't grow back from that point.
 
-### Precursor Spawn
-*Six-limbed, eyeless, the size of a large dog. Moves on walls and ceilings. Drools constantly.*
+### Herald
+*Eyeless. Six-limbed. Size of a large dog but wrong proportions. Moves on walls and ceilings like water running uphill. Where it goes, the air tastes like copper. The aboleth sees through it.*
 
 | Threat | Guard | Armor | Damage | Morale |
 |-|-|-|-|-|
-| 2 | 6 | 1 (slick hide) | 5 (tentacle slam) or 4 (venomous bite) | Yes (flees when Staggered) |
+| 2 | 6 | 1 (slick hide) | 5 (tentacle lash, Close/Near) | Yes |
 
-Behavior: Ambush, grab, drag. → [Staggered] Flees into vents. Returns 1d6 rounds later from a different direction. Kill requires cornering or destroying escape route.
+**Wants:** to probe, flank, report back. Not trying to kill — testing defenses and marking the PCs for the aboleth.
 
-- **Venomous Bite.** On damage past Guard: Harm L1 *and* **Grit save.** Fail: Stunned 1 round. Partial: Snag on Grit for scene.
-- **Wall Crawler.** Ignores positioning. Attacks from any angle. Snag on defense unless spotted in advance.
-- **Mucus Carrier.** Anyone held more than 1 round: coated. **Grit save at Snag.** Same as thrall mucus but stronger.
-- **Vulnerability:** Bright light — floods or flares drive it to cover. Fire to the slick hide deals +4 damage.
+**[Staggered]:** Screams. Psychic pulse. Every thrall within Far knows where the PCs are. Then it bolts into the nearest vent. Returns d6 rounds later from a different direction. Kill requires cornering it or sealing its escape.
+
+- **Wall Crawler.** Ignores range bands. Attacks from any angle. Snag on defense unless someone spotted it first (Sharp roll, free action).
+- **Mucus Trail.** Leaves slick residue where it moves. Anyone crossing at Close: **Grit save** or Prone.
+- **Echolocation.** Darkness doesn't help. Can't be hidden from.
+- **The Aboleth Watches.** When a herald sees you, the aboleth sees you. Named PCs get targeted in dreams next rest.
+- **Vulnerability:** Fire. Bright light (flares, floods) drives it back one band. Fire to the hide deals +2 damage.
 
 ### Precursor Brute
 *Larger. Slower. A bulk of wet muscle and armored carapace. Blocks corridors.*
@@ -251,25 +257,6 @@ Not killable by small arms.
 
 ---
 
-## Encounter Pacing
-
-| Phase | Enemies | Tone |
-|-|-|-|
-| Logic collapse (now) | Breach tendrils, 1–2 fresh thralls (Riley) | Confusion. Can we trust anyone? |
-| Escalation | 2–3 thralls, precursor spawn returns, JSOT locks down areas | Paranoia, faction conflict |
-| Manifestation | Thrall swarm, Holt's bad orders, precursor brute, aboleth manifests | Survival horror, costly choices |
-| Resolution | Whatever's left standing | Who's still human? |
-
-### Danger Clock: "The Breach Widens" (6 segments)
-
-**Tick when:**
-- Thralls succeed at rig sabotage
-- JSOT pushes more energy into the anomaly
-- Time passes without containment action
-- A precursor spawn successfully converts a crew member
-
-**At 6:** Full manifestation. The aboleth rises through the breach.
-
 ### Conversion Clock: Per-NPC (4 segments)
 
 Track individually for key NPCs (Wrench, Vosslin, Grumman, operators). Tick when:
@@ -284,233 +271,139 @@ Track individually for key NPCs (Wrench, Vosslin, Grumman, operators). Tick when
 
 ---
 
-## Session 3: Finding Meredith
+## Session 3: Tonight
 
-Sessions 1–2 established: logic collapse, Riley's turn, combat with Moray and feeder creatures. The brothers survived. Reality is holding, badly. Meredith Vosslin is somewhere on this rig. The clock is fresh.
+### Previously
+
+Sessions 1-2: Arrived, onboarded, dreamed. Riley turned. Logic collapse started. The brothers fought something in the research wing, left Reyes and Mike behind in the mess hall, got out. Now they're face to face with a Herald that Gnorm already damaged, plus two fresh ones.
 
 ---
 
-### "It Escapes" Clock (8 sections)
+### Opening: Herald Fight
 
-Fresh 8-section clock. Visible to players. Track on paper at the table.
+**The scene:** Corridor outside the mess hall. One Herald limping (Gnorm cracked its hide open). Two fresh ones flanking from the walls and ceiling. Mucus trails on the floor. The damaged one recognizes the brothers. It screams.
+
+**The damaged Herald:** Guard 3 (was 6), Armor 0 (hide cracked). Otherwise standard Herald stats. When it screams, thralls in the area start moving toward the sound.
+
+**Two fresh Heralds:** Full stats. They flank from walls. One drops from the ceiling, one comes along the wall from behind.
+
+**Tactical pressure:** The scream. If the damaged Herald is still alive at the end of round 2, its scream has drawn attention. Tick the clock. If they kill it fast, no tick. The fresh ones probe and retreat if staggered. They're testing, not committing.
+
+**Player choices that matter:**
+- Fight all three (risky, Drain-expensive, but stops the scream fast)
+- Focus the damaged one to shut it up, let the fresh ones probe
+- Run (the Heralds follow but won't chase past engineering)
+- Use fire/flares (bright light drives Heralds back one band, fire +2 damage)
+
+**After the fight:** The mucus trails lead toward the research wing. Brenor's Leyline Sense reads the flow: the breach is pulling energy toward the siphon array. Whatever is down there wants the siphons.
+
+---
+
+### "It Escapes" Clock (8 segments)
+
+Fresh. Visible to players. Track on paper.
 
 **Tick when:**
-- Thralls complete a sabotage action (power, containment, comms)
-- JSOT equipment runs — Holt's machines feed the breach
+- Thralls complete sabotage (power, containment, comms)
+- Holt's machines run (JSOT equipment feeds the breach)
 - A full scene passes without PCs acting against the breach
-- A precursor spawn converts a crew member
-- PCs trigger a loud or destructive action near the breach
+- A Herald screams and isn't killed fast
+- PCs trigger loud/destructive action near the breach
 
-**Hold when (no tick for that scene):**
+**Hold when:**
 - PCs shut down JSOT equipment or reroute power
-- Wrench repairs containment infrastructure
-- PCs contain or neutralize a thrall without killing them
-- Pavel applies countermeasures to the breach
+- Wrench repairs containment
+- PCs contain a thrall without killing them
+- Pavel applies countermeasures
 
-**Milestones:**
-
-| Sections | What Happens |
+| Segments | What changes |
 |-|-|
-| **2 — Pressure** | Spatial anomalies spread beyond the research wing. Corridors loop. Temperature drops rig-wide. Breach tendrils appear in new areas. |
-| **4 — Fracture** | The rig groans. Power flickers station-wide. Thralls coordinate — Riley gives orders. Holt activates "Capture Protocol." JSOT treats PCs as potential threats. |
-| **6 — Manifestation** | The aboleth's psychic pressure hits everyone. **Nerve save** every scene or lose an action to intrusive thoughts. Thrall swarms form. The breach is visible from the exterior — purple light on the water. |
-| **8 — It Escapes** | Full manifestation. The aboleth rises through the breach. Not a combat — a catastrophe. Run, seal, or bargain. See The Aboleth stat block. |
+| **2** | Spatial anomalies spread. Corridors loop. Temperature drops. Breach tendrils in new areas. |
+| **4** | Power flickers station-wide. Thralls coordinate under Riley. Holt activates Capture Protocol. JSOT treats PCs as threats. |
+| **6** | Psychic pressure: **Nerve save** every scene or lose an action. Thrall swarms form. Purple light visible from the water. |
+| **8** | Full manifestation. The aboleth rises. Not a combat. A catastrophe. Run, seal, or bargain. |
 
 ---
 
-### NPC Piece Map
+### NPCs This Session
 
-Five NPCs the PCs can find, use, or lose. Each one changes the equation.
+**Gnorm Ericsson** (with them or nearby). Already damaged the Herald. Tough, quiet, knows the rig. If he's with them, he's useful muscle and navigation. If he's separated, finding him again costs a scene.
 
-#### Dr. Meredith Vosslin — The Objective
+**Wrench** (Engineering, lower deck). Keeping generators alive. Knows safe routes. Each scene he repairs containment = hold the clock. Being hunted by thralls. If left alone, roll d6: 1-2 = thralls found him, lose a scene finding him again.
 
-**Location:** Medical bay, barricaded. She sealed herself in when the dreams got worse. Not hiding — working. Her research terminal is running models on the breach.
+**Dr. Meredith Vosslin** (Medical bay, barricaded). Has breach data. Her models show how to choke the breach using the siphon array. Finding her + getting data to Wrench = hold clock for two scenes. Dream-compromised: **Nerve save** each scene she's with PCs. Fail: aboleth speaks through her one exchange. Won't open for strangers. Brenor's name works.
 
-**What she offers:** Breach data. She mapped the convergence pattern before everything broke. Her models predict where the aboleth will push through next — and how to choke the breach using the rig's own siphon array. This is the path to containment.
+**Riley Chen** (Roaming). Thrall-Lieutenant. Doesn't attack directly. Watches. Leads PCs toward Meredith (aboleth wants the data too) or into ambushes. Flicker: one sentence of real Riley. "Don't trust Holt's comms. It's listening."
 
-**Clock impact:** Finding Meredith and getting her data to Wrench or Pavel = hold the clock for two scenes. If she reaches the siphon controls, the clock can be reversed by 1.
+**Grumman** (Roaming with squad). Needs proof to flip. Each piece of evidence = +1d on the Nerve roll. 6: flips. 4-5: demands more. Sources: Holt's encrypted comms, a witnessed lapse, a thralled operator, Riley giving Holt orders. If flipped: JSOT stands down, access to Pavel.
 
-**Complication:** Dream-compromised. The aboleth has been in her head for weeks. She's fighting it — her caution and precision kept her from cracking, but she's close. Conversations with Meredith slip. She'll answer a question, then say something that isn't hers. A name she shouldn't know. A memory of deep water. **Nerve save** for Meredith each scene she's with the PCs. Fail: the aboleth speaks through her for one exchange — truthful, but designed to manipulate. She snaps back. Doesn't remember what she said.
+**Holt** (Command center). Not thralled. Worse. Aboleth whispers through dreams. Won't evacuate. Controls rig systems. Jack's Desert Vet edge doesn't protect against Holt's authority. **Nerve save** to disobey direct orders. Evidence gives +1d to saves. Cornering him alone = evidence (lapses visible).
 
-**Finding her:** Medical bay is two zones from the research wing, through crew quarters (logic collapse active). She won't open the barricade for voices she doesn't recognize. Brenor's name works. So does her research passphrase: "Atlantic Margin, authorization Vosslin."
-
-#### Hal "Wrench" Morrison — The Ally
-
-**Location:** Engineering, lower deck. Keeping the generators alive. The only thing between the rig and total blackout.
-
-**What he offers:** He knows every inch of the rig. Safe routes, maintenance tunnels, sealed compartments. If the PCs need to get somewhere, Wrench knows how. He can also repair containment systems — each repair holds the clock.
-
-**Clock impact:** Each scene Wrench spends on containment repair = hold. If he's pulled away to escort or fight, containment degrades.
-
-**Complication:** Immune to dreams, but that makes him a target. The aboleth can't reach him psychically, so it sends thralls physically. Wrench is being hunted. Every time PCs leave him alone, roll d6: 1–2 = thralls found him, he had to relocate, lose one scene finding him again.
-
-**Finding him:** Engineering is accessible but not safe. Breach tendrils in the lower corridors. Wrench's radio works intermittently — static, then his voice, then something that sounds like his voice but isn't.
-
-#### Pavel Smoroski — The Wildcard
-
-**Location:** JSOT operations room. Still at his station. Still running calculations. The machines are doing things he didn't program, and he's trying to understand what.
-
-**What he offers:** The science to understand what the breach actually is and how to close it. Combined with Meredith's data, he could devise a controlled shutdown. He also has JSOT override codes — he can shut Holt's equipment down remotely.
-
-**Clock impact:** Pavel using the override codes = immediate hold + removes a tick source. Pavel + Meredith's data together = the path to reversing the clock entirely.
-
-**Complication:** Loyal to knowledge, not Holt, not the PCs. He won't help unless convinced the breach is beyond salvage as research. Show him Meredith's models or a thrall up close and he'll flip. Without proof, he'll insist on "one more reading." Every reading ticks the clock.
-
-**Finding him:** JSOT ops is in the military section. Getting there means passing through JSOT-controlled corridors. Grumman's operators are posted. If the PCs haven't flipped Grumman, this is hostile territory.
-
-#### Brent Grumman — The Potential Flip
-
-**Location:** Roaming. Running patrols with his squad. Trying to keep order while Holt's orders get stranger.
-
-**What he offers:** Neutralize JSOT as a threat. If Grumman flips, his operators stand down. No more hostile patrols, no more locked zones, no more detention risk. He can also escort the PCs through military sections safely.
-
-**Clock impact:** Flipping Grumman doesn't directly affect the clock, but it removes the single biggest obstacle to reaching Pavel and shutting down Holt's equipment.
-
-**Complication:** Needs proof. His stat block says **Nerve roll** — 6: flips, 4–5: demands more evidence. Each piece of evidence (Holt's encrypted comms, a witnessed lapse, a thralled operator, Riley giving Holt orders he obeys) gives **+1d** to the Nerve roll. Without evidence, he's following orders. He doesn't like it, but the chain of command is all he has.
-
-**Finding him:** He's mobile. The PCs will run into him. The question is whether it's a confrontation or a conversation.
-
-#### Major David Holt — The Obstacle
-
-**Location:** Command center, upper deck. Issuing orders. Refusing to evacuate. Getting worse.
-
-**What he offers:** Nothing the PCs want. But he controls rig systems, has authority over Jack (Good Soldier edge), and can order detention, lockdown, or "Capture Protocol" — which means hunting the PCs.
-
-**Clock impact:** Every scene Holt's equipment runs = tick. Every order he executes that serves the aboleth (and he can't tell the difference anymore) = tick. Removing Holt from command is the single most impactful clock action.
-
-**Complication:** He has authority. Jack's Good Soldier edge means **Nerve save** to disobey direct orders, and Holt will issue them. "Secure the research wing." "Bring Vosslin to me." "Detain the dwarf — he's compromised." Each piece of evidence against Holt gives **+1d** to the save. If Jack disobeys without evidence, it costs: Snag on all rolls for the scene (guilt, identity crisis).
-
-**Confronting him:** Holt won't fight. He'll order others to fight. Cornering him alone = panic, contradictory orders, the aboleth's voice bleeding through. This is evidence for Grumman.
+**Pavel** (JSOT ops). Has override codes to shut down Holt's equipment. Won't help unless convinced breach is unsalvageable. Show him Meredith's models or a thrall up close and he flips. Without proof, insists on "one more reading." Each reading ticks the clock.
 
 ---
 
-### Logic Collapse Hazard Table
+### Paths Forward (after the Herald fight)
 
-Roll when PCs transition between rig zones. Every area beyond engineering and the command center is affected.
+**Go for Meredith** (direct). Through crew quarters. 2 hazard rolls, 1 roaming encounter. Medical bay sealed. Brenor's name or passphrase "Atlantic Margin, authorization Vosslin" opens it.
 
-| d6 | Hazard | Effect |
-|-|-|-|
-| **1 — Spatial Loop** | The corridor ahead leads back to where they started. Same scuff marks, same dripping pipe. Takes a scene action to find the real path. Brenor's Leyline Sense or Pattern Reader bypasses it. |
-| **2 — Time Slip** | The lights cycle from emergency red to normal white and back. For thirty seconds, the rig sounds operational — voices, coffee machine, an intercom announcement from last Tuesday. Then silence. No mechanical effect, but deeply wrong. **Nerve save** or Shaken (scene). |
-| **3 — Gravity Leak** | A section of corridor where gravity tilts 30 degrees. Water pools on the wall. Walking through requires **Grit save** — fail: Prone, take 2 damage (tumble). Partial: slow, lose initiative next scene. |
-| **4 — Sound Bleed** | Sounds from elsewhere on the rig bleed into this corridor. Meredith's voice asking for help — from the wrong direction. Wrench cursing — two decks away. Holt giving an order that hasn't happened yet. Unreliable for navigation. May lure PCs off course. |
-| **5 — Temperature Crash** | The air drops below freezing in a ten-meter section. Breath visible. Exposed metal burns cold. Moving through without protection: 1 automatic damage (ignores Armor). Covering up or moving fast = no damage but Snag on Sharp for the next scene (numbed). |
-| **6 — Breach Seep** | Purple-grey membrane across the passage. Thin. Translucent. Something moves behind it. Pushing through: **Grit save.** Fail: coated in mucus (same as thrall contact — **Grit save** again or Shaken). Pass: through clean but the membrane reforms behind you. The way back is different now. |
+**Go for Wrench** (practical). Engineering, below. Maintenance tunnels (tight, dark, Brenor's Lone Fieldwork negates Snags). 1 hazard roll. Wrench has a route to medical but can't leave. Safer but slower: tick the clock for the extra scene.
 
----
+**Go for Grumman/Pavel** (bold). Through JSOT-controlled corridors. Checkpoint encounter. Grumman confrontation. If flipped: access to Pavel and override codes. If hostile: combat, then frightened Pavel.
 
-### Roaming Encounters
+**Go for Holt** (reckless). Command center, up. JSOT corridors. Holt won't fight but orders Jack around. Cornering him = evidence. Doesn't solve the breach, still need Meredith/Pavel.
 
-Not a random table — pick what fits the pace. These happen during the search.
-
-**Solo Thrall (Ambush).** A crew member the PCs knew. White eyes. Stumbling. Not aggressive until the PCs get close. Trying to smear, not kill. If the PCs knew them, **Still in There** applies — reaching the person inside costs a round but might yield intel. "She's in medical. She locked the door. It's angry about that."
-
-**Sabotage in Progress.** Thralls working a junction box, a valve, a door mechanism. Methodical. Aboleth-directed. Interrupting them holds the clock. Ignoring them ticks it. If the PCs watch, they see something unsettling: the thralls work in perfect synchrony, hands moving identically, like one mind with six arms.
-
-**Riley Appears.** She doesn't attack. She watches. From the end of a corridor, through a window, on a camera feed. Then she's gone. If PCs pursue, she leads them somewhere — maybe toward Meredith (the aboleth wants the breach data too), maybe into a thrall ambush (the aboleth wants them converted). Use her Flicker: one sentence of real Riley surfaces. "Don't trust Holt's comms. It's listening."
-
-**Breach Tendrils in New Areas.** Not combat unless the PCs engage. Tendrils reaching through wall seams, floor grates, ceiling panels. The breach is spreading. Brenor's Leyline Sense can read the direction of spread — toward the siphon array. The aboleth wants the siphons.
-
-**Dr. Park (Half-Transformed).** Elliott Park, the first victim. Found in a storage room, curled up, talking to himself. Two voices — his and something deeper. His human side has information: he saw Meredith head for medical, he knows the mucus is the accelerant, he knows the dreams are the foundation. His other side wants the PCs closer. **Grit save** if they stay more than one exchange — mucus drips from Park like sweat. He can't control it. He's sorry.
-
-**JSOT Checkpoint.** Two operators blocking a corridor. "This section is restricted by order of Major Holt." Not hostile, but firm. Options: talk through (Nerve), find another route, show evidence of Holt's compromise, or force it (they'll fight, but they'll radio Grumman first).
+**Fix comms** (practical). Radio room. Thralls spotted there. Restoring comms doesn't affect the clock but opens evacuation for endgame.
 
 ---
 
-### Story Beats: The Search
+### Hazard Table (roll when moving between zones)
 
-#### Opening — After the Break
-
-The session begins in the aftermath of session 2. The research wing is partially collapsed. Breach tendrils in the walls. The brothers are alive. What they choose to do first sets the tone.
-
-**If they go for Meredith:** The direct path. Through crew quarters (logic collapse active, roll hazard table), past potential thrall encounters. Medical bay is sealed. Getting in requires Brenor's identity or the passphrase. Meredith is inside, working, exhausted, dream-compromised but functional.
-
-**If they go for Wrench:** The practical choice. Engineering is below. Maintenance tunnels avoid the worst collapse but they're tight and dark (Brenor's Lone Fieldwork negates Snags). Wrench is running out of options — generators failing, containment patched with literal duct tape. He has a route to medical mapped out but can't leave his post.
-
-**If they try to deal with Holt:** The bold choice. Command center is up. Getting there means JSOT-controlled corridors. If they haven't found evidence yet, Grumman's in the way. If they have evidence, they can try flipping Grumman en route.
-
-**If they try to contact the mainland:** Comms are down. Riley saw to that. The backup transmitter is in the radio room — thralls have been spotted there. Restoring comms doesn't tick or hold the clock, but it opens an evacuation option for the endgame.
-
-#### The Search — Multiple Paths
-
-**Path A: Crew Quarters → Medical Bay (Meredith)**
-- 2 hazard table rolls
-- 1 roaming encounter (solo thrall or Park)
-- Arrive at barricaded medical bay
-- Getting Meredith out = clock hold for two scenes
-
-**Path B: Engineering → Maintenance Tunnels → Medical Bay (via Wrench)**
-- 1 hazard table roll (tunnels partially shielded from collapse)
-- Breach tendrils in the tunnels — environmental hazard, not combat
-- Wrench gives them the safe route and a maintenance radio
-- Safer but slower — tick the clock once for the extra scene
-
-**Path C: Military Section → JSOT Ops (via Grumman → Pavel)**
-- JSOT checkpoint encounter
-- Grumman encounter (confrontation or conversation)
-- If Grumman flipped: access to Pavel, override codes
-- If Grumman hostile: combat with operators, then Pavel is frightened and harder to convince
-
-**Path D: Command Center → Holt (Confrontation)**
-- JSOT-controlled corridors, 1–2 checkpoints
-- Holt won't fight — he'll order Jack to stand down, Brenor to be detained
-- Cornering Holt alone = evidence (his lapses are visible)
-- Does NOT solve the breach — still need Meredith/Pavel for that
-
-#### NPC Interactions — How the Pieces Connect
-
-**Meredith + Wrench:** She has the models, he has the tools. Together they can target the siphon array to choke the breach. This is the containment path.
-
-**Meredith + Pavel:** She has the data, he has the theory. Together they can design a controlled shutdown. This is the reversal path — but it requires Holt's equipment to stay running in a specific configuration, which means convincing Pavel to reprogram rather than destroy.
-
-**Grumman + evidence:** Each piece of evidence makes flipping Grumman easier. Sources: Holt's encrypted comms (command center terminal), a witnessed lapse (corner Holt alone), a thralled operator (any JSOT soldier who turns during a scene), Riley giving Holt orders (surveillance footage from security office, if accessible).
-
-**Jack + Holt:** The Good Soldier tension. Every direct order from Holt is a Nerve save for Jack. Disobeying without evidence = Snag on all rolls for the scene. This is the character drama — Jack's identity is built on following orders, and the orders are coming from something wearing his commander's face.
-
-#### Escalation — Clock Consequences During the Search
-
-As the PCs move through the rig, the clock ticks. The milestone effects layer onto whatever they're doing.
-
-**At 2 (Pressure):** Hazard table results get worse. Spatial loops block previously clear routes. Thralls appear in areas that were safe one scene ago.
-
-**At 4 (Fracture):** Holt activates Capture Protocol. JSOT operators are now actively searching for the PCs. Grumman is following orders but hating it. Riley coordinates thralls with military precision. The rig's power flickers — Wrench is losing the fight.
-
-**At 6 (Manifestation):** Psychic pressure hits everyone. The aboleth's voice is audible — not words, a vibration in the bones. Thrall swarms form in the lower decks. The breach is visible from outside — purple light on the water. If Meredith is still in medical, she goes silent. Her terminal keeps running.
+| d6 | What happens |
+|-|-|
+| **1** | **Spatial Loop.** Corridor leads back to start. Scene action to find real path. Brenor's Leyline Sense or Pattern Reader bypasses. |
+| **2** | **Time Slip.** Thirty seconds of normal rig sounds. Coffee machine, last Tuesday's intercom. Then silence. **Nerve save** or Shaken (scene). |
+| **3** | **Gravity Leak.** Tilts 30 degrees. Water on walls. **Grit save.** Fail: Prone + 2 damage. Partial: slow. |
+| **4** | **Sound Bleed.** Voices from wrong directions. Meredith asking for help the wrong way. Unreliable for navigation. |
+| **5** | **Temperature Crash.** Below freezing, ten meters. No protection: 1 damage (ignores Armor). Cover up: Snag on Sharp next scene. |
+| **6** | **Breach Seep.** Purple membrane across passage. **Grit save** to push through. Fail: coated in mucus (Grit save again or Shaken). The way back changes. |
 
 ---
 
-### Cliffhanger Endings
+### Roaming Encounters (pick what fits)
 
-Pick the one that fits where the session lands. Each sets up Session 4.
+**Solo Thrall.** Someone they knew. Stumbling. Smear, not kill. Reaching the person: costs a round, might yield intel. "She's in medical. She locked the door. It's angry about that."
 
-#### "The Voice"
+**Sabotage in Progress.** Thralls working a junction box in perfect synchrony. Interrupt = hold clock. Ignore = tick.
 
-**Trigger:** PCs find Meredith. She's been working. She has the data. She turns to Brenor and starts explaining the breach model — and then her voice changes. Deeper. Older. The aboleth speaks through her: "I've been waiting for you, Brenor. Your maps are beautiful. You've been drawing me for fifteen years."
+**Riley Watches.** End of a corridor. Camera feed. Gone when approached. Leading them somewhere. Use the Flicker.
 
-Meredith's eyes go white. Then she blinks, and she's back. Gasping. "It knows what I know. We have to move. Now."
+**Breach Tendrils.** Not combat unless engaged. Spreading toward siphon array. Brenor reads the direction.
 
-**What it sets up:** The race. The aboleth has Meredith's breach data. It knows what the PCs know. Session 4 is a countdown — seal the breach before the aboleth uses Meredith's own research to widen it.
+**Dr. Park.** Storage room. Two voices. Knows Meredith went to medical, knows mucus is the accelerant. **Grit save** if they stay more than one exchange (mucus drips from him). He's sorry.
 
-#### "The Lockdown"
+**JSOT Checkpoint.** Two operators. "Restricted by order of Major Holt." Talk (Nerve), bypass, show evidence, or fight (they radio Grumman first).
 
-**Trigger:** Holt discovers the PCs are moving against him (evidence gathered, Grumman wavering, or they were spotted in the military section). He triggers full lockdown. Blast doors seal. The rig segments into isolated zones. The PCs are trapped in whatever section they're in — with whatever is in there with them.
+---
 
-His voice on the intercom, calm and wrong: "All personnel, shelter in place. Containment breach in sectors four through seven. Security teams, execute Capture Protocol. The civilians are compromised."
+### Key Combos (how NPCs connect)
 
-**What it sets up:** Escape and faction war. Session 4 opens with the PCs sealed in, Grumman forced to choose sides, and the clock still ticking behind closed doors.
+**Meredith + Wrench** = containment path. Her models, his tools, target the siphon array.
 
-#### "The Choice"
+**Meredith + Pavel** = reversal path. Her data, his theory. Requires Holt's equipment running in a specific config. Pavel reprograms rather than destroys.
 
-**Trigger:** Grumman's squad finds the PCs. Weapons up. Grumman steps forward. He's seen things — operators acting strange, Holt's contradictory orders, the breach spreading. He doesn't point his gun. "I need you to tell me what the hell is happening on my rig. And I need the truth. Because if you lie to me, we do this the other way."
+**Grumman + evidence** = JSOT stands down. Biggest obstacle removed.
 
-The PCs have what they've gathered. If it's enough, Grumman lowers his weapon and says, "What do you need from me?" If it's not, he says, "Then you're coming with us. Hands where I can see them."
+**Jack + Holt** = character drama. Orders vs. conscience. Evidence gives +1d to resist.
 
-**What it sets up:** Alliance or captivity. Either Grumman is the PCs' most powerful ally going into Session 4, or they're in JSOT custody with the clock ticking and Holt in charge.
+---
 
-#### "The Breach"
+### Cliffhangers (pick one)
 
-**Trigger:** The clock hits 8. The aboleth manifests. Not fully — a presence. The lights go purple. The floor is wet. The air tastes like salt and copper. Through the breach, something enormous moves. A tendril the width of a corridor reaches through and wraps around the siphon array. The rig shudders.
+**"The Voice."** Meredith starts explaining the breach model. Her voice changes. The aboleth: "I've been waiting for you, Brenor. Your maps are beautiful. You've been drawing me for fifteen years." Eyes go white. Blinks back. "It knows what I know. We have to move. Now."
 
-Then silence. The tendril retreats. The breach is still open. And from somewhere deep in the rig, the thralls start humming in unison. The same note. The same rhythm. The aboleth isn't attacking. It's *settling in.*
+**"The Lockdown."** Holt triggers full lockdown. Blast doors seal. "All personnel, shelter in place. Security teams, execute Capture Protocol. The civilians are compromised." PCs trapped with whatever's in their section.
 
-**What it sets up:** Containment is no longer the question. The aboleth is here. Session 4 is survival, evacuation, or the terrible deal — what does an ancient intelligence want badly enough to negotiate for?
+**"The Choice."** Grumman's squad finds them. Weapons up. "I need you to tell me what the hell is happening on my rig. And I need the truth." Enough evidence: alliance. Not enough: custody.
+
+**"The Breach."** Clock hits 8. Purple light. Salt and copper. A tendril the width of a corridor wraps the siphon array. Then silence. The thralls start humming in unison. The aboleth isn't attacking. It's settling in.
