@@ -1,4 +1,6 @@
-# MONDAS Character Creation v0.1
+# CHARACTERS
+
+Character Creation v0.1
 
 ## In Two Minutes
 
@@ -8,7 +10,7 @@ Start with who this person is. What did they do before the story started? What s
 
 Zeroes (no thaumic potential) get more Edges and can't be tracked by thaumic surveillance. Positives (any thaumic potential) get access to personal thaumatech and the magic system. Neither is the lesser choice. Both belong at the same table.
 
----
+***
 
 ## Before You Start
 
@@ -24,13 +26,17 @@ Then the table talks. Who are you to each other? Why do you trust each other (or
 
 ### What You'll Need
 
-- Three stats (6 points, minimum 1 each)
-- A Background (one sentence, maps to a Boon domain)
-- 3 or 4 Edges (depending on your thaumic tier)
-- 2-3 Bonds
-- Starting gear
+* Three stats (6 points, minimum 1 each)
 
----
+* A Background (one sentence, maps to a Boon domain)
+
+* 3 or 4 Edges (depending on your thaumic tier)
+
+* 2-3 Bonds
+
+* Starting gear
+
+***
 
 ## Step 1: Who Are You
 
@@ -44,46 +50,52 @@ Then the table talks. Who are you to each other? Why do you trust each other (or
 
 Good Backgrounds are specific enough to have a clear domain but broad enough to apply in varied situations:
 
-| Background | Boon Domain | Example Uses |
-|-|-|-|
-| Factory floor electrician | Electrical systems, wiring, industrial machinery | Hotwiring a panel, spotting a sabotaged junction, reading a schematic |
-| DPA file clerk | Bureaucratic procedure, government records, institutional knowledge | Navigating red tape, forging paperwork, knowing who to call |
-| Dockworker, Ostreon waterfront | Manual labor, maritime work, waterfront culture | Loading/unloading under pressure, knowing the docks, reading weather |
-| Army medic, discharged | Field medicine, triage, military protocol | Treating wounds without supplies, recognizing combat injuries, working under fire |
-| High school shop teacher | Teaching, woodwork, mentoring teenagers | Explaining things clearly, improvising tools, reading a room of kids |
-| Street-level fixer | Negotiation, black market, reading people | Finding a buyer, spotting a setup, knowing who owes who |
+| Background                     | Boon Domain                                                         | Example Uses                                                                      |
+| ------------------------------ | ------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Factory floor electrician      | Electrical systems, wiring, industrial machinery                    | Hotwiring a panel, spotting a sabotaged junction, reading a schematic             |
+| DPA file clerk                 | Bureaucratic procedure, government records, institutional knowledge | Navigating red tape, forging paperwork, knowing who to call                       |
+| Dockworker, Ostreon waterfront | Manual labor, maritime work, waterfront culture                     | Loading/unloading under pressure, knowing the docks, reading weather              |
+| Army medic, discharged         | Field medicine, triage, military protocol                           | Treating wounds without supplies, recognizing combat injuries, working under fire |
+| High school shop teacher       | Teaching, woodwork, mentoring teenagers                             | Explaining things clearly, improvising tools, reading a room of kids              |
+| Street-level fixer             | Negotiation, black market, reading people                           | Finding a buyer, spotting a setup, knowing who owes who                           |
 
 **Scope check:** if the Boon would apply more than half the time, narrow it. "Grew up tough" is always relevant and not a Background. "Bouncer at the Rusty Anchor for six years" is specific, grounded, and gives you a clear domain (physical confrontation, reading a crowd, nightlife culture).
 
 The GM confirms the Background's scope before play. If it's too broad, narrow it together. If it's too narrow to be useful, broaden it. The goal is a Background that comes up regularly but not constantly.
 
----
+***
 
 ## Step 2: Stats
 
 Three stats, rated 1-4. Distribute **6 points** with a minimum of 1 in each.
 
-| Stat | What It Covers |
-|-|-|
-| **Grit** | Strength, toughness, endurance, physical presence |
-| **Sharp** | Awareness, reflexes, precision, instinct |
-| **Nerve** | Willpower, composure, influence, courage |
+| Stat      | What It Covers                                    |
+| --------- | ------------------------------------------------- |
+| **Grit**  | Strength, toughness, endurance, physical presence |
+| **Sharp** | Awareness, reflexes, precision, instinct          |
+| **Nerve** | Willpower, composure, influence, courage          |
 
 Common spreads:
-- **3/2/1** (specialist). You're great at one thing and you lean on it. The 1 will hurt you.
-- **2/2/2** (generalist). No standout, no weakness. Partial success is your life.
-- **4/1/1** (extreme specialist). Exceptional at one thing, dangerously weak in two. High risk.
+
+* **3/2/1** (specialist). You're great at one thing and you lean on it. The 1 will hurt you.
+
+* **2/2/2** (generalist). No standout, no weakness. Partial success is your life.
+
+* **4/1/1** (extreme specialist). Exceptional at one thing, dangerously weak in two. High risk.
 
 Stats are **permanent.** They don't grow. Your character gets better through Edges, Guard growth (Scars), and narrative change. The numbers you pick now are the numbers you keep.
 
 **Thaumic implications of stats (Positives only):**
-- **Thaumatech rolls use the same stats as everything else.** The fiction determines which stat you roll — Grit to force it, Sharp to place it precisely, Nerve to hold it steady. See `rules/THAUMATECH.md`.
-- **Shaping stat comes from the fiction.** Grit forces energy through. Sharp finds the seam. Nerve holds the pattern. All three stats are valid approaches to shaping.
-- **Your highest stat** determines your starting Guard (the buffer that absorbs damage). A Grit 3 character has Guard 5 from toughness. A Sharp 3 character has Guard 5 from reflexes. A Nerve 3 character has Guard 5 from threat awareness. Innate shaping costs are covered in `rules/MAGIC.md`.
+
+* **Thaumatech rolls use the same stats as everything else.** The fiction determines which stat you roll — Grit to force it, Sharp to place it precisely, Nerve to hold it steady. See `rules/THAUMATECH.md`.
+
+* **Shaping stat comes from the fiction.** Grit forces energy through. Sharp finds the seam. Nerve holds the pattern. All three stats are valid approaches to shaping.
+
+* **Your highest stat** determines your starting Guard (the buffer that absorbs damage). A Grit 3 character has Guard 5 from toughness. A Sharp 3 character has Guard 5 from reflexes. A Nerve 3 character has Guard 5 from threat awareness. Innate shaping costs are covered in `rules/MAGIC.md`.
 
 This means stat choices matter differently for every build. Zeroes pick stats for rolls and Guard. Positives also pick stats for which devices they excel with and which shaping approach they use.
 
----
+***
 
 ## Step 3: Derived Values
 
@@ -95,7 +107,7 @@ This means stat choices matter differently for every build. Zeroes pick stats fo
 
 **Armor: from gear.** Most starting characters have 0-1. See Step 5.
 
----
+***
 
 ## Step 4: Edges
 
@@ -108,11 +120,16 @@ How many Edges you get depends on your place on the thaumic spectrum:
 **4 Edges**, all free choice.
 
 Plus the **Thaumic Null** baseline trait (not an Edge, doesn't cost a slot):
-- Invisible to thaumic detection systems
-- BTC scanners read you as background noise
-- Wards keyed to thaumic signatures don't trigger on you
-- Thaumic targeting effects ("drawn to highest BTC source") ignore you
-- The ghost in a monitored world
+
+* Invisible to thaumic detection systems
+
+* BTC scanners read you as background noise
+
+* Wards keyed to thaumic signatures don't trigger on you
+
+* Thaumic targeting effects ("drawn to highest BTC source") ignore you
+
+* The ghost in a monitored world
 
 A zero has had to be better at everything else. More training, more connections, more skills. The extra Edge reflects a lifetime of compensating. And Thaumic Null means you move through a surveilled world without setting off alarms that positives can't avoid.
 
@@ -144,7 +161,7 @@ The full Edge catalog is in `rules/EDGES.md` (see Edge catalog for Combat, Survi
 
 Players can always propose custom Edges not in the catalog. The principle: one Edge, one specific benefit. If it applies to every roll, it's too broad. If it never applies, it's flavor, not an Edge. The GM approves. See the "Build Your Own" section in `rules/EDGES.md` for guidelines.
 
----
+***
 
 ## Step 5: Bonds & Gear
 
@@ -154,9 +171,11 @@ Write down 2-3 Bonds. At least one with another PC. At least one with an NPC.
 
 A Bond is a sentence about a relationship. Not a stat. Not a resource. A statement about who matters to you and why.
 
-- "I trust Max with my life, but not with a secret."
-- "Professor Alan gave me a chance nobody else would."
-- "My sister doesn't know what I can do."
+* "I trust Max with my life, but not with a secret."
+
+* "Professor Alan gave me a chance nobody else would."
+
+* "My sister doesn't know what I can do."
 
 Bonds evolve through play. They don't have mechanical triggers. They exist so the table remembers what the characters care about, and so the GM knows which NPCs matter.
 
@@ -174,7 +193,7 @@ Everyone has everyday items. Clothes, a wallet, keys, a phone. Don't list them u
 
 The GM can veto anything that doesn't fit the campaign's starting conditions. You're not walking into session one with military-grade hardware unless the premise put it in your hands.
 
----
+***
 
 ## Zeroes and Positives
 
@@ -190,7 +209,7 @@ A positive PC has thaumic access. Contact plates respond to them. The magic syst
 
 Neither is the lesser choice. A party with both creates friction, empathy, and stories about what it means to have something someone else doesn't.
 
----
+***
 
 ## Progression
 
@@ -206,7 +225,7 @@ Characters grow through three channels:
 
 Progression is slow, lateral, and character-driven. After ten sessions, a character won't have bigger numbers. They'll have more options, more scars, and deeper connections. They'll be more defined, not more powerful.
 
----
+***
 
 ## Example Characters
 
@@ -219,6 +238,7 @@ Progression is slow, lateral, and character-driven. After ten sessions, a charac
 **Guard:** 5 (Sharp 3 + 2, highest stat). **Drain:** 4. **Armor:** 1 (surplus tactical vest).
 
 **Edges (4):**
+
 1. Patch Expert (Field Medicine): When using healing consumables on others, they recover 1 additional Guard.
 2. Long-Range Patience: Boon on Far-range attacks when she hasn't moved this round.
 3. Thick Skin: Once per scene, ignore the first point of damage from a single attack.
@@ -229,8 +249,10 @@ Progression is slow, lateral, and character-driven. After ten sessions, a charac
 **Gear:** Hunting rifle (d8, Ranged, Loud), combat knife (d6, Subtle), first-aid kit, binoculars, surplus tactical vest (Armor 1). No thaumatech. Contact plates don't read her.
 
 **Bonds:**
-- "Eli saved my life in Ostreon. I haven't told him what I saw there."
-- "Dr. Vasquez at the VA patched me up and didn't ask questions. I don't want to know why."
+
+* "Eli saved my life in Ostreon. I haven't told him what I saw there."
+
+* "Dr. Vasquez at the VA patched me up and didn't ask questions. I don't want to know why."
 
 Kara is competent, quiet, and invisible to the systems that track everyone else. Four Edges give her breadth. Thaumic Null means she walks past scanners that would flag her teammates. She can't use the thaumic pistol someone hands her, but she doesn't need to.
 
@@ -243,6 +265,7 @@ Kara is competent, quiet, and invisible to the systems that track everyone else.
 **Guard:** 5 (Grit 3 + 2, highest stat). **Drain:** 4. **Armor:** 0.
 
 **Edges (3):**
+
 1. Knack: Metal warms slightly in his hands. Boon when working with metal or detecting metal stress/fatigue. (Obsession: the factory floor, the furnace, how things hold together.)
 2. Field Repair (Technician): Once per scene, restore a disabled thaumatech device to working condition.
 3. Union Voice (custom): Boon on Nerve rolls when negotiating with institutions, management, or bureaucrats. He's sat at the table before.
@@ -250,16 +273,19 @@ Kara is competent, quiet, and invisible to the systems that track everyone else.
 **Gear:** Factory-issue thaumic scanner (thumb plate, reads structural integrity), heavy wrench (d6), steel-toed boots, union card, coveralls.
 
 **Bonds:**
-- "Kara doesn't trust machines. I don't trust anything else."
-- "The foreman knows about my knack. He hasn't reported it. I don't know why."
+
+* "Kara doesn't trust machines. I don't trust anything else."
+
+* "The foreman knows about my knack. He hasn't reported it. I don't know why."
 
 Tomasz is blue-collar Mondas. His knack is subtle enough that most people think he's just experienced. His thaumatech certification means the scanner works in his hands (contact plate on the grip, reads his potential, activates the device). He's not powerful. He's useful. And his union training means he knows how to make institutions listen.
 
----
+***
 
 ## Quick Reference
 
 ### Creation Steps
+
 1. **Table conversation:** Spectrum ceiling, premise, group composition.
 2. **Who are you:** Name, species, age, look, Background (one sentence, Boon domain).
 3. **Stats:** Grit, Sharp, Nerve. 6 points, min 1 each.
@@ -269,22 +295,25 @@ Tomasz is blue-collar Mondas. His knack is subtle enough that most people think 
 
 ### Edge Allocation
 
-| Tier | Edges | Trait |
-|-|-|-|
-| Zero (Mundane) | 4 free | Thaumic Null |
-| Knack | 1 Knack + 2 free (3 total) | |
-| Sparked | 1 Knack + 1 Sparked + 1 free (3 total) | |
-| Shaper | 1 Knack + 1 Sparked + 1 Shaper (3 total) | |
+| Tier           | Edges                                    | Trait        |
+| -------------- | ---------------------------------------- | ------------ |
+| Zero (Mundane) | 4 free                                   | Thaumic Null |
+| Knack          | 1 Knack + 2 free (3 total)               | <br />       |
+| Sparked        | 1 Knack + 1 Sparked + 1 free (3 total)   | <br />       |
+| Shaper         | 1 Knack + 1 Sparked + 1 Shaper (3 total) | <br />       |
 
 ### Starting Guard
 
 | Highest Stat | Guard |
-|-|-|
-| 1 | 3 |
-| 2 | 4 |
-| 3 | 5 |
-| 4 | 6 |
+| ------------ | ----- |
+| 1            | 3     |
+| 2            | 4     |
+| 3            | 5     |
+| 4            | 6     |
 
 ### Background Scope Test
+
 If the Boon applies more than half the time, narrow it.
+
+***
 

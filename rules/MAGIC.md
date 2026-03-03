@@ -1,4 +1,6 @@
-# MONDAS Magic & Drain v0.3
+# MAGIC
+
+Magic & Drain v0.3
 
 ## In Two Minutes
 
@@ -8,7 +10,7 @@ The thaumic spectrum runs through four tiers. **Knack** is passive sensing tied 
 
 For thaumatech (devices, contact plates, grid-powered thauma-ware, over-spec use), see `rules/THAUMATECH.md`.
 
----
+***
 
 ## The Thaumic Spectrum
 
@@ -31,20 +33,30 @@ The obsession's first thaumic expression. The spark. Small, specific, hidden. Yo
 A knack is the Boom giving your obsession a voice. Quiet. Almost imperceptible. But real.
 
 **Example Knacks** (propose your own, subject to GM approval, must connect to your obsession):
-- You feel when someone's lying. Gut-level, not telepathy. (Obsession: trust, betrayal, reading people.)
-- Small electronics glitch when you're stressed. (Obsession: machines, control, things breaking.)
-- You heal faster than you should. (Obsession: survival, endurance, refusing to stay down.)
-- Animals trust you on instinct. (Obsession: connection, empathy, being understood.)
-- You always know which direction is north. (Obsession: navigation, escape routes, never being lost.)
-- Your hands are unnaturally steady. (Obsession: precision, craft, getting it right.)
-- You can feel the structural weak point in anything you touch. (Obsession: building, breaking, how things hold together.)
-- Metal warms slightly when you hold it. (Obsession: the factory floor, the furnace, the work.)
-- You always wake up exactly when you intend to. (Obsession: time, routine, discipline.)
-- You know when someone in the room is hurt, even if they're hiding it. (Obsession: caretaking, pain, protection.)
+
+* You feel when someone's lying. Gut-level, not telepathy. (Obsession: trust, betrayal, reading people.)
+
+* Small electronics glitch when you're stressed. (Obsession: machines, control, things breaking.)
+
+* You heal faster than you should. (Obsession: survival, endurance, refusing to stay down.)
+
+* Animals trust you on instinct. (Obsession: connection, empathy, being understood.)
+
+* You always know which direction is north. (Obsession: navigation, escape routes, never being lost.)
+
+* Your hands are unnaturally steady. (Obsession: precision, craft, getting it right.)
+
+* You can feel the structural weak point in anything you touch. (Obsession: building, breaking, how things hold together.)
+
+* Metal warms slightly when you hold it. (Obsession: the factory floor, the furnace, the work.)
+
+* You always wake up exactly when you intend to. (Obsession: time, routine, discipline.)
+
+* You know when someone in the room is hurt, even if they're hiding it. (Obsession: caretaking, pain, protection.)
 
 The list is examples, not a menu. Your knack should grow from your character's obsession. If it fits the fiction and the GM agrees, it's valid.
 
-**Mechanically:** A Knack is an Edge. It grants a **Boon in a specific situation** or **free information from the GM** when the obsession intersects with the fiction. No drain. No Guard cost. No heat clock. Always ready to fire. The Boon fires because you know something, not because you're doing something. See `rules/EDGES.md` for full Knack design rules.
+**Mechanically:** A Knack is an Edge. It grants a **Boon in a specific situation** or **free information from the GM** when the obsession intersects with the fiction. No drain. No Guard cost. No heat clock. Always ready to fire. The Boon fires because you know something, not because you're doing something.
 
 **The Bleed.** When the Knack fires, the character's fixation leaks into the environment. A room gets colder. Lights flicker. People nearby feel uneasy without knowing why. The Bleed is not directed, not functional, not controllable. Sparked characters and scanners can read it. This is how magic costs something even when it costs no Guard: the world responds to the character's attention in ways they can't hide.
 
@@ -70,9 +82,11 @@ This is usually the moment of fear. Because now you can do something. And everyo
 
 **At the Table:** Sparked characters have a new tactical layer. The base expression is small and reliable. The desperate push is a real gamble with Guard cost in the stakes. Play examples:
 
-- *The team needs to get through a locked door. The structural-obsessed Sparked character puts both palms on the lock and pushes. Base expression: 1 Guard, the lock mechanism weakens. She still needs to physically break it, but the bolt snaps like tin.*
-- *A guard has the team cornered. The fire Sparked character needs to buy time. Desperate push: "I burst the flame from my lighter into his face." The GM sets stakes: "Clean, 2 Guard and he flinches back. Messy, 4 Guard and your hand blisters. Wrong, the fire goes wide, L1 Hurt, and the sprinkler system triggers." The player rolls.*
-- *The perception Sparked character senses someone approaching but wants to stay hidden. She sacrifices a die for Muffle. Less information about the approaching threat, but no Heat tick. The DPA scanner down the hall reads nothing.*
+* *The team needs to get through a locked door. The structural-obsessed Sparked character puts both palms on the lock and pushes. Base expression: 1 Guard, the lock mechanism weakens. She still needs to physically break it, but the bolt snaps like tin.*
+
+* *A guard has the team cornered. The fire Sparked character needs to buy time. Desperate push: "I burst the flame from my lighter into his face." The GM sets stakes: "Clean, 2 Guard and he flinches back. Messy, 4 Guard and your hand blisters. Wrong, the fire goes wide, L1 Hurt, and the sprinkler system triggers." The player rolls.*
+
+* *The perception Sparked character senses someone approaching but wants to stay hidden. She sacrifices a die for Muffle. Less information about the approaching threat, but no Heat tick. The DPA scanner down the hall reads nothing.*
 
 Sparked characters aren't shapers. They have one trick and the tools to manage its fallout. In a world where the DPA is watching, the management is as important as the trick.
 
@@ -97,9 +111,12 @@ You do not casually pick this at session one. You earn it through play, through 
 A Shaper doesn't lose their Knack. A Sparked character doesn't stop being a Knack. The tiers aren't levels that replace each other. They're depths the player can choose to reach into.
 
 Fen the Shaper touches a wall. What happens next is his choice:
-- **Knack:** He feels the hot pipe behind the plaster. Free. No Guard cost. Bleed leaks a little warmth into the room.
-- **Sparked:** He heats the pipe until the seized valve loosens. 1 Guard. The Tell activates: palms flat, fingers spread. Bleed warms the hallway.
-- **Shaping:** He reads the thermal network of the entire building through the pipe system. 4 Guard. The Tell is fully active. Bleed spikes the DPA clicker from across the room.
+
+* **Knack:** He feels the hot pipe behind the plaster. Free. No Guard cost. Bleed leaks a little warmth into the room.
+
+* **Sparked:** He heats the pipe until the seized valve loosens. 1 Guard. The Tell activates: palms flat, fingers spread. Bleed warms the hallway.
+
+* **Shaping:** He reads the thermal network of the entire building through the pipe system. 4 Guard. The Tell is fully active. Bleed spikes the DPA clicker from across the room.
 
 Same gesture. Same obsession. Same Tell. The player dials the intensity. The system dials the cost. At the table, this creates natural escalation: start small, go deeper only when the fiction demands it. A Shaper who uses their Knack to check a pipe temperature doesn't pay Guard and barely Bleeds. A Shaper who reaches through the building's infrastructure pays everything and lights up every sensor in range.
 
@@ -135,12 +152,12 @@ These are illustrations, not categories. Every shaper is unique because every ob
 
 ### The Spectrum at the Table
 
-| Tier | Prevalence | Mechanic | Social Status | Edge Chain |
-|-|-|-|-|-|
-| Mundane | ~80% | Grid thauma-ware only. No personal thaumatech. | Normal (zero) | None |
-| Knack | ~15% | Boon in one situation. Bleed is involuntary. | Hidden, keep it quiet | Knack: [from obsession] |
-| Sparked | ~4% | One expression. 1 Guard base, standard roll for desperate push. Tell emerges. | DPA file. Classification event. | Requires Knack |
-| Shaper | <1% | Full shaping. Standard roll, Guard in stakes. Break risk. | Cryptid. Files, not science. | Requires Sparked + Break (narrative gate) |
+| Tier    | Prevalence | Mechanic                                                                      | Social Status                   | Edge Chain                                |
+| ------- | ---------- | ----------------------------------------------------------------------------- | ------------------------------- | ----------------------------------------- |
+| Mundane | \~80%      | Grid thauma-ware only. No personal thaumatech.                                | Normal (zero)                   | None                                      |
+| Knack   | \~15%      | Boon in one situation. Bleed is involuntary.                                  | Hidden, keep it quiet           | Knack: \[from obsession]                  |
+| Sparked | \~4%       | One expression. 1 Guard base, standard roll for desperate push. Tell emerges. | DPA file. Classification event. | Requires Knack                            |
+| Shaper  | <1%        | Full shaping. Standard roll, Guard in stakes. Break risk.                     | Cryptid. Files, not science.    | Requires Sparked + Break (narrative gate) |
 
 A party of four might include all four tiers. That's four different relationships with magic. All grounded. All low-magic. All interesting.
 
@@ -150,13 +167,13 @@ The obsession is the engine. The **channel** determines how it connects to thaum
 
 Every innate magic user, from Knack to Shaper, operates through one of these channels. The channel doesn't change the mechanics. Same Knack → Sparked → Shaper ladder. Same Guard costs. Same Gambits. Same dice. The channel determines the fiction: where the power comes from, what the Tell looks like, and what Break costs you.
 
-| Channel | Source | What's on the line | Break consequence |
-|-|-|-|-|
-| Innate | Sheer will. The obsession itself. | Your body | Physical collapse. You pushed past what flesh can hold. |
-| Bestowed | An external entity noticed your obsession and opened a channel. Patron, small god, something unnamed. | The relationship and power itself | The connection ruptures. The patron withdraws, goes silent, or turns hostile. |
-| Sworn | The obsession crystallized into a commitment. An oath, a vow, a duty you chose. | Your identity and principles | You betrayed what you swore. The power was your conviction. Without it, the channel closes. |
-| Inherited | Born with it. Ancestral. The Displaced arrived already connected. | Your heritage and cultural identity | Severing something older than you. The bloodline carried this. Breaking it means losing a piece of what your people are. |
-| Learned | Obsession with understanding magic itself. Theory became practice. | Your mind | Cognitive fracture. You understood perfectly and reality told you that you were wrong. |
+| Channel   | Source                                                                                                | What's on the line                  | Break consequence                                                                                                        |
+| --------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Innate    | Sheer will. The obsession itself.                                                                     | Your body                           | Physical collapse. You pushed past what flesh can hold.                                                                  |
+| Bestowed  | An external entity noticed your obsession and opened a channel. Patron, small god, something unnamed. | The relationship and power itself   | The connection ruptures. The patron withdraws, goes silent, or turns hostile.                                            |
+| Sworn     | The obsession crystallized into a commitment. An oath, a vow, a duty you chose.                       | Your identity and principles        | You betrayed what you swore. The power was your conviction. Without it, the channel closes.                              |
+| Inherited | Born with it. Ancestral. The Displaced arrived already connected.                                     | Your heritage and cultural identity | Severing something older than you. The bloodline carried this. Breaking it means losing a piece of what your people are. |
+| Learned   | Obsession with understanding magic itself. Theory became practice.                                    | Your mind                           | Cognitive fracture. You understood perfectly and reality told you that you were wrong.                                   |
 
 **Innate** is the pure form. Self-directed obsession, no external mediator. The fire-obsessed kid who always felt heat. The steelworker whose hands know metal. Their Tell is personal, developed through instinct and repetition. Break is physical: the body gives out because it was never built to channel this much.
 
@@ -188,7 +205,7 @@ The spectrum is a dial, not a ladder. Before your campaign starts, decide how fa
 
 The thaumatech master and the early shaper should feel equally viable at the table. If the shaper is consistently outshining the thaumatech specialist, something is wrong. Either the shaper's scope is too broad, the drain costs aren't biting hard enough, or the GM isn't making the thaumatech user's gear feel as interesting as the shaper's raw talent. The system is balanced around limitations, not output. Thaumatech is safe, reliable, and cheap. Shaping is flexible, costly, and dangerous. Both are powerful. Neither should feel like the lesser choice.
 
----
+***
 
 ## Innate Shaping
 
@@ -212,16 +229,16 @@ Mondas is twenty years post-Boom. There are no academies for innate magic, no st
 
 Every Tell must have a clear, observable trigger that an enemy could block or a GM could deny. If someone watching you long enough could figure out how to stop you, it's a valid Tell. If it's internal and unverifiable, it's not.
 
-| Tell | How It Looks | Limitation |
-|-|-|-|
-| Vocalization | Singing, chanting, prayer, specific words | Can't shape silently. Snag if gagged or whispering. |
-| Gesture | Hand signs, drawing symbols in the air, dance | Can't shape with bound hands. |
-| Breath control | Specific breathing patterns, hyperventilation, held breath | Blocked by suffocation, smoke, or sustained exertion. |
-| Physical contact | Touching the target, laying hands | Must be Close to target. No ranged shaping. |
-| Focus object | Rosary, lighter, coin, grandmother's ring | Lose it = can't shape, or Snag without it. |
-| Pain / blood | Self-harm, biting lip, drawing blood | Take 1 extra Guard damage on top of drain cost. |
-| Ritual counting | Specific numbers, sequences, patterns | Takes extra time. Can be interrupted. |
-| Somatic routine | Tai chi forms, boxing stance, yoga poses | Requires space and freedom of movement. Snag in tight quarters. |
+| Tell             | How It Looks                                               | Limitation                                                      |
+| ---------------- | ---------------------------------------------------------- | --------------------------------------------------------------- |
+| Vocalization     | Singing, chanting, prayer, specific words                  | Can't shape silently. Snag if gagged or whispering.             |
+| Gesture          | Hand signs, drawing symbols in the air, dance              | Can't shape with bound hands.                                   |
+| Breath control   | Specific breathing patterns, hyperventilation, held breath | Blocked by suffocation, smoke, or sustained exertion.           |
+| Physical contact | Touching the target, laying hands                          | Must be Close to target. No ranged shaping.                     |
+| Focus object     | Rosary, lighter, coin, grandmother's ring                  | Lose it = can't shape, or Snag without it.                      |
+| Pain / blood     | Self-harm, biting lip, drawing blood                       | Take 1 extra Guard damage on top of drain cost.                 |
+| Ritual counting  | Specific numbers, sequences, patterns                      | Takes extra time. Can be interrupted.                           |
+| Somatic routine  | Tai chi forms, boxing stance, yoga poses                   | Requires space and freedom of movement. Snag in tight quarters. |
 
 A character's Tell is not a menu to optimize. It's a statement about who this person is and how they discovered magic. The kid who prays learned from a grandmother who thought it was divine. The one who needs pain discovered shaping during trauma. The one with the focus object found it humming after the Boom. Every Tell is a backstory. And every Tell is a vulnerability. Someone watching long enough can learn your Tell, and that means they can stop you.
 
@@ -233,18 +250,21 @@ When a Shaper channels:
 
 1. **Declare effect + Tell.** Must be within your obsession's scope. The GM and player agree on what's plausible. If you can't perform your Tell (gagged, bound, missing focus object), you can't shape. Partially impaired Tell = Snag. The GM names the scale tier (Trivial, Moderate, Ambitious, Extreme, or Beyond). See `rules/DESIGN.md` for GM adjudication guidance.
 2. **GM sets stakes with Guard cost.** Guard cost is part of the consequence tiers, not a prepaid resource. The GM sizes the cost based on the scale of the effect. Stakes are always escalated: the GM includes thaumic side effects in the consequences alongside the Guard cost.
-   - **6:** The effect works. Guard cost as stated (the expected price).
-   - **4-5:** The effect works at reduced intensity, or full effect at higher Guard cost. A thaumic side effect.
-   - **1-3:** The Guard cost hits and the effect doesn't. Or the effect goes wrong. Or both. Physical harm from channeling backlash.
+
+   * **6:** The effect works. Guard cost as stated (the expected price).
+
+   * **4-5:** The effect works at reduced intensity, or full effect at higher Guard cost. A thaumic side effect.
+
+   * **1-3:** The Guard cost hits and the effect doesn't. Or the effect goes wrong. Or both. Physical harm from channeling backlash.
 3. **Roll your stat.** The fiction determines which stat. Grit forces energy through like bending steel. Sharp finds the seam and places the effect precisely. Nerve holds the pattern through composure and will. Same pool as any other roll. Boons and Snags apply normally: ally assist, clever positioning, taking extra time, or Snags from injury, Tell impairment, hostile conditions. **Drain** for +1d by spending a Drain box (same as any roll, one per roll).
 4. **Sacrifice dice for shaping Gambits.** Any die showing 4+ can be sacrificed for a shaping Gambit instead of contributing to the result. Shapers have access to the full shaping Gambit list: Muffle, Anchor, Contain (from Sparked), plus Thread, Redirect, Siphon, Veil, Split. Shaper Edges can extend or add to this list.
 5. **Tick the Heat clock.** The number of ticks depends on **how visible the magic was** (reduced by 1 if the Muffle Gambit was used):
 
-| Visibility | Ticks | Examples |
-|-|-|-|
-| Subtle | 1 | Nudging someone's mood, sensing a presence, warming your hands |
-| Overt | 2 | Throwing a person, igniting a fire from nothing, visible barrier |
-| Undeniable | 3 | Stopping a car, crushing metal, visible time distortion |
+| Visibility | Ticks | Examples                                                         |
+| ---------- | ----- | ---------------------------------------------------------------- |
+| Subtle     | 1     | Nudging someone's mood, sensing a presence, warming your hands   |
+| Overt      | 2     | Throwing a person, igniting a fire from nothing, visible barrier |
+| Undeniable | 3     | Stopping a car, crushing metal, visible time distortion          |
 
 Thaumatech generates **0 ticks**. It's supposed to look like technology. That's the entire point of regulation.
 
@@ -258,11 +278,11 @@ The GM sets the effect magnitude and Guard cost as part of the stakes before the
 
 For combat shaping that deals damage, the GM sets damage as part of the stakes using the scale tier as a guide:
 
-| Scale Tier | Full Success Damage | Partial Damage | Guard Cost (success) | Example |
-|-|-|-|-|-|
-| Moderate (single target, Close) | 4-6 | 2-3 | 1-2 | Superheating a gun barrel. Crushing a joint. |
-| Ambitious (area or Near range) | 2-4 | 1-2 | 2-3 | Force burst across a room. Heat wave pushing a group back. |
-| Extreme (environmental, devastating) | 6-8+ | 3-4 | 3-4 | Collapsing a wall segment. Igniting everything in a corridor. |
+| Scale Tier                           | Full Success Damage | Partial Damage | Guard Cost (success) | Example                                                       |
+| ------------------------------------ | ------------------- | -------------- | -------------------- | ------------------------------------------------------------- |
+| Moderate (single target, Close)      | 4-6                 | 2-3            | 1-2                  | Superheating a gun barrel. Crushing a joint.                  |
+| Ambitious (area or Near range)       | 2-4                 | 1-2            | 2-3                  | Force burst across a room. Heat wave pushing a group back.    |
+| Extreme (environmental, devastating) | 6-8+                | 3-4            | 3-4                  | Collapsing a wall segment. Igniting everything in a corridor. |
 
 On a consequence, the Guard cost hits and the GM's stated consequence fires. The damage doesn't land. The side effects do.
 
@@ -288,22 +308,22 @@ Bargains are different from Stakes: Stakes are tied to roll results (partial = t
 
 ### Why Innate Is Feared
 
-| Layer | Thaumatech | Innate Shaping |
-|-|-|-|
-| Scope | Determined by device | Shaped by obsession, agreed with GM |
-| Technique | Contact plates, rated function | Tell: personal, observable, blockable |
-| Base cost | Free (device enables action) | Guard in stakes (body cost) |
-| Beyond base | Device gambits cost Drain (will cost) | Escalated stakes (more Guard) |
-| Depletion | Crack (mental break) | Scar (physical mark) |
-| Background heat | 0 ticks (regulated, expected) | 1-3 ticks per use (visibility-scaled) |
-| Flexibility | Limited to device function | Anything within obsession scope |
-| Tactical layer | Device gambits (auto-succeed, Drain cost) | Shaping Gambits (Muffle, Anchor, Contain, Thread, Redirect, Siphon, Veil, Split) |
-| Device risk | Quality vs. stretch, 2d6 roll | No device to break |
-| Vulnerability | Device breaks, operator cracks | Tell can be identified, countered, suppressed |
+| Layer           | Thaumatech                                | Innate Shaping                                                                   |
+| --------------- | ----------------------------------------- | -------------------------------------------------------------------------------- |
+| Scope           | Determined by device                      | Shaped by obsession, agreed with GM                                              |
+| Technique       | Contact plates, rated function            | Tell: personal, observable, blockable                                            |
+| Base cost       | Free (device enables action)              | Guard in stakes (body cost)                                                      |
+| Beyond base     | Device gambits cost Drain (will cost)     | Escalated stakes (more Guard)                                                    |
+| Depletion       | Crack (mental break)                      | Scar (physical mark)                                                             |
+| Background heat | 0 ticks (regulated, expected)             | 1-3 ticks per use (visibility-scaled)                                            |
+| Flexibility     | Limited to device function                | Anything within obsession scope                                                  |
+| Tactical layer  | Device gambits (auto-succeed, Drain cost) | Shaping Gambits (Muffle, Anchor, Contain, Thread, Redirect, Siphon, Veil, Split) |
+| Device risk     | Quality vs. stretch, 2d6 roll             | No device to break                                                               |
+| Vulnerability   | Device breaks, operator cracks            | Tell can be identified, countered, suppressed                                    |
 
 The only advantage of innate: no device limits your imagination within your obsession's scope. You can shape anything the fiction supports. That freedom is the power, and the reason every authority on Mondas wants it controlled.
 
----
+***
 
 ## Drain
 
@@ -313,11 +333,11 @@ Drain is the cost of channeling thaumic energy. **Innate shaping drains Guard** 
 
 Guard damage from innate shaping follows the same overflow rules as combat damage:
 
-| Overflow | Harm Level |
-|-|-|
-| 1-2 | Level 1 (Hurt): nosebleed, shaking hands, ringing ears |
-| 3-4 | Level 2 (Wounded): burst capillaries, nerve damage, blackout risk |
-| 5+ | Level 3 (Critical): hemorrhage, seizure, system shutdown |
+| Overflow | Harm Level                                                        |
+| -------- | ----------------------------------------------------------------- |
+| 1-2      | Level 1 (Hurt): nosebleed, shaking hands, ringing ears            |
+| 3-4      | Level 2 (Wounded): burst capillaries, nerve damage, blackout risk |
+| 5+       | Level 3 (Critical): hemorrhage, seizure, system shutdown          |
 
 ### The Shaper's Dilemma
 
@@ -327,7 +347,7 @@ This is the low-magic feel. Not "you can't cast," but every cast makes you more 
 
 Meanwhile, **Drain is being spent in both directions too.** Drain a shaping roll for +1d, and that's one fewer Drain box for the defense roll, the escape attempt, or the moment you take a Critical and need to Drain to act. Guard and Drain are both finite. Shaping eats both.
 
----
+***
 
 ## Sustained Effects
 
@@ -339,7 +359,7 @@ If you take Harm while sustaining, make a **Nerve save.** On a consequence (1-3)
 
 Sustaining does not cost additional Guard per round. The initial cost is paid; sustaining is concentration, not channeling.
 
----
+***
 
 ## Break
 
@@ -362,10 +382,14 @@ The player states what they want to happen. There are no obsession limits, no Te
 2. **Harm, minimum Level 2.** All Guard overflow becomes Harm as normal, with a floor of Level 2 (Wounded). If the overflow reaches Level 3, you're Critical. If your Harm track is already occupied, new Harm bumps up. If both Level 3 slots are full: **you die.** Death is always on the table with a Break.
 
 3. **Thaumic Mark.** Something permanent changes. Player and GM collaborate on what it is, based on what the magic was doing:
-   - Physical: eyes shift color, skin marks where the energy flowed, temperature around you is always wrong
-   - Sensory: you see thaumic resonance now, you hear frequencies you shouldn't, machines react to your presence
-   - Relational: an entity knows your name, a leyline recognizes your signature, the DPA has a file on you
-   - Capability: you can do something new, but something else about you is different
+
+   * Physical: eyes shift color, skin marks where the energy flowed, temperature around you is always wrong
+
+   * Sensory: you see thaumic resonance now, you hear frequencies you shouldn't, machines react to your presence
+
+   * Relational: an entity knows your name, a leyline recognizes your signature, the DPA has a file on you
+
+   * Capability: you can do something new, but something else about you is different
 
    Marks are permanent. They don't heal. They accumulate with each Break and get more severe. A character with three Marks is barely passing as normal. Authorities notice. Entities notice. The world treats you differently.
 
@@ -387,56 +411,93 @@ That's the best case. The Harm persists for sessions. Death is possible even on 
 
 A Break is a moment where a character decides that what they're protecting is worth more than what they're spending.
 
----
+***
 
 ## Quick Reference
 
 ### The Spectrum
-- Mundane (~80%), Knack (~15%), Sparked (~4%), Shaper (<1%)
-- Each tier is an Edge. Shaper requires Sparked + Break (narrative gate).
-- Mundane (zero): no personal thaumatech. Grid thauma-ware works normally.
-- Knacks: Boon in one situation, no drain, no heat. Bleed is involuntary. Keep it hidden.
-- Sparked: one expression, 1 Guard base, standard roll for desperate push. Tell emerges. DPA file.
-- Shaper: full shaping. Standard roll, Guard in stakes. Break risk. Cryptid-level DPA interest.
-- **Tiers don't replace each other.** A Shaper can operate at Knack (free), Sparked (1 Guard), or full shaping (Guard in stakes). Player chooses depth. Cost and Bleed scale with depth.
-- **Bleed persists at every tier.** Never goes away. Scales with output. Gambits (Muffle, Anchor, Contain) manage it, don't eliminate it.
-- **GM sets spectrum ceiling before campaign.** Most games: knacks only. Some: sparked. Few: active shaping. None assume full expansion.
-- **Channels:** Innate (body), Bestowed (relationship), Sworn (identity), Inherited (heritage), Learned (mind). Same mechanics, different fiction and Break consequences. Channel emerges from play, not creation. Loss produces Temporary Edge.
+
+* Mundane (\~80%), Knack (\~15%), Sparked (\~4%), Shaper (<1%)
+
+* Each tier is an Edge. Shaper requires Sparked + Break (narrative gate).
+
+* Mundane (zero): no personal thaumatech. Grid thauma-ware works normally.
+
+* Knacks: Boon in one situation, no drain, no heat. Bleed is involuntary. Keep it hidden.
+
+* Sparked: one expression, 1 Guard base, standard roll for desperate push. Tell emerges. DPA file.
+
+* Shaper: full shaping. Standard roll, Guard in stakes. Break risk. Cryptid-level DPA interest.
+
+* **Tiers don't replace each other.** A Shaper can operate at Knack (free), Sparked (1 Guard), or full shaping (Guard in stakes). Player chooses depth. Cost and Bleed scale with depth.
+
+* **Bleed persists at every tier.** Never goes away. Scales with output. Gambits (Muffle, Anchor, Contain) manage it, don't eliminate it.
+
+* **GM sets spectrum ceiling before campaign.** Most games: knacks only. Some: sparked. Few: active shaping. None assume full expansion.
+
+* **Channels:** Innate (body), Bestowed (relationship), Sworn (identity), Inherited (heritage), Learned (mind). Same mechanics, different fiction and Break consequences. Channel emerges from play, not creation. Loss produces Temporary Edge.
 
 ### Thaumatech
-- **Personal thaumatech** (weapons, armor, scanners): contact plates, positives only
-- **Grid thauma-ware** (appliances, heating, infrastructure): buttons and switches, anyone
-- Base use: free (roll stat, device enables action)
-- Device gambits: cost Drain (GM sizes from fiction). Auto-succeed. Binary capabilities.
-- Device risk: GM calls it based on quality vs. Drain stretch. Roll 2d6. 6 = fine, 4-5 = breaks (repairable), 1-3 = catastrophic (breaks + feedback). Drain the roll for +1d.
-- Repair: downtime scene. Destruction is narrative only.
-- Sustained: costs Act each round
-- Heat clock: 0 ticks (it's supposed to look like technology)
+
+* **Personal thaumatech** (weapons, armor, scanners): contact plates, positives only
+
+* **Grid thauma-ware** (appliances, heating, infrastructure): buttons and switches, anyone
+
+* Base use: free (roll stat, device enables action)
+
+* Device gambits: cost Drain (GM sizes from fiction). Auto-succeed. Binary capabilities.
+
+* Device risk: GM calls it based on quality vs. Drain stretch. Roll 2d6. 6 = fine, 4-5 = breaks (repairable), 1-3 = catastrophic (breaks + feedback). Drain the roll for +1d.
+
+* Repair: downtime scene. Destruction is narrative only.
+
+* Sustained: costs Act each round
+
+* Heat clock: 0 ticks (it's supposed to look like technology)
 
 ### Innate Shaping
-- Obsession scope determines what you can affect; Tell determines how
-- Standard roll (stat from fiction: Grit forces, Sharp places, Nerve holds)
-- Guard cost in the GM's stakes (success = expected cost, partial = higher cost, consequence = cost hits and effect fails)
-- Drain for +1d (same Drain track as any roll, one per roll)
-- Heat clock: 1-3 ticks per use (visibility-scaled, reduced by Muffle Gambit)
-- Stakes always escalated (thaumic side effects + Guard cost)
-- Sustained: costs Act each round
-- Shaping Gambits: Muffle, Anchor, Contain (Sparked base) + Thread, Redirect, Siphon, Veil, Split (Shaper)
-- **Effect output:** Standard roll (not auto-hit). GM sets damage and Guard cost in stakes by scale tier. Moderate 4-6, Ambitious 2-4, Extreme 6-8+. Consequence = Guard cost hits, no damage.
-- **Scale tiers:** Trivial (1 Guard, no roll) / Moderate / Ambitious / Extreme / Beyond (Break only)
+
+* Obsession scope determines what you can affect; Tell determines how
+
+* Standard roll (stat from fiction: Grit forces, Sharp places, Nerve holds)
+
+* Guard cost in the GM's stakes (success = expected cost, partial = higher cost, consequence = cost hits and effect fails)
+
+* Drain for +1d (same Drain track as any roll, one per roll)
+
+* Heat clock: 1-3 ticks per use (visibility-scaled, reduced by Muffle Gambit)
+
+* Stakes always escalated (thaumic side effects + Guard cost)
+
+* Sustained: costs Act each round
+
+* Shaping Gambits: Muffle, Anchor, Contain (Sparked base) + Thread, Redirect, Siphon, Veil, Split (Shaper)
+
+* **Effect output:** Standard roll (not auto-hit). GM sets damage and Guard cost in stakes by scale tier. Moderate 4-6, Ambitious 2-4, Extreme 6-8+. Consequence = Guard cost hits, no damage.
+
+* **Scale tiers:** Trivial (1 Guard, no roll) / Moderate / Ambitious / Extreme / Beyond (Break only)
 
 ### Thaumic Bargains
-- GM offers free +1d for a guaranteed consequence (fires regardless of roll)
-- Player can refuse. Not the same as Stakes.
+
+* GM offers free +1d for a guaranteed consequence (fires regardless of roll)
+
+* Player can refuse. Not the same as Stakes.
 
 ### Drain
-- **Innate shaping:** Guard cost in stakes (body). Overflow to Harm (1-2 = L1, 3-4 = L2, 5+ = L3). Shapers scar.
-- **Thaumatech:** Device gambits cost Drain (will). Empty = Crack. Operators crack.
-- Drain is shared across all uses: +1d on any roll, device gambits, act while Critical, reduce damage. Both combat and thaumatech deplete the same 4-box track.
+
+* **Innate shaping:** Guard cost in stakes (body). Overflow to Harm (1-2 = L1, 3-4 = L2, 5+ = L3). Shapers scar.
+
+* **Thaumatech:** Device gambits cost Drain (will). Empty = Crack. Operators crack.
+
+* Drain is shared across all uses: +1d on any roll, device gambits, act while Critical, reduce damage. Both combat and thaumatech deplete the same 4-box track.
 
 ### Break (Innate Only)
-- Player declares. Effect succeeds fully. Transcends obsession scope and Tell.
-- Lethal Break = no ceiling on effect, character dies.
-- Cost: Harm (min L2, death possible) + Thaumic Mark (permanent) + out for days
-- Marks escalate. Three Marks = barely passing as normal.
+
+* Player declares. Effect succeeds fully. Transcends obsession scope and Tell.
+
+* Lethal Break = no ceiling on effect, character dies.
+
+* Cost: Harm (min L2, death possible) + Thaumic Mark (permanent) + out for days
+
+* Marks escalate. Three Marks = barely passing as normal.
 

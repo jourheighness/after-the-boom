@@ -2,13 +2,13 @@
 
 This document defines how gambits work beyond the base 15, and the rules for creating property-category, defensive, act replacement, and shaping gambits. The catalogs in `rules/GAMBITS.md` are built from these principles. Follow every rule here before writing catalog entries.
 
----
+***
 
 ## Gambit Sources
 
 Gambits come from three stacking sources: the 15 base gambits (in `rules/CORE.md`, available to everyone), weapon-specific gambits (on weapon entries in `rules/EQUIPMENT.md`), and the property-category and special gambits cataloged in `rules/GAMBITS.md`. Everything stacks. A knife that's Subtle gets: base gambits + knife weapon gambits + all Subtle-category gambits + all Melee-category gambits.
 
----
+***
 
 ## What Makes a Good Gambit
 
@@ -22,7 +22,7 @@ A gambit is one die for one effect. The effect is specific, immediate, and resol
 
 **The fiction test:** Can you describe this gambit happening in a scene? "You sacrifice a die to apply a -1 penalty" is math. "You sacrifice a die to slam the stock into his chest and drive him into the wall" is a moment. Gambits should produce moments.
 
----
+***
 
 ## Property-Category Gambit Rules
 
@@ -33,7 +33,7 @@ Property-category gambits are available to any weapon with that property. They r
 3. **Same cost structure.** Standard (4+) or Strong (6). One die, one effect. Same resistance rules (Threat table in `rules/CORE.md`).
 4. **Range restrictions match the property.** Ranged gambits work at Near/Far. Melee gambits work at Close. If a gambit breaks this, state the exception explicitly.
 
----
+***
 
 ## Defensive Gambit Rules
 
@@ -43,7 +43,7 @@ Defensive gambits protect you instead of affecting the enemy. They're declared o
 2. **Duration: until your next turn.** Not permanent, not per-round. One turn of protection.
 3. **No stacking same-name defensive gambits.** You can use Parry and Guard Stance on the same turn (two different gambits), but not Parry twice.
 
----
+***
 
 ## Act Replacement Rules
 
@@ -53,7 +53,7 @@ Act replacements give up your attack entirely for a specific effect. No dice rol
 2. **The effect should be worth skipping an entire attack.** If the effect is comparable to a single sacrificed die, it should be a standard gambit, not an act replacement.
 3. **Not a gambit cost.** You don't sacrifice a die. You skip your Act. Different economy.
 
----
+***
 
 ## Shaping Gambit Rules
 
@@ -63,7 +63,7 @@ Shaping gambits are unlocked by the thaumic spectrum. Sparked characters get the
 2. **Same die cost.** Sacrifice a die 4+ from your shaping roll.
 3. **Shaping gambits don't appear on mundane or thaumatech rolls.** They require innate shaping. Thaumatech has its own gambits through gear and weapon entries.
 
----
+***
 
 ## Extension Model
 
@@ -75,58 +75,64 @@ Edges and equipment extend the gambit system in three ways:
 
 Every extension must name which gambit it modifies. "This Edge grants an enhanced Shove" not "this Edge pushes enemies." If it doesn't reference a gambit by name, it's not a gambit extension. See `rules/DESIGN-EDGES.md`.
 
----
+***
 
 ## Cost Structure
 
-| Cost | Requirement | What It Buys |
-|-|-|-|
-| Standard (4+) | Die showing 4 or higher | One tactical effect. Resistance applies by Threat level. |
-| Strong (6) | Die showing 6 (d6+ weapons only) | Greater effect. Works against any Threat level. |
-| Act Replacement | Skip your attack | A specific effect worth an entire attack. |
+| Cost            | Requirement                      | What It Buys                                             |
+| --------------- | -------------------------------- | -------------------------------------------------------- |
+| Standard (4+)   | Die showing 4 or higher          | One tactical effect. Resistance applies by Threat level. |
+| Strong (6)      | Die showing 6 (d6+ weapons only) | Greater effect. Works against any Threat level.          |
+| Act Replacement | Skip your attack                 | A specific effect worth an entire attack.                |
 
 ## Potency (Fight Gambits Only)
 
-| Stat | Potency |
-|-|-|
-| 1 | Reduced. Barely works. |
-| 2 | Standard. Works as written. |
-| 3+ | Enhanced. Ignore one Threat level of resistance. |
+| Stat | Potency                                          |
+| ---- | ------------------------------------------------ |
+| 1    | Reduced. Barely works.                           |
+| 2    | Standard. Works as written.                      |
+| 3+   | Enhanced. Ignore one Threat level of resistance. |
 
 ## Resistance (by Target Threat)
 
-| Threat | Standard (4+) | Strong (6) |
-|-|-|-|
-| 0 (Mook) | Full effect | Full + bonus |
-| 1 (Tough) | Full effect | Full effect |
-| 2 (Dangerous) | Reduced | Full effect |
-| 3 (Lethal) | No effect (usually) | Full effect |
+| Threat        | Standard (4+)       | Strong (6)   |
+| ------------- | ------------------- | ------------ |
+| 0 (Mook)      | Full effect         | Full + bonus |
+| 1 (Tough)     | Full effect         | Full effect  |
+| 2 (Dangerous) | Reduced             | Full effect  |
+| 3 (Lethal)    | No effect (usually) | Full effect  |
 
----
+***
 
 ## Design Decisions
 
 These decisions are canonical. They are recorded in the Master Decision Log in `rules/DESIGN.md`.
 
-| # | Decision | Answer | Laws |
-|-|-|-|-|
-| D30 | Gambit sources | Three stacking layers: base (15) + weapon-specific + property-category. | P6, P9 |
-| D34 | Gambit unification | Gambits extended to all rolls. 15 base across four output-based categories. | P6, P9, P15 |
-| D41 | Four categories | Maneuver, Assess, Influence, Fight. By output type, not context. | P6, P15, P16 |
-| D42 | Base list locked | 15 entries. Extensions must name which base gambit they modify. | P6, P14 |
-| D15 | Gambit resistance | Explicit table by Threat level. Standard reduced at 2+, Strong always works. | P6 |
-| D22 | Gambit potency | Stat from description sets potency. 1 = reduced, 2 = standard, 3+ = enhanced. | P2, P6, P14 |
-| D36 | Crit = Strong Gambit | Double 6 grants one free Strong-tier Gambit. | P4, P6, P9 |
+| #   | Decision             | Answer                                                                        | Laws         |
+| --- | -------------------- | ----------------------------------------------------------------------------- | ------------ |
+| D30 | Gambit sources       | Three stacking layers: base (15) + weapon-specific + property-category.       | P6, P9       |
+| D34 | Gambit unification   | Gambits extended to all rolls. 15 base across four output-based categories.   | P6, P9, P15  |
+| D41 | Four categories      | Maneuver, Assess, Influence, Fight. By output type, not context.              | P6, P15, P16 |
+| D42 | Base list locked     | 15 entries. Extensions must name which base gambit they modify.               | P6, P14      |
+| D15 | Gambit resistance    | Explicit table by Threat level. Standard reduced at 2+, Strong always works.  | P6           |
+| D22 | Gambit potency       | Stat from description sets potency. 1 = reduced, 2 = standard, 3+ = enhanced. | P2, P6, P14  |
+| D36 | Crit = Strong Gambit | Double 6 grants one free Strong-tier Gambit.                                  | P4, P6, P9   |
 
 ### Open Questions
 
-- Property-category gambit catalog: full entries for all 9 weapon properties.
-- Defensive gambit catalog: how many, which effects.
-- Act replacement catalog: how many, threshold for "worth an attack."
-- Thaumatech-specific gambits: should thaumatech weapons have their own property-like category? Current lean: thaumatech gambits live on individual device entries in `rules/EQUIPMENT.md`, same as weapon gambits.
-- Shaping gambit extensions from Shaper Edges: how many character-specific gambits is too many? Current lean: 1-2 per Shaper Edge, tied to obsession.
-- Trained Tactics (Edge-gated combat actions: Suppressing Fire, Tactical Retreat, Covering, Holding Ground): live in Edges or in a tactics subsection? Currently removed from CORE.md pending decision.
-- Edge-Gambit interaction model: how Edges modify Gambits (change trigger, effect, threshold). Belongs in `rules/EDGES.md` or `rules/DESIGN-EDGES.md`.
+* Property-category gambit catalog: full entries for all 9 weapon properties.
+
+* Defensive gambit catalog: how many, which effects.
+
+* Act replacement catalog: how many, threshold for "worth an attack."
+
+* Thaumatech-specific gambits: should thaumatech weapons have their own property-like category? Current lean: thaumatech gambits live on individual device entries in `rules/EQUIPMENT.md`, same as weapon gambits.
+
+* Shaping gambit extensions from Shaper Edges: how many character-specific gambits is too many? Current lean: 1-2 per Shaper Edge, tied to obsession.
+
+* Trained Tactics (Edge-gated combat actions: Suppressing Fire, Tactical Retreat, Covering, Holding Ground): live in Edges or in a tactics subsection? Currently removed from CORE.md pending decision.
+
+* Edge-Gambit interaction model: how Edges modify Gambits (change trigger, effect, threshold). Belongs in `rules/EDGES.md` or `rules/DESIGN-EDGES.md`.
 
 ### Design Notes
 

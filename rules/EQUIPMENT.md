@@ -6,7 +6,7 @@ Equipment is what you carry into the field. It defines your tactical identity be
 
 Design principles, generation rules, and all tests live in `rules/DESIGN-EQUIPMENT.md`. Read that before creating entries here.
 
----
+***
 
 ## Mundane Weapons
 
@@ -17,7 +17,7 @@ Design principles, generation rules, and all tests live in `rules/DESIGN-EQUIPME
 - *[Gambit Name].* [Effect.] [Range.] [Requirements if any.]
 -->
 
-*Catalog in progress. See `rules/archive/EQUIPMENT-v1.md` for draft entries pending redesign.*
+*Catalog in progress. See* *`rules/archive/EQUIPMENT-v1.md`* *for draft entries pending redesign.*
 
 ### Ranged
 
@@ -27,7 +27,7 @@ Design principles, generation rules, and all tests live in `rules/DESIGN-EQUIPME
 
 *Catalog in progress.*
 
----
+***
 
 ## Thaumatech Weapons
 
@@ -39,7 +39,7 @@ Design principles, generation rules, and all tests live in `rules/DESIGN-EQUIPME
 
 *Catalog in progress.*
 
----
+***
 
 ## Armor
 
@@ -51,7 +51,7 @@ Design principles, generation rules, and all tests live in `rules/DESIGN-EQUIPME
 
 *Catalog in progress.*
 
----
+***
 
 ## Gear
 
@@ -67,48 +67,49 @@ Design principles, generation rules, and all tests live in `rules/DESIGN-EQUIPME
 
 *Catalog in progress.*
 
----
+***
 
 ## Quick Reference
 
 ### Weapon Dice
 
-| Category | Dice |
-|-|-|
-| Light | d6 |
-| Standard | d8 |
-| Heavy | d10 |
-| Devastating | d12 |
+| Category    | Dice |
+| ----------- | ---- |
+| Light       | d6   |
+| Standard    | d8   |
+| Heavy       | d10  |
+| Devastating | d12  |
 
 ### Weapon Properties
 
-| Property | Effect |
-|-|-|
-| Ranged | Near/Far, Snag at Close |
-| Sidearm | Close/Near, Snag at Far |
-| Thrown | Adds Near, single target, lost |
+| Property     | Effect                                             |
+| ------------ | -------------------------------------------------- |
+| Ranged       | Near/Far, Snag at Close                            |
+| Sidearm      | Close/Near, Snag at Far                            |
+| Thrown       | Adds Near, single target, lost                     |
 | Area (range) | Hits all targets within range of impact, roll once |
-| Long | Close+Near, Boon at reach |
-| Loud | Ticks clocks |
-| Brutal | +2 overflow when damage breaks Guard |
-| Subtle | Concealable |
-| Slow | No Move+attack |
+| Long         | Close+Near, Boon at reach                          |
+| Loud         | Ticks clocks                                       |
+| Brutal       | +2 overflow when damage breaks Guard               |
+| Subtle       | Concealable                                        |
+| Slow         | No Move+attack                                     |
 
 ### Armor Values
 
-| Value | Level | Trade-off |
-|-|-|-|
-| 0 | None | - |
-| 1 | Light | Minimal |
-| 2 | Moderate | Conspicuous, possible Sharp Snag |
-| 3 | Heavy | Very conspicuous, Sharp and/or Nerve Snag |
+| Value | Level    | Trade-off                                 |
+| ----- | -------- | ----------------------------------------- |
+| 0     | None     | -                                         |
+| 1     | Light    | Minimal                                   |
+| 2     | Moderate | Conspicuous, possible Sharp Snag          |
+| 3     | Heavy    | Very conspicuous, Sharp and/or Nerve Snag |
 
 ### Legality
 
-| Tier | Risk |
-|-|-|
-| Legal | None |
-| Licensed | Fine if unlicensed |
-| Restricted | Arrest |
-| Prohibited | Federal prison |
-| Black Market | Unpredictable |
+| Tier         | Risk               |
+| ------------ | ------------------ |
+| Legal        | None               |
+| Licensed     | Fine if unlicensed |
+| Restricted   | Arrest             |
+| Prohibited   | Federal prison     |
+| Black Market | Unpredictable      |
+

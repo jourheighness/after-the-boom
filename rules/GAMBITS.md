@@ -6,7 +6,7 @@ Gambits are the system's tactical layer. Any die showing 4+ can be sacrificed fr
 
 Design principles and generation rules live in `rules/DESIGN-GAMBITS.md`. Read that before creating entries here.
 
----
+***
 
 ## Base Gambits (Reference)
 
@@ -23,9 +23,11 @@ See `rules/CORE.md` for full definitions and resistance rules.
 
 The base gambits work in social scenes. Same dice, same sacrifice. The fiction changes the flavor:
 
-- **Pressure** becomes leveraging a deadline. **Shift** becomes persuasion. **De-escalate** becomes defusing tension.
-- **Read** becomes reading body language. **Gather** becomes extracting information mid-conversation.
-- A Grit-based Maneuver in a social scene looks like stonewalling: holding your position through something that should break it.
+* **Pressure** becomes leveraging a deadline. **Shift** becomes persuasion. **De-escalate** becomes defusing tension.
+
+* **Read** becomes reading body language. **Gather** becomes extracting information mid-conversation.
+
+* A Grit-based Maneuver in a social scene looks like stonewalling: holding your position through something that should break it.
 
 No separate social gambit list. The base 15 cover it. If a player describes a social effect that maps to a base gambit, it works.
 
@@ -45,7 +47,7 @@ Replace your attack entirely for a specific effect. No dice rolled, no damage de
 
 *Catalog in progress.*
 
----
+***
 
 ## Property-Category Gambits
 
@@ -59,7 +61,7 @@ Available to any weapon used at Close range (all melee weapons, plus Sidearm wea
 **[Name].** [Standard/Strong] [Effect.] [Range.] [Requirements if any.]
 -->
 
-*Catalog in progress. See `rules/archive/GAMBITS-v1.md` for draft entries pending redesign.*
+*Catalog in progress. See* *`rules/archive/GAMBITS-v1.md`* *for draft entries pending redesign.*
 
 ### Ranged
 
@@ -109,7 +111,7 @@ Available to any weapon with the Slow property.
 
 *Catalog in progress.*
 
----
+***
 
 ## Defensive Gambits
 
@@ -117,7 +119,7 @@ Declared on your turn as part of your attack. Sacrifice a die 4+ as normal. The 
 
 *Catalog in progress.*
 
----
+***
 
 ## Act Replacements
 
@@ -125,7 +127,7 @@ Replace your attack entirely. No dice rolled. You perform the action instead of 
 
 *Catalog in progress.*
 
----
+***
 
 ## Shaping Gambits
 
@@ -157,25 +159,28 @@ Unlocked at Shaper tier (requires Sparked + Break). Available in addition to the
 
 Granted by Shaper Edges. Each reflects the character's obsession, Tell, and relationship to the thaumic. Examples (not a catalog — these come from individual Edges):
 
-- A fire shaper's Edge might grant **Banked Heat**: sacrifice a die to store the energy. Release next round as a free Boon on a fire-related roll.
-- A structural shaper's Edge might extend **Redirect** to work on incoming physical attacks, not just thaumic side effects.
-- A perception shaper's Edge might grant **Echo**: sacrifice a die to sense everything within Close range for one round, no line of sight required.
+* A fire shaper's Edge might grant **Banked Heat**: sacrifice a die to store the energy. Release next round as a free Boon on a fire-related roll.
+
+* A structural shaper's Edge might extend **Redirect** to work on incoming physical attacks, not just thaumic side effects.
+
+* A perception shaper's Edge might grant **Echo**: sacrifice a die to sense everything within Close range for one round, no line of sight required.
 
 See `rules/DESIGN-EDGES.md` for Shaper Edge design rules.
 
----
+***
 
 ## Quick Reference
 
 ### Gambit Sources (All Stack)
 
-| Source | Where Defined | Available To |
-|-|-|-|
-| Base (15) | `rules/CORE.md` | Everyone, every roll |
-| Weapon/gear-specific | `rules/EQUIPMENT.md` | Anyone wielding that weapon or carrying that gear |
-| Property-category | This file | Any weapon with that property |
-| Defensive | This file | Anyone attacking (trade offense for defense) |
-| Act Replacements | This file | Anyone (replaces attack entirely) |
-| Sparked shaping (3) | This file | Sparked+ characters on shaping rolls |
-| Shaper shaping (5) | This file | Shaper characters on shaping rolls |
-| Edge-granted | `rules/DESIGN-EDGES.md` | Characters with the specific Edge |
+| Source               | Where Defined           | Available To                                      |
+| -------------------- | ----------------------- | ------------------------------------------------- |
+| Base (15)            | `rules/CORE.md`         | Everyone, every roll                              |
+| Weapon/gear-specific | `rules/EQUIPMENT.md`    | Anyone wielding that weapon or carrying that gear |
+| Property-category    | This file               | Any weapon with that property                     |
+| Defensive            | This file               | Anyone attacking (trade offense for defense)      |
+| Act Replacements     | This file               | Anyone (replaces attack entirely)                 |
+| Sparked shaping (3)  | This file               | Sparked+ characters on shaping rolls              |
+| Shaper shaping (5)   | This file               | Shaper characters on shaping rolls                |
+| Edge-granted         | `rules/DESIGN-EDGES.md` | Characters with the specific Edge                 |
+

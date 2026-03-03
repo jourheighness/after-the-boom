@@ -5,74 +5,86 @@
 This document is the global design authority for the MONDAS rules system. Every rules file references the Design Laws defined here. Every design decision traces back to them. When two files disagree, this document wins.
 
 **What this document does:**
-- Defines the 17 Design Laws that govern all mechanical decisions
-- Maps the file architecture and cross-references
-- Establishes generation principles that apply across all content types
-- Contains GM guidance for adjudication and play
-- Records the master decision log
+
+* Defines the 17 Design Laws that govern all mechanical decisions
+
+* Maps the file architecture and cross-references
+
+* Establishes generation principles that apply across all content types
+
+* Contains GM guidance for adjudication and play
+
+* Records the master decision log
 
 **What this document does not do:**
-- Define specific rules mechanics (see `CORE.md`)
-- Contain catalog entries (see domain files)
-- Replace domain-specific design principles (each file has its own)
 
----
+* Define specific rules mechanics (see `CORE.md`)
+
+* Contain catalog entries (see domain files)
+
+* Replace domain-specific design principles (each file has its own)
+
+***
 
 ## The 17 Design Laws
 
 These laws govern every mechanical decision in MONDAS. When evaluating changes, check against this list. A change that violates a law needs exceptional justification.
 
-| Law | Name | Rule |
-|-|-|-|
-| P1 | No Dead Air | Every roll produces a result. Consequence (1-3) is a complication, never "nothing happens." |
-| P2 | Player Creativity | Approach determines stat. Fictional plausibility bounds creativity. Creativity Boons capped at 1 per roll. |
-| P3 | Escalation | Standing still is punished. Danger Clocks tick. Heat accumulates. Situations worsen without action. |
-| P4 | Clean Resolution | Three tiers plus critical (6 / 4-5 / 1-3 / double 6). No ambiguous middle ground. |
-| P5 | Fictional First | Mechanics follow fiction, not the reverse. If it doesn't make sense in the story, it doesn't happen at the table. |
-| P6 | Meaningful Choice | Every mechanical decision point must present a genuine trade-off. No dominant strategies. No false choices. |
-| P7 | Dangerous World | Gear fails. Magic costs. The environment bites back. Consequences are real. |
-| P8 | Injuries Matter | No HP to chip away. Named injuries with mechanical bite. A spiral, not a countdown. |
-| P9 | Cinematic Mechanics | Gambits, Breaks, Scars produce moments worth telling stories about. Mechanics serve drama. |
-| P10 | Everyone Contributes | Every thaumic tier, every stat spread, every background has something to bring to every scene. |
-| P11 | Player-Facing Dice | Players roll. GM never touches dice. Enemy threat is expressed through Stakes, Snags, and consequences. |
-| P12 | Narrative Progression | Recovery, Push refill, Guard growth, Scars. Every mechanical shift is a story beat, not a timer. |
-| P13 | Complementary Tracks | Guard handles damage (body). Push handles voluntary effort and device drain (will). Cover is Armor. Two existing tracks, clear domains. No new parallel tracks. |
-| P14 | Differentiation | Stats are fixed. No convergence. Character identity is permanent. Growth is lateral (new options), not vertical (bigger numbers). |
-| P15 | Speed | Fewer rolls, faster resolution. Three ranges not a grid. No initiative. Streamline always. |
-| P16 | Constrained Freedom | Free-form within boundaries. Obsession scope, not spell lists. Background domains, not skill lists. |
-| P17 | Setting-Authentic | 1992 industrial, not medieval. No shields, no swords. Kevlar and thaumic wards. The world shapes the rules. |
+| Law | Name                  | Rule                                                                                                                                                            |
+| --- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P1  | No Dead Air           | Every roll produces a result. Consequence (1-3) is a complication, never "nothing happens."                                                                     |
+| P2  | Player Creativity     | Approach determines stat. Fictional plausibility bounds creativity. Creativity Boons capped at 1 per roll.                                                      |
+| P3  | Escalation            | Standing still is punished. Danger Clocks tick. Heat accumulates. Situations worsen without action.                                                             |
+| P4  | Clean Resolution      | Three tiers plus critical (6 / 4-5 / 1-3 / double 6). No ambiguous middle ground.                                                                               |
+| P5  | Fictional First       | Mechanics follow fiction, not the reverse. If it doesn't make sense in the story, it doesn't happen at the table.                                               |
+| P6  | Meaningful Choice     | Every mechanical decision point must present a genuine trade-off. No dominant strategies. No false choices.                                                     |
+| P7  | Dangerous World       | Gear fails. Magic costs. The environment bites back. Consequences are real.                                                                                     |
+| P8  | Injuries Matter       | No HP to chip away. Named injuries with mechanical bite. A spiral, not a countdown.                                                                             |
+| P9  | Cinematic Mechanics   | Gambits, Breaks, Scars produce moments worth telling stories about. Mechanics serve drama.                                                                      |
+| P10 | Everyone Contributes  | Every thaumic tier, every stat spread, every background has something to bring to every scene.                                                                  |
+| P11 | Player-Facing Dice    | Players roll. GM never touches dice. Enemy threat is expressed through Stakes, Snags, and consequences.                                                         |
+| P12 | Narrative Progression | Recovery, Push refill, Guard growth, Scars. Every mechanical shift is a story beat, not a timer.                                                                |
+| P13 | Complementary Tracks  | Guard handles damage (body). Push handles voluntary effort and device drain (will). Cover is Armor. Two existing tracks, clear domains. No new parallel tracks. |
+| P14 | Differentiation       | Stats are fixed. No convergence. Character identity is permanent. Growth is lateral (new options), not vertical (bigger numbers).                               |
+| P15 | Speed                 | Fewer rolls, faster resolution. Three ranges not a grid. No initiative. Streamline always.                                                                      |
+| P16 | Constrained Freedom   | Free-form within boundaries. Obsession scope, not spell lists. Background domains, not skill lists.                                                             |
+| P17 | Setting-Authentic     | 1992 industrial, not medieval. No shields, no swords. Kevlar and thaumic wards. The world shapes the rules.                                                     |
 
 ### Hard Boundaries
 
-- Never add a mechanic that only one stat spread can use
-- Never create a dominant strategy (if one option is always best, the design is broken)
-- Never introduce a third resource track (Guard and Push have clear domains: body and will)
-- Never add GM-side dice rolls
-- Never reference real-world place names (use Mondas concordance)
+* Never add a mechanic that only one stat spread can use
 
----
+* Never create a dominant strategy (if one option is always best, the design is broken)
+
+* Never introduce a third resource track (Guard and Push have clear domains: body and will)
+
+* Never add GM-side dice rolls
+
+* Never reference real-world place names (use Mondas concordance)
+
+***
 
 ## File Architecture
 
 ### File Map
 
-| File | Domain | Contains | Status |
-|-|-|-|-|
-| `DESIGN.md` | Global | Design laws, universal generation principles, cross-references, GM guidance, master decision log | This document |
-| `CORE.md` | Core Rules | Rules engine, combat, base gambit list (locked at 15), positioning, clocks | Complete |
-| `DESIGN-CORE.md` | Core Principles | Principles index, probability reference, all decision tables (WS1, WS4, Mesh Pass, WS2, WS5), workstream status | Complete |
-| `MAGIC.md` | Magic | Thaumic spectrum, channels, shaping, drain, break, thaumatech rules | Complete |
-| `DESIGN-MAGIC.md` | Magic Principles | Design philosophy, principles index, WS3 decisions, open questions | Complete |
-| `CHARACTER.md` | Characters | Creation process, stats, derived values, bonds, gear, progression | Complete |
-| `DESIGN-CHARACTER.md` | Character Principles | Design philosophy, WS2 decisions, workstream order | Complete |
-| `EDGES.md` | Edge Catalog | Edge entries by category (Combat, Social, Knack, Sparked, Shaper, etc.) | Catalog in progress |
-| `DESIGN-EDGES.md` | Edge Principles | Five shapes, chain rules, seven axes, Knack/Sparked/Shaper design rules, tests | Complete |
-| `EQUIPMENT.md` | Equipment Catalog | Mundane weapons, thaumatech, armor, gear entries | Catalog in progress |
-| `DESIGN-EQUIPMENT.md` | Equipment Principles | Weapon/armor/gear/thaumatech generation rules, tests, legality tiers | Complete |
-| `GAMBITS.md` | Gambit Catalog | Property-category, defensive, act replacement, shaping gambit entries | Catalog in progress |
-| `DESIGN-GAMBITS.md` | Gambit Principles | Property-category, defensive, act replacement, shaping gambit design rules | Complete |
-| `BACKGROUNDS.md` | Backgrounds | Background catalog (194 entries) | Complete |
-| `DESIGN-BACKGROUNDS.md` | Background Principles | Format, quality guidance, player creation rules, examples from play | Complete |
+| File                    | Domain                | Contains                                                                                                        | Status              |
+| ----------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------- |
+| `DESIGN.md`             | Global                | Design laws, universal generation principles, cross-references, GM guidance, master decision log                | This document       |
+| `CORE.md`               | Core Rules            | Rules engine, combat, base gambit list (locked at 15), positioning, clocks                                      | Complete            |
+| `DESIGN-CORE.md`        | Core Principles       | Principles index, probability reference, all decision tables (WS1, WS4, Mesh Pass, WS2, WS5), workstream status | Complete            |
+| `MAGIC.md`              | Magic                 | Thaumic spectrum, channels, shaping, drain, break, thaumatech rules                                             | Complete            |
+| `DESIGN-MAGIC.md`       | Magic Principles      | Design philosophy, principles index, WS3 decisions, open questions                                              | Complete            |
+| `CHARACTER.md`          | Characters            | Creation process, stats, derived values, bonds, gear, progression                                               | Complete            |
+| `DESIGN-CHARACTER.md`   | Character Principles  | Design philosophy, WS2 decisions, workstream order                                                              | Complete            |
+| `EDGES.md`              | Edge Catalog          | Edge entries by category (Combat, Social, Knack, Sparked, Shaper, etc.)                                         | Catalog in progress |
+| `DESIGN-EDGES.md`       | Edge Principles       | Five shapes, chain rules, seven axes, Knack/Sparked/Shaper design rules, tests                                  | Complete            |
+| `EQUIPMENT.md`          | Equipment Catalog     | Mundane weapons, thaumatech, armor, gear entries                                                                | Catalog in progress |
+| `DESIGN-EQUIPMENT.md`   | Equipment Principles  | Weapon/armor/gear/thaumatech generation rules, tests, legality tiers                                            | Complete            |
+| `GAMBITS.md`            | Gambit Catalog        | Property-category, defensive, act replacement, shaping gambit entries                                           | Catalog in progress |
+| `DESIGN-GAMBITS.md`     | Gambit Principles     | Property-category, defensive, act replacement, shaping gambit design rules                                      | Complete            |
+| `BACKGROUNDS.md`        | Backgrounds           | Background catalog (194 entries)                                                                                | Complete            |
+| `DESIGN-BACKGROUNDS.md` | Background Principles | Format, quality guidance, player creation rules, examples from play                                             | Complete            |
 
 ### Canonical File Template
 
@@ -118,23 +130,23 @@ Every rules file follows this structure. Sections may be empty but the order is 
 
 When editing one file, check these dependencies.
 
-| If you edit... | Also check... | Because... |
-|-|-|-|
-| CORE.md (base gambits) | GAMBITS.md, DESIGN-GAMBITS.md, EQUIPMENT.md | Extensions reference base gambits by name |
-| CORE.md (combat/damage) | DESIGN-EQUIPMENT.md, EQUIPMENT.md, GAMBITS.md | Weapon dice, properties, damage flow |
-| CORE.md (stats/guard) | CHARACTER.md, MAGIC.md | Derived values, drain costs |
-| MAGIC.md (spectrum tiers) | DESIGN-EDGES.md (Knack/Sparked/Shaper) | Edge chain mirrors spectrum tiers |
-| MAGIC.md (shaping rules) | DESIGN-GAMBITS.md, GAMBITS.md | Shaping gambits reference shaping mechanics |
-| MAGIC.md (thaumatech rules) | DESIGN-EQUIPMENT.md, EQUIPMENT.md | Device rules govern thaumatech entries |
-| DESIGN-EDGES.md (principles) | EDGES.md, all catalog files | Edge shapes constrain what content can do |
-| DESIGN-EDGES.md (gambit rules) | DESIGN-GAMBITS.md, GAMBITS.md | Edge-granted gambits must reference base gambits |
-| DESIGN-EQUIPMENT.md (principles) | EQUIPMENT.md | Generation rules govern catalog entries |
-| DESIGN-GAMBITS.md (principles) | GAMBITS.md | Design rules govern catalog entries |
-| EQUIPMENT.md (weapons) | GAMBITS.md | Each weapon carries 1-3 gambits |
-| EQUIPMENT.md (thaumatech) | MAGIC.md | Device stat, contact plates, failure stakes |
-| GAMBITS.md (base reference) | CORE.md | Base list is locked in CORE.md (D42) |
-| CHARACTER.md (creation) | EDGES.md, BACKGROUNDS.md | Starting edge count, background selection |
-| BACKGROUNDS.md (catalog) | CHARACTER.md | Background scope test |
+| If you edit...                   | Also check...                                 | Because...                                       |
+| -------------------------------- | --------------------------------------------- | ------------------------------------------------ |
+| CORE.md (base gambits)           | GAMBITS.md, DESIGN-GAMBITS.md, EQUIPMENT.md   | Extensions reference base gambits by name        |
+| CORE.md (combat/damage)          | DESIGN-EQUIPMENT.md, EQUIPMENT.md, GAMBITS.md | Weapon dice, properties, damage flow             |
+| CORE.md (stats/guard)            | CHARACTER.md, MAGIC.md                        | Derived values, drain costs                      |
+| MAGIC.md (spectrum tiers)        | DESIGN-EDGES.md (Knack/Sparked/Shaper)        | Edge chain mirrors spectrum tiers                |
+| MAGIC.md (shaping rules)         | DESIGN-GAMBITS.md, GAMBITS.md                 | Shaping gambits reference shaping mechanics      |
+| MAGIC.md (thaumatech rules)      | DESIGN-EQUIPMENT.md, EQUIPMENT.md             | Device rules govern thaumatech entries           |
+| DESIGN-EDGES.md (principles)     | EDGES.md, all catalog files                   | Edge shapes constrain what content can do        |
+| DESIGN-EDGES.md (gambit rules)   | DESIGN-GAMBITS.md, GAMBITS.md                 | Edge-granted gambits must reference base gambits |
+| DESIGN-EQUIPMENT.md (principles) | EQUIPMENT.md                                  | Generation rules govern catalog entries          |
+| DESIGN-GAMBITS.md (principles)   | GAMBITS.md                                    | Design rules govern catalog entries              |
+| EQUIPMENT.md (weapons)           | GAMBITS.md                                    | Each weapon carries 1-3 gambits                  |
+| EQUIPMENT.md (thaumatech)        | MAGIC.md                                      | Device stat, contact plates, failure stakes      |
+| GAMBITS.md (base reference)      | CORE.md                                       | Base list is locked in CORE.md (D42)             |
+| CHARACTER.md (creation)          | EDGES.md, BACKGROUNDS.md                      | Starting edge count, background selection        |
+| BACKGROUNDS.md (catalog)         | CHARACTER.md                                  | Background scope test                            |
 
 ### Content Flow
 
@@ -153,7 +165,7 @@ GAMBITS ←──Shaping──── MAGIC (spectrum tier)
 
 **Gambits are the convergence point.** Equipment defines what gambits are available (through weapons, gear, properties). Edges modify how gambits work (extensions, new gambits). Magic unlocks shaping gambits (through spectrum progression). Everything flows into what choices the player has when they sacrifice a die.
 
----
+***
 
 ## Universal Generation Principles
 
@@ -191,22 +203,22 @@ The best content creates interactions across three systems simultaneously. A wea
 
 Content volume should reflect fictional frequency:
 
-| Domain | Target Size | Rationale |
-|-|-|-|
-| Backgrounds | 150-200 | Broad coverage of Mondas working lives |
-| Edges (standalone) | 80-120 | Enough range, not a shopping list |
-| Edges (chains) | 8-12 named chains | Character arcs the system supports |
-| Equipment (weapons) | 40-60 entries | Covers the 1992 arsenal without bloat |
-| Equipment (gear/thaumatech) | 30-50 entries | Loadout variety without analysis paralysis |
-| Gambits (beyond base 15) | 40-60 entries | Property-category, defensive, weapon-specific, shaping |
+| Domain                      | Target Size       | Rationale                                              |
+| --------------------------- | ----------------- | ------------------------------------------------------ |
+| Backgrounds                 | 150-200           | Broad coverage of Mondas working lives                 |
+| Edges (standalone)          | 80-120            | Enough range, not a shopping list                      |
+| Edges (chains)              | 8-12 named chains | Character arcs the system supports                     |
+| Equipment (weapons)         | 40-60 entries     | Covers the 1992 arsenal without bloat                  |
+| Equipment (gear/thaumatech) | 30-50 entries     | Loadout variety without analysis paralysis             |
+| Gambits (beyond base 15)    | 40-60 entries     | Property-category, defensive, weapon-specific, shaping |
 
----
+***
 
 ## GM Guidance
 
 These are not rules. They are design principles and guidance that emerged from playtesting. They explain why the system works the way it does and how to run it well.
 
----
+***
 
 ### Background is Mechanical, Not Decorative
 
@@ -218,7 +230,7 @@ The rule: if you can finish the sentence "she's done this before because" with s
 
 This is also your spotlight tool. Saying "your audit background makes this routine, take a Boon" tells the whole table who this character is. The mechanic creates the character moment. You don't need to narrate it separately.
 
----
+***
 
 ### Ambush Has No Defense Roll
 
@@ -232,23 +244,27 @@ Don't soften this. The hit landing is what makes the Assess category feel worth 
 
 **Relationship to the Ambush tactic:** The Ambush tactic in `rules/CORE.md` covers planned ambushes (Sharp roll to set up, ambushing characters act first, no defense roll on the opening attack). This guidance covers the broader principle: any attack with no fictional basis to anticipate bypasses defense. The tactic is a specific, player-initiated case of this principle.
 
----
+***
 
 ### When They Already Know You
 
 Prior relationship and reputation do mechanical work that isn't fully captured in stats. A Nerve 2 character threatening someone who has seen them put an orc through a wall is a different roll than a Nerve 2 stranger making the same threat.
 
 Handle this as a Boon when:
-- The target has direct prior experience of the character's capability
-- The character's reputation in this specific context precedes them and is relevant to the Influence attempt
+
+* The target has direct prior experience of the character's capability
+
+* The character's reputation in this specific context precedes them and is relevant to the Influence attempt
 
 Handle this as a Snag when:
-- The target has prior reason to distrust or resist the character specifically
-- The character's reputation works against them in this context
+
+* The target has prior reason to distrust or resist the character specifically
+
+* The character's reputation works against them in this context
 
 This is GM discretion, not a separate mechanic. The fiction earns the modifier. An Edge built around reputation ("people who know your record treat Pressure as Strong") is the right place to make this mechanical and portable across characters.
 
----
+***
 
 ### What Happens When the Threat Walks Away
 
@@ -260,7 +276,7 @@ The Stall Gambit delays. The Clock tracks what was delayed. Between-scene conseq
 
 This is the connective tissue between scenes. A session is not a series of isolated encounters. It's a set of Clocks the players are racing, some of which they created themselves with their Gambit choices.
 
----
+***
 
 ### Gambits Tell You What Happens Next
 
@@ -274,7 +290,7 @@ The Gambits are the players writing the next scene. The stakes you set before th
 
 This is why consequences on the table before the roll matter so much. You're not revealing the stakes after the fact. You're giving the players the information they need to make meaningful Gambit decisions. The tension is built in advance. The fiction emerges from the choices.
 
----
+***
 
 ### When Players Spam Gambits, the Scene Needs More Problems
 
@@ -283,9 +299,12 @@ Gambit spam (one character burning through dice on a single target while others 
 The fix is never a rule. It's a scene design instinct.
 
 **Before the scene, ask:**
-- Who is at the table?
-- What does each character's stats want to do?
-- Is there a pressure point sized for each of them?
+
+* Who is at the table?
+
+* What does each character's stats want to do?
+
+* Is there a pressure point sized for each of them?
 
 If the answer is no, add one before play starts. A scene with one threat and enough dice to solve it cleanly produces Gambit spam. A scene with multiple simultaneous pressure points produces a session people talk about afterward.
 
@@ -301,10 +320,13 @@ It's information. The scene lost its teeth. The players are comfortable and the 
 
 Don't punish. Don't retcon. Just introduce the next pressure point immediately and honestly:
 
-- Misha got his phone out while Rask was busy with the orc
-- A light went on in a window above the alley
-- The orc recovered faster than expected
-- Something on the other side of that door just changed
+* Misha got his phone out while Rask was busy with the orc
+
+* A light went on in a window above the alley
+
+* The orc recovered faster than expected
+
+* Something on the other side of that door just changed
 
 The world doesn't pause for Gambit sequences. If the players are deep in one problem, something else is ticking. Find it and put it on the table.
 
@@ -314,7 +336,13 @@ Mondas scenes are not encounters with a win condition. They are situations with 
 
 If every scene has that, Gambit spam becomes impossible. There's always somewhere better to spend the die.
 
----
+## Thaumatech
+
+**Design principle: thaumatech is a requirement for survival.** Encounters should include threats that mundane approaches can't handle. An entity that ignores mundane weapons. A ward that blocks physical entry. A teammate bleeding out faster than bandages can fix. You need your gear. And your gear needs you to pay for it.
+
+**Design principle: gear is character.** A device carried across sessions accumulates history. The dents, the repairs, the modifications. Losing a device should feel like losing an NPC. Destruction is rare and narratively earned, not a dice result.
+
+***
 
 ### Adjudicating Shaping
 
@@ -338,10 +366,13 @@ Every shaping declaration falls into one of five tiers. Name the tier before you
 
 When a player declares a shaping effect, respond with one of these:
 
-- "That's trivial. 1 Guard, it just works."
-- "That's moderate. Let me set the stakes."
-- "That's ambitious. The stakes are steep and there will be side effects even on a 6."
-- "That's extreme. Death is on the table if this goes wrong. Still want to roll?"
+* "That's trivial. 1 Guard, it just works."
+
+* "That's moderate. Let me set the stakes."
+
+* "That's ambitious. The stakes are steep and there will be side effects even on a 6."
+
+* "That's extreme. Death is on the table if this goes wrong. Still want to roll?"
 
 If the effect is beyond all four: "That's a Break. Do you want to Break?"
 
@@ -391,13 +422,15 @@ The key difference from weapon attacks: shaping does not auto-hit. It's a standa
 
 When a shaper declares a combat shaping effect, set the stakes with both combat and thaumic consequences:
 
-- **6:** The effect works. Guard cost as stated. Heat ticks as stated.
-- **4-5:** Reduced damage or reduced tactical effect. Higher Guard cost. A body or exposure consequence.
-- **1-3:** The shaping fails or goes wrong. Guard cost hits anyway. A scope or backlash consequence. The enemy is still standing and now they know what you are.
+* **6:** The effect works. Guard cost as stated. Heat ticks as stated.
+
+* **4-5:** Reduced damage or reduced tactical effect. Higher Guard cost. A body or exposure consequence.
+
+* **1-3:** The shaping fails or goes wrong. Guard cost hits anyway. A scope or backlash consequence. The enemy is still standing and now they know what you are.
 
 Shapers can sacrifice dice for shaping Gambits on combat shaping rolls. This creates their tactical decision space: do I keep this die for effect quality, or spend it on Muffle to keep the Heat down? The weapon user trades damage for battlefield control. The shaper trades effect for operational survival. Both are real choices every round.
 
----
+***
 
 ## Master Decision Log
 
@@ -405,117 +438,121 @@ All canonical design decisions. Each decision is recorded once here. Individual 
 
 ### WS1: Core Rules
 
-| # | Decision | Answer | Laws |
-|-|-|-|-|
-| D1 | Dice system | d6 pool for rolls; weapon dice for attacks | P4, P15, P16 |
-| D2 | Who rolls | Player-facing only. No exceptions. | P11 |
-| D3 | Action economy | Move + Act per turn; React on enemy turns; no initiative | P6, P11, P15 |
-| D4 | Success granularity | Three tiers + critical (6 / 4-5 / 1-3 / double 6) | P1, P4 |
+| #  | Decision            | Answer                                                   | Laws         |
+| -- | ------------------- | -------------------------------------------------------- | ------------ |
+| D1 | Dice system         | d6 pool for rolls; weapon dice for attacks               | P4, P15, P16 |
+| D2 | Who rolls           | Player-facing only. No exceptions.                       | P11          |
+| D3 | Action economy      | Move + Act per turn; React on enemy turns; no initiative | P6, P11, P15 |
+| D4 | Success granularity | Three tiers + critical (6 / 4-5 / 1-3 / double 6)        | P1, P4       |
 
 ### WS2: Character Creation
 
-| # | Decision | Answer | Laws |
-|-|-|-|-|
-| D16 | Background system | Universal Boon domain from one-sentence Background. GM confirms scope. Separate from Edges. | P2, P14 |
-| D17 | Starting Guard | 2 + highest stat (range 3-6). Guard reflects best survival instinct. | P13, P14, P15 |
-| D18 | Stat permanence | Stats fixed at creation. Growth through Edges, Scars, narrative. No convergence. | P14 |
-| D19 | Species mechanics | Purely narrative. No stat bonuses. Displaced face social systems, not mechanical ones. | P17 |
-| D20 | Zero/positive balance | Zeroes: 4 Edges + Thaumic Null. Positives: 3 Edges + thaumic access. Asymmetric but viable. | P10, P17 |
-| D21 | Progression model | No XP, no levels. Edges earned through play (~1 per 2-3 sessions). Guard growth from Scars. | P12, P14 |
+| #   | Decision              | Answer                                                                                       | Laws          |
+| --- | --------------------- | -------------------------------------------------------------------------------------------- | ------------- |
+| D16 | Background system     | Universal Boon domain from one-sentence Background. GM confirms scope. Separate from Edges.  | P2, P14       |
+| D17 | Starting Guard        | 2 + highest stat (range 3-6). Guard reflects best survival instinct.                         | P13, P14, P15 |
+| D18 | Stat permanence       | Stats fixed at creation. Growth through Edges, Scars, narrative. No convergence.             | P14           |
+| D19 | Species mechanics     | Purely narrative. No stat bonuses. Displaced face social systems, not mechanical ones.       | P17           |
+| D20 | Zero/positive balance | Zeroes: 4 Edges + Thaumic Null. Positives: 3 Edges + thaumic access. Asymmetric but viable.  | P10, P17      |
+| D21 | Progression model     | No XP, no levels. Edges earned through play (\~1 per 2-3 sessions). Guard growth from Scars. | P12, P14      |
 
 ### WS3: Magic & Drain
 
-| # | Decision | Answer | Laws |
-|-|-|-|-|
-| D5 | Magic cost model | Innate drain = Guard (body cost, overflow to Harm). Device drain = Push (will cost, empty = Crack). Two domains, two existing tracks. | P13, P17 |
-| D6 | Thaumatech vs Innate | Different risk profiles. Thaumatech: base free, device gambits cost Push (GM sizes from fiction), auto-succeed, device risk roll (2d6) when quality vs. stretch warrants it. Innate: standard roll, Guard in stakes, Tell mandatory, Heat ticks, escalated stakes. Operators crack. Shapers scar. | P10, P12 |
-| D7 | How shaping works | Free-form within obsession scope, constrained by Tell. Standard roll, Guard in GM's stakes. Shaping Gambits for tactical layer. | P2, P16 |
-| D57 | Thaumic Channels | Five channels (Innate, Bestowed, Sworn, Inherited, Learned). Same mechanics, different fiction and Break consequences. Channel emerges from play. Loss produces Temporary Edge. | P10, P14, P17 |
-| D58 | Push consolidation | Push is universal +1d across all rolls AND device gambit fuel. 4-box track handles voluntary effort, device activations, and survival (act while Critical, reduce damage). One per roll for +1d; device gambits are separate activations (can cost multiple Push). Replaces overcharge-costs-Guard, careful-channeling-for-Boon, and over-spec-as-separate-subsystem. | P12, P15 |
-| D59 | Shaping scale tiers | Five tiers (Trivial/Moderate/Ambitious/Extreme/Beyond). GM language to size declarations. Only Break transcends scope. | P1, P6, P15 |
+| #   | Decision             | Answer                                                                                                                                                                                                                                                                                                                                                                | Laws          |
+| --- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| D5  | Magic cost model     | Innate drain = Guard (body cost, overflow to Harm). Device drain = Push (will cost, empty = Crack). Two domains, two existing tracks.                                                                                                                                                                                                                                 | P13, P17      |
+| D6  | Thaumatech vs Innate | Different risk profiles. Thaumatech: base free, device gambits cost Push (GM sizes from fiction), auto-succeed, device risk roll (2d6) when quality vs. stretch warrants it. Innate: standard roll, Guard in stakes, Tell mandatory, Heat ticks, escalated stakes. Operators crack. Shapers scar.                                                                     | P10, P12      |
+| D7  | How shaping works    | Free-form within obsession scope, constrained by Tell. Standard roll, Guard in GM's stakes. Shaping Gambits for tactical layer.                                                                                                                                                                                                                                       | P2, P16       |
+| D57 | Thaumic Channels     | Five channels (Innate, Bestowed, Sworn, Inherited, Learned). Same mechanics, different fiction and Break consequences. Channel emerges from play. Loss produces Temporary Edge.                                                                                                                                                                                       | P10, P14, P17 |
+| D58 | Push consolidation   | Push is universal +1d across all rolls AND device gambit fuel. 4-box track handles voluntary effort, device activations, and survival (act while Critical, reduce damage). One per roll for +1d; device gambits are separate activations (can cost multiple Push). Replaces overcharge-costs-Guard, careful-channeling-for-Boon, and over-spec-as-separate-subsystem. | P12, P15      |
+| D59 | Shaping scale tiers  | Five tiers (Trivial/Moderate/Ambitious/Extreme/Beyond). GM language to size declarations. Only Break transcends scope.                                                                                                                                                                                                                                                | P1, P6, P15   |
 
 ### WS4: Combat
 
-| # | Decision | Answer | Laws |
-|-|-|-|-|
-| D8 | Positioning model | Three abstract ranges (Close/Near/Far), relative to entities, not a map. | P6, P15 |
-| D9 | Cover | +1/+2 Armor vs ranged (partial/full). No effect at Close. Strong Gambit destroys cover. | P13, P15 |
-| D10 | Weapon properties | 8 tags (Ranged, Sidearm, Thrown, Long, Loud, Brutal, Subtle, Slow). | P6, P17 |
-| D11 | Dual wielding | Roll both weapons' dice. Snag on defense until next turn. | P6, P9 |
-| D12 | Shields | Dropped. Setting is 1992. Armor and Cover handle protection. | P17 |
-| D13 | Create Cover Gambit | Standard Gambit (4+). Creates partial cover. Needs fictional justification. | P6, P9 |
-| D14 | Gear Gambits | 12 gear-unlocked Gambits across 3 categories. Loadout = tactical identity. | P6, P17 |
-| D15 | Gambit resistance | Explicit table by Threat level. Standard reduced/blocked at Threat 2+. Strong always works. | P6 |
-| D22 | Gambit potency | Attacker's stat sets potency: 1 = reduced, 2 = standard, 3+ = ignore one Threat level. | P2, P6, P14 |
-| D23 | Weapon Gambits | Each weapon carries 1-3 specific Gambits. Loadout = tactical identity. | P6, P17 |
-| D24 | Social Gambits | 8 named social forms across Influence, Assess, Maneuver. Social applications of base Gambits. | P1, P6 |
+| #   | Decision            | Answer                                                                                        | Laws        |
+| --- | ------------------- | --------------------------------------------------------------------------------------------- | ----------- |
+| D8  | Positioning model   | Three abstract ranges (Close/Near/Far), relative to entities, not a map.                      | P6, P15     |
+| D9  | Cover               | +1/+2 Armor vs ranged (partial/full). No effect at Close. Strong Gambit destroys cover.       | P13, P15    |
+| D10 | Weapon properties   | 8 tags (Ranged, Sidearm, Thrown, Long, Loud, Brutal, Subtle, Slow).                           | P6, P17     |
+| D11 | Dual wielding       | Roll both weapons' dice. Snag on defense until next turn.                                     | P6, P9      |
+| D12 | Shields             | Dropped. Setting is 1992. Armor and Cover handle protection.                                  | P17         |
+| D13 | Create Cover Gambit | Standard Gambit (4+). Creates partial cover. Needs fictional justification.                   | P6, P9      |
+| D14 | Gear Gambits        | 12 gear-unlocked Gambits across 3 categories. Loadout = tactical identity.                    | P6, P17     |
+| D15 | Gambit resistance   | Explicit table by Threat level. Standard reduced/blocked at Threat 2+. Strong always works.   | P6          |
+| D22 | Gambit potency      | Attacker's stat sets potency: 1 = reduced, 2 = standard, 3+ = ignore one Threat level.        | P2, P6, P14 |
+| D23 | Weapon Gambits      | Each weapon carries 1-3 specific Gambits. Loadout = tactical identity.                        | P6, P17     |
+| D24 | Social Gambits      | 8 named social forms across Influence, Assess, Maneuver. Social applications of base Gambits. | P1, P6      |
 
 ### Mesh Pass
 
-| # | Decision | Answer | Laws |
-|-|-|-|-|
-| D28 | Saves | Roll specified stat, same table. Triggering effect defines consequence. Partial = reduced intensity. Threat does not impose Snags on saves. | P4, P15 |
-| D29 | Conditions | Four named conditions (Stunned, Shaken, Prone, Staggered) with mechanical definitions. | P4, P6 |
-| D30 | Gambit sources | Three stacking layers: base list (15), weapon-specific, property-category. | P6, P9 |
-| D31 | Shaping effect output | Standard roll, not auto-hit. GM sets damage in stakes by scale. | P10, P16 |
-| D32 | Tactics | Seven tactical options: Universal (4) and Trained (4, Edge required). | P6, P9 |
-| D33 | Guard = highest stat | Guard changed from Grit+2 to 2+highest stat. All stat builds viable. | P13, P14 |
-| D34 | Gambit unification | Gambits extended to all rolls. 15 base across four categories. | P6, P9, P15 |
-| D35 | Potency as fighter identity | Description determines stat, stat determines potency. Same Gambit, different fighter. | P2, P6, P14 |
-| D36 | Crit = Strong Gambit | Double 6 grants one free Strong-tier Gambit. | P4, P6, P9 |
-| D37 | Strong + Enhanced stacking | Full effect plus additional fictional consequence. | P2, P6, P14 |
-| D38 | Tactics split | Universal (instinct) vs Trained (Edge required). | P2, P6, P17 |
-| D39 | Edges modify Gambits | Any Edge can modify a Gambit's trigger, effect, or threshold. | P2, P6, P14 |
-| D40 | Edge design axes | Seven axes as forcing function against clustering. | P2, P14, P17 |
-| D41 | Four Gambit categories | Maneuver, Assess, Influence, Fight. Organized by output type. | P6, P15, P16 |
-| D42 | Base Gambit list locked | 4+3+3+5 = 15. Extensions must reference a base Gambit by name. | P6, P14 |
-| D64 | Gambits never deal damage | Damage comes from weapon dice only. Gambits change the situation: positioning, status, control, information. No "+X damage" gambits. Keep dice for damage, sacrifice dice for effects. | P6, P9 |
-| D43 | Scene granularity | Scene is GM's framing unit. Consequence-before-roll eliminates disputes. | P1, P5, P15 |
-| D44 | Background as Boon | Background directly → Boon without negotiation. Spotlight tool. | P2, P9, P15 |
-| D45 | Ambush bypasses defense | No fictional basis to anticipate = no defense roll. | P4, P6, P9 |
-| D46 | Unresolved threats → Clocks | Threat leaves unresolved = named Clock. Stall delays, Clock tracks. | P3, P9, P15 |
-| D47 | Gambits as scene generation | Player Gambit choices surface the next scene. | P5, P9, P16 |
-| D48 | Gambit spam = scene design signal | Multiple pressure points, not rules patches. | P9, P15, P17 |
+| #   | Decision                          | Answer                                                                                                                                                                                 | Laws         |
+| --- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| D28 | Saves                             | Roll specified stat, same table. Triggering effect defines consequence. Partial = reduced intensity. Threat does not impose Snags on saves.                                            | P4, P15      |
+| D29 | Conditions                        | Four named conditions (Stunned, Shaken, Prone, Staggered) with mechanical definitions.                                                                                                 | P4, P6       |
+| D30 | Gambit sources                    | Three stacking layers: base list (15), weapon-specific, property-category.                                                                                                             | P6, P9       |
+| D31 | Shaping effect output             | Standard roll, not auto-hit. GM sets damage in stakes by scale.                                                                                                                        | P10, P16     |
+| D32 | Tactics                           | Seven tactical options: Universal (4) and Trained (4, Edge required).                                                                                                                  | P6, P9       |
+| D33 | Guard = highest stat              | Guard changed from Grit+2 to 2+highest stat. All stat builds viable.                                                                                                                   | P13, P14     |
+| D34 | Gambit unification                | Gambits extended to all rolls. 15 base across four categories.                                                                                                                         | P6, P9, P15  |
+| D35 | Potency as fighter identity       | Description determines stat, stat determines potency. Same Gambit, different fighter.                                                                                                  | P2, P6, P14  |
+| D36 | Crit = Strong Gambit              | Double 6 grants one free Strong-tier Gambit.                                                                                                                                           | P4, P6, P9   |
+| D37 | Strong + Enhanced stacking        | Full effect plus additional fictional consequence.                                                                                                                                     | P2, P6, P14  |
+| D38 | Tactics split                     | Universal (instinct) vs Trained (Edge required).                                                                                                                                       | P2, P6, P17  |
+| D39 | Edges modify Gambits              | Any Edge can modify a Gambit's trigger, effect, or threshold.                                                                                                                          | P2, P6, P14  |
+| D40 | Edge design axes                  | Seven axes as forcing function against clustering.                                                                                                                                     | P2, P14, P17 |
+| D41 | Four Gambit categories            | Maneuver, Assess, Influence, Fight. Organized by output type.                                                                                                                          | P6, P15, P16 |
+| D42 | Base Gambit list locked           | 4+3+3+5 = 15. Extensions must reference a base Gambit by name.                                                                                                                         | P6, P14      |
+| D64 | Gambits never deal damage         | Damage comes from weapon dice only. Gambits change the situation: positioning, status, control, information. No "+X damage" gambits. Keep dice for damage, sacrifice dice for effects. | P6, P9       |
+| D43 | Scene granularity                 | Scene is GM's framing unit. Consequence-before-roll eliminates disputes.                                                                                                               | P1, P5, P15  |
+| D44 | Background as Boon                | Background directly → Boon without negotiation. Spotlight tool.                                                                                                                        | P2, P9, P15  |
+| D45 | Ambush bypasses defense           | No fictional basis to anticipate = no defense roll.                                                                                                                                    | P4, P6, P9   |
+| D46 | Unresolved threats → Clocks       | Threat leaves unresolved = named Clock. Stall delays, Clock tracks.                                                                                                                    | P3, P9, P15  |
+| D47 | Gambits as scene generation       | Player Gambit choices surface the next scene.                                                                                                                                          | P5, P9, P16  |
+| D48 | Gambit spam = scene design signal | Multiple pressure points, not rules patches.                                                                                                                                           | P9, P15, P17 |
 
 ### WS5: Edges
 
-| # | Decision | Answer | Laws |
-|-|-|-|-|
-| D51 | Edge width vs depth | No stat gates. Max one prereq per Edge, max three deep. Wide vs deep emerges from player choice. | P2, P12, P14 |
-| D52 | Chains replace stat gates | Stats shape odds, not options. Edge prereqs gate on play, not creation. | P2, P12, P14, P17 |
-| D53 | Sensitive → Sparked | Sparked is where sensing becomes doing. Tell originates here. 1 Guard base, desperate push with stakes. | P2, P10, P12 |
-| D54 | Break as Shaper gate | Narrative event, not mechanical prereq. Untapped Potential → Shaper or refusal Edge. | P2, P12, P14 |
-| D55 | Shaping stat from fiction | Nerve cap removed. Stat matches approach. All builds shape through their approach. | P2, P14, P15 |
-| D56 | Temporary Edges | Pending decisions with mechanical teeth. Resolution condition + at least two outcomes. | P2, P12, P15 |
+| #   | Decision                  | Answer                                                                                                  | Laws              |
+| --- | ------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------- |
+| D51 | Edge width vs depth       | No stat gates. Max one prereq per Edge, max three deep. Wide vs deep emerges from player choice.        | P2, P12, P14      |
+| D52 | Chains replace stat gates | Stats shape odds, not options. Edge prereqs gate on play, not creation.                                 | P2, P12, P14, P17 |
+| D53 | Sensitive → Sparked       | Sparked is where sensing becomes doing. Tell originates here. 1 Guard base, desperate push with stakes. | P2, P10, P12      |
+| D54 | Break as Shaper gate      | Narrative event, not mechanical prereq. Untapped Potential → Shaper or refusal Edge.                    | P2, P12, P14      |
+| D55 | Shaping stat from fiction | Nerve cap removed. Stat matches approach. All builds shape through their approach.                      | P2, P14, P15      |
+| D56 | Temporary Edges           | Pending decisions with mechanical teeth. Resolution condition + at least two outcomes.                  | P2, P12, P15      |
 
 ### WS6: Equipment
 
-| # | Decision | Answer | Laws |
-|-|-|-|-|
-| D60 | Device gambits cost Push | Device gambits cost Push (GM sizes from fiction), not Guard. Auto-succeed. Base use free. Operators crack, shapers scar. | P6, P7, P13 |
-| D61 | Device risk | GM declares device at risk based on quality vs. Push stretch. Roll 2d6 read highest: 6 = fine, 4-5 = breaks (repairable), 1-3 = catastrophic (breaks + feedback). Push the roll for +1d. Boons apply. | P5, P6, P7 |
-| D62 | Gear is character | Devices accumulate history. Repair in downtime scenes. Destruction is narrative (like PC death), not mechanical. Quality is fictional positioning for risk threshold, not a dice modifier. | P5, P9, P12 |
-| D63 | Thaumatech survival principle | Encounters should include elements that require device gambits. Mundane approaches insufficient. Gear is essential, not optional. | P7, P10 |
+| #   | Decision                      | Answer                                                                                                                                                                                                | Laws        |
+| --- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| D60 | Device gambits cost Push      | Device gambits cost Push (GM sizes from fiction), not Guard. Auto-succeed. Base use free. Operators crack, shapers scar.                                                                              | P6, P7, P13 |
+| D61 | Device risk                   | GM declares device at risk based on quality vs. Push stretch. Roll 2d6 read highest: 6 = fine, 4-5 = breaks (repairable), 1-3 = catastrophic (breaks + feedback). Push the roll for +1d. Boons apply. | P5, P6, P7  |
+| D62 | Gear is character             | Devices accumulate history. Repair in downtime scenes. Destruction is narrative (like PC death), not mechanical. Quality is fictional positioning for risk threshold, not a dice modifier.            | P5, P9, P12 |
+| D63 | Thaumatech survival principle | Encounters should include elements that require device gambits. Mundane approaches insufficient. Gear is essential, not optional.                                                                     | P7, P10     |
 
 ### WS8: Backgrounds
 
-| # | Decision | Answer | Laws |
-|-|-|-|-|
+| # | Decision          | Answer                                                                             | Laws         |
+| - | ----------------- | ---------------------------------------------------------------------------------- | ------------ |
 | - | Background format | Job title + Boon domain (2-3 areas) + example uses (2-3). Specific job, not genre. | P2, P16, P17 |
 
 ### Playtest Decisions
 
-| # | Decision | Answer | Laws |
-|-|-|-|-|
-| D65 | Setup timing | Banked dice are added post-roll, after Snags resolve. Not in pool when Snags remove dice. Immune to Snag removal by timing, not exemption. | P6, P15 |
-| D66 | Setup for ally is standard | Standard Setup (4+): bank for self OR ally. Strong Setup (6): bank for self AND ally (same value, two dice). | P6, P9, P10 |
+| #   | Decision                    | Answer                                                                                                                                                                                                                                                               | Laws         |
+| --- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| D65 | Setup timing                | Banked dice are added post-roll, after Snags resolve. Not in pool when Snags remove dice. Immune to Snag removal by timing, not exemption.                                                                                                                           | P6, P15      |
+| D66 | Setup for ally is standard  | Standard Setup (4+): bank for self OR ally. Strong Setup (6): bank for self AND ally (same value, two dice).                                                                                                                                                         | P6, P9, P10  |
 | D67 | Assist vs Setup distinction | Assist: costs Act, gives random d6 pre-roll (in pool, Snag-vulnerable). Setup for ally: costs a 4+ die from your roll, known value, post-roll injection, Snag-immune. Assist is the floor when you can't contribute otherwise. Setup is the reward for rolling well. | P6, P10, P15 |
 
----
+***
 
 ## Open Questions
 
-- **WS6 (Equipment):** Thaumatech device catalog. Legality tiers. Black-market gear. Device quality as fictional modifier to Stakes.
-- **WS7 (Player Materials):** Character sheet, reference cards, one-pagers. Pending.
-- **Gambit catalog completeness:** Property-category gambits, defensive gambits, and shaping gambits need full catalog entries.
-- **Edge catalog completeness:** 212+ entries exist in v1 but need redesign under new principles.
+* **WS6 (Equipment):** Thaumatech device catalog. Legality tiers. Black-market gear. Device quality as fictional modifier to Stakes.
+
+* **WS7 (Player Materials):** Character sheet, reference cards, one-pagers. Pending.
+
+* **Gambit catalog completeness:** Property-category gambits, defensive gambits, and shaping gambits need full catalog entries.
+
+* **Edge catalog completeness:** 212+ entries exist in v1 but need redesign under new principles.
+

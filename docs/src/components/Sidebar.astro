@@ -8,6 +8,8 @@ interface SectionGroup {
   source: string;
   color: string;
   toc: TocEntry[];
+  title: string;
+  titleId: string;
 }
 interface Props {
   sections: SectionGroup[];
@@ -16,9 +18,9 @@ const { sections } = Astro.props;
 ---
 
 <nav class="sidebar" id="sidebar">
-  {sections.map(({ source, color, toc }) => (
+  {sections.map(({ source, color, toc, title, titleId }) => (
     <div class="nav-group" data-source={source}>
-      <div class="nav-source" style={`border-left:3px solid ${color}`}>{source}</div>
+      <a class="nav-source" style={`border-left:3px solid ${color}`} href={`#${titleId}`}>{title}</a>
       {toc.map(({ level, id, title }) => (
         <a
           class={`nav-link ${level === 3 ? 'nav-h3' : 'nav-h2'}`}

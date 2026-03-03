@@ -4,7 +4,7 @@ A Background is where your character comes from. Not a class, not a race. A job,
 
 Characters start with **one Background**. Additional Backgrounds can be gained through play when the fiction supports it. See `rules/CHARACTER.md`, Step 1 for details.
 
----
+***
 
 ## Blue Collar / Labor
 
@@ -54,7 +54,7 @@ Characters start with **one Background**. Additional Backgrounds can be gained t
 
 **Textile mill worker, third shift.** Third shift, loom maintenance, the air always full of fibers and the noise always too loud to think. **Boon domain:** textile equipment, factory floor awareness, working in high-noise environments. **Example uses:** understanding industrial machine timing and mechanics, lip-reading from distance (developed from factory floor), recognizing when machinery has been tampered with.
 
----
+***
 
 ## White Collar / Office
 
@@ -98,7 +98,7 @@ Characters start with **one Background**. Additional Backgrounds can be gained t
 
 **Court reporter, circuit court.** Transcribed hearings and depositions and had near-perfect recall of anything said in a room she was working. **Boon domain:** legal proceedings, verbatim recall, courtroom procedure. **Example uses:** reconstructing a conversation from partial notes, understanding courtroom protocol and how to use it, identifying inconsistencies between two accounts of the same event.
 
----
+***
 
 ## Military / Security
 
@@ -142,7 +142,7 @@ Characters start with **one Background**. Additional Backgrounds can be gained t
 
 **Reconnaissance scout, Federal Army.** Went ahead of everyone else, watched, remembered, and came back and told them what was there. **Boon domain:** surveillance and observation, field navigation, concealment. **Example uses:** conducting a close reconnaissance of a position without being seen, memorizing the layout of a location after a brief observation, moving cross-country in difficult terrain.
 
----
+***
 
 ## Criminal / Underground
 
@@ -184,7 +184,7 @@ Characters start with **one Background**. Additional Backgrounds can be gained t
 
 **Squatter, post-industrial buildings.** Lived in abandoned factories and warehouses for three years and learned every way in and out of a building the city forgot. **Boon domain:** abandoned building access, survival in neglected spaces, building assessment. **Example uses:** finding a way into a building that has been secured on paper, identifying which structures are structurally sound enough to inhabit, knowing what a building is used for by what's left behind.
 
----
+***
 
 ## Medical / Care
 
@@ -218,7 +218,7 @@ Characters start with **one Background**. Additional Backgrounds can be gained t
 
 **Home health aide, Displaced elder program.** Visited elderly Displaced residents in their homes, three visits a week, learning the language from the people nobody else visited. **Boon domain:** home care, Displaced culture and language, navigating isolated communities. **Example uses:** communicating with Displaced residents who don't speak Federal Standard, accessing private homes in closed communities, recognizing when an elderly person's living situation has changed suddenly.
 
----
+***
 
 ## Technical / Engineering
 
@@ -258,7 +258,7 @@ Characters start with **one Background**. Additional Backgrounds can be gained t
 
 **Thaumic conduit installer, new construction.** Ran the thaumic grid infrastructure in new buildings and knew the difference between what the blueprints said and what was actually in the walls. **Boon domain:** thaumic conduit installation, new construction access, infrastructure as-built knowledge. **Example uses:** tapping into a building's thaumic grid at an access point that isn't on official plans, knowing how new construction sites are secured and staffed, identifying where thaumic conduit runs based on building type and era.
 
----
+***
 
 ## Academic / Education
 
@@ -292,7 +292,7 @@ Characters start with **one Background**. Additional Backgrounds can be gained t
 
 **Seminary student (dropped out).** Got far enough in to understand theology, institution, and doubt before deciding they weren't compatible. **Boon domain:** religious texts and tradition, institutional hierarchy, moral philosophy. **Example uses:** knowing which religious authority has standing in a particular community, understanding the difference between what an institution teaches and what its members believe, sitting with someone in grief without trying to fix it.
 
----
+***
 
 ## Service / Hospitality
 
@@ -326,7 +326,7 @@ Characters start with **one Background**. Additional Backgrounds can be gained t
 
 **Movie theater projectionist.** Sat in a booth above the crowd for eight years, watching the same films and the same audience. **Boon domain:** theater facilities, electrical and mechanical systems, observation without being seen, old-format media. **Example uses:** accessing a building through the projection room, running aging film or thaumatech media equipment, watching a location without appearing to.
 
----
+***
 
 ## Government / Bureaucracy
 
@@ -358,7 +358,7 @@ Characters start with **one Background**. Additional Backgrounds can be gained t
 
 **Public housing manager (fifteen-unit building).** Collected rent, fixed what could be fixed, and advocated for tenants the city didn't want to hear about. **Boon domain:** housing systems and tenant rights, building access and management, low-income community networks, institutional complaints. **Example uses:** accessing a building without alerting residents, knowing the history of tenants in a particular unit, navigating the housing authority's bureaucracy to protect or expose something.
 
----
+***
 
 ## Arts / Entertainment
 
@@ -382,7 +382,7 @@ Characters start with **one Background**. Additional Backgrounds can be gained t
 
 **Sign painter (commercial).** Made the words on the windows, the banners, the placards, the notices, by hand, in the rain sometimes. **Boon domain:** visual communication, commercial district geography, building access during business hours, hand lettering and graphic reproduction. **Example uses:** replicating an official sign or notice convincingly, moving through commercial areas as an expected presence, knowing the commercial tenant history of a building.
 
----
+***
 
 ## Rural / Outdoors
 
@@ -406,7 +406,7 @@ Characters start with **one Background**. Additional Backgrounds can be gained t
 
 **Farrier (traveling, rural Displaced communities).** Shod horses for the Displaced communities that still worked with animals, and traveled between settlements nobody else visited. **Boon domain:** Displaced rural communities, horse care and handling, traveling between isolated settlements, traditional animal craft. **Example uses:** accessing Displaced communities that don't trust outsiders, moving between rural settlements without using official roads or facilities, knowing the network of Displaced rural settlements in a region.
 
----
+***
 
 ## Displaced-Specific
 
@@ -440,22 +440,23 @@ Characters start with **one Background**. Additional Backgrounds can be gained t
 
 **Displaced rights attorney (civil practice).** Has won enough to know the law and lost enough to know it doesn't always matter. **Boon domain:** civil rights law, Displaced legal status, federal court procedure, institutional advocacy. **Example uses:** knowing exactly which legal protections apply in a DPA confrontation, identifying the procedural violation in an arrest or detention, finding the attorney or advocate who can actually help in a particular jurisdiction.
 
----
+***
 
 ## Quick Reference
 
-| Category | Count |
-|-|-|
-| Blue Collar / Labor | 23 |
-| White Collar / Office | 20 |
-| Military / Security | 20 |
-| Criminal / Underground | 19 |
-| Medical / Care | 15 |
-| Technical / Engineering | 18 |
-| Academic / Education | 15 |
-| Service / Hospitality | 15 |
-| Government / Bureaucracy | 14 |
-| Arts / Entertainment | 10 |
-| Rural / Outdoors | 10 |
-| Displaced-Specific | 15 |
-| **Total** | **194** |
+| Category                 | Count   |
+| ------------------------ | ------- |
+| Blue Collar / Labor      | 23      |
+| White Collar / Office    | 20      |
+| Military / Security      | 20      |
+| Criminal / Underground   | 19      |
+| Medical / Care           | 15      |
+| Technical / Engineering  | 18      |
+| Academic / Education     | 15      |
+| Service / Hospitality    | 15      |
+| Government / Bureaucracy | 14      |
+| Arts / Entertainment     | 10      |
+| Rural / Outdoors         | 10      |
+| Displaced-Specific       | 15      |
+| **Total**                | **194** |
+
