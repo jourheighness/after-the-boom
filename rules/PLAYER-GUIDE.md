@@ -303,6 +303,97 @@ Single-use items. Apply to yourself or someone at Close range. Use your Act, spe
 
 ## Fighting
 
+Warehouse. Three hostiles. Hakim sees them through the loading dock window. He has time. That means a setup phase.
+
+### Setup
+
+When you see a fight coming, you get one roll before round 1. Describe your preparation: take cover, line up a shot, flank wide, ready a device. Roll the relevant stat.
+
+| Result | Effect |
+|-|-|
+| **6** | Boon on your first attack. |
+| **4-5** | In position. Nothing extra. |
+| **1-3** | Complication. Spotted early, bad angle, dropped something. |
+
+Gambits apply. Sacrifice a die showing 4+ to Read the room, Setup a banked die, or Cover an angle before the shooting starts. No setup if ambushed. Enemies act first.
+
+### Rounds
+
+Each round:
+
+1. **Players act** in any order. Each player gets one turn.
+2. **Enemies act.**
+3. **Environment.** Clocks tick, fires spread, structures shift.
+
+Repeat until the fight ends.
+
+### Your Turn
+
+You get a **Move** and an **Act**, in either order. Skip either.
+
+**Move:** One range band (Close, Near, Far) or reposition within a band (behind cover, toward a different target).
+
+**Act:** Attack, use a device, interact with the environment, or **Assist** (give an ally a Boon on their next roll. You must be positioned to help).
+
+### Three Lanes
+
+It's your turn. What are you doing?
+
+**Hurting someone?** Combat roll. Roll your weapon die, deal damage. Gambits come from the seven-verb list in section 3.
+
+**Changing the battlefield?** Sacrifice a die from your combat roll for a gambit. Push someone into the open. Pin them behind cover. Break their stance.
+
+**Something else entirely?** Stakes roll. Hack a terminal, barricade a door, talk someone down, seal a thaumic breach. GM sets stakes, you roll the relevant stat. Not an attack, doesn't use weapon dice.
+
+### Attacking
+
+Attacks auto-hit. You never roll to see *if.* The roll determines *how hard* and *what else.*
+
+1. Declare your target and weapon.
+2. Declare Drain (+1d6) if spending it. Must be before the roll.
+3. Roll: weapon die + Boon d6s + Drain d6.
+4. Choose: keep dice for damage, or sacrifice 4+ for gambits.
+5. Highest remaining die = damage.
+6. Subtract target's Armor.
+7. Apply to Guard, overflow to Harm.
+
+Sacrifice all dice = 0 damage, pure gambit effects.
+
+Hakim attacks: d8 sidearm + 1d6 (flanking Boon). Rolls 7, 4. He could keep both (damage = 7). Or sacrifice the 4 for a Read gambit and learn something about the target. He keeps both. 7 damage, minus the target's armor, into their Guard.
+
+### Defense
+
+When you're hit, you make a stakes roll. The stakes are always the same: 6 = no damage, 4-5 = half (round up), 1-3 = full.
+
+Pick your stat from the fiction:
+- **Sharp:** dodge, duck, reflexes.
+- **Grit:** brace, absorb, rip a door off its hinges for cover.
+- **Nerve:** hold steady, resist thaumic effects, stand your ground.
+
+Roll [stat]d6. Drain for +1d before rolling. Then apply Armor, Guard, Harm as normal.
+
+Gambits apply on defense too. The seven-verb list is your menu. Sacrifice a 4+ to Push the attacker back, Cover yourself, Read a weakness.
+
+Niv, caught at a checkpoint. The guard fires. She's Sharp 3 but has a Snag (caught off-guard). 2d6. Rolls 4, 2. Partial. Half damage. She dives behind the customs barrier, already planning the exit. No magic. Just reflexes and a lifetime of close calls.
+
+### Positioning
+
+Three abstract ranges. Relative, not a grid.
+
+| Range | Scale |
+|-|-|
+| **Close** | Arms' reach. Melee, grappling. |
+| **Near** | Across a room. Pistols, thrown objects. |
+| **Far** | Across a field. Rifles, rooftop to street. |
+
+**Cover:** Partial +1 Armor, Full +2 Armor. Ranged attacks only. No effect at Close.
+
+**Flanking:** Two allies at Close with the same enemy from different angles. Both get a Boon. Breaks when the target moves.
+
+> **Setup:** Stat roll before round 1. 6=Boon, 4-5=position, 1-3=complication. **Turn:** Move (one band) + Act (attack/device/interact/Assist). **Attack:** Auto-hit. Weapon die + Boon d6s + Drain d6. Sacrifice 4+ for gambits. Highest remaining = damage. **Defense:** [stat]d6. 6=none, 4-5=half, 1-3=full. Gambits apply. **Range:** Close (melee), Near (room), Far (field). Cover: +1/+2 Armor (ranged).
+
+---
+
 ## Between Fights
 
 ## Quick Reference
