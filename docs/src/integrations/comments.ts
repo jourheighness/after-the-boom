@@ -24,6 +24,7 @@ export default function commentsIntegration(): AstroIntegration {
       'astro:config:setup': ({ updateConfig }) => {
         const vitePlugin: VitePlugin = {
           name: 'comments-api',
+          apply: 'serve',
           configureServer(server: ViteDevServer) {
             const dbPath = resolve(process.cwd(), '..', 'tools', 'comments.db');
             let dbModule: Awaited<ReturnType<typeof loadDb>> | null = null;
