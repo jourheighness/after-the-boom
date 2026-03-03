@@ -437,3 +437,45 @@ Cracks clear through moments, not mechanics.
 ---
 
 ## Quick Reference
+
+**Stats:** Grit (body), Sharp (senses), Nerve (will). Rated 1-4. Sum = 6. Min 1 each.
+
+**The Roll:** [stat]d6, read highest. 6 = full, 4-5 = partial + cost, 1-3 = consequence. Boon = +1d, Snag = -1d, cancel 1:1. Min 0d = 2d6 take lowest.
+
+**Damage Pipeline:** Damage → Armor (0-3) → Guard → overflow = Harm. Guard breaks = Scar.
+
+| Harm | Effect | Overflow | Slots |
+|-|-|-|-|
+| L1 Hurt | Snag when relevant | 1-2 | 2 |
+| L2 Wounded | Snag on all rolls | 3-4 | 2 |
+| L3 Critical | Drain to act | 5+ | 2 |
+
+**Guard:** 2 + highest stat (cap 10). Refreshes in genuine safety. First Scar per session = +1 max Guard.
+
+**Drain:** 4 boxes. +1d (1/roll), -2 incoming damage, act while Critical, device gambits. Empty = Crack (Snag all). Crack = narrative recovery. Drain = downtime recovery.
+
+**Combat Gambits** (sacrifice 4+ = standard, 6+ = strong):
+
+| Gambit | Standard | Strong |
+|-|-|-|
+| Push | One band back | + Prone |
+| Pull | One band toward | + Boon next action |
+| Pin | Can't move, Act to escape | + can't attack, Act+Move |
+| Read | One detail | + Boon from it |
+| Break | Impaired (-2 dmg, 1 turn) | Exposed (+2 taken, 1 turn) |
+| Cover | +1 Armor until you move | +2 Armor |
+| Setup | Bank die for self or ally | Bank for self AND ally |
+
+Open clause: anything of similar scope, GM approves.
+
+**Weapons:** d6 light, d8 standard, d10 heavy, d12 devastating. Properties: Ranged, Sidearm, Subtle, Slow, Loud, Thrown, Long, Area.
+
+**Thaumatech Tiers:**
+
+| Tier | 6 | 4-5 | 1-3 |
+|-|-|-|-|
+| Simple | Free | 1 Drain | 1 Drain + complication |
+| Stretching | 1 Drain | 2 Drain | 2 Drain + at risk |
+| Way Past Spec | 2 Drain | 3 Drain + at risk | 3 Drain + breaks |
+
+**Conditions:** Stunned (can't act, 0d defense). Shaken (Snag all, clears end of scene). Prone (stand costs Move, melee Boon against you, ranged Snag against you).
