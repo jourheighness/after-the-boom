@@ -19,12 +19,21 @@ Before starting any task:
 
 ## Voice Guide
 
-- **Narrative beats:** Specific sensory details. "The static itch crawled under his skin." Not "he felt the drain." Show the cost through the body.
+**CRITICAL WRITING CONSTRAINTS:**
+- **NO AI prose.** No em-dashes. No "ultimately," "notably," "essentially," "it's worth noting." No three-adjective lists. No "both X and Y." No hedging qualifiers. No "In other words." No sycophantic setups.
+- **Write like a human.** Short sentences. Fragments when they work. Paragraph breaks that breathe. The rhythm of someone talking, not someone generating.
+- **Hugo Award quality.** Study how China Miéville opens a scene (one grimy detail that encodes an entire class system). How William Gibson introduces tech (through use, never explanation). How Ursula K. Le Guin makes politics personal (the cost is always on one body). How Terry Pratchett makes the mundane magical (the joke IS the worldbuilding).
+- **Sensory specificity.** Not "he felt the drain." Instead: "His vision greyed. Copper flooded his mouth." Not "she was scared." Instead: "Her hands were steady. Her hands were always steady. That's how she knew."
+- **Contradiction creates character.** Emeka has the best gear on the continent and can't sleep. Mae has no magic and more information than anyone. Niv carries forged papers across borders that would kill a sparker.
+
+**Prose rules:**
+- **Narrative beats:** Specific sensory details. Show the cost through the body, through the object, through the room.
 - **Rules prose:** Direct, conversational. "Roll d6s equal to your stat. Read the highest." Not "the player rolls a number of d6 dice equivalent to..."
 - **Decision trees:** Second person. "You rolled four dice. Your highest is a 5. One die shows a 4. Keep it for damage, or sacrifice it to Push the target back a band?"
 - **Reference boxes:** Compact. Tables and one-liners. No narrative. Markdown blockquote with bold header.
 - **No GM-facing content.** No enemy internals, no sizing guidance, no Threat tables, no Behavior lines. Players experience enemies through the fiction.
-- **No meta-commentary.** No "this is the core mechanic" or "this system uses..." — just teach it.
+- **No meta-commentary.** No "this is the core mechanic" or "this system uses..." Just teach it.
+- **Mechanics ARE the story.** The rules don't interrupt the narrative. The narrative IS the rules being taught. When Hakim sacrifices a die, the reader learns gambits. When Luka hits 0 Drain, the reader learns Cracking. Never separate "the fiction part" from "the rules part."
 
 ## Cast Quick Reference
 
