@@ -1,0 +1,33 @@
+{{!-- MONDAS — Add/Edit Weapon Dialog --}}
+<div class="mondas-dialog add-weapon-form">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" name="name" value="{{name}}" placeholder="Weapon name" autofocus>
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <input type="text" name="description" value="{{description}}" placeholder="One line, what it does">
+  </div>
+
+  <div class="form-group">
+    <label>Damage Die</label>
+    <select name="die">
+      {{#each dieOptions}}
+      <option value="{{@key}}" {{#if (eq @key ../die)}}selected{{/if}}>{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Properties</label>
+    <div class="tag-toggles">
+      {{#each propertyOptions}}
+      <label class="tag-toggle">
+        <input type="checkbox" name="property" value="{{this}}" {{#if (includes ../properties this)}}checked{{/if}}>
+        <span>{{this}}</span>
+      </label>
+      {{/each}}
+    </div>
+  </div>
+</div>

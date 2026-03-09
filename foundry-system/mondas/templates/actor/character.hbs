@@ -15,7 +15,7 @@
   {{!-- ===== SHEET TAB ===== --}}
   <div class="tab-content" data-tab="sheet" {{#unless (eq activeTab 'sheet')}}hidden{{/unless}}>
 
-  {{!-- Stats Row --}}
+  {{!-- Stats --}}
   <div class="stats-row">
     {{#each stats}}
     <div class="stat-block">
@@ -30,176 +30,175 @@
     {{/each}}
   </div>
 
-  {{!-- Resource Bar --}}
-  <div class="resources-bar">
-
-    <div class="guard-track">
-      <span class="resource-label">Guard</span>
-      <div class="guard-boxes">
+  {{!-- Resources --}}
+  <div class="resources-row">
+    <div class="track">
+      <span class="track-label">Guard</span>
+      <div class="track-boxes">
         {{#times guard.max}}
-        <span class="guard-box {{#if (lt this ../guard.value)}}filled{{/if}}" data-action="toggleGuardBox" data-index="{{this}}"></span>
+        <span class="track-box guard {{#if (lt this ../guard.value)}}filled{{/if}}" data-action="toggleGuardBox" data-index="{{this}}"></span>
         {{/times}}
       </div>
-      <span class="guard-counter">{{guard.value}}/{{guard.max}}</span>
+      <span class="track-counter">{{guard.value}}/{{guard.max}}</span>
     </div>
-
-    <div class="drain-track">
-      <span class="resource-label">Drain</span>
-      <div class="drain-boxes">
+    <div class="track">
+      <span class="track-label">Drain</span>
+      <div class="track-boxes">
         {{#times drain.max}}
-        <span class="drain-box {{#if (lt this ../drain.value)}}filled{{/if}}" data-action="toggleDrainBox" data-index="{{this}}"></span>
+        <span class="track-box drain {{#if (lt this ../drain.value)}}filled{{/if}}" data-action="toggleDrainBox" data-index="{{this}}"></span>
         {{/times}}
       </div>
-      <span class="drain-counter">{{drain.value}}/{{drain.max}}</span>
-      {{#if cracked}}<span class="cracked-label">CRACKED</span>{{/if}}
+      <span class="track-counter">{{drain.value}}/{{drain.max}}</span>
+      {{#if cracked}}<span class="cracked-badge">CRACKED</span>{{/if}}
     </div>
-
-    <div class="armor-display">
-      <span class="resource-label">Armor</span>
+    <div class="track">
+      <span class="track-label">Armor</span>
       <input type="number" name="system.armor" value="{{armor}}" min="0" max="3">
     </div>
+  </div>
 
+  {{!-- Harm + Conditions --}}
+  <div class="status-row">
+    <div class="harm-track">
+      <div class="harm-group">
+        <span class="harm-level">Hurt</span>
+        <span class="harm-box {{#if harm.hurt.slot1.filled}}filled{{/if}}" data-action="toggleHarm" data-level="hurt" data-slot="slot1"></span>
+        <span class="harm-box {{#if harm.hurt.slot2.filled}}filled{{/if}}" data-action="toggleHarm" data-level="hurt" data-slot="slot2"></span>
+      </div>
+      <div class="harm-group">
+        <span class="harm-level">Wounded</span>
+        <span class="harm-box wounded {{#if harm.wounded.slot1.filled}}filled{{/if}}" data-action="toggleHarm" data-level="wounded" data-slot="slot1"></span>
+        <span class="harm-box wounded {{#if harm.wounded.slot2.filled}}filled{{/if}}" data-action="toggleHarm" data-level="wounded" data-slot="slot2"></span>
+      </div>
+      <div class="harm-group">
+        <span class="harm-level critical-label">Critical</span>
+        <span class="harm-box critical {{#if harm.critical.slot1.filled}}filled{{/if}}" data-action="toggleHarm" data-level="critical" data-slot="slot1"></span>
+        <span class="harm-box critical {{#if harm.critical.slot2.filled}}filled{{/if}}" data-action="toggleHarm" data-level="critical" data-slot="slot2"></span>
+      </div>
+    </div>
+    <div class="conditions-bar">
+      <label class="condition {{#if conditions.stunned}}active{{/if}}">
+        <input type="checkbox" {{#if conditions.stunned}}checked{{/if}} data-action="toggleCondition" data-condition="stunned" hidden>
+        Stunned
+      </label>
+      <label class="condition {{#if conditions.shaken}}active{{/if}}">
+        <input type="checkbox" {{#if conditions.shaken}}checked{{/if}} data-action="toggleCondition" data-condition="shaken" hidden>
+        Shaken
+      </label>
+      <label class="condition {{#if conditions.prone}}active{{/if}}">
+        <input type="checkbox" {{#if conditions.prone}}checked{{/if}} data-action="toggleCondition" data-condition="prone" hidden>
+        Prone
+      </label>
+    </div>
   </div>
 
   {{!-- Scars --}}
-  <div class="scars-section">
-    <span class="resource-label">Scars ({{scars.length}})</span>
+  <div class="list-section scars-section">
+    <div class="section-header">
+      <h3>Scars ({{scars.length}})</h3>
+      <button type="button" class="section-add" data-action="addScar">+</button>
+    </div>
     {{#each scars}}
     <div class="scar-entry">
       <input type="text" name="system.scars.{{@index}}" value="{{this}}" placeholder="Scar description">
-      <button type="button" data-action="removeScar" data-index="{{@index}}">&#10005;</button>
+      <button type="button" class="ctrl-btn danger" data-action="removeScar" data-index="{{@index}}">✕</button>
     </div>
     {{/each}}
-    <button type="button" data-action="addScar">+ Add Scar</button>
-  </div>
-
-  {{!-- Harm Section --}}
-  <div class="harm-section">
-    <h3>Harm</h3>
-
-    <div class="harm-row">
-      <span class="harm-label">Hurt</span>
-      <div class="harm-slot">
-        <input type="checkbox" {{#if harm.hurt.slot1.filled}}checked{{/if}}
-               data-action="toggleHarm" data-level="hurt" data-slot="slot1">
-        <input type="text" name="system.harm.hurt.slot1.text" value="{{harm.hurt.slot1.text}}" placeholder="&mdash;">
-      </div>
-      <div class="harm-slot">
-        <input type="checkbox" {{#if harm.hurt.slot2.filled}}checked{{/if}}
-               data-action="toggleHarm" data-level="hurt" data-slot="slot2">
-        <input type="text" name="system.harm.hurt.slot2.text" value="{{harm.hurt.slot2.text}}" placeholder="&mdash;">
-      </div>
-    </div>
-
-    <div class="harm-row">
-      <span class="harm-label">Wounded</span>
-      <div class="harm-slot">
-        <input type="checkbox" {{#if harm.wounded.slot1.filled}}checked{{/if}}
-               data-action="toggleHarm" data-level="wounded" data-slot="slot1">
-        <input type="text" name="system.harm.wounded.slot1.text" value="{{harm.wounded.slot1.text}}" placeholder="&mdash;">
-      </div>
-      <div class="harm-slot">
-        <input type="checkbox" {{#if harm.wounded.slot2.filled}}checked{{/if}}
-               data-action="toggleHarm" data-level="wounded" data-slot="slot2">
-        <input type="text" name="system.harm.wounded.slot2.text" value="{{harm.wounded.slot2.text}}" placeholder="&mdash;">
-      </div>
-    </div>
-
-    <div class="harm-row">
-      <span class="harm-label">Critical</span>
-      <div class="harm-slot">
-        <input type="checkbox" {{#if harm.critical.slot1.filled}}checked{{/if}}
-               data-action="toggleHarm" data-level="critical" data-slot="slot1">
-        <input type="text" name="system.harm.critical.slot1.text" value="{{harm.critical.slot1.text}}" placeholder="&mdash;">
-      </div>
-      <div class="harm-slot">
-        <input type="checkbox" {{#if harm.critical.slot2.filled}}checked{{/if}}
-               data-action="toggleHarm" data-level="critical" data-slot="slot2">
-        <input type="text" name="system.harm.critical.slot2.text" value="{{harm.critical.slot2.text}}" placeholder="&mdash;">
-      </div>
-    </div>
-  </div>
-
-  {{!-- Conditions --}}
-  <div class="conditions">
-    <label class="condition {{#if conditions.stunned}}active{{/if}}">
-      <input type="checkbox" {{#if conditions.stunned}}checked{{/if}}
-             data-action="toggleCondition" data-condition="stunned" hidden>
-      Stunned
-    </label>
-    <label class="condition {{#if conditions.shaken}}active{{/if}}">
-      <input type="checkbox" {{#if conditions.shaken}}checked{{/if}}
-             data-action="toggleCondition" data-condition="shaken" hidden>
-      Shaken
-    </label>
-    <label class="condition {{#if conditions.prone}}active{{/if}}">
-      <input type="checkbox" {{#if conditions.prone}}checked{{/if}}
-             data-action="toggleCondition" data-condition="prone" hidden>
-      Prone
-    </label>
   </div>
 
   {{!-- Edges --}}
-  <div class="edges-section">
-    <h3>Edges</h3>
-    {{#each edges}}
-    <div class="edge-row">
-      <span class="item-name-link" data-action="showEdge" data-index="{{@index}}">{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
-      <input type="text" name="system.edges.{{@index}}.name" value="{{name}}" placeholder="Name">
-      <input type="text" name="system.edges.{{@index}}.mechanical" value="{{mechanical}}" placeholder="Mechanical effect">
-      <input type="text" name="system.edges.{{@index}}.gambitName" value="{{gambitName}}" placeholder="Gambit name (optional)">
-      <input type="text" name="system.edges.{{@index}}.gambitDesc" value="{{gambitDesc}}" placeholder="Gambit effect">
-      <button type="button" data-action="removeEdge" data-index="{{@index}}">&#10005;</button>
+  <div class="list-section">
+    <div class="section-header">
+      <h3>Edges</h3>
+      <button type="button" class="section-add" data-action="addEdge">+</button>
     </div>
-    {{/each}}
-    <button type="button" data-action="addEdge">+ Add Edge</button>
+    <div class="card-stack">
+      {{#each edges}}
+      <div class="item-card">
+        <div class="card-top">
+          <span class="card-name">{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
+          <div class="card-controls">
+            <button type="button" class="ctrl-btn" data-action="showEdge" data-index="{{@index}}" title="Show in Chat"><i class="fa-solid fa-comment"></i></button>
+            <button type="button" class="ctrl-btn" data-action="editEdge" data-index="{{@index}}" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button type="button" class="ctrl-btn danger" data-action="removeEdge" data-index="{{@index}}" title="Delete"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
+        {{#if mechanical}}<p class="card-desc">{{mechanical}}</p>{{/if}}
+        {{#if gambitName}}
+        <div class="card-gambit">
+          <span class="gambit-icon">⚡</span>
+          <span class="gambit-name">{{gambitName}}</span>
+          {{#if gambitDesc}}<span class="gambit-effect">— {{gambitDesc}}</span>{{/if}}
+        </div>
+        {{/if}}
+      </div>
+      {{/each}}
+    </div>
   </div>
 
   {{!-- Weapons --}}
-  <div class="weapons-section">
-    <h3>Weapons</h3>
-    {{#each weapons}}
-    <div class="weapon-row">
-      <input type="text" name="system.weapons.{{@index}}.name" value="{{name}}" placeholder="Name">
-      <input type="text" name="system.weapons.{{@index}}.description" value="{{description}}" placeholder="Description">
-      <select name="system.weapons.{{@index}}.die">
-        {{#each ../dieOptions}}
-        <option value="{{@key}}" {{#if (eq @key ../die)}}selected{{/if}}>{{this}}</option>
-        {{/each}}
-      </select>
-      <div class="weapon-properties">
-        {{#each ../propertyOptions}}
-        <label class="property-tag">
-          <input type="checkbox" data-action="toggleProperty" data-weapon-index="{{@../index}}" data-property="{{this}}"
-                 {{#if (includes ../properties this)}}checked{{/if}}>
-          {{this}}
-        </label>
-        {{/each}}
-      </div>
-      <button type="button" data-action="removeWeapon" data-index="{{@index}}">&#10005;</button>
+  <div class="list-section">
+    <div class="section-header">
+      <h3>Weapons</h3>
+      <button type="button" class="section-add" data-action="addWeapon">+</button>
     </div>
-    {{/each}}
-    <button type="button" data-action="addWeapon">+ Add Weapon</button>
+    <div class="card-stack">
+      {{#each weapons}}
+      <div class="item-card weapon-card">
+        <div class="card-top">
+          <span class="card-name">{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
+          <span class="die-badge">{{die}}</span>
+          <div class="card-controls">
+            <button type="button" class="ctrl-btn" data-action="showWeapon" data-index="{{@index}}" title="Show in Chat"><i class="fa-solid fa-comment"></i></button>
+            <button type="button" class="ctrl-btn" data-action="editWeapon" data-index="{{@index}}" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button type="button" class="ctrl-btn danger" data-action="removeWeapon" data-index="{{@index}}" title="Delete"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
+        {{#if description}}<p class="card-desc">{{description}}</p>{{/if}}
+        {{#if properties.length}}
+        <div class="card-tags">
+          {{#each properties}}<span class="tag">{{this}}</span>{{/each}}
+        </div>
+        {{/if}}
+      </div>
+      {{/each}}
+    </div>
   </div>
 
   {{!-- Equipment --}}
-  <div class="equipment-section">
-    <h3>Equipment</h3>
-    {{#each equipment}}
-    <div class="equipment-row">
-      <span class="item-name-link" data-action="showEquipment" data-index="{{@index}}">{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
-      <span class="equipment-qty">x{{quantity}}</span>
-      {{#if tags.length}}
-      <div class="equipment-tags">
-        {{#each tags}}
-        <span class="tag">{{this}}</span>
-        {{/each}}
-      </div>
-      {{/if}}
-      <button type="button" data-action="removeEquipment" data-index="{{@index}}">&#10005;</button>
+  <div class="list-section">
+    <div class="section-header">
+      <h3>Equipment</h3>
+      <button type="button" class="section-add" data-action="addEquipment">+</button>
     </div>
-    {{/each}}
-    <button type="button" data-action="addEquipment">+ Add Equipment</button>
+    <div class="card-stack">
+      {{#each equipment}}
+      <div class="item-card">
+        <div class="card-top">
+          <span class="card-name">{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
+          <span class="qty-badge">×{{quantity}}</span>
+          <div class="card-controls">
+            <button type="button" class="ctrl-btn" data-action="showEquipment" data-index="{{@index}}" title="Show in Chat"><i class="fa-solid fa-comment"></i></button>
+            <button type="button" class="ctrl-btn" data-action="editEquipment" data-index="{{@index}}" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button type="button" class="ctrl-btn danger" data-action="removeEquipment" data-index="{{@index}}" title="Delete"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
+        {{#if description}}<p class="card-desc">{{description}}</p>{{/if}}
+        {{#if tags.length}}
+        <div class="card-tags">
+          {{#each tags}}<span class="tag">{{this}}</span>{{/each}}
+        </div>
+        {{/if}}
+        {{#if gambitName}}
+        <div class="card-gambit">
+          <span class="gambit-icon">⚡</span>
+          <span class="gambit-name">{{gambitName}}</span>
+          {{#if gambitDesc}}<span class="gambit-effect">— {{gambitDesc}}</span>{{/if}}
+        </div>
+        {{/if}}
+      </div>
+      {{/each}}
+    </div>
   </div>
 
   </div>{{!-- end sheet tab --}}

@@ -1,18 +1,18 @@
-{{!-- MONDAS — Add Equipment Dialog --}}
-<form class="mondas add-equipment-form">
+{{!-- MONDAS — Add/Edit Equipment Dialog --}}
+<div class="mondas-dialog add-equipment-form">
   <div class="form-group">
     <label>Name</label>
-    <input type="text" name="name" placeholder="What is it?" autofocus>
+    <input type="text" name="name" value="{{name}}" placeholder="What is it?" autofocus>
   </div>
 
   <div class="form-group">
     <label>Description</label>
-    <input type="text" name="description" placeholder="One line, what it does">
+    <input type="text" name="description" value="{{description}}" placeholder="One line, what it does">
   </div>
 
   <div class="form-group">
     <label>Quantity</label>
-    <input type="number" name="quantity" value="1" min="0">
+    <input type="number" name="quantity" value="{{quantity}}" min="0">
   </div>
 
   <div class="form-group">
@@ -20,7 +20,7 @@
     <div class="tag-toggles">
       {{#each tags}}
       <label class="tag-toggle">
-        <input type="checkbox" name="tag" value="{{this}}">
+        <input type="checkbox" name="tag" value="{{this}}" {{#if (includes ../checkedTags this)}}checked{{/if}}>
         <span>{{this}}</span>
       </label>
       {{/each}}
@@ -31,11 +31,11 @@
     <legend>Thaumatech Gambit (optional)</legend>
     <div class="form-group">
       <label>Gambit Name</label>
-      <input type="text" name="gambitName" placeholder="Name of the device gambit">
+      <input type="text" name="gambitName" value="{{gambitName}}" placeholder="Name of the device gambit">
     </div>
     <div class="form-group">
       <label>Gambit Effect</label>
-      <input type="text" name="gambitDesc" placeholder="What it does when used">
+      <input type="text" name="gambitDesc" value="{{gambitDesc}}" placeholder="What it does when used">
     </div>
   </fieldset>
-</form>
+</div>

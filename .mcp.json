@@ -8,6 +8,17 @@
         "tools/comments-server/src/mcp-server.ts"
       ],
       "env": {}
+    },
+    "foundry-mcp": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "/Users/johannes/foundry-vtt-mcp/packages/mcp-server/dist/index.js"
+      ],
+      "env": {
+        "FOUNDRY_HOST": "localhost",
+        "FOUNDRY_PORT": "31415"
+      }
     }
   }
 }

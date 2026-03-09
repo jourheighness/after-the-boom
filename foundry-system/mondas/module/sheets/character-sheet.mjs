@@ -4,6 +4,21 @@ const { ActorSheetV2 } = foundry.applications.sheets;
 /** Tags available for equipment */
 const EQUIPMENT_TAGS = ["thaumatech", "licensed", "restricted", "prohibited", "black-market", "mundane"];
 
+/** Weapon property options */
+const PROPERTY_OPTIONS = ["ranged", "sidearm", "thrown", "area", "long", "loud", "brutal", "subtle", "slow"];
+
+/** Die options for weapons */
+const DIE_OPTIONS = { d6: "d6", d8: "d8", d10: "d10", d12: "d12" };
+
+/**
+ * Extract form data from a DialogV2 callback.
+ * Foundry v13 DialogV2 passes (event, button, dialog) — the form lives
+ * inside the dialog element, not as a parent of the button.
+ */
+function getDialogForm(event, button) {
+  return button.form;
+}
+
 export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
   /** Track active tab across renders */
@@ -15,20 +30,23 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     actions: {
       rollStat: MondasCharacterSheet.#onRollStat,
       addEdge: MondasCharacterSheet.#onAddEdge,
+      editEdge: MondasCharacterSheet.#onEditEdge,
       removeEdge: MondasCharacterSheet.#onRemoveEdge,
       addWeapon: MondasCharacterSheet.#onAddWeapon,
+      editWeapon: MondasCharacterSheet.#onEditWeapon,
       removeWeapon: MondasCharacterSheet.#onRemoveWeapon,
       addEquipment: MondasCharacterSheet.#onAddEquipment,
+      editEquipment: MondasCharacterSheet.#onEditEquipment,
       removeEquipment: MondasCharacterSheet.#onRemoveEquipment,
       toggleHarm: MondasCharacterSheet.#onToggleHarm,
       toggleCondition: MondasCharacterSheet.#onToggleCondition,
       toggleGuardBox: MondasCharacterSheet.#onToggleGuardBox,
       toggleDrainBox: MondasCharacterSheet.#onToggleDrainBox,
-      toggleProperty: MondasCharacterSheet.#onToggleProperty,
+      showEdge: MondasCharacterSheet.#onShowEdge,
+      showWeapon: MondasCharacterSheet.#onShowWeapon,
+      showEquipment: MondasCharacterSheet.#onShowEquipment,
       addScar: MondasCharacterSheet.#onAddScar,
       removeScar: MondasCharacterSheet.#onRemoveScar,
-      showEdge: MondasCharacterSheet.#onShowEdge,
-      showEquipment: MondasCharacterSheet.#onShowEquipment,
       switchTab: MondasCharacterSheet.#onSwitchTab,
     },
     form: {
@@ -83,18 +101,6 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     // Tab state
     context.activeTab = this._activeTab;
 
-    // Dropdown options
-    context.dieOptions = {
-      d6: game.i18n.localize("MONDAS.Weapon.die.d6"),
-      d8: game.i18n.localize("MONDAS.Weapon.die.d8"),
-      d10: game.i18n.localize("MONDAS.Weapon.die.d10"),
-      d12: game.i18n.localize("MONDAS.Weapon.die.d12"),
-    };
-
-    context.propertyOptions = [
-      "ranged", "sidearm", "thrown", "area", "long", "loud", "brutal", "subtle", "slow",
-    ];
-
     context.background = system.background;
 
     return context;
@@ -116,7 +122,6 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
   static async #onToggleGuardBox(event, target) {
     const index = Number(target.dataset.index);
     const current = this.actor.system.guard.value;
-    // If clicking the last filled box, unfill it; otherwise fill up to clicked+1
     const newVal = (index < current) ? index : index + 1;
     await this.actor.update({ "system.guard.value": Math.clamp(newVal, 0, this.actor.system.guard.max) });
   }
@@ -142,9 +147,45 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     await this.actor.update({ "system.scars": scars });
   }
 
-  /** Add a blank edge */
+  /* ---- Edge dialogs ---- */
+
+  static async #openEdgeDialog(title, label, data = {}) {
+    const content = await renderTemplate(
+      "systems/mondas/templates/dialogs/add-edge.hbs",
+      { name: data.name || "", mechanical: data.mechanical || "", gambitName: data.gambitName || "", gambitDesc: data.gambitDesc || "" },
+    );
+    return foundry.applications.api.DialogV2.prompt({
+      window: { title },
+      content,
+      ok: {
+        label,
+        callback: (event, button, dialog) => {
+          const form = getDialogForm(event, button);
+          if (!form) return null;
+          const fd = new FormDataExtended(form);
+          const d = fd.object;
+          return { name: d.name || "", mechanical: d.mechanical || "", gambitName: d.gambitName || "", gambitDesc: d.gambitDesc || "" };
+        },
+      },
+      rejectClose: false,
+    });
+  }
+
   static async #onAddEdge(event, target) {
-    const edges = [...this.actor.system.toObject().edges, { name: "", mechanical: "", gambitName: "", gambitDesc: "" }];
+    const result = await MondasCharacterSheet.#openEdgeDialog("Add Edge", "Add");
+    if (!result) return;
+    const edges = [...this.actor.system.toObject().edges, result];
+    await this.actor.update({ "system.edges": edges });
+  }
+
+  static async #onEditEdge(event, target) {
+    const index = Number(target.dataset.index);
+    const existing = this.actor.system.edges[index];
+    if (!existing) return;
+    const result = await MondasCharacterSheet.#openEdgeDialog("Edit Edge", "Save", existing);
+    if (!result) return;
+    const edges = this.actor.system.toObject().edges;
+    edges[index] = result;
     await this.actor.update({ "system.edges": edges });
   }
 
@@ -155,24 +196,51 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     await this.actor.update({ "system.edges": edges });
   }
 
-  /** Show edge as chat card */
-  static async #onShowEdge(event, target) {
-    const index = Number(target.dataset.index);
-    const edge = this.actor.system.edges[index];
-    if (!edge?.name) return;
-    const content = `<div class="mondas-item-card"><strong>${edge.name}</strong>`
-      + (edge.mechanical ? `<p class="item-card-mechanical">${edge.mechanical}</p>` : "")
-      + `</div>`;
-    await ChatMessage.create({
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+  /* ---- Weapon dialogs ---- */
+
+  static async #openWeaponDialog(title, label, data = {}) {
+    const content = await renderTemplate(
+      "systems/mondas/templates/dialogs/add-weapon.hbs",
+      {
+        name: data.name || "", description: data.description || "",
+        die: data.die || "d8", properties: data.properties || [],
+        dieOptions: DIE_OPTIONS, propertyOptions: PROPERTY_OPTIONS,
+      },
+    );
+    return foundry.applications.api.DialogV2.prompt({
+      window: { title },
       content,
-      style: CONST.CHAT_MESSAGE_STYLES.OTHER,
+      ok: {
+        label,
+        callback: (event, button, dialog) => {
+          const form = getDialogForm(event, button);
+          if (!form) return null;
+          const fd = new FormDataExtended(form);
+          const d = fd.object;
+          const properties = [];
+          form.querySelectorAll("input[name='property']:checked").forEach((cb) => properties.push(cb.value));
+          return { name: d.name || "", description: d.description || "", die: d.die || "d8", properties };
+        },
+      },
+      rejectClose: false,
     });
   }
 
-  /** Add a blank weapon */
   static async #onAddWeapon(event, target) {
-    const weapons = [...this.actor.system.toObject().weapons, { name: "", description: "", die: "d8", properties: [] }];
+    const result = await MondasCharacterSheet.#openWeaponDialog("Add Weapon", "Add");
+    if (!result) return;
+    const weapons = [...this.actor.system.toObject().weapons, result];
+    await this.actor.update({ "system.weapons": weapons });
+  }
+
+  static async #onEditWeapon(event, target) {
+    const index = Number(target.dataset.index);
+    const existing = this.actor.system.weapons[index];
+    if (!existing) return;
+    const result = await MondasCharacterSheet.#openWeaponDialog("Edit Weapon", "Save", existing);
+    if (!result) return;
+    const weapons = this.actor.system.toObject().weapons;
+    weapons[index] = result;
     await this.actor.update({ "system.weapons": weapons });
   }
 
@@ -183,43 +251,57 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     await this.actor.update({ "system.weapons": weapons });
   }
 
-  /** Add equipment via dialog */
-  static async #onAddEquipment(event, target) {
-    const dialogContent = await renderTemplate(
-      "systems/mondas/templates/dialogs/add-equipment.hbs",
-      { tags: EQUIPMENT_TAGS },
-    );
+  /* ---- Equipment dialogs ---- */
 
-    const result = await foundry.applications.api.DialogV2.prompt({
-      window: { title: "Add Equipment" },
-      content: dialogContent,
+  static async #openEquipmentDialog(title, label, data = {}) {
+    const content = await renderTemplate(
+      "systems/mondas/templates/dialogs/add-equipment.hbs",
+      {
+        tags: EQUIPMENT_TAGS,
+        name: data.name || "", description: data.description || "",
+        quantity: data.quantity ?? 1,
+        gambitName: data.gambitName || "", gambitDesc: data.gambitDesc || "",
+        checkedTags: data.tags || [],
+      },
+    );
+    return foundry.applications.api.DialogV2.prompt({
+      window: { title },
+      content,
       ok: {
-        label: "Add Equipment",
+        label,
         callback: (event, button, dialog) => {
-          const form = button.closest(".dialog-content")?.querySelector("form")
-            || dialog.querySelector("form")
-            || button.form;
+          const form = getDialogForm(event, button);
           if (!form) return null;
           const fd = new FormDataExtended(form);
-          const data = fd.object;
-          // Collect checked tags
+          const d = fd.object;
           const tags = [];
           form.querySelectorAll("input[name='tag']:checked").forEach((cb) => tags.push(cb.value));
           return {
-            name: data.name || "",
-            description: data.description || "",
-            quantity: Number(data.quantity) || 1,
-            tags,
-            gambitName: data.gambitName || "",
-            gambitDesc: data.gambitDesc || "",
+            name: d.name || "", description: d.description || "",
+            quantity: Number(d.quantity) || 1, tags,
+            gambitName: d.gambitName || "", gambitDesc: d.gambitDesc || "",
           };
         },
       },
       rejectClose: false,
     });
+  }
 
+  static async #onAddEquipment(event, target) {
+    const result = await MondasCharacterSheet.#openEquipmentDialog("Add Equipment", "Add");
     if (!result) return;
     const equipment = [...this.actor.system.toObject().equipment, result];
+    await this.actor.update({ "system.equipment": equipment });
+  }
+
+  static async #onEditEquipment(event, target) {
+    const index = Number(target.dataset.index);
+    const existing = this.actor.system.equipment[index];
+    if (!existing) return;
+    const result = await MondasCharacterSheet.#openEquipmentDialog("Edit Equipment", "Save", existing);
+    if (!result) return;
+    const equipment = this.actor.system.toObject().equipment;
+    equipment[index] = result;
     await this.actor.update({ "system.equipment": equipment });
   }
 
@@ -230,23 +312,45 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     await this.actor.update({ "system.equipment": equipment });
   }
 
-  /** Show equipment as chat card */
-  static async #onShowEquipment(event, target) {
-    const index = Number(target.dataset.index);
-    const item = this.actor.system.equipment[index];
-    if (!item?.name) return;
-    let content = `<div class="mondas-item-card"><strong>${item.name}</strong>`;
-    if (item.description) content += `<p class="item-card-desc">${item.description}</p>`;
-    if (item.tags?.length) {
-      content += `<div class="item-card-tags">${item.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>`;
-    }
-    content += `</div>`;
-    await ChatMessage.create({
+  /* ---- Show in Chat ---- */
+
+  static #chatCard(body) {
+    return ChatMessage.create({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content,
+      content: `<div class="mondas-item-card">${body}</div>`,
       style: CONST.CHAT_MESSAGE_STYLES.OTHER,
     });
   }
+
+  static async #onShowEdge(event, target) {
+    const edge = this.actor.system.edges[Number(target.dataset.index)];
+    if (!edge?.name) return;
+    let html = `<div class="card-chat-header">${edge.name}</div>`;
+    if (edge.mechanical) html += `<p class="card-chat-desc">${edge.mechanical}</p>`;
+    if (edge.gambitName) html += `<div class="card-chat-gambit"><span class="gambit-icon">⚡</span> <strong>${edge.gambitName}</strong>${edge.gambitDesc ? ` — ${edge.gambitDesc}` : ""}</div>`;
+    await MondasCharacterSheet.#chatCard.call(this, html);
+  }
+
+  static async #onShowWeapon(event, target) {
+    const w = this.actor.system.weapons[Number(target.dataset.index)];
+    if (!w?.name) return;
+    let html = `<div class="card-chat-header">${w.name} <span class="card-chat-die">${w.die}</span></div>`;
+    if (w.description) html += `<p class="card-chat-desc">${w.description}</p>`;
+    if (w.properties?.length) html += `<div class="card-chat-tags">${w.properties.map((p) => `<span class="tag">${p}</span>`).join("")}</div>`;
+    await MondasCharacterSheet.#chatCard.call(this, html);
+  }
+
+  static async #onShowEquipment(event, target) {
+    const eq = this.actor.system.equipment[Number(target.dataset.index)];
+    if (!eq?.name) return;
+    let html = `<div class="card-chat-header">${eq.name} <span class="card-chat-qty">×${eq.quantity}</span></div>`;
+    if (eq.description) html += `<p class="card-chat-desc">${eq.description}</p>`;
+    if (eq.tags?.length) html += `<div class="card-chat-tags">${eq.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>`;
+    if (eq.gambitName) html += `<div class="card-chat-gambit"><span class="gambit-icon">⚡</span> <strong>${eq.gambitName}</strong>${eq.gambitDesc ? ` — ${eq.gambitDesc}` : ""}</div>`;
+    await MondasCharacterSheet.#chatCard.call(this, html);
+  }
+
+  /* ---- Other toggles ---- */
 
   /** Toggle a harm slot */
   static async #onToggleHarm(event, target) {
@@ -264,20 +368,6 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     const path = `system.conditions.${condition}`;
     const current = foundry.utils.getProperty(this.actor, path);
     await this.actor.update({ [path]: !current });
-  }
-
-  /** Toggle a weapon property */
-  static async #onToggleProperty(event, target) {
-    const weaponIndex = Number(target.dataset.weaponIndex);
-    const property = target.dataset.property;
-    const weapons = this.actor.system.toObject().weapons;
-    const props = weapons[weaponIndex].properties;
-    if (props.includes(property)) {
-      weapons[weaponIndex].properties = props.filter((p) => p !== property);
-    } else {
-      weapons[weaponIndex].properties = [...props, property];
-    }
-    await this.actor.update({ "system.weapons": weapons });
   }
 
   /** Switch between Sheet and Notes tabs */
