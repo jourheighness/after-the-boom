@@ -1,0 +1,174 @@
+<section class="mondas character-sheet">
+
+  {{!-- Header --}}
+  <header class="sheet-header">
+    <input type="text" name="name" value="{{actor.name}}" placeholder="Character Name" class="char-name">
+    <input type="text" name="system.background" value="{{background}}" placeholder="Background...">
+  </header>
+
+  {{!-- Stats Row --}}
+  <div class="stats-row">
+    {{#each stats}}
+    <div class="stat-block" data-action="rollStat" data-stat="{{key}}">
+      <span class="stat-value">{{value}}</span>
+      <span class="stat-label">{{label}}</span>
+    </div>
+    {{/each}}
+  </div>
+
+  {{!-- Resource Bar --}}
+  <div class="resources-bar">
+
+    <div class="guard-track">
+      <span class="resource-label">Guard</span>
+      <button type="button" data-action="adjustGuard" data-delta="-1">&minus;</button>
+      <span class="guard-value">{{guard.value}} / {{guard.max}}</span>
+      <button type="button" data-action="adjustGuard" data-delta="1">+</button>
+    </div>
+
+    <div class="drain-track">
+      <span class="resource-label">Drain</span>
+      <button type="button" data-action="adjustDrain" data-delta="-1">&minus;</button>
+      <span class="drain-value">{{drain.value}} / 4</span>
+      <button type="button" data-action="adjustDrain" data-delta="1">+</button>
+      {{#if cracked}}<span class="cracked-label">CRACKED</span>{{/if}}
+    </div>
+
+    <div class="armor-display">
+      <span class="resource-label">Armor</span>
+      <input type="number" name="system.armor" value="{{armor}}" min="0" max="3">
+    </div>
+
+    <div class="scars-display">
+      <span class="resource-label">Scars</span>
+      <input type="number" name="system.scars" value="{{scars}}" min="0">
+    </div>
+
+  </div>
+
+  {{!-- Harm Section --}}
+  <div class="harm-section">
+    <h3>Harm</h3>
+
+    <div class="harm-row">
+      <span class="harm-label">Hurt</span>
+      <label class="harm-slot">
+        <input type="checkbox" {{#if harm.hurt.slot1.filled}}checked{{/if}}
+               data-action="toggleHarm" data-level="hurt" data-slot="slot1">
+        <input type="text" name="system.harm.hurt.slot1.text" value="{{harm.hurt.slot1.text}}" placeholder="&mdash;">
+      </label>
+      <label class="harm-slot">
+        <input type="checkbox" {{#if harm.hurt.slot2.filled}}checked{{/if}}
+               data-action="toggleHarm" data-level="hurt" data-slot="slot2">
+        <input type="text" name="system.harm.hurt.slot2.text" value="{{harm.hurt.slot2.text}}" placeholder="&mdash;">
+      </label>
+    </div>
+
+    <div class="harm-row">
+      <span class="harm-label">Wounded</span>
+      <label class="harm-slot">
+        <input type="checkbox" {{#if harm.wounded.slot1.filled}}checked{{/if}}
+               data-action="toggleHarm" data-level="wounded" data-slot="slot1">
+        <input type="text" name="system.harm.wounded.slot1.text" value="{{harm.wounded.slot1.text}}" placeholder="&mdash;">
+      </label>
+      <label class="harm-slot">
+        <input type="checkbox" {{#if harm.wounded.slot2.filled}}checked{{/if}}
+               data-action="toggleHarm" data-level="wounded" data-slot="slot2">
+        <input type="text" name="system.harm.wounded.slot2.text" value="{{harm.wounded.slot2.text}}" placeholder="&mdash;">
+      </label>
+    </div>
+
+    <div class="harm-row">
+      <span class="harm-label">Critical</span>
+      <label class="harm-slot">
+        <input type="checkbox" {{#if harm.critical.slot1.filled}}checked{{/if}}
+               data-action="toggleHarm" data-level="critical" data-slot="slot1">
+        <input type="text" name="system.harm.critical.slot1.text" value="{{harm.critical.slot1.text}}" placeholder="&mdash;">
+      </label>
+      <label class="harm-slot">
+        <input type="checkbox" {{#if harm.critical.slot2.filled}}checked{{/if}}
+               data-action="toggleHarm" data-level="critical" data-slot="slot2">
+        <input type="text" name="system.harm.critical.slot2.text" value="{{harm.critical.slot2.text}}" placeholder="&mdash;">
+      </label>
+    </div>
+  </div>
+
+  {{!-- Conditions --}}
+  <div class="conditions">
+    <label class="condition {{#if conditions.stunned}}active{{/if}}">
+      <input type="checkbox" {{#if conditions.stunned}}checked{{/if}}
+             data-action="toggleCondition" data-condition="stunned" hidden>
+      Stunned
+    </label>
+    <label class="condition {{#if conditions.shaken}}active{{/if}}">
+      <input type="checkbox" {{#if conditions.shaken}}checked{{/if}}
+             data-action="toggleCondition" data-condition="shaken" hidden>
+      Shaken
+    </label>
+    <label class="condition {{#if conditions.prone}}active{{/if}}">
+      <input type="checkbox" {{#if conditions.prone}}checked{{/if}}
+             data-action="toggleCondition" data-condition="prone" hidden>
+      Prone
+    </label>
+  </div>
+
+  {{!-- Edges --}}
+  <div class="edges-section">
+    <h3>Edges</h3>
+    {{#each edges}}
+    <div class="edge-row">
+      <input type="text" name="system.edges.{{@index}}.name" value="{{name}}" placeholder="Name">
+      <input type="text" name="system.edges.{{@index}}.description" value="{{description}}" placeholder="Description">
+      <select name="system.edges.{{@index}}.effect">
+        {{#each ../effectOptions}}
+        <option value="{{@key}}" {{#if (eq @key ../effect)}}selected{{/if}}>{{this}}</option>
+        {{/each}}
+      </select>
+      <button type="button" data-action="removeEdge" data-index="{{@index}}">&#10005;</button>
+    </div>
+    {{/each}}
+    <button type="button" data-action="addEdge">+ Add Edge</button>
+  </div>
+
+  {{!-- Weapons --}}
+  <div class="weapons-section">
+    <h3>Weapons</h3>
+    {{#each weapons}}
+    <div class="weapon-row">
+      <input type="text" name="system.weapons.{{@index}}.name" value="{{name}}" placeholder="Name">
+      <input type="text" name="system.weapons.{{@index}}.description" value="{{description}}" placeholder="Description">
+      <select name="system.weapons.{{@index}}.die">
+        {{#each ../dieOptions}}
+        <option value="{{@key}}" {{#if (eq @key ../die)}}selected{{/if}}>{{this}}</option>
+        {{/each}}
+      </select>
+      <div class="weapon-properties">
+        {{#each ../propertyOptions}}
+        <label class="property-tag">
+          <input type="checkbox" name="system.weapons.{{@../index}}.properties" value="{{this}}"
+                 {{#if (includes ../properties this)}}checked{{/if}}>
+          {{this}}
+        </label>
+        {{/each}}
+      </div>
+      <button type="button" data-action="removeWeapon" data-index="{{@index}}">&#10005;</button>
+    </div>
+    {{/each}}
+    <button type="button" data-action="addWeapon">+ Add Weapon</button>
+  </div>
+
+  {{!-- Equipment --}}
+  <div class="equipment-section">
+    <h3>Equipment</h3>
+    {{#each equipment}}
+    <div class="equipment-row">
+      <input type="text" name="system.equipment.{{@index}}.name" value="{{name}}" placeholder="Name">
+      <input type="text" name="system.equipment.{{@index}}.description" value="{{description}}" placeholder="Description">
+      <input type="number" name="system.equipment.{{@index}}.quantity" value="{{quantity}}" min="0">
+      <button type="button" data-action="removeEquipment" data-index="{{@index}}">&#10005;</button>
+    </div>
+    {{/each}}
+    <button type="button" data-action="addEquipment">+ Add Equipment</button>
+  </div>
+
+</section>
