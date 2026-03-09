@@ -244,6 +244,33 @@
 }
 
 /* ============================================
+ * STATUS BANNERS
+ * ============================================ */
+
+.mondas .status-banner {
+  padding: 4px 10px;
+  margin-bottom: 4px;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.mondas .banner-critical {
+  background: var(--mondas-danger);
+  color: #fff;
+}
+.mondas .banner-wounded {
+  background: var(--mondas-wounded-color);
+  color: #fff;
+}
+.mondas .banner-cracked {
+  background: var(--mondas-drain-color);
+  color: #fff;
+}
+
+/* ============================================
  * RESOURCES (Guard / Drain / Armor)
  * ============================================ */
 
@@ -625,6 +652,32 @@
   flex-shrink: 0;
 }
 
+.mondas .armor-badge {
+  font-size: 0.75em;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: #7a8a7a;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.mondas .thaumatech-badge {
+  font-size: 0.75em;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--mondas-drain-color);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.mondas .armor-value {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  min-width: 2rem;
+  text-align: center;
+}
+
 .mondas .card-controls {
   display: flex;
   gap: 0.1rem;
@@ -907,15 +960,83 @@
 .mondas.roll-dialog .drain-toggle { cursor: pointer; }
 .mondas.roll-dialog .drain-empty { font-size: 0.8em; color: var(--mondas-muted); font-style: italic; }
 
-.mondas.roll-dialog .weapon-selector {
-  margin: 0.75rem 0;
+/* --- Pill Selectors --- */
+
+.mondas.roll-dialog .pill-row {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
-.mondas.roll-dialog .weapon-selector label { font-weight: 600; }
-.mondas.roll-dialog .weapon-selector select { flex: 1; }
+.mondas.roll-dialog .pill {
+  padding: 3px 8px;
+  border: 1px solid var(--mondas-border);
+  border-radius: 12px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  background: var(--mondas-bg);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.mondas.roll-dialog .pill:hover {
+  background: var(--mondas-hover-bg);
+}
+
+.mondas.roll-dialog .pill.active {
+  background: var(--mondas-active-bg);
+  color: var(--mondas-active-text);
+  border-color: var(--mondas-active-bg);
+}
+
+.mondas.roll-dialog .pill .pill-die {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  margin-left: 2px;
+}
+
+/* --- Auto-snag Pills --- */
+
+.mondas.roll-dialog .snag-pill {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  background: var(--mondas-wounded-color);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.mondas.roll-dialog .snag-pill .dismiss {
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.mondas.roll-dialog .snag-pill .dismiss:hover {
+  opacity: 1;
+}
+
+/* --- Roll Warnings --- */
+
+.mondas.roll-dialog .roll-warning {
+  padding: 4px 8px;
+  margin: 4px 0;
+  border-radius: 3px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.mondas.roll-dialog .roll-warning.warning-critical {
+  background: var(--mondas-danger);
+  color: #fff;
+}
+
+.mondas.roll-dialog .roll-warning.warning-incapacitated {
+  background: #6a1a1a;
+  color: #fff;
+}
 
 .mondas.roll-dialog .pool-preview {
   text-align: center;
