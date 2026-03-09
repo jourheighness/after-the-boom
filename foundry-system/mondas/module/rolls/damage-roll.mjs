@@ -5,7 +5,7 @@
  * @param {Actor} actor - The target actor
  * @param {number} rawDamage - Raw damage value from weapon die
  */
-export async function applyDamage(actor, rawDamage) {
+export async function applyDamage(actor, rawDamage, coverArmor = 0) {
   const system = actor.system;
   const updates = {};
   const messages = [];
@@ -31,12 +31,13 @@ export async function applyDamage(actor, rawDamage) {
     updates["system.scars"] = [...system.toObject().scars, `Guard broken (${rawDamage} damage)`];
   }
 
-  // Step 3: Subtract Armor from overflow
+  // Step 3: Subtract Armor from overflow (base + cover)
   if (remaining > 0) {
-    const armorReduction = Math.min(remaining, system.armor);
+    const totalArmor = system.armor + coverArmor;
+    const armorReduction = Math.min(remaining, totalArmor);
     remaining -= armorReduction;
     if (armorReduction > 0) {
-      messages.push(`Armor absorbs ${armorReduction}`);
+      messages.push(`Armor absorbs ${armorReduction} (${system.armor} base${coverArmor > 0 ? ` + ${coverArmor} cover` : ""})`);
     }
   }
 

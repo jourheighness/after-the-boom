@@ -78,7 +78,7 @@
   {{#if weapon}}
   <div class="weapon-section">
     <strong>{{weapon.name}}</strong> ({{weapon.die}}): <span class="weapon-damage">{{weapon.damage}}</span>
-    <button class="mondas-apply-damage" data-damage="{{weapon.damage}}">
+    <button class="mondas-apply-damage" data-damage="{{weapon.damage}}" data-cover="{{coverArmor}}">
       Apply {{weapon.damage}} Damage
     </button>
   </div>

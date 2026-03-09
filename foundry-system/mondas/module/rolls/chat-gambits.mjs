@@ -147,6 +147,7 @@ export function buildTemplateData(flags) {
     sacrificedCount,
     weapon: flags.weapon,
     isZeroPool: flags.isZeroPool,
+    coverArmor: flags.coverArmor || 0,
   };
 }
 
@@ -464,13 +465,14 @@ function _bindApplyDamage(html) {
       event.preventDefault();
       const { applyDamage } = await import("./damage-roll.mjs");
       const damage = Number(btn.dataset.damage);
+      const coverArmor = Number(btn.dataset.cover || 0);
       const targets = game.user.targets;
       if (targets.size === 0) {
         ui.notifications.warn("Select a target token first.");
         return;
       }
       for (const token of targets) {
-        await applyDamage(token.actor, damage);
+        await applyDamage(token.actor, damage, coverArmor);
       }
     });
   });
