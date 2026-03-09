@@ -205,6 +205,8 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
         name: data.name || "", description: data.description || "",
         die: data.die || "d8", properties: data.properties || [],
         dieOptions: DIE_OPTIONS, propertyOptions: PROPERTY_OPTIONS,
+        thaumic: data.thaumic || false,
+        gambitName: data.gambitName || "", gambitDesc: data.gambitDesc || "",
       },
     );
     return foundry.applications.api.DialogV2.prompt({
@@ -219,7 +221,12 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
           const d = fd.object;
           const properties = [];
           form.querySelectorAll("input[name='property']:checked").forEach((cb) => properties.push(cb.value));
-          return { name: d.name || "", description: d.description || "", die: d.die || "d8", properties };
+          return {
+            name: d.name || "", description: d.description || "",
+            die: d.die || "d8", properties,
+            thaumic: !!form.querySelector("input[name='thaumic']")?.checked,
+            gambitName: d.gambitName || "", gambitDesc: d.gambitDesc || "",
+          };
         },
       },
       rejectClose: false,
@@ -260,6 +267,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
         tags: EQUIPMENT_TAGS,
         name: data.name || "", description: data.description || "",
         quantity: data.quantity ?? 1,
+        armorValue: data.armorValue ?? 0,
         gambitName: data.gambitName || "", gambitDesc: data.gambitDesc || "",
         checkedTags: data.tags || [],
       },
@@ -279,6 +287,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
           return {
             name: d.name || "", description: d.description || "",
             quantity: Number(d.quantity) || 1, tags,
+            armorValue: Number(d.armorValue) || 0,
             gambitName: d.gambitName || "", gambitDesc: d.gambitDesc || "",
           };
         },

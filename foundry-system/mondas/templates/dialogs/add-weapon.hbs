@@ -30,4 +30,23 @@
       {{/each}}
     </div>
   </div>
+
+  <div class="form-group">
+    <label class="tag-toggle thaumic-toggle">
+      <input type="checkbox" name="thaumic" {{#if thaumic}}checked{{/if}}>
+      <span>Thaumatech</span>
+    </label>
+  </div>
+
+  <fieldset class="thaumatech-gambit-section">
+    <legend>Weapon Gambit (optional)</legend>
+    <div class="form-group">
+      <label>Gambit Name</label>
+      <input type="text" name="gambitName" value="{{gambitName}}" placeholder="Name of the weapon gambit">
+    </div>
+    <div class="form-group">
+      <label>Gambit Effect</label>
+      <input type="text" name="gambitDesc" value="{{gambitDesc}}" placeholder="What it does when used">
+    </div>
+  </fieldset>
 </div>
