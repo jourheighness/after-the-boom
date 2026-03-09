@@ -43,9 +43,6 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         prone: new fields.BooleanField({ initial: false }),
       }),
 
-      // Armor
-      armor: new fields.NumberField({ required: true, initial: 0, min: 0, max: 3, integer: true }),
-
       // Scars — array of descriptions
       scars: new fields.ArrayField(new fields.StringField({ initial: "" })),
 
@@ -55,6 +52,9 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
       // Notes (free-form text, shown in Notes tab)
       notes: new fields.StringField({ initial: "" }),
 
+      // Last used weapon index for combat roll default (-1 = none yet)
+      lastWeaponIndex: new fields.NumberField({ initial: -1, integer: true }),
+
       // Edges — inline array with optional gambit
       edges: new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({ initial: "" }),
@@ -63,7 +63,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         gambitDesc: new fields.StringField({ initial: "" }),
       })),
 
-      // Weapons — inline array
+      // Weapons — inline array with optional gambit
       weapons: new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({ initial: "" }),
         description: new fields.StringField({ initial: "" }),
@@ -71,13 +71,17 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         properties: new fields.ArrayField(new fields.StringField({
           choices: ["ranged", "sidearm", "thrown", "area", "long", "loud", "brutal", "subtle", "slow"],
         })),
+        gambitName: new fields.StringField({ initial: "" }),
+        gambitDesc: new fields.StringField({ initial: "" }),
+        thaumic: new fields.BooleanField({ initial: false }),
       })),
 
-      // Equipment — inline array with tags and optional gambit
+      // Equipment — inline array with tags, optional gambit, optional armor
       equipment: new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({ initial: "" }),
         description: new fields.StringField({ initial: "" }),
         quantity: new fields.NumberField({ initial: 1, min: 0, integer: true }),
+        armorValue: new fields.NumberField({ initial: 0, min: 0, max: 3, integer: true }),
         tags: new fields.ArrayField(new fields.StringField()),
         gambitName: new fields.StringField({ initial: "" }),
         gambitDesc: new fields.StringField({ initial: "" }),
@@ -85,11 +89,49 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
     };
   }
 
-  /** Derived data: guard max, cracked state */
+  /** Derived data: guard max, armor, harm states, auto-snags, weapon choices */
   prepareDerivedData() {
     const stats = this.stats;
     const highestStat = Math.max(stats.grit, stats.sharp, stats.nerve);
     this.guard.max = 2 + highestStat + this.scars.length;
     this.cracked = this.drain.value === 0;
+
+    // Armor derived from equipment
+    this.armor = Math.min(3,
+      (this.equipment ?? []).reduce((sum, e) => sum + (e.armorValue || 0), 0),
+    );
+
+    // Harm-level booleans
+    this.wounded = this.harm.wounded.slot1.filled || this.harm.wounded.slot2.filled;
+    this.critical = this.harm.critical.slot1.filled || this.harm.critical.slot2.filled;
+    this.incapacitated = this.wounded && this.drain.value === 0;
+    this.mustSpendDrain = this.critical;
+
+    // Auto-snags: array of {source, applies}
+    this.autoSnags = [];
+    if (this.wounded) this.autoSnags.push({ source: "Wounded", applies: "all" });
+    if (this.conditions.shaken) this.autoSnags.push({ source: "Shaken", applies: "all" });
+    if (this.cracked) this.autoSnags.push({ source: "Cracked", applies: "all" });
+    if (this.conditions.prone) this.autoSnags.push({ source: "Prone", applies: "combat" });
+
+    // Weapon choices: Unarmed + weapons sorted by die size desc
+    const DIE_ORDER = { d12: 4, d10: 3, d8: 2, d6: 1 };
+    const unarmed = {
+      name: "Unarmed", die: "d6", properties: [],
+      thaumic: false, gambitName: "", gambitDesc: "",
+      description: "",
+    };
+    const sorted = [...(this.weapons ?? [])].sort(
+      (a, b) => (DIE_ORDER[b.die] || 0) - (DIE_ORDER[a.die] || 0),
+    );
+    this.weaponChoices = [unarmed, ...sorted];
+
+    // Default weapon selection: last used, or first (highest die)
+    const lastIdx = this.lastWeaponIndex ?? -1;
+    if (lastIdx >= 0 && lastIdx < this.weaponChoices.length) {
+      this.defaultWeaponIndex = lastIdx;
+    } else {
+      this.defaultWeaponIndex = 0;
+    }
   }
 }
