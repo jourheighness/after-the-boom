@@ -900,6 +900,95 @@
   font-weight: 700;
 }
 
+/* Hide Foundry's default roll rendering when our card is present */
+.message:has(.mondas-roll-chat) .dice-roll {
+  display: none;
+}
+
+/* === Chat Gambit Controls === */
+.mondas-roll-chat .gambit-controls {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--mondas-border);
+}
+
+.mondas-roll-chat .gambit-hint {
+  font-size: 0.85em;
+  color: var(--mondas-muted);
+  text-align: center;
+  margin: 0 0 0.5rem;
+}
+
+.mondas-roll-chat .gambit-input {
+  margin-bottom: 0.5rem;
+}
+
+.mondas-roll-chat .gambit-input input[type="text"] {
+  width: 100%;
+  padding: 0.3em 0.5em;
+  border: 1px solid var(--mondas-border);
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 0.9em;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.mondas-roll-chat .gambit-input input[type="text"]:focus {
+  border-color: var(--mondas-accent);
+  outline: none;
+}
+
+.mondas-roll-chat .gambit-buttons {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.mondas-roll-chat .gambit-confirm-btn {
+  flex: 1;
+  padding: 0.4em 0;
+  font-size: 0.9em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--mondas-accent);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.mondas-roll-chat .gambit-confirm-btn:hover {
+  filter: brightness(1.1);
+}
+
+.mondas-roll-chat .gambit-confirm-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+}
+
+.mondas-roll-chat .gambit-skip-btn {
+  flex: 1;
+  padding: 0.4em 0;
+  font-size: 0.9em;
+  background: transparent;
+  border: 1px solid var(--mondas-border);
+  border-radius: 3px;
+  color: var(--mondas-muted);
+  cursor: pointer;
+}
+
+.mondas-roll-chat .gambit-skip-btn:hover {
+  border-color: var(--mondas-muted);
+  color: var(--mondas-text);
+}
+
+.mondas-roll-chat .gambit-skip-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .mondas-apply-damage {
   display: inline-block;
   margin-top: 0.35rem;

@@ -23,20 +23,8 @@ Hooks.once("init", () => {
 });
 
 Hooks.on("renderChatMessage", (message, html) => {
-  const el = html instanceof HTMLElement ? html : html[0] ?? html;
-  el.querySelectorAll(".mondas-apply-damage").forEach((btn) => {
-    btn.addEventListener("click", async (event) => {
-      event.preventDefault();
-      const { applyDamage } = await import("./module/rolls/damage-roll.mjs");
-      const damage = Number(btn.dataset.damage);
-      const targets = game.user.targets;
-      if (targets.size === 0) {
-        ui.notifications.warn("Select a target token first.");
-        return;
-      }
-      for (const token of targets) {
-        await applyDamage(token.actor, damage);
-      }
-    });
+  import("./module/rolls/chat-gambits.mjs").then((m) => {
+    const el = html instanceof HTMLElement ? html : html[0] ?? html;
+    m.bindRollCard(message, el);
   });
 });

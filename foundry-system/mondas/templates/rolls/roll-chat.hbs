@@ -1,5 +1,5 @@
-{{!-- MONDAS Roll — Chat Card --}}
-<div class="mondas-roll-chat">
+{{!-- MONDAS Roll — Chat Card (pending / resolved) --}}
+<div class="mondas-roll-chat" data-phase="{{phase}}">
   <div class="roll-header">
     <strong>{{statLabel}}</strong> &mdash; {{rollTypeLabel}}
   </div>
@@ -8,7 +8,10 @@
 
   <div class="dice-grid">
     {{#each dice}}
-    <span class="die-result {{colorClass}} {{#if sacrificed}}sacrificed{{/if}}">{{value}}</span>
+    <span
+      class="die-result {{colorClass}} {{#if isGambitEligible}}gambit-eligible{{/if}} {{#if sacrificed}}sacrificed{{/if}}"
+      data-index="{{index}}"
+    >{{value}}</span>
     {{/each}}
   </div>
 
@@ -16,11 +19,28 @@
     Highest: {{highest}} &mdash; {{outcome}}
   </div>
 
+  {{!-- ===== PENDING: Gambit Controls ===== --}}
+  {{#if (eq phase "pending")}}
+  <div class="gambit-controls">
+    <p class="gambit-hint">Click dice showing 4+ to sacrifice as gambits.</p>
+    <div class="gambit-input">
+      <input type="text" name="gambitText" placeholder="Describe your gambit..." />
+    </div>
+    <div class="gambit-buttons">
+      <button type="button" class="gambit-confirm-btn">Confirm Gambits</button>
+      <button type="button" class="gambit-skip-btn">Skip</button>
+    </div>
+  </div>
+  {{/if}}
+
+  {{!-- ===== RESOLVED: Gambits + Weapon ===== --}}
+  {{#if (eq phase "resolved")}}
+
   {{#if hasGambits}}
   <div class="gambits-section">
     <strong>Gambits:</strong>
     {{#each gambits}}
-    <div class="gambit-entry">Sacrificed [{{value}}] &mdash; {{description}}</div>
+    <div class="gambit-entry">Sacrificed {{count}} {{#if (eq count 1)}}die{{else}}dice{{/if}} &mdash; {{description}}</div>
     {{/each}}
   </div>
   {{/if}}
@@ -29,10 +49,12 @@
   {{#if weapon}}
   <div class="weapon-section">
     <strong>{{weapon.name}}</strong> ({{weapon.die}}): <span class="weapon-damage">{{weapon.damage}}</span>
-    <button class="mondas-apply-damage" data-action="applyDamage" data-damage="{{weapon.damage}}">
+    <button class="mondas-apply-damage" data-damage="{{weapon.damage}}">
       Apply {{weapon.damage}} Damage
     </button>
   </div>
   {{/if}}
+  {{/if}}
+
   {{/if}}
 </div>
