@@ -13,6 +13,11 @@ export function registerHandlebarsHelpers() {
     return a === b;
   });
 
+  // Less than
+  Handlebars.registerHelper("lt", function (a, b) {
+    return a < b;
+  });
+
   // Check if array includes value
   Handlebars.registerHelper("includes", function (arr, val) {
     return Array.isArray(arr) && arr.includes(val);
@@ -42,4 +47,5 @@ export function registerHandlebarsHelpers() {
   Handlebars.registerHelper("checked", function (val) {
     return val ? "checked" : "";
   });
+
 }

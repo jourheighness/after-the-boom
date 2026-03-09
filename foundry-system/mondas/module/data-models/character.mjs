@@ -46,17 +46,21 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
       // Armor
       armor: new fields.NumberField({ required: true, initial: 0, min: 0, max: 3, integer: true }),
 
-      // Scars
-      scars: new fields.NumberField({ required: true, initial: 0, min: 0, integer: true }),
+      // Scars — array of descriptions
+      scars: new fields.ArrayField(new fields.StringField({ initial: "" })),
 
       // Background
       background: new fields.StringField({ initial: "" }),
 
-      // Edges — inline array
+      // Notes (free-form text, shown in Notes tab)
+      notes: new fields.StringField({ initial: "" }),
+
+      // Edges — inline array with optional gambit
       edges: new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({ initial: "" }),
-        description: new fields.StringField({ initial: "" }),
-        effect: new fields.StringField({ initial: "boon", choices: ["boon", "gambit", "thaumic", "narrative"] }),
+        mechanical: new fields.StringField({ initial: "" }),
+        gambitName: new fields.StringField({ initial: "" }),
+        gambitDesc: new fields.StringField({ initial: "" }),
       })),
 
       // Weapons — inline array
@@ -69,11 +73,14 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         })),
       })),
 
-      // Equipment — inline array
+      // Equipment — inline array with tags and optional gambit
       equipment: new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({ initial: "" }),
         description: new fields.StringField({ initial: "" }),
         quantity: new fields.NumberField({ initial: 1, min: 0, integer: true }),
+        tags: new fields.ArrayField(new fields.StringField()),
+        gambitName: new fields.StringField({ initial: "" }),
+        gambitDesc: new fields.StringField({ initial: "" }),
       })),
     };
   }
@@ -82,7 +89,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
   prepareDerivedData() {
     const stats = this.stats;
     const highestStat = Math.max(stats.grit, stats.sharp, stats.nerve);
-    this.guard.max = 2 + highestStat + this.scars;
+    this.guard.max = 2 + highestStat + this.scars.length;
     this.cracked = this.drain.value === 0;
   }
 }

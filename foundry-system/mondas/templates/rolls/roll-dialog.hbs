@@ -1,22 +1,9 @@
-{{!-- MONDAS Roll Dialog — Config only --}}
+{{!-- MONDAS Roll Dialog — Config only (roll type comes from sheet button) --}}
 <div class="roll-config">
   <div class="stat-header">
     <span class="stat-name">{{statLabel}}</span>
-    <span class="stat-base">Base pool: {{statValue}}</span>
+    <span class="stat-base">{{rollTypeLabel}} &mdash; Base pool: {{statValue}}</span>
   </div>
-
-  {{!-- Roll Type --}}
-  <fieldset class="roll-type-group">
-    <legend>Roll Type</legend>
-    <label>
-      <input type="radio" name="rollType" value="stakes" {{checked (eq rollType "stakes")}} />
-      Stakes Roll
-    </label>
-    <label>
-      <input type="radio" name="rollType" value="combat" {{checked (eq rollType "combat")}} />
-      Combat Roll
-    </label>
-  </fieldset>
 
   {{!-- Boons --}}
   <div class="modifier-row">
@@ -44,6 +31,7 @@
   </div>
 
   {{!-- Weapon Selector (combat only) --}}
+  {{#if isCombat}}
   {{#if weapons.length}}
   <div class="weapon-selector">
     <label>Weapon</label>
@@ -55,6 +43,7 @@
       {{/each}}
     </select>
   </div>
+  {{/if}}
   {{/if}}
 
   {{!-- Pool Preview --}}

@@ -6,12 +6,26 @@
     <input type="text" name="system.background" value="{{background}}" placeholder="Background...">
   </header>
 
+  {{!-- Tabs --}}
+  <nav class="sheet-tabs">
+    <button type="button" class="tab {{#if (eq activeTab 'sheet')}}active{{/if}}" data-action="switchTab" data-tab="sheet">Sheet</button>
+    <button type="button" class="tab {{#if (eq activeTab 'notes')}}active{{/if}}" data-action="switchTab" data-tab="notes">Notes</button>
+  </nav>
+
+  {{!-- ===== SHEET TAB ===== --}}
+  <div class="tab-content" data-tab="sheet" {{#unless (eq activeTab 'sheet')}}hidden{{/unless}}>
+
   {{!-- Stats Row --}}
   <div class="stats-row">
     {{#each stats}}
     <div class="stat-block">
       <input type="number" class="stat-value" name="system.stats.{{key}}" value="{{value}}" min="1" max="4">
-      <span class="stat-label" data-action="rollStat" data-stat="{{key}}">{{label}}</span>
+      <span class="stat-label">{{label}}</span>
+      <div class="stat-roll-buttons">
+        <button type="button" data-action="rollStat" data-stat="{{key}}" data-roll-type="combat" title="Combat"><i class="fa-solid fa-crosshairs"></i></button>
+        <button type="button" data-action="rollStat" data-stat="{{key}}" data-roll-type="defense" title="Defense"><i class="fa-solid fa-shield-halved"></i></button>
+        <button type="button" data-action="rollStat" data-stat="{{key}}" data-roll-type="stakes" title="Stakes"><span class="stakes-icon">♠</span></button>
+      </div>
     </div>
     {{/each}}
   </div>
@@ -21,16 +35,22 @@
 
     <div class="guard-track">
       <span class="resource-label">Guard</span>
-      <button type="button" data-action="adjustGuard" data-delta="-1">&minus;</button>
-      <span class="guard-value">{{guard.value}} / {{guard.max}}</span>
-      <button type="button" data-action="adjustGuard" data-delta="1">+</button>
+      <div class="guard-boxes">
+        {{#times guard.max}}
+        <span class="guard-box {{#if (lt this ../guard.value)}}filled{{/if}}" data-action="toggleGuardBox" data-index="{{this}}"></span>
+        {{/times}}
+      </div>
+      <span class="guard-counter">{{guard.value}}/{{guard.max}}</span>
     </div>
 
     <div class="drain-track">
       <span class="resource-label">Drain</span>
-      <button type="button" data-action="adjustDrain" data-delta="-1">&minus;</button>
-      <span class="drain-value">{{drain.value}} / {{drain.max}}</span>
-      <button type="button" data-action="adjustDrain" data-delta="1">+</button>
+      <div class="drain-boxes">
+        {{#times drain.max}}
+        <span class="drain-box {{#if (lt this ../drain.value)}}filled{{/if}}" data-action="toggleDrainBox" data-index="{{this}}"></span>
+        {{/times}}
+      </div>
+      <span class="drain-counter">{{drain.value}}/{{drain.max}}</span>
       {{#if cracked}}<span class="cracked-label">CRACKED</span>{{/if}}
     </div>
 
@@ -39,11 +59,18 @@
       <input type="number" name="system.armor" value="{{armor}}" min="0" max="3">
     </div>
 
-    <div class="scars-display">
-      <span class="resource-label">Scars</span>
-      <input type="number" name="system.scars" value="{{scars}}" min="0">
-    </div>
+  </div>
 
+  {{!-- Scars --}}
+  <div class="scars-section">
+    <span class="resource-label">Scars ({{scars.length}})</span>
+    {{#each scars}}
+    <div class="scar-entry">
+      <input type="text" name="system.scars.{{@index}}" value="{{this}}" placeholder="Scar description">
+      <button type="button" data-action="removeScar" data-index="{{@index}}">&#10005;</button>
+    </div>
+    {{/each}}
+    <button type="button" data-action="addScar">+ Add Scar</button>
   </div>
 
   {{!-- Harm Section --}}
@@ -117,13 +144,11 @@
     <h3>Edges</h3>
     {{#each edges}}
     <div class="edge-row">
+      <span class="item-name-link" data-action="showEdge" data-index="{{@index}}">{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
       <input type="text" name="system.edges.{{@index}}.name" value="{{name}}" placeholder="Name">
-      <input type="text" name="system.edges.{{@index}}.description" value="{{description}}" placeholder="Description">
-      <select name="system.edges.{{@index}}.effect">
-        {{#each ../effectOptions}}
-        <option value="{{@key}}" {{#if (eq @key ../effect)}}selected{{/if}}>{{this}}</option>
-        {{/each}}
-      </select>
+      <input type="text" name="system.edges.{{@index}}.mechanical" value="{{mechanical}}" placeholder="Mechanical effect">
+      <input type="text" name="system.edges.{{@index}}.gambitName" value="{{gambitName}}" placeholder="Gambit name (optional)">
+      <input type="text" name="system.edges.{{@index}}.gambitDesc" value="{{gambitDesc}}" placeholder="Gambit effect">
       <button type="button" data-action="removeEdge" data-index="{{@index}}">&#10005;</button>
     </div>
     {{/each}}
@@ -162,13 +187,26 @@
     <h3>Equipment</h3>
     {{#each equipment}}
     <div class="equipment-row">
-      <input type="text" name="system.equipment.{{@index}}.name" value="{{name}}" placeholder="Name">
-      <input type="text" name="system.equipment.{{@index}}.description" value="{{description}}" placeholder="Description">
-      <input type="number" name="system.equipment.{{@index}}.quantity" value="{{quantity}}" min="0">
+      <span class="item-name-link" data-action="showEquipment" data-index="{{@index}}">{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
+      <span class="equipment-qty">x{{quantity}}</span>
+      {{#if tags.length}}
+      <div class="equipment-tags">
+        {{#each tags}}
+        <span class="tag">{{this}}</span>
+        {{/each}}
+      </div>
+      {{/if}}
       <button type="button" data-action="removeEquipment" data-index="{{@index}}">&#10005;</button>
     </div>
     {{/each}}
     <button type="button" data-action="addEquipment">+ Add Equipment</button>
+  </div>
+
+  </div>{{!-- end sheet tab --}}
+
+  {{!-- ===== NOTES TAB ===== --}}
+  <div class="tab-content tab-notes" data-tab="notes" {{#unless (eq activeTab 'notes')}}hidden{{/unless}}>
+    <textarea name="system.notes" placeholder="Session notes, plans, secrets...">{{notes}}</textarea>
   </div>
 
 </section>

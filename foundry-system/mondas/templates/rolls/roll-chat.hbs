@@ -11,7 +11,7 @@
     <span
       class="die-result {{colorClass}} {{#if isGambitEligible}}gambit-eligible{{/if}} {{#if sacrificed}}sacrificed{{/if}}"
       data-index="{{index}}"
-    >{{value}}</span>
+    >{{value}}{{#if assignedGambit}}<span class="die-gambit-label">{{assignedGambit.label}}</span>{{/if}}</span>
     {{/each}}
   </div>
 
@@ -19,12 +19,26 @@
     Highest: {{highest}} &mdash; {{outcome}}
   </div>
 
-  {{!-- ===== PENDING: Gambit Controls ===== --}}
+  {{!-- ===== PENDING: Stakes — Simple Toggle ===== --}}
   {{#if (eq phase "pending")}}
+  {{#if isStakes}}
   <div class="gambit-controls">
-    <p class="gambit-hint">Click dice showing 4+ to sacrifice as gambits.</p>
-    <div class="gambit-input">
-      <input type="text" name="gambitText" placeholder="Describe your gambit..." />
+    <p class="gambit-hint">Click dice showing 4+ to sacrifice for narrative leverage.</p>
+    <div class="gambit-buttons">
+      <button type="button" class="gambit-confirm-btn">Confirm</button>
+      <button type="button" class="gambit-skip-btn">Skip</button>
+    </div>
+  </div>
+  {{/if}}
+
+  {{!-- ===== PENDING: Combat/Defense — Gambit Panel ===== --}}
+  {{#if showGambitPanel}}
+  <div class="gambit-controls">
+    <p class="gambit-hint">Click a die (4+) to select it, then choose a gambit below.</p>
+    <div class="gambit-panel" hidden>
+      <div class="gambit-list">
+        {{!-- Populated dynamically by JS --}}
+      </div>
     </div>
     <div class="gambit-buttons">
       <button type="button" class="gambit-confirm-btn">Confirm Gambits</button>
@@ -32,15 +46,30 @@
     </div>
   </div>
   {{/if}}
+  {{/if}}
 
-  {{!-- ===== RESOLVED: Gambits + Weapon ===== --}}
+  {{!-- ===== RESOLVED ===== --}}
   {{#if (eq phase "resolved")}}
 
+  {{!-- Stakes: show sacrifice count --}}
+  {{#if isStakes}}
+  {{#if sacrificedCount}}
+  <div class="gambits-section">
+    <strong>Sacrificed {{sacrificedCount}} {{#if (eq sacrificedCount 1)}}die{{else}}dice{{/if}}</strong> for narrative leverage
+  </div>
+  {{/if}}
+  {{/if}}
+
+  {{!-- Combat/Defense: show named gambits --}}
   {{#if hasGambits}}
   <div class="gambits-section">
     <strong>Gambits:</strong>
     {{#each gambits}}
-    <div class="gambit-entry">Sacrificed {{count}} {{#if (eq count 1)}}die{{else}}dice{{/if}} &mdash; {{description}}</div>
+    <div class="gambit-entry">
+      <span class="gambit-entry-name">{{label}}</span>
+      <span class="gambit-tier">{{tier}}</span>
+      &mdash; {{desc}}
+    </div>
     {{/each}}
   </div>
   {{/if}}

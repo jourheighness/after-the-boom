@@ -14,6 +14,7 @@
   "MONDAS.Condition.prone": "Prone",
   "MONDAS.Roll.stakes": "Stakes Roll",
   "MONDAS.Roll.combat": "Combat Roll",
+  "MONDAS.Roll.defense": "Defense Roll",
   "MONDAS.Roll.fullSuccess": "Full Success",
   "MONDAS.Roll.partial": "Partial — Cost",
   "MONDAS.Roll.consequence": "Consequence",
@@ -21,10 +22,6 @@
   "MONDAS.Snag": "Snag",
   "MONDAS.Gambit": "Gambit",
   "MONDAS.SpendDrain": "Spend Drain (+1d)",
-  "MONDAS.Edge.effect.boon": "Boon",
-  "MONDAS.Edge.effect.gambit": "Gambit",
-  "MONDAS.Edge.effect.thaumic": "Thaumic",
-  "MONDAS.Edge.effect.narrative": "Narrative",
   "MONDAS.Weapon.die.d6": "d6 (Light)",
   "MONDAS.Weapon.die.d8": "d8 (Standard)",
   "MONDAS.Weapon.die.d10": "d10 (Heavy)",
@@ -44,6 +41,7 @@
   "MONDAS.ApplyDamage": "Apply Damage",
   "MONDAS.Scars": "Scars",
   "MONDAS.Background": "Background",
+  "MONDAS.Notes": "Notes",
   "TYPES": {
     "Actor": {
       "character": "Character"

@@ -2,11 +2,12 @@
  * MONDAS Stat Roll Dialog
  *
  * Config-only dialog: pool builder (stat + boons/snags + drain + weapon).
+ * Roll type comes from the sheet button click (combat/defense/stakes).
  * On "Roll", evaluates dice, posts chat card, and closes.
  * Gambit selection happens in the chat card (see chat-gambits.mjs).
  */
 
-import { buildTemplateData, resolveOutcome } from "./chat-gambits.mjs";
+import { buildTemplateData, buildAvailableGambits, resolveOutcome } from "./chat-gambits.mjs";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 
@@ -33,11 +34,11 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
   /*  Construction                            */
   /* ---------------------------------------- */
 
-  constructor(actor, stat, options = {}) {
+  constructor(actor, stat, rollType, options = {}) {
     super(options);
     this.actor = actor;
     this.stat = stat;
-    this.rollType = "stakes";
+    this.rollType = rollType || "stakes";
     this.boons = 0;
     this.snags = 0;
     this.spendDrain = false;
@@ -47,15 +48,16 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
   /**
    * Factory — create and render in one call.
    */
-  static create(actor, stat) {
-    const dialog = new MondasRollDialog(actor, stat);
+  static create(actor, stat, rollType) {
+    const dialog = new MondasRollDialog(actor, stat, rollType);
     dialog.render(true);
     return dialog;
   }
 
   get title() {
     const statLabel = game.i18n.localize(`MONDAS.Stat.${this.stat}`);
-    return `Roll ${statLabel}`;
+    const rollTypeLabel = game.i18n.localize(`MONDAS.Roll.${this.rollType}`);
+    return `${statLabel} — ${rollTypeLabel}`;
   }
 
   /* ---------------------------------------- */
@@ -71,12 +73,14 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     context.statLabel = game.i18n.localize(`MONDAS.Stat.${this.stat}`);
     context.statValue = statValue;
     context.rollType = this.rollType;
+    context.rollTypeLabel = game.i18n.localize(`MONDAS.Roll.${this.rollType}`);
     context.boons = this.boons;
     context.snags = this.snags;
     context.spendDrain = this.spendDrain;
     context.drainAvailable = system.drain.value > 0;
     context.weapons = system.weapons;
     context.selectedWeaponIndex = this.selectedWeaponIndex;
+    context.isCombat = this.rollType === "combat";
 
     // Calculate pool
     const drainBonus = this.spendDrain ? 1 : 0;
@@ -107,8 +111,6 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
   static async #onExecuteRoll(event, target) {
     // Read current form state
     const form = this.element.querySelector("form") || this.element;
-    const rollTypeInput = form.querySelector("input[name='rollType']:checked");
-    if (rollTypeInput) this.rollType = rollTypeInput.value;
 
     const drainCheckbox = form.querySelector("input[name='spendDrain']");
     if (drainCheckbox) this.spendDrain = drainCheckbox.checked;
@@ -162,6 +164,11 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
       rolls.push(weaponRoll);
     }
 
+    // Build available gambits for combat/defense rolls
+    const availableGambits = (this.rollType === "combat" || this.rollType === "defense")
+      ? buildAvailableGambits(this.actor)
+      : [];
+
     // Build flags — single source of truth
     const flags = {
       phase: hasGambitDice ? "pending" : "resolved",
@@ -178,12 +185,13 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
       isZeroPool,
       dice,
       sacrificedIndices: [],
-      gambitText: "",
+      diceGambits: {},
       hasGambitDice,
       highest,
       outcome,
       outcomeClass,
       weapon: weaponData,
+      availableGambits,
     };
 
     // Render chat card

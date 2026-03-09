@@ -28,7 +28,7 @@ export async function applyDamage(actor, rawDamage) {
   if (guardBefore > 0 && guardAfter === 0) {
     scarEvent = true;
     messages.push("⚠ Guard broken! Scar gained (+1 max Guard)");
-    updates["system.scars"] = system.scars + 1;
+    updates["system.scars"] = [...system.toObject().scars, `Guard broken (${rawDamage} damage)`];
   }
 
   // Step 3: Subtract Armor from overflow
