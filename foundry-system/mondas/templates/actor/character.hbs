@@ -29,7 +29,7 @@
     <div class="drain-track">
       <span class="resource-label">Drain</span>
       <button type="button" data-action="adjustDrain" data-delta="-1">&minus;</button>
-      <span class="drain-value">{{drain.value}} / 4</span>
+      <span class="drain-value">{{drain.value}} / {{drain.max}}</span>
       <button type="button" data-action="adjustDrain" data-delta="1">+</button>
       {{#if cracked}}<span class="cracked-label">CRACKED</span>{{/if}}
     </div>

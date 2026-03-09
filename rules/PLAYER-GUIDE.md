@@ -434,7 +434,11 @@ You need something concrete to work: a name, an address, a document, a device, a
 
 When the whole group faces something together.
 
-**Weakest Link.** Everyone rolls. The worst result is the group result. Before rolling, one PC can cover for another: the covering PC takes a Snag, the covered PC skips. Sneaking past a checkpoint, crossing a collapsing bridge, talking through a DPA sweep.
+**Weakest Link.** Everyone rolls. The worst **outcome** is the group result — if anyone gets a 1-3, the whole group gets a consequence, even if everyone else rolled 6s. The group is only as safe as its weakest roller.
+
+That's why **covering** matters. Before rolling, one PC can cover for another: the covering PC takes a Snag, and the covered PC **skips the roll entirely**. Their bad odds are removed from the equation. A Snag on a strong roller is almost always better than letting a weak roller drag everyone down.
+
+*Sneaking past a checkpoint. Brenor is Wounded (Snag on everything). If he rolls, he'll probably get a 1-3 and blow it for the group. Jack covers him: Jack takes a Snag but Brenor doesn't roll at all. Now only Jack and Gnorm roll. The group's odds just doubled.*
 
 **Group Effort.** Everyone rolls individually. The GM sets a clock (4, 6, or 8 segments). Full = 2 ticks, partial = 1, miss = nothing + possible complication. Searching a building, fortifying a position, fleeing through a crowd.
 

@@ -98,6 +98,6 @@ export async function applyDamage(actor, rawDamage) {
   await ChatMessage.create({
     speaker: ChatMessage.getSpeaker({ actor }),
     content,
-    type: CONST.CHAT_MESSAGE_STYLES.OTHER,
+    style: CONST.CHAT_MESSAGE_STYLES.OTHER,
   });
 }

@@ -4,7 +4,7 @@
 **Focus:** Full combat encounter with character builds, gambits, stakes rolls, device gambits, and enemy phasing.
 **System version:** MONDAS Core Rules Engine v0.2
 
----
+***
 
 ## Characters
 
@@ -17,6 +17,7 @@ Background: Dockworker, Ostreon waterfront.
 **Gear:** 2x Frag Grenade (d8, Thrown, Area Close, Loud), rope, flashlight
 
 **Edges:**
+
 1. **Knack: Pressure Reader** (Knack/Perception) — Feel structural stress in objects and walls at Close. Boon on Grit rolls to break, force, or damage objects.
 2. **Iron Gut** (Survival/Body, Situational Boon) — Boon on Grit defense rolls when you have any Harm on your track.
 3. **Haymaker** (Combat/Expertise, New Gambit) — New melee gambit: **Stagger.** Sacrifice 4+: target loses their next Move. Strong (6): target is Impaired (-2 damage) AND loses next Move.
@@ -31,6 +32,7 @@ Background: Army scout, discharged.
 **Gear:** 2x Smoke Grenade (Thrown, Area Close, breaks line of sight 1 round), binoculars
 
 **Edges:**
+
 1. **Knack: Thread Sight** (Knack/Perception) — See thaumic residue and active signatures within Near. Boon on Sharp rolls to identify or track thaumic sources.
 2. **Spotter** (Combat/Expertise, Gambit Extension) — Your Read gambit on ranged attacks also grants Boon on the next attack against that target (you or an ally), in addition to the detail.
 3. **Fieldcraft** (Survival/Experience, Situational Boon) — Boon on Sharp rolls for positioning, finding cover, and scouting in outdoor or ruined environments.
@@ -41,18 +43,21 @@ Grit 1 / Sharp 2 / Nerve 3 | Guard 5 | Drain 4 | Armor 0 (work coveralls)
 Background: Union thaumatech repairman.
 
 **Weapon:** Kessler-Brandt KD-7 Discharge Rod (d6, Sidearm, thaumatech, contact plate)
-- Device Gambit: **Suppress** (1 Drain) — Target entity or thaumatech device is disabled for 1 round. Auto-succeed.
-- Device Gambit: **Overcharge** (2 Drain) — Next attack deals d12 instead of d6. Device at risk after.
+
+* Device Gambit: **Suppress** (1 Drain) — Target entity or thaumatech device is disabled for 1 round. Auto-succeed.
+
+* Device Gambit: **Overcharge** (2 Drain) — Next attack deals d12 instead of d6. Device at risk after.
 
 **Backup:** Pipe Wrench (d6, Subtle)
 **Gear:** 1x Concussion Charge (Thrown, Area Close, Loud, Nerve save or lose Act), 2x Ward Patch (consumable: +2 Armor vs thaumic damage, one hit)
 
 **Edges:**
+
 1. **Knack: Resonance Ear** (Knack/Perception) — Hear thaumic frequency shifts in devices and entities at Near. Boon on Nerve rolls when diagnosing or operating thaumatech.
 2. **Field Technician** (Thaumatech/Expertise, Situational Boon) — Boon on device risk rolls.
 3. **Tether** (Thaumatech/Expertise, New Gambit) — New gambit on discharge weapon attacks: sacrifice 4+: create a thaumic tether. Target can't benefit from concealment or phasing and you always know its position. Lasts until combat ends or target spends Act + Move to snap it. Strong (6): one ally also benefits.
 
----
+***
 
 ## Enemy
 
@@ -63,14 +68,18 @@ Threat 3 | Damage 8 | Guard 10 | Harm 10 | Armor 0 | Morale: no
 **Behavior:** Phase toward the highest-BTC positive. Attack the isolated target. If two PCs are adjacent, target the one with lower Guard. If Staggered, phase through the nearest wall and re-approach from a different angle next round. Does not negotiate. Does not flee.
 
 **Abilities:**
-- **Phase:** Passes through mundane walls and obstacles. Thaumatech barriers block it. Tether gambit prevents phasing.
-- **BTC Sense:** Knows the location of all positives within Far. Cannot detect zeroes.
-- **Incorporeal Lash:** Attacks at Close or Near. 8 flat damage. Mundane armor: half value (round down). Thaumatech armor: full value.
-- **Reposition:** After attacking, may phase one band in any direction (including through walls).
+
+* **Phase:** Passes through mundane walls and obstacles. Thaumatech barriers block it. Tether gambit prevents phasing.
+
+* **BTC Sense:** Knows the location of all positives within Far. Cannot detect zeroes.
+
+* **Incorporeal Lash:** Attacks at Close or Near. 8 flat damage. Mundane armor: half value (round down). Thaumatech armor: full value.
+
+* **Reposition:** After attacking, may phase one band in any direction (including through walls).
 
 **Weakness (Read reveals):** Anchored to the leyline breach. If driven Far from anchor: Threat drops to 2, damage drops to 6. Breach can be destabilized or sealed through thaumatech/stakes rolls.
 
----
+***
 
 ## The Scene
 
@@ -81,7 +90,7 @@ Concrete building, one story, open floor plan. Dead relay racks. A crack in the 
 **Ranges:** Main floor is one big Near zone. Breach is NW corner. Entrance is SE. Outside is Far from breach.
 **Danger Clock:** 6 segments. When full, the breach widens. A second entity comes through.
 
----
+***
 
 ## Setup Phase
 
@@ -91,7 +100,7 @@ Concrete building, one story, open floor plan. Dead relay racks. A crack in the 
 
 **Tomasz** — crouches behind transformer, discharge rod ready. Nerve 3. Rolls `[3, 2, 2]` = **3 (complication).** The rod spikes, the entity is alerted. The stalker materializes from the breach and targets Tomasz. It acts first in Round 1.
 
----
+***
 
 ## Round 1
 
@@ -111,7 +120,7 @@ Attacks with rifle (d8) + setup Boon (d6). Rolls `d8[7], d6[5]`. Keeps 7 for dam
 
 ### Kael
 
-Attacks with wrench (d8) + banked 5 from setup. Rolls `d8[1]` + banked `[5]`. Wants gambit fuel, spends 1 Drain. Drain d6 rolls `[3]`. Pool: [1, 5, 3]. Highest 5. No spare dice showing 4+ (only the 5 itself). Keeps 5 for damage.
+Attacks with wrench (d8) + banked 5 from setup. Rolls `d8[1]` + banked `[5]`. Wants gambit fuel, spends 1 Drain. Drain d6 rolls `[3]`. Pool: \[1, 5, 3]. Highest 5. No spare dice showing 4+ (only the 5 itself). Keeps 5 for damage.
 
 **Damage:** 5. Guard 3 drops to **0. Staggered.** Overflow 2 = **Harm 2/10.**
 
@@ -127,18 +136,18 @@ Nerve 3 + Knack Boon (Resonance Ear) = 4d6. Rolls `[4, 4, 3, 3]` = **4 (partial)
 
 ### End of Round 1
 
-| PC | Guard | Drain | Harm | Banked |
-|-|-|-|-|-|
-| Kael | 5 | 3 | — | 4 (from Tomasz) |
-| Sparrow | 5 | 4 | — | — |
-| Tomasz | 0 (Scar) | 3 | — | — |
+| PC      | Guard    | Drain | Harm | Banked          |
+| ------- | -------- | ----- | ---- | --------------- |
+| Kael    | 5        | 3     | —    | 4 (from Tomasz) |
+| Sparrow | 5        | 4     | —    | —               |
+| Tomasz  | 0 (Scar) | 3     | —    | —               |
 
 Entity: Guard 0 (Staggered), Harm 2/10, Threat 2.
 Danger Clock: 1/6.
 
 **Behavior:** Staggered + Morale: no. Stalker phases through west wall. Gone. Will re-enter next round from a different angle.
 
----
+***
 
 ## Round 2
 
@@ -174,18 +183,18 @@ Device risk roll: 2d6 + Field Technician Boon = 3d6. Rolls `[2, 4, 4]` = **4. Br
 
 ### End of Round 2
 
-| PC | Guard | Drain | Harm | Notes |
-|-|-|-|-|-|
-| Kael | 1 | 3 | — | At breach, hurt |
-| Sparrow | 5 | 4 | — | Center, untouched |
-| Tomasz | 0 (Scar) | 3 | Wounded (Snag all) | Rod broken, ward patch active |
+| PC      | Guard    | Drain | Harm               | Notes                         |
+| ------- | -------- | ----- | ------------------ | ----------------------------- |
+| Kael    | 1        | 3     | —                  | At breach, hurt               |
+| Sparrow | 5        | 4     | —                  | Center, untouched             |
+| Tomasz  | 0 (Scar) | 3     | Wounded (Snag all) | Rod broken, ward patch active |
 
 Entity: Guard 0, Harm 2/10, Threat 1. Phased out, circling building.
 Danger Clock: 3/6. Frozen by partial seal? No, seal failed on consequence. Clock is hot.
 
 **Stalker re-enters** from the east wall at end of round, heading for Kael.
 
----
+***
 
 ## Round 3
 
@@ -205,7 +214,7 @@ Stalker is pushed to center of room. Close to Sparrow, Near to Kael and Tomasz.
 
 Switches to revolver (d8, Sidearm). Spotter Boon still live. d8 + Boon d6.
 
-Rolls `d8[2], d6[1]`. Highest **2.** No gambit fuel. Spends 1 Drain. Drain d6 rolls `[4]`. Updated pool: [2, 1, 4]. Highest 4.
+Rolls `d8[2], d6[1]`. Highest **2.** No gambit fuel. Spends 1 Drain. Drain d6 rolls `[4]`. Updated pool: \[2, 1, 4]. Highest 4.
 
 Entity needs 8 more Harm to hit threshold. 4 damage would be 6 total (not enough). But 3 damage (if she sacrifices) would be 5 total (also not enough).
 
@@ -217,7 +226,7 @@ Wounded (Snag all). Guard 0. Has one frag grenade and banked 4 from Tomasz.
 
 Throws frag grenade: d8, Thrown, Area Close. Banked 4 added post-roll (immune to Snags, per new ruling). Wounded Snag has nothing to eat (no other bonus dice in pool). Just d8.
 
-Rolls `d8[6]` + banked `[4]` post-roll. Pool: [6, 4].
+Rolls `d8[6]` + banked `[4]` post-roll. Pool: \[6, 4].
 
 Keeps 6 for damage. Sacrifices 4 for **Push.** Blast shoves stalker one band away.
 
@@ -247,26 +256,27 @@ Feedback: 1 damage to Tomasz at Guard 0 = overflow 1 = Level 1 Hurt.
 
 The frag grenade detonates under the stalker. The dense core shatters. Blue light fragments spray across the relay racks and dissolve. The room goes quiet except for the faint crackle of the half-sealed breach and Tomasz's ragged breathing.
 
----
+***
 
 ## Final State
 
-| PC | Guard | Drain | Harm | Resources Spent |
-|-|-|-|-|-|
-| Kael | 0 (Scar x2) | 3 | Wounded | 1 Drain, 2 frag grenades, banked die |
-| Sparrow | 5 | 3 | — | 1 Drain, Spotter Boon |
-| Tomasz | 0 (Scar) | 3 | Wounded + Hurt | 2 Drain (if throw counted), rod destroyed, 1 ward patch unused |
+| PC      | Guard       | Drain | Harm           | Resources Spent                                                |
+| ------- | ----------- | ----- | -------------- | -------------------------------------------------------------- |
+| Kael    | 0 (Scar x2) | 3     | Wounded        | 1 Drain, 2 frag grenades, banked die                           |
+| Sparrow | 5           | 3     | —              | 1 Drain, Spotter Boon                                          |
+| Tomasz  | 0 (Scar)    | 3     | Wounded + Hurt | 2 Drain (if throw counted), rod destroyed, 1 ward patch unused |
 
 **Entity:** Dead. 12/10 Harm.
 **Breach:** Half-open, glowing faint. Needs a proper crew.
 **Danger Clock:** 3/6. Frozen if breach partially sealed; ticking if not.
 
 **Intel from Read gambits:**
+
 1. Entity is anchored to the breach. Distance weakens it.
 2. Sealing traps it on this side, doesn't kill it.
 3. The relay shutdown was deliberate. Tool marks on the housing. Someone manufactured this breach.
 
----
+***
 
 ## Design Observations
 

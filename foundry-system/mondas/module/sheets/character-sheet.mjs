@@ -37,6 +37,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
   /** Prepare data for rendering */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
+    context.actor = this.actor;
     const system = this.actor.system;
 
     context.system = system;
@@ -141,6 +142,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
 
   /** Toggle a harm slot */
   static async #onToggleHarm(event, target) {
+    event.preventDefault();
     const { level, slot } = target.dataset;
     const path = `system.harm.${level}.${slot}.filled`;
     const current = foundry.utils.getProperty(this.actor, path);
@@ -149,6 +151,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
 
   /** Toggle a condition */
   static async #onToggleCondition(event, target) {
+    event.preventDefault();
     const condition = target.dataset.condition;
     const path = `system.conditions.${condition}`;
     const current = foundry.utils.getProperty(this.actor, path);
@@ -165,7 +168,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
   /** Adjust drain +/- */
   static async #onAdjustDrain(event, target) {
     const delta = Number(target.dataset.delta);
-    const newVal = Math.clamp(this.actor.system.drain.value + delta, 0, 4);
+    const newVal = Math.clamp(this.actor.system.drain.value + delta, 0, this.actor.system.drain.max);
     await this.actor.update({ "system.drain.value": newVal });
   }
 

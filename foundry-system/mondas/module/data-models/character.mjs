@@ -26,6 +26,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
       // Drain (4 boxes)
       drain: new fields.SchemaField({
         value: new fields.NumberField({ required: true, initial: 4, min: 0, max: 4, integer: true }),
+        max: new fields.NumberField({ required: true, initial: 4, min: 0, max: 4, integer: true }),
       }),
 
       // Harm tracks (2 slots each)

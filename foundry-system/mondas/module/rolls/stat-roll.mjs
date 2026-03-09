@@ -306,7 +306,7 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content,
       rolls: [this.rollResults.roll],
-      type: CONST.CHAT_MESSAGE_STYLES.OTHER,
+      style: CONST.CHAT_MESSAGE_STYLES.OTHER,
     });
   }
 }
