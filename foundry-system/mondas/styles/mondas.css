@@ -916,3 +916,25 @@
 .mondas-apply-damage:hover {
   filter: brightness(1.15);
 }
+
+/* Damage Report */
+.mondas-damage-report {
+  padding: 8px;
+}
+.mondas-damage-report h4 {
+  margin: 0 0 4px 0;
+  font-size: 0.9em;
+  color: #a83232;
+}
+.mondas-damage-report .damage-total {
+  font-weight: bold;
+  margin: 4px 0;
+}
+.mondas-damage-report ul {
+  margin: 4px 0;
+  padding-left: 16px;
+  font-size: 0.85em;
+}
+.mondas-damage-report li {
+  margin: 2px 0;
+}

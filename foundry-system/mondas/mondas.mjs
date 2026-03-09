@@ -21,3 +21,21 @@ Hooks.once("init", () => {
   // Register Handlebars helpers
   registerHandlebarsHelpers();
 });
+
+Hooks.on("renderChatMessage", (message, html) => {
+  html.querySelectorAll(".mondas-apply-damage").forEach((btn) => {
+    btn.addEventListener("click", async (event) => {
+      event.preventDefault();
+      const { applyDamage } = await import("./module/rolls/damage-roll.mjs");
+      const damage = Number(btn.dataset.damage);
+      const targets = game.user.targets;
+      if (targets.size === 0) {
+        ui.notifications.warn("Select a target token first.");
+        return;
+      }
+      for (const token of targets) {
+        await applyDamage(token.actor, damage);
+      }
+    });
+  });
+});
