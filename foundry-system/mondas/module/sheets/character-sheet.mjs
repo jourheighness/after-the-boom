@@ -90,6 +90,12 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     context.harm = system.harm;
     context.conditions = system.conditions;
 
+    // Derived harm states
+    context.wounded = system.wounded;
+    context.critical = system.critical;
+    context.incapacitated = system.incapacitated;
+    context.mustSpendDrain = system.mustSpendDrain;
+
     // Lists
     context.edges = system.edges;
     context.weapons = system.weapons;
