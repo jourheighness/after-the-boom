@@ -35,6 +35,18 @@ export function buildAvailableGambits(actor) {
     }
   }
 
+  // Weapon gambits
+  for (const weapon of actor.system.weapons ?? []) {
+    if (weapon.gambitName) {
+      gambits.push({
+        key: `weapon-${weapon.name}`,
+        label: weapon.gambitName,
+        desc: weapon.gambitDesc || "",
+        source: weapon.thaumic ? "thaumatech" : "weapon",
+      });
+    }
+  }
+
   // Edge gambits
   for (const edge of actor.system.edges ?? []) {
     if (edge.gambitName) {
@@ -336,8 +348,9 @@ function _renderGambitList(container, gambits, currentGambit) {
   container.innerHTML = gambits.map((g) => {
     const selected = currentGambit?.key === g.key ? "selected" : "";
     const sourceClass = `gambit-source-${g.source}`;
+    const drainLabel = g.source === "thaumatech" ? ' <span class="gambit-drain-cost">(costs Drain)</span>' : "";
     return `<div class="gambit-option ${selected} ${sourceClass}" data-gambit-key="${g.key}">
-      <strong>${g.label}</strong> <span class="gambit-desc">${g.desc}</span>
+      <strong>${g.label}</strong> <span class="gambit-desc">${g.desc}</span>${drainLabel}
       <span class="gambit-source-tag">${g.source}</span>
     </div>`;
   }).join("");

@@ -1038,6 +1038,14 @@
   color: #fff;
 }
 
+/* --- Gambit Drain Cost --- */
+
+.gambit-drain-cost {
+  font-size: 0.7rem;
+  color: var(--mondas-drain-color);
+  font-style: italic;
+}
+
 .mondas.roll-dialog .pool-preview {
   text-align: center;
   padding: 0.75rem 0;
