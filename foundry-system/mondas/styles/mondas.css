@@ -5,8 +5,10 @@
  * Clean, utilitarian, slightly gritty.
  */
 
-/* === Color Tokens === */
-:root {
+/* === Color Tokens (scoped to mondas contexts) === */
+.mondas,
+.mondas-roll-chat,
+.mondas-damage-report {
   --mondas-bg: #f5f1eb;
   --mondas-header: #2a2a2a;
   --mondas-text: #1a1a1a;
@@ -748,26 +750,9 @@
   filter: brightness(1.1);
 }
 
-.mondas.roll-dialog .skip-btn {
-  display: block;
-  width: 100%;
-  padding: 0.5em 0;
-  font-size: 0.9em;
-  background: transparent;
-  border: 1px solid var(--mondas-border);
-  border-radius: 3px;
-  color: var(--mondas-muted);
-  cursor: pointer;
-  margin-top: 0.35rem;
-}
-
-.mondas.roll-dialog .skip-btn:hover {
-  border-color: var(--mondas-muted);
-  color: var(--mondas-text);
-}
-
-/* === Dice Grid === */
-.dice-grid {
+/* === Dice Grid (shared by dialog + chat card) === */
+.mondas .dice-grid,
+.mondas-roll-chat .dice-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
@@ -775,7 +760,8 @@
   margin: 0.75rem 0;
 }
 
-.die-result {
+.mondas .die-result,
+.mondas-roll-chat .die-result {
   width: 40px;
   height: 40px;
   display: inline-flex;
@@ -787,90 +773,60 @@
   user-select: none;
 }
 
-.die-success {
+.mondas .die-success,
+.mondas-roll-chat .die-success {
   background: #2d6a30;
   color: #fff;
 }
 
-.die-partial {
+.mondas .die-partial,
+.mondas-roll-chat .die-partial {
   background: #b8860b;
   color: #fff;
 }
 
-.die-fail {
+.mondas .die-fail,
+.mondas-roll-chat .die-fail {
   background: #6b3a3a;
   color: rgba(255, 255, 255, 0.7);
 }
 
-.die-result.sacrificed {
+.mondas .die-result.sacrificed,
+.mondas-roll-chat .die-result.sacrificed {
   opacity: 0.35;
   text-decoration: line-through;
   filter: grayscale(0.6);
 }
 
-.die-result.gambit-eligible {
+.mondas .die-result.gambit-eligible,
+.mondas-roll-chat .die-result.gambit-eligible {
   cursor: pointer;
   box-shadow: 0 0 0 2px transparent;
   transition: box-shadow 0.15s ease;
 }
 
-.die-result.gambit-eligible:hover {
+.mondas .die-result.gambit-eligible:hover,
+.mondas-roll-chat .die-result.gambit-eligible:hover {
   box-shadow: 0 0 0 2px var(--mondas-accent);
 }
 
 /* === Outcome Text === */
-.outcome-success {
+.mondas .outcome-success,
+.mondas-roll-chat .outcome-success {
   color: #2d6a30;
   font-weight: 700;
 }
 
-.outcome-partial {
+.mondas .outcome-partial,
+.mondas-roll-chat .outcome-partial {
   color: #b8860b;
   font-weight: 700;
 }
 
-.outcome-consequence {
+.mondas .outcome-consequence,
+.mondas-roll-chat .outcome-consequence {
   color: var(--mondas-danger);
   font-weight: 700;
-}
-
-/* === Gambit Phase === */
-.mondas.roll-dialog .gambit-phase h3 {
-  margin-bottom: 0.25rem;
-}
-
-.mondas.roll-dialog .gambit-hint {
-  font-size: 0.85em;
-  color: var(--mondas-muted);
-  text-align: center;
-  margin: 0.25rem 0 0.75rem;
-}
-
-.mondas.roll-dialog .gambit-input {
-  margin-bottom: 0.75rem;
-}
-
-.mondas.roll-dialog .gambit-input label {
-  display: block;
-  font-size: 0.85em;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-}
-
-.mondas.roll-dialog .gambit-input input[type="text"] {
-  width: 100%;
-  padding: 0.35em 0.5em;
-  border: 1px solid var(--mondas-border);
-  border-radius: 3px;
-  font-family: inherit;
-  font-size: 0.95em;
-  background: #fff;
-}
-
-.mondas.roll-dialog .gambit-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
 }
 
 /* === Chat Card === */
@@ -919,7 +875,7 @@
 }
 
 /* Hide Foundry's default roll rendering when our card is present */
-.message:has(.mondas-roll-chat) .dice-roll {
+.chat-message:has(.mondas-roll-chat) .dice-roll {
   display: none;
 }
 

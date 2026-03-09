@@ -200,6 +200,6 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
       style: CONST.CHAT_MESSAGE_STYLES.OTHER,
     });
 
-    this.close();
+    await this.close();
   }
 }

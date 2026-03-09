@@ -2,6 +2,7 @@
 import { CharacterData } from "./module/data-models/character.mjs";
 import { MondasCharacterSheet } from "./module/sheets/character-sheet.mjs";
 import { registerHandlebarsHelpers } from "./module/helpers/handlebars.mjs";
+import { bindRollCard } from "./module/rolls/chat-gambits.mjs";
 
 Hooks.once("init", () => {
   console.log("MONDAS | Initializing After the Boom system");
@@ -23,8 +24,6 @@ Hooks.once("init", () => {
 });
 
 Hooks.on("renderChatMessage", (message, html) => {
-  import("./module/rolls/chat-gambits.mjs").then((m) => {
-    const el = html instanceof HTMLElement ? html : html[0] ?? html;
-    m.bindRollCard(message, el);
-  });
+  const el = html instanceof HTMLElement ? html : html[0] ?? html;
+  bindRollCard(message, el);
 });
