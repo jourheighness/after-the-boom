@@ -2,7 +2,7 @@
   "id": "mondas",
   "title": "MONDAS — After the Boom",
   "description": "Custom system for the MONDAS Core Rules Engine. D6 dice pools, gambits, guard/drain economy.",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "manifest": "https://raw.githubusercontent.com/jourheighness/after-the-boom/main/foundry-system/mondas/system.json",
   "download": "https://raw.githubusercontent.com/jourheighness/after-the-boom/main/foundry-system/mondas.zip",
   "compatibility": {
