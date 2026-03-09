@@ -1,0 +1,38 @@
+{{!-- MONDAS Roll — Chat Card --}}
+<div class="mondas-roll-chat">
+  <div class="roll-header">
+    <strong>{{statLabel}}</strong> &mdash; {{rollTypeLabel}}
+  </div>
+
+  <div class="pool-desc">{{poolDesc}} = {{poolLabel}}</div>
+
+  <div class="dice-grid">
+    {{#each dice}}
+    <span class="die-result {{colorClass}} {{#if sacrificed}}sacrificed{{/if}}">{{value}}</span>
+    {{/each}}
+  </div>
+
+  <div class="outcome-line {{outcomeClass}}">
+    Highest: {{highest}} &mdash; {{outcome}}
+  </div>
+
+  {{#if hasGambits}}
+  <div class="gambits-section">
+    <strong>Gambits:</strong>
+    {{#each gambits}}
+    <div class="gambit-entry">Sacrificed [{{value}}] &mdash; {{description}}</div>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  {{#if isCombat}}
+  {{#if weapon}}
+  <div class="weapon-section">
+    <strong>{{weapon.name}}</strong> ({{weapon.die}}): <span class="weapon-damage">{{weapon.damage}}</span>
+    <button class="mondas-apply-damage" data-action="applyDamage" data-damage="{{weapon.damage}}">
+      Apply {{weapon.damage}} Damage
+    </button>
+  </div>
+  {{/if}}
+  {{/if}}
+</div>

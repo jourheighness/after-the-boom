@@ -580,3 +580,339 @@
 .mondas.character-sheet::-webkit-scrollbar-thumb:hover {
   background: var(--mondas-muted);
 }
+
+/* ============================================
+ * Roll Dialog + Chat Cards
+ * ============================================ */
+
+/* === Roll Dialog Layout === */
+.mondas.roll-dialog {
+  background: var(--mondas-bg);
+  color: var(--mondas-text);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.mondas.roll-dialog .stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.75rem;
+}
+
+.mondas.roll-dialog .stat-name {
+  font-size: 1.25em;
+  font-weight: 700;
+}
+
+.mondas.roll-dialog .stat-base {
+  font-size: 0.85em;
+  color: var(--mondas-muted);
+}
+
+.mondas.roll-dialog .roll-type-group {
+  border: 1px solid var(--mondas-border);
+  border-radius: 3px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.mondas.roll-dialog .roll-type-group legend {
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mondas-muted);
+  padding: 0 0.35em;
+}
+
+.mondas.roll-dialog .roll-type-group label {
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+/* === Modifier Rows (Boons / Snags / Drain) === */
+.mondas.roll-dialog .modifier-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.mondas.roll-dialog .modifier-label {
+  font-weight: 600;
+  min-width: 4em;
+}
+
+.mondas.roll-dialog .modifier-value {
+  font-weight: 700;
+  min-width: 1.5em;
+  text-align: center;
+}
+
+.mondas.roll-dialog .modifier-row button {
+  width: 1.75em;
+  height: 1.75em;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid var(--mondas-border);
+  border-radius: 2px;
+  color: var(--mondas-text);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.mondas.roll-dialog .modifier-row button:hover {
+  background: var(--mondas-hover-bg);
+  border-color: var(--mondas-muted);
+}
+
+.mondas.roll-dialog .drain-toggle {
+  cursor: pointer;
+}
+
+.mondas.roll-dialog .drain-empty {
+  font-size: 0.8em;
+  color: var(--mondas-muted);
+  font-style: italic;
+}
+
+/* === Weapon Selector === */
+.mondas.roll-dialog .weapon-selector {
+  margin: 0.75rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mondas.roll-dialog .weapon-selector label {
+  font-weight: 600;
+}
+
+.mondas.roll-dialog .weapon-selector select {
+  flex: 1;
+}
+
+/* === Pool Preview === */
+.mondas.roll-dialog .pool-preview {
+  text-align: center;
+  padding: 0.75rem 0;
+  font-size: 1.1em;
+  color: var(--mondas-muted);
+  border-top: 1px solid var(--mondas-border);
+  margin-top: 0.5rem;
+}
+
+/* === Roll Button === */
+.mondas.roll-dialog .roll-btn {
+  display: block;
+  width: 100%;
+  padding: 0.6em 0;
+  font-size: 1em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--mondas-accent);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.mondas.roll-dialog .roll-btn:hover {
+  filter: brightness(1.1);
+}
+
+.mondas.roll-dialog .skip-btn {
+  display: block;
+  width: 100%;
+  padding: 0.5em 0;
+  font-size: 0.9em;
+  background: transparent;
+  border: 1px solid var(--mondas-border);
+  border-radius: 3px;
+  color: var(--mondas-muted);
+  cursor: pointer;
+  margin-top: 0.35rem;
+}
+
+.mondas.roll-dialog .skip-btn:hover {
+  border-color: var(--mondas-muted);
+  color: var(--mondas-text);
+}
+
+/* === Dice Grid === */
+.dice-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+  margin: 0.75rem 0;
+}
+
+.die-result {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25em;
+  font-weight: 700;
+  border-radius: 4px;
+  user-select: none;
+}
+
+.die-success {
+  background: #2d6a30;
+  color: #fff;
+}
+
+.die-partial {
+  background: #b8860b;
+  color: #fff;
+}
+
+.die-fail {
+  background: #6b3a3a;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.die-result.sacrificed {
+  opacity: 0.35;
+  text-decoration: line-through;
+  filter: grayscale(0.6);
+}
+
+.die-result.gambit-eligible {
+  cursor: pointer;
+  box-shadow: 0 0 0 2px transparent;
+  transition: box-shadow 0.15s ease;
+}
+
+.die-result.gambit-eligible:hover {
+  box-shadow: 0 0 0 2px var(--mondas-accent);
+}
+
+/* === Outcome Text === */
+.outcome-success {
+  color: #2d6a30;
+  font-weight: 700;
+}
+
+.outcome-partial {
+  color: #b8860b;
+  font-weight: 700;
+}
+
+.outcome-consequence {
+  color: var(--mondas-danger);
+  font-weight: 700;
+}
+
+/* === Gambit Phase === */
+.mondas.roll-dialog .gambit-phase h3 {
+  margin-bottom: 0.25rem;
+}
+
+.mondas.roll-dialog .gambit-hint {
+  font-size: 0.85em;
+  color: var(--mondas-muted);
+  text-align: center;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.mondas.roll-dialog .gambit-input {
+  margin-bottom: 0.75rem;
+}
+
+.mondas.roll-dialog .gambit-input label {
+  display: block;
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.mondas.roll-dialog .gambit-input input[type="text"] {
+  width: 100%;
+  padding: 0.35em 0.5em;
+  border: 1px solid var(--mondas-border);
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 0.95em;
+  background: #fff;
+}
+
+.mondas.roll-dialog .gambit-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* === Chat Card === */
+.mondas-roll-chat {
+  padding: 0.5rem;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.mondas-roll-chat .roll-header {
+  font-size: 1.1em;
+  margin-bottom: 0.35rem;
+}
+
+.mondas-roll-chat .pool-desc {
+  font-size: 0.85em;
+  color: var(--mondas-muted);
+  margin-bottom: 0.5rem;
+}
+
+.mondas-roll-chat .outcome-line {
+  margin: 0.5rem 0;
+}
+
+.mondas-roll-chat .gambits-section {
+  margin-top: 0.5rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--mondas-border);
+}
+
+.mondas-roll-chat .gambit-entry {
+  font-size: 0.9em;
+  margin-top: 0.2rem;
+  color: var(--mondas-muted);
+}
+
+.mondas-roll-chat .weapon-section {
+  margin-top: 0.5rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--mondas-border);
+}
+
+.mondas-roll-chat .weapon-damage {
+  font-weight: 700;
+}
+
+.mondas-apply-damage {
+  display: inline-block;
+  margin-top: 0.35rem;
+  padding: 0.3em 0.75em;
+  font-size: 0.85em;
+  font-weight: 600;
+  background: var(--mondas-danger);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.mondas-apply-damage:hover {
+  filter: brightness(1.15);
+}
