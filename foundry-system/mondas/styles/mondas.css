@@ -1,3 +1,582 @@
 /* MONDAS — After the Boom
  * Character sheet styles
+ *
+ * Aesthetic: 1990s government form meets modern UI.
+ * Clean, utilitarian, slightly gritty.
  */
+
+/* === Color Tokens === */
+:root {
+  --mondas-bg: #f5f1eb;
+  --mondas-header: #2a2a2a;
+  --mondas-text: #1a1a1a;
+  --mondas-accent: #c47a2a;
+  --mondas-muted: #8a8279;
+  --mondas-danger: #a83232;
+  --mondas-border: #d4cfc7;
+  --mondas-active-bg: #c47a2a;
+  --mondas-active-text: #ffffff;
+  --mondas-stat-bg: #eae5dc;
+  --mondas-hover-bg: #e2ddd4;
+}
+
+/* === Base Layout === */
+.mondas.character-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--mondas-bg);
+  color: var(--mondas-text);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* === Header === */
+.mondas .sheet-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  background: var(--mondas-header);
+  color: #fff;
+  padding: 0.75rem 1rem;
+}
+
+.mondas .sheet-header .char-name {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #fff;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 0.15em 0;
+  width: 100%;
+  outline: none;
+}
+
+.mondas .sheet-header .char-name::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.mondas .sheet-header .char-name:focus {
+  border-bottom-color: var(--mondas-accent);
+}
+
+.mondas .sheet-header input[name="system.background"] {
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.8);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.15em 0;
+  width: 100%;
+  outline: none;
+}
+
+.mondas .sheet-header input[name="system.background"]::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.mondas .sheet-header input[name="system.background"]:focus {
+  border-bottom-color: var(--mondas-accent);
+}
+
+/* === Stats Row === */
+.mondas .stats-row {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+.mondas .stat-block {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0.5rem;
+  background: var(--mondas-stat-bg);
+  border: 1px solid var(--mondas-border);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  user-select: none;
+}
+
+.mondas .stat-block:hover {
+  background: var(--mondas-hover-bg);
+}
+
+.mondas .stat-block .stat-value {
+  font-size: 2.25em;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--mondas-text);
+}
+
+.mondas .stat-block .stat-label {
+  font-size: 0.7em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mondas-muted);
+  margin-top: 0.25rem;
+}
+
+/* === Resource Bar === */
+.mondas .resources-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  align-items: center;
+}
+
+.mondas .guard-track,
+.mondas .drain-track,
+.mondas .armor-display,
+.mondas .scars-display {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.mondas .resource-label {
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--mondas-muted);
+  min-width: 3em;
+}
+
+.mondas .guard-value,
+.mondas .drain-value {
+  font-weight: 600;
+  font-size: 0.95em;
+  min-width: 3em;
+  text-align: center;
+}
+
+.mondas .guard-track button,
+.mondas .drain-track button {
+  width: 1.5em;
+  height: 1.5em;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9em;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid var(--mondas-border);
+  border-radius: 2px;
+  color: var(--mondas-text);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.mondas .guard-track button:hover,
+.mondas .drain-track button:hover {
+  background: var(--mondas-hover-bg);
+  border-color: var(--mondas-muted);
+}
+
+.mondas .cracked-label {
+  font-size: 0.75em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mondas-danger);
+  margin-left: 0.25em;
+}
+
+.mondas .armor-display input[type="number"],
+.mondas .scars-display input[type="number"] {
+  width: 2.5em;
+  text-align: center;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--mondas-border);
+  padding: 0.15em 0;
+  outline: none;
+}
+
+.mondas .armor-display input[type="number"]:focus,
+.mondas .scars-display input[type="number"]:focus {
+  border-bottom-color: var(--mondas-accent);
+}
+
+/* === Harm Section === */
+.mondas .harm-section {
+  padding: 0 1rem;
+}
+
+.mondas .harm-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--mondas-border);
+}
+
+.mondas .harm-row:last-of-type {
+  border-bottom: none;
+}
+
+.mondas .harm-label {
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--mondas-muted);
+  min-width: 5em;
+}
+
+/* Critical row label in danger color */
+.mondas .harm-row:last-of-type .harm-label {
+  color: var(--mondas-danger);
+}
+
+.mondas .harm-slot {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex: 1;
+  cursor: pointer;
+}
+
+/* Custom checkbox — square box */
+.mondas .harm-slot input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.15em;
+  height: 1.15em;
+  min-width: 1.15em;
+  border: 2px solid var(--mondas-border);
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  margin: 0;
+}
+
+.mondas .harm-slot input[type="checkbox"]:checked {
+  background: var(--mondas-text);
+  border-color: var(--mondas-text);
+}
+
+.mondas .harm-slot input[type="checkbox"]:checked::after {
+  content: "\2715";
+  color: var(--mondas-bg);
+  font-size: 0.7em;
+  font-weight: 700;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mondas .harm-slot input[type="text"] {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--mondas-border);
+  padding: 0.15em 0;
+  font-size: 0.9em;
+  color: var(--mondas-text);
+  outline: none;
+}
+
+.mondas .harm-slot input[type="text"]:focus {
+  border-bottom-color: var(--mondas-accent);
+}
+
+/* === Conditions === */
+.mondas .conditions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0 1rem;
+}
+
+.mondas .condition {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2em 0.6em;
+  font-size: 0.8em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--mondas-border);
+  border-radius: 3px;
+  color: var(--mondas-muted);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.mondas .condition:hover {
+  border-color: var(--mondas-muted);
+  color: var(--mondas-text);
+}
+
+.mondas .condition.active {
+  background: var(--mondas-active-bg);
+  border-color: var(--mondas-active-bg);
+  color: var(--mondas-active-text);
+}
+
+/* === Section Headers === */
+.mondas h3 {
+  font-size: 0.7em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mondas-muted);
+  margin: 0 0 0.5rem 0;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--mondas-border);
+}
+
+/* === Edges === */
+.mondas .edges-section {
+  padding: 0 1rem;
+}
+
+.mondas .edge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--mondas-border);
+}
+
+.mondas .edge-row input[type="text"]:first-of-type {
+  flex: 1;
+  min-width: 0;
+}
+
+.mondas .edge-row input[type="text"]:nth-of-type(2) {
+  flex: 2;
+  min-width: 0;
+}
+
+.mondas .edge-row select {
+  width: 8em;
+  flex-shrink: 0;
+}
+
+.mondas .edge-row button {
+  flex-shrink: 0;
+}
+
+/* === Weapons === */
+.mondas .weapons-section {
+  padding: 0 1rem;
+}
+
+.mondas .weapon-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--mondas-border);
+}
+
+.mondas .weapon-row input[type="text"]:first-of-type {
+  flex: 1;
+  min-width: 0;
+}
+
+.mondas .weapon-row input[type="text"]:nth-of-type(2) {
+  flex: 2;
+  min-width: 0;
+}
+
+.mondas .weapon-row > select {
+  width: 5em;
+  flex-shrink: 0;
+}
+
+.mondas .weapon-properties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.mondas .property-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;
+  font-size: 0.75em;
+  padding: 0.15em 0.5em;
+  border: 1px solid var(--mondas-border);
+  border-radius: 10px;
+  color: var(--mondas-muted);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.mondas .property-tag input[type="checkbox"] {
+  display: none;
+}
+
+.mondas .property-tag:has(input:checked) {
+  background: var(--mondas-stat-bg);
+  border-color: var(--mondas-muted);
+  color: var(--mondas-text);
+}
+
+.mondas .weapon-row > button {
+  flex-shrink: 0;
+}
+
+/* === Equipment === */
+.mondas .equipment-section {
+  padding: 0 1rem;
+}
+
+.mondas .equipment-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--mondas-border);
+}
+
+.mondas .equipment-row input[type="text"]:first-of-type {
+  flex: 1;
+  min-width: 0;
+}
+
+.mondas .equipment-row input[type="text"]:nth-of-type(2) {
+  flex: 2;
+  min-width: 0;
+}
+
+.mondas .equipment-row input[type="number"] {
+  width: 3em;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.mondas .equipment-row button {
+  flex-shrink: 0;
+}
+
+/* === Shared Input Styles === */
+.mondas input[type="text"],
+.mondas select {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--mondas-border);
+  padding: 0.2em 0.15em;
+  font-size: 0.9em;
+  font-family: inherit;
+  color: var(--mondas-text);
+  outline: none;
+}
+
+.mondas input[type="text"]:focus,
+.mondas select:focus {
+  border-bottom-color: var(--mondas-accent);
+}
+
+.mondas input[type="text"]::placeholder {
+  color: var(--mondas-border);
+}
+
+.mondas input[type="number"] {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--mondas-border);
+  padding: 0.2em 0;
+  font-size: 0.9em;
+  font-family: inherit;
+  color: var(--mondas-text);
+  text-align: center;
+  outline: none;
+  -moz-appearance: textfield;
+}
+
+.mondas input[type="number"]::-webkit-inner-spin-button,
+.mondas input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.mondas input[type="number"]:focus {
+  border-bottom-color: var(--mondas-accent);
+}
+
+.mondas select {
+  cursor: pointer;
+}
+
+/* === Remove Buttons (X) === */
+.mondas .edge-row > button,
+.mondas .weapon-row > button:last-child,
+.mondas .equipment-row > button {
+  width: 1.5em;
+  height: 1.5em;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85em;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  color: var(--mondas-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.mondas .edge-row > button:hover,
+.mondas .weapon-row > button:last-child:hover,
+.mondas .equipment-row > button:hover {
+  color: var(--mondas-danger);
+  border-color: var(--mondas-danger);
+}
+
+/* === Add Buttons === */
+.mondas .edges-section > button,
+.mondas .weapons-section > button,
+.mondas .equipment-section > button {
+  background: transparent;
+  border: none;
+  padding: 0.3em 0;
+  font-size: 0.8em;
+  font-family: inherit;
+  color: var(--mondas-muted);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.mondas .edges-section > button:hover,
+.mondas .weapons-section > button:hover,
+.mondas .equipment-section > button:hover {
+  color: var(--mondas-accent);
+  text-decoration: underline;
+}
+
+/* === Scrollbar === */
+.mondas.character-sheet::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mondas.character-sheet::-webkit-scrollbar-thumb {
+  background: var(--mondas-border);
+  border-radius: 3px;
+}
+
+.mondas.character-sheet::-webkit-scrollbar-thumb:hover {
+  background: var(--mondas-muted);
+}
