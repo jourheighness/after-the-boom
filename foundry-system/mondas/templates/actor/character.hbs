@@ -9,9 +9,9 @@
   {{!-- Stats Row --}}
   <div class="stats-row">
     {{#each stats}}
-    <div class="stat-block" data-action="rollStat" data-stat="{{key}}">
-      <span class="stat-value">{{value}}</span>
-      <span class="stat-label">{{label}}</span>
+    <div class="stat-block">
+      <input type="number" class="stat-value" name="system.stats.{{key}}" value="{{value}}" min="1" max="4">
+      <span class="stat-label" data-action="rollStat" data-stat="{{key}}">{{label}}</span>
     </div>
     {{/each}}
   </div>
@@ -52,44 +52,44 @@
 
     <div class="harm-row">
       <span class="harm-label">Hurt</span>
-      <label class="harm-slot">
+      <div class="harm-slot">
         <input type="checkbox" {{#if harm.hurt.slot1.filled}}checked{{/if}}
                data-action="toggleHarm" data-level="hurt" data-slot="slot1">
         <input type="text" name="system.harm.hurt.slot1.text" value="{{harm.hurt.slot1.text}}" placeholder="&mdash;">
-      </label>
-      <label class="harm-slot">
+      </div>
+      <div class="harm-slot">
         <input type="checkbox" {{#if harm.hurt.slot2.filled}}checked{{/if}}
                data-action="toggleHarm" data-level="hurt" data-slot="slot2">
         <input type="text" name="system.harm.hurt.slot2.text" value="{{harm.hurt.slot2.text}}" placeholder="&mdash;">
-      </label>
+      </div>
     </div>
 
     <div class="harm-row">
       <span class="harm-label">Wounded</span>
-      <label class="harm-slot">
+      <div class="harm-slot">
         <input type="checkbox" {{#if harm.wounded.slot1.filled}}checked{{/if}}
                data-action="toggleHarm" data-level="wounded" data-slot="slot1">
         <input type="text" name="system.harm.wounded.slot1.text" value="{{harm.wounded.slot1.text}}" placeholder="&mdash;">
-      </label>
-      <label class="harm-slot">
+      </div>
+      <div class="harm-slot">
         <input type="checkbox" {{#if harm.wounded.slot2.filled}}checked{{/if}}
                data-action="toggleHarm" data-level="wounded" data-slot="slot2">
         <input type="text" name="system.harm.wounded.slot2.text" value="{{harm.wounded.slot2.text}}" placeholder="&mdash;">
-      </label>
+      </div>
     </div>
 
     <div class="harm-row">
       <span class="harm-label">Critical</span>
-      <label class="harm-slot">
+      <div class="harm-slot">
         <input type="checkbox" {{#if harm.critical.slot1.filled}}checked{{/if}}
                data-action="toggleHarm" data-level="critical" data-slot="slot1">
         <input type="text" name="system.harm.critical.slot1.text" value="{{harm.critical.slot1.text}}" placeholder="&mdash;">
-      </label>
-      <label class="harm-slot">
+      </div>
+      <div class="harm-slot">
         <input type="checkbox" {{#if harm.critical.slot2.filled}}checked{{/if}}
                data-action="toggleHarm" data-level="critical" data-slot="slot2">
         <input type="text" name="system.harm.critical.slot2.text" value="{{harm.critical.slot2.text}}" placeholder="&mdash;">
-      </label>
+      </div>
     </div>
   </div>
 
