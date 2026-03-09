@@ -18,6 +18,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
       toggleCondition: MondasCharacterSheet.#onToggleCondition,
       adjustGuard: MondasCharacterSheet.#onAdjustGuard,
       adjustDrain: MondasCharacterSheet.#onAdjustDrain,
+      toggleProperty: MondasCharacterSheet.#onToggleProperty,
     },
     form: {
       submitOnChange: true,
@@ -101,40 +102,40 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
 
   /** Add a blank edge */
   static async #onAddEdge(event, target) {
-    const edges = [...this.actor.system.edges, { name: "", description: "", effect: "boon" }];
+    const edges = [...this.actor.system.toObject().edges, { name: "", description: "", effect: "boon" }];
     await this.actor.update({ "system.edges": edges });
   }
 
   /** Remove edge by index */
   static async #onRemoveEdge(event, target) {
     const index = Number(target.dataset.index);
-    const edges = this.actor.system.edges.filter((_, i) => i !== index);
+    const edges = this.actor.system.toObject().edges.filter((_, i) => i !== index);
     await this.actor.update({ "system.edges": edges });
   }
 
   /** Add a blank weapon */
   static async #onAddWeapon(event, target) {
-    const weapons = [...this.actor.system.weapons, { name: "", description: "", die: "d8", properties: [] }];
+    const weapons = [...this.actor.system.toObject().weapons, { name: "", description: "", die: "d8", properties: [] }];
     await this.actor.update({ "system.weapons": weapons });
   }
 
   /** Remove weapon by index */
   static async #onRemoveWeapon(event, target) {
     const index = Number(target.dataset.index);
-    const weapons = this.actor.system.weapons.filter((_, i) => i !== index);
+    const weapons = this.actor.system.toObject().weapons.filter((_, i) => i !== index);
     await this.actor.update({ "system.weapons": weapons });
   }
 
   /** Add blank equipment */
   static async #onAddEquipment(event, target) {
-    const equipment = [...this.actor.system.equipment, { name: "", description: "", quantity: 1 }];
+    const equipment = [...this.actor.system.toObject().equipment, { name: "", description: "", quantity: 1 }];
     await this.actor.update({ "system.equipment": equipment });
   }
 
   /** Remove equipment by index */
   static async #onRemoveEquipment(event, target) {
     const index = Number(target.dataset.index);
-    const equipment = this.actor.system.equipment.filter((_, i) => i !== index);
+    const equipment = this.actor.system.toObject().equipment.filter((_, i) => i !== index);
     await this.actor.update({ "system.equipment": equipment });
   }
 
@@ -166,5 +167,19 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     const delta = Number(target.dataset.delta);
     const newVal = Math.clamp(this.actor.system.drain.value + delta, 0, 4);
     await this.actor.update({ "system.drain.value": newVal });
+  }
+
+  /** Toggle a weapon property */
+  static async #onToggleProperty(event, target) {
+    const weaponIndex = Number(target.dataset.weaponIndex);
+    const property = target.dataset.property;
+    const weapons = this.actor.system.toObject().weapons;
+    const props = weapons[weaponIndex].properties;
+    if (props.includes(property)) {
+      weapons[weaponIndex].properties = props.filter((p) => p !== property);
+    } else {
+      weapons[weaponIndex].properties = [...props, property];
+    }
+    await this.actor.update({ "system.weapons": weapons });
   }
 }

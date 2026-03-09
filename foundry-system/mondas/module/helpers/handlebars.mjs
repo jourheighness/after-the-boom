@@ -37,4 +37,9 @@ export function registerHandlebarsHelpers() {
   Handlebars.registerHelper("subtract", function (a, b) {
     return a - b;
   });
+
+  // Return "checked" attribute string if value is truthy
+  Handlebars.registerHelper("checked", function (val) {
+    return val ? "checked" : "";
+  });
 }

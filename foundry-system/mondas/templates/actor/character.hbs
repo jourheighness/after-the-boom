@@ -145,7 +145,7 @@
       <div class="weapon-properties">
         {{#each ../propertyOptions}}
         <label class="property-tag">
-          <input type="checkbox" name="system.weapons.{{@../index}}.properties" value="{{this}}"
+          <input type="checkbox" data-action="toggleProperty" data-weapon-index="{{@../index}}" data-property="{{this}}"
                  {{#if (includes ../properties this)}}checked{{/if}}>
           {{this}}
         </label>

@@ -23,7 +23,8 @@ Hooks.once("init", () => {
 });
 
 Hooks.on("renderChatMessage", (message, html) => {
-  html.querySelectorAll(".mondas-apply-damage").forEach((btn) => {
+  const el = html instanceof HTMLElement ? html : html[0] ?? html;
+  el.querySelectorAll(".mondas-apply-damage").forEach((btn) => {
     btn.addEventListener("click", async (event) => {
       event.preventDefault();
       const { applyDamage } = await import("./module/rolls/damage-roll.mjs");

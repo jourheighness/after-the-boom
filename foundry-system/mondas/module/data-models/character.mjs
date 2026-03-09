@@ -20,7 +20,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
       // Guard
       guard: new fields.SchemaField({
         value: new fields.NumberField({ required: true, initial: 4, min: 0, integer: true }),
-        max: new fields.NumberField({ required: true, initial: 4, min: 0, max: 10, integer: true }),
+        max: new fields.NumberField({ required: true, initial: 4, min: 0, integer: true }),
       }),
 
       // Drain (4 boxes)
