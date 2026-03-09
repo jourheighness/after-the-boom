@@ -1,22 +1,46 @@
-{{!-- MONDAS Roll Dialog — Config only (roll type comes from sheet button) --}}
+{{!-- MONDAS Roll Dialog --}}
 <div class="roll-config">
   <div class="stat-header">
     <span class="stat-name">{{statLabel}}</span>
-    <span class="stat-base">{{rollTypeLabel}} &mdash; Base pool: {{statValue}}</span>
+    <span class="stat-base">{{rollTypeLabel}} — Base pool: {{statValue}}</span>
   </div>
+
+  {{!-- Warnings --}}
+  {{#if incapacitated}}
+  <div class="roll-warning warning-incapacitated">INCAPACITATED — cannot act</div>
+  {{/if}}
+  {{#if showDrainWarning}}
+  <div class="roll-warning warning-critical">CRITICAL — must spend Drain to act</div>
+  {{/if}}
+
+  {{!-- Auto-applied Snags --}}
+  {{#if autoSnags.length}}
+  <div class="modifier-row">
+    <span class="modifier-label">Auto</span>
+    <div class="pill-row">
+      {{#each autoSnags}}
+      {{#unless dismissed}}
+      <span class="snag-pill" data-action="dismissSnag" data-index="{{index}}">
+        {{source}} <span class="dismiss">✕</span>
+      </span>
+      {{/unless}}
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
 
   {{!-- Boons --}}
   <div class="modifier-row">
     <span class="modifier-label">Boons</span>
-    <button type="button" data-action="adjustBoons" data-delta="-1">-</button>
+    <button type="button" data-action="adjustBoons" data-delta="-1">−</button>
     <span class="modifier-value">{{boons}}</span>
     <button type="button" data-action="adjustBoons" data-delta="1">+</button>
   </div>
 
-  {{!-- Snags --}}
+  {{!-- Snags (manual) --}}
   <div class="modifier-row">
     <span class="modifier-label">Snags</span>
-    <button type="button" data-action="adjustSnags" data-delta="-1">-</button>
+    <button type="button" data-action="adjustSnags" data-delta="-1">−</button>
     <span class="modifier-value">{{snags}}</span>
     <button type="button" data-action="adjustSnags" data-delta="1">+</button>
   </div>
@@ -32,18 +56,29 @@
 
   {{!-- Weapon Selector (combat only) --}}
   {{#if isCombat}}
-  {{#if weapons.length}}
-  <div class="weapon-selector">
-    <label>Weapon</label>
-    <select name="selectedWeapon">
-      {{#each weapons}}
-      <option value="{{@index}}" {{#if (eq @index ../selectedWeaponIndex)}}selected{{/if}}>
-        {{this.name}} ({{this.die}})
-      </option>
+  <div class="modifier-row">
+    <span class="modifier-label">Weapon</span>
+    <div class="pill-row">
+      {{#each weaponChoices}}
+      <span class="pill {{#if (eq @index ../selectedWeaponIndex)}}active{{/if}}"
+            data-action="selectWeapon" data-index="{{@index}}">
+        {{name}} <span class="pill-die">{{die}}</span>
+      </span>
       {{/each}}
-    </select>
+    </div>
   </div>
   {{/if}}
+
+  {{!-- Cover Selector (defense only) --}}
+  {{#if isDefense}}
+  <div class="modifier-row">
+    <span class="modifier-label">Cover</span>
+    <div class="pill-row">
+      <span class="pill {{#if (eq coverLevel 0)}}active{{/if}}" data-action="selectCover" data-cover="0">None</span>
+      <span class="pill {{#if (eq coverLevel 1)}}active{{/if}}" data-action="selectCover" data-cover="1">Partial +1</span>
+      <span class="pill {{#if (eq coverLevel 2)}}active{{/if}}" data-action="selectCover" data-cover="2">Full +2</span>
+    </div>
+  </div>
   {{/if}}
 
   {{!-- Pool Preview --}}

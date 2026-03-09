@@ -22,6 +22,9 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     actions: {
       adjustBoons: MondasRollDialog.#onAdjustBoons,
       adjustSnags: MondasRollDialog.#onAdjustSnags,
+      dismissSnag: MondasRollDialog.#onDismissSnag,
+      selectWeapon: MondasRollDialog.#onSelectWeapon,
+      selectCover: MondasRollDialog.#onSelectCover,
       executeRoll: MondasRollDialog.#onExecuteRoll,
     },
   };
@@ -42,7 +45,17 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     this.boons = 0;
     this.snags = 0;
     this.spendDrain = false;
-    this.selectedWeaponIndex = 0;
+    this.coverLevel = 0; // 0=none, 1=partial, 2=full
+
+    // Auto-snags from actor state, filtered by roll type
+    const allSnags = actor.system.autoSnags ?? [];
+    this.activeAutoSnags = allSnags.filter((s) =>
+      s.applies === "all" || s.applies === this.rollType,
+    );
+    this.dismissedSnags = new Set();
+
+    // Weapon selection (combat only)
+    this.selectedWeaponIndex = actor.system.defaultWeaponIndex ?? 0;
   }
 
   /**
@@ -78,14 +91,37 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     context.snags = this.snags;
     context.spendDrain = this.spendDrain;
     context.drainAvailable = system.drain.value > 0;
-    context.weapons = system.weapons;
-    context.selectedWeaponIndex = this.selectedWeaponIndex;
     context.isCombat = this.rollType === "combat";
+    context.isDefense = this.rollType === "defense";
 
-    // Calculate pool
+    // Auto-snags (with dismiss tracking)
+    context.autoSnags = this.activeAutoSnags.map((s, i) => ({
+      ...s,
+      index: i,
+      dismissed: this.dismissedSnags.has(i),
+    }));
+    const activeAutoSnagCount = this.activeAutoSnags.filter(
+      (_, i) => !this.dismissedSnags.has(i),
+    ).length;
+
+    // Weapon choices (combat only)
+    context.weaponChoices = system.weaponChoices ?? [];
+    context.selectedWeaponIndex = this.selectedWeaponIndex;
+
+    // Cover (defense only)
+    context.coverLevel = this.coverLevel;
+
+    // Warnings
+    context.incapacitated = system.incapacitated;
+    context.mustSpendDrain = system.mustSpendDrain;
+    context.showDrainWarning = system.mustSpendDrain && !this.spendDrain;
+
+    // Calculate pool: stat + boons - (manual snags + active auto-snags) + drain
     const drainBonus = this.spendDrain ? 1 : 0;
-    const pool = Math.max(0, statValue + this.boons - this.snags + drainBonus);
+    const totalSnags = this.snags + activeAutoSnagCount;
+    const pool = Math.max(0, statValue + this.boons - totalSnags + drainBonus);
     context.pool = pool;
+    context.totalSnags = totalSnags;
     context.poolZero = pool === 0;
     context.poolLabel = pool === 0 ? "2d6 take lowest" : `${pool}d6`;
 
@@ -108,6 +144,26 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     this.render();
   }
 
+  static #onDismissSnag(event, target) {
+    const index = Number(target.dataset.index);
+    if (this.dismissedSnags.has(index)) {
+      this.dismissedSnags.delete(index);
+    } else {
+      this.dismissedSnags.add(index);
+    }
+    this.render();
+  }
+
+  static #onSelectWeapon(event, target) {
+    this.selectedWeaponIndex = Number(target.dataset.index);
+    this.render();
+  }
+
+  static #onSelectCover(event, target) {
+    this.coverLevel = Number(target.dataset.cover);
+    this.render();
+  }
+
   static async #onExecuteRoll(event, target) {
     // Read current form state
     const form = this.element.querySelector("form") || this.element;
@@ -115,14 +171,15 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     const drainCheckbox = form.querySelector("input[name='spendDrain']");
     if (drainCheckbox) this.spendDrain = drainCheckbox.checked;
 
-    const weaponSelect = form.querySelector("select[name='selectedWeapon']");
-    if (weaponSelect) this.selectedWeaponIndex = Number(weaponSelect.value);
-
     // Calculate pool
     const system = this.actor.system;
     const statValue = system.stats[this.stat];
     const drainBonus = this.spendDrain ? 1 : 0;
-    const pool = Math.max(0, statValue + this.boons - this.snags + drainBonus);
+    const activeAutoSnagCount = this.activeAutoSnags.filter(
+      (_, i) => !this.dismissedSnags.has(i),
+    ).length;
+    const totalSnags = this.snags + activeAutoSnagCount;
+    const pool = Math.max(0, statValue + this.boons - totalSnags + drainBonus);
     const isZeroPool = pool === 0;
 
     // Spend drain if used
@@ -133,7 +190,7 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     // Build pool description
     const poolParts = [`Base ${statValue}`];
     if (this.boons > 0) poolParts.push(`+${this.boons} Boon${this.boons > 1 ? "s" : ""}`);
-    if (this.snags > 0) poolParts.push(`-${this.snags} Snag${this.snags > 1 ? "s" : ""}`);
+    if (totalSnags > 0) poolParts.push(`-${totalSnags} Snag${totalSnags > 1 ? "s" : ""}`);
     if (this.spendDrain) poolParts.push("+1 Drain");
     const poolDesc = poolParts.join(" ");
     const poolLabel = isZeroPool ? "2d6 take lowest" : `${pool}d6`;
@@ -152,8 +209,8 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     // Weapon roll (combat only)
     let weaponData = null;
     const rolls = [statRoll];
-    if (this.rollType === "combat" && system.weapons?.length > 0) {
-      const weapon = system.weapons[this.selectedWeaponIndex] || system.weapons[0];
+    if (this.rollType === "combat" && system.weaponChoices?.length > 0) {
+      const weapon = system.weaponChoices[this.selectedWeaponIndex] || system.weaponChoices[0];
       const weaponRoll = new Roll(`1${weapon.die}`);
       await weaponRoll.evaluate();
       weaponData = {
@@ -162,6 +219,9 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
         damage: weaponRoll.total,
       };
       rolls.push(weaponRoll);
+
+      // Update last used weapon index
+      await this.actor.update({ "system.lastWeaponIndex": this.selectedWeaponIndex });
     }
 
     // Build available gambits for combat/defense rolls
@@ -177,7 +237,7 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
       rollType: this.rollType,
       statValue,
       boons: this.boons,
-      snags: this.snags,
+      snags: totalSnags,
       spendDrain: this.spendDrain,
       pool,
       poolLabel,
@@ -192,6 +252,7 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
       outcomeClass,
       weapon: weaponData,
       availableGambits,
+      coverArmor: this.rollType === "defense" ? this.coverLevel : 0,
     };
 
     // Render chat card
