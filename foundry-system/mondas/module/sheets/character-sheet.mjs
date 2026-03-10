@@ -1,23 +1,8 @@
+import { EQUIPMENT_TAGS, PROPERTY_OPTIONS, DIE_OPTIONS } from "../constants.mjs";
+import { getDialogForm } from "../helpers/dialog.mjs";
+
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
-
-/** Tags available for equipment */
-const EQUIPMENT_TAGS = ["thaumatech", "licensed", "restricted", "prohibited", "black-market", "mundane"];
-
-/** Weapon property options */
-const PROPERTY_OPTIONS = ["ranged", "sidearm", "thrown", "area", "long", "loud", "brutal", "subtle", "slow"];
-
-/** Die options for weapons */
-const DIE_OPTIONS = { d6: "d6", d8: "d8", d10: "d10", d12: "d12" };
-
-/**
- * Extract form data from a DialogV2 callback.
- * Foundry v13 DialogV2 passes (event, button, dialog) — the form lives
- * inside the dialog element, not as a parent of the button.
- */
-function getDialogForm(event, button) {
-  return button.form;
-}
 
 export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
