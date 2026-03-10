@@ -1,11 +1,13 @@
 /**
  * Apply damage to an actor through the MONDAS damage pipeline.
- * Pipeline: Raw Damage → Guard → Armor → Harm overflow
+ * Pipeline: Raw Damage → Guard → (Brutal +2) → Armor → Harm overflow
  *
  * @param {Actor} actor - The target actor
  * @param {number} rawDamage - Raw damage value from weapon die
+ * @param {number} coverArmor - Additional armor from cover
+ * @param {boolean} brutal - If true, +2 overflow when damage breaks Guard
  */
-export async function applyDamage(actor, rawDamage, coverArmor = 0) {
+export async function applyDamage(actor, rawDamage, coverArmor = 0, brutal = false) {
   const system = actor.system;
   const updates = {};
   const messages = [];
@@ -29,6 +31,12 @@ export async function applyDamage(actor, rawDamage, coverArmor = 0) {
     scarEvent = true;
     messages.push("⚠ Guard broken! Scar gained (+1 max Guard)");
     updates["system.scars"] = [...system.toObject().scars, `Guard broken (${rawDamage} damage)`];
+
+    // Brutal: +2 overflow when damage breaks Guard
+    if (brutal) {
+      remaining += 2;
+      messages.push("Brutal: +2 overflow damage");
+    }
   }
 
   // Step 3: Subtract Armor from overflow (base + cover)

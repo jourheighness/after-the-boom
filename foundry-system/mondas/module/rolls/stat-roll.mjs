@@ -69,9 +69,7 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
   }
 
   get title() {
-    const statLabel = game.i18n.localize(`MONDAS.Stat.${this.stat}`);
-    const rollTypeLabel = game.i18n.localize(`MONDAS.Roll.${this.rollType}`);
-    return `${statLabel} — ${rollTypeLabel}`;
+    return game.i18n.localize(`MONDAS.Roll.${this.rollType}`);
   }
 
   /* ---------------------------------------- */
@@ -193,7 +191,11 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
       (_, i) => !this.dismissedSnags.has(i),
     ).length;
     const totalSnags = this.snags + activeAutoSnagCount;
-    const pool = Math.max(0, statValue + this.boons - totalSnags + drainBonus);
+    const rawPool = statValue + this.boons - totalSnags + drainBonus;
+    // Snags overflow past stat pool eats the weapon die
+    const hasWeapon = this.rollType === "combat" && system.weaponChoices?.length > 0;
+    const weaponSnagged = hasWeapon && rawPool < 0;
+    const pool = Math.max(0, rawPool);
     const isZeroPool = pool === 0;
 
     // Spend drain if used
@@ -206,6 +208,7 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     if (this.boons > 0) poolParts.push(`+${this.boons} Boon${this.boons > 1 ? "s" : ""}`);
     if (totalSnags > 0) poolParts.push(`-${totalSnags} Snag${totalSnags > 1 ? "s" : ""}`);
     if (this.spendDrain) poolParts.push("+1 Drain");
+    if (weaponSnagged) poolParts.push("(weapon die snagged)");
     const poolDesc = poolParts.join(" ");
     const poolLabel = isZeroPool ? "2d6 take lowest" : `${pool}d6`;
 
@@ -214,19 +217,22 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     await statRoll.evaluate();
 
     // Weapon roll (combat only) — merged into dice array, placed first
+    // Skipped if snags overflowed past stat pool
     let weaponData = null;
     const rolls = [statRoll];
     const dice = [];
     let nextIndex = 0;
 
-    if (this.rollType === "combat" && system.weaponChoices?.length > 0) {
+    if (hasWeapon && !weaponSnagged) {
       const weapon = system.weaponChoices[this.selectedWeaponIndex] || system.weaponChoices[0];
-      const weaponRoll = new Roll(`1${weapon.die}`);
+      const rollDie = weapon.die.startsWith("s") ? weapon.die.slice(1) : weapon.die;
+      const weaponRoll = new Roll(`1${rollDie}`);
       await weaponRoll.evaluate();
       dice.push({ value: weaponRoll.total, index: nextIndex, isWeapon: true });
       weaponData = {
         name: weapon.name || "Weapon",
         die: weapon.die,
+        properties: weapon.properties || [],
         weaponIndex: nextIndex,
       };
       nextIndex++;

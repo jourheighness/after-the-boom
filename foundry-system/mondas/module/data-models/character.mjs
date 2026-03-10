@@ -74,13 +74,14 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
       weapons: new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({ initial: "" }),
         description: new fields.StringField({ initial: "" }),
-        die: new fields.StringField({ initial: "d8", choices: ["d6", "d8", "d10", "d12"] }),
+        die: new fields.StringField({ initial: "d8", choices: ["d6", "d8", "d10", "d12", "sd4", "sd6", "sd8", "sd10"] }),
         properties: new fields.ArrayField(new fields.StringField({
           choices: ["ranged", "sidearm", "thrown", "area", "long", "loud", "brutal", "subtle", "slow"],
         })),
         gambitName: new fields.StringField({ initial: "" }),
         gambitDesc: new fields.StringField({ initial: "" }),
         thaumic: new fields.BooleanField({ initial: false }),
+        quantity: new fields.NumberField({ initial: 1, min: 0, integer: true }),
       })),
 
       // Equipment — inline array with tags, optional gambit, optional armor

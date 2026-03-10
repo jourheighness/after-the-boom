@@ -1,8 +1,11 @@
 {{!-- MONDAS Roll Dialog --}}
 <div class="roll-config">
   <div class="stat-header">
-    <span class="stat-name">{{statLabel}}</span>
-    <span class="stat-base">{{rollTypeLabel}} — Base pool: {{statValue}}</span>
+    <div class="stat-icon-col">
+      <span class="stat-icon stat-icon-{{stat}}"></span>
+      <span class="stat-label">{{statLabel}}</span>
+    </div>
+    <span class="stat-base">Base pool: {{statValue}}</span>
   </div>
 
   {{!-- Warnings --}}
@@ -62,7 +65,7 @@
       {{#each weaponChoices}}
       <span class="pill {{#if (eq @index ../selectedWeaponIndex)}}active{{/if}}"
             data-action="selectWeapon" data-index="{{@index}}">
-        {{name}} <span class="pill-die">{{die}}</span>
+        {{name}} <span class="pill-die">{{dieDisplay die}}</span>
       </span>
       {{/each}}
     </div>

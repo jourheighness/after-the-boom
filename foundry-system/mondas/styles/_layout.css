@@ -8,11 +8,11 @@
   background: var(--navy);
   color: var(--navy);
   font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', 'Monaco', monospace;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
   padding: 0;
   height: 100%;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 /* Part wrapper — transparent flex container for PARTS single-root requirement */
@@ -28,7 +28,7 @@
   gap: var(--sp-1);
   background: var(--navy);
   color: #fff;
-  padding: var(--sp-5) var(--sp-6) var(--sp-3);
+  padding: var(--sp-6) var(--sp-6) var(--sp-5);
 }
 
 .mondas .sheet-header .char-name {
@@ -62,7 +62,7 @@
 .mondas .background-section {
   background: var(--navy);
   color: #fff;
-  padding: var(--sp-1) var(--sp-6) var(--sp-4);
+  padding: var(--sp-3) var(--sp-6) var(--sp-5);
 }
 
 .mondas .background-section .section-header {
@@ -149,7 +149,7 @@
 
 .mondas .sheet-tabs .sheet-tab {
   font-family: inherit;
-  padding: var(--sp-3) var(--sp-6);
+  padding: var(--sp-4) var(--sp-6);
   font-size: var(--fs-sm);
   font-weight: 600;
   text-transform: uppercase;
@@ -188,10 +188,14 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: var(--sp-5) var(--sp-6);
+  padding: var(--sp-6) 0;
   flex: 1;
+  overflow-y: auto;
   background: var(--paper);
 }
+
+/* Sheet tab children must not shrink — let the container scroll */
+.mondas .tab-content[data-tab="sheet"] > * { flex-shrink: 0; }
 
 .mondas .tab-content[hidden] { display: none; }
 
@@ -199,7 +203,7 @@
  * NOTES TAB
  * =================================================== */
 
-.mondas .tab-notes { flex: 1; display: flex; flex-direction: column; }
+.mondas .tab-notes { flex: 1; display: flex; flex-direction: column; padding: 0 var(--sp-6); }
 
 .mondas .tab-notes .editor {
   flex: 1;

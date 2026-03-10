@@ -11,6 +11,8 @@
   font-size: var(--fs-md);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  padding-left: var(--sp-6) !important;
+  margin: 0 !important;
 }
 
 .application.mondas .window-header .window-title {
@@ -37,38 +39,62 @@
   background: var(--paper);
   color: var(--navy);
   font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
 }
 
-.mondas.roll-dialog .stat-header,
+.mondas.roll-dialog .window-content {
+  padding: 0 !important;
+}
+
 .mondas.roll-dialog .modifier-row,
 .mondas.roll-dialog .roll-warning {
-  padding-left: var(--sp-5);
-  padding-right: var(--sp-5);
+  padding: var(--sp-5) var(--sp-6);
 }
 
 .mondas.roll-dialog .stat-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: var(--sp-4);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+  justify-items: center;
+  border-top: var(--b);
+  border-bottom: var(--b);
+  margin: 0;
 }
 
-.mondas.roll-dialog .stat-name {
-  font-size: var(--fs-xl);
+.mondas.roll-dialog .stat-header .stat-icon-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  grid-row: auto;
+  align-self: stretch;
+  justify-self: stretch;
+  justify-content: center;
+  border-right: var(--b);
+  padding: var(--sp-4) var(--sp-4) var(--sp-2);
+}
+
+.mondas.roll-dialog .stat-header .stat-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+}
+
+.mondas.roll-dialog .stat-base {
+  font-size: var(--fs-lg);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  color: var(--navy);
+  padding: var(--sp-4);
 }
-
-.mondas.roll-dialog .stat-base { font-size: var(--fs-md); color: var(--navy); }
 
 .mondas.roll-dialog .modifier-row {
   display: flex;
   align-items: center;
   gap: var(--sp-4);
-  margin-bottom: var(--sp-4);
+  margin: 0;
 }
 
 .mondas.roll-dialog .modifier-label {
@@ -214,13 +240,20 @@
 .gambit-drain-cost { font-size: var(--fs-sm); color: var(--navy); font-style: italic; }
 
 .mondas.roll-dialog .pool-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: var(--sp-4) 0;
+  padding: var(--sp-5);
   font-size: var(--fs-xl);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--navy);
+  text-shadow: var(--halo-paper);
+  background-color: var(--navy);
+  background-image: radial-gradient(var(--paper) 1px, transparent 1px);
+  background-size: 3px 3px;
   border-top: var(--b);
-  margin-top: var(--sp-4);
+  margin: 0;
 }
 
 .mondas.roll-dialog .roll-btn {
@@ -238,7 +271,7 @@
   color: #fff;
   border: var(--b);
   cursor: pointer;
-  margin-top: var(--sp-4);
+  margin-top: 0;
   transition: transform 0.1s, box-shadow 0.1s;
   line-height: 1;
 }

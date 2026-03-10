@@ -3,8 +3,8 @@
  * =================================================== */
 
 .mondas .status-banner {
-  padding: var(--sp-3) var(--sp-5);
-  margin-bottom: var(--sp-4);
+  padding: var(--sp-5) var(--sp-6);
+  margin: 0;
   font-size: var(--fs-md);
   font-weight: 700;
   text-align: center;
@@ -27,7 +27,8 @@
   gap: var(--sp-2);
   flex-wrap: wrap;
   min-height: 20px;
-  margin-bottom: var(--sp-4);
+  padding: var(--sp-5) var(--sp-6);
+  margin: 0;
 }
 
 .mondas .status-pill {
@@ -77,15 +78,17 @@
 .mondas .stats-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-4);
-  margin-bottom: var(--sp-4);
+  gap: var(--sp-6);
+  padding: var(--sp-5) var(--sp-6);
+  margin: 0;
 }
 
 .mondas .stat-block {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
   align-items: center;
-  padding: var(--sp-3);
+  justify-items: center;
   background: var(--paper);
   border: var(--b);
 }
@@ -122,42 +125,51 @@
 }
 
 .mondas .stat-top {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
+  display: contents;
 }
 
 .mondas .stat-icon-col {
+  grid-row: 1 / -1;
+  align-self: stretch;
+  justify-self: stretch;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-4) var(--sp-2) var(--sp-2);
+  border-right: var(--b);
 }
 
-.mondas .stat-icon {
+.mondas .stat-icon,
+.mondas-roll-chat .stat-icon {
   position: relative;
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
   border: var(--b);
 }
 /* Pattern background per stat */
-.mondas .stat-icon-grit {
+.mondas .stat-icon-grit,
+.mondas-roll-chat .stat-icon-grit {
   background: radial-gradient(circle, var(--navy) 1px, transparent 1px);
   background-size: 4px 4px;
 }
-.mondas .stat-icon-sharp {
+.mondas .stat-icon-sharp,
+.mondas-roll-chat .stat-icon-sharp {
   background: repeating-linear-gradient(
     45deg, var(--navy), var(--navy) 1px, transparent 1px, transparent 3px
   );
 }
-.mondas .stat-icon-nerve {
+.mondas .stat-icon-nerve,
+.mondas-roll-chat .stat-icon-nerve {
   background: repeating-linear-gradient(
     0deg, var(--navy), var(--navy) 1px, transparent 1px, transparent 3px
   );
 }
 /* Paper halo behind the symbol */
-.mondas .stat-icon::before {
+.mondas .stat-icon::before,
+.mondas-roll-chat .stat-icon::before {
   content: "";
   position: absolute;
   inset: 2px;
@@ -173,7 +185,8 @@
   z-index: 0;
 }
 /* Solid icon symbol on top */
-.mondas .stat-icon::after {
+.mondas .stat-icon::after,
+.mondas-roll-chat .stat-icon::after {
   content: "";
   position: absolute;
   inset: 2px;
@@ -187,17 +200,23 @@
   z-index: 1;
 }
 .mondas .stat-icon-grit::before,
-.mondas .stat-icon-grit::after {
+.mondas .stat-icon-grit::after,
+.mondas-roll-chat .stat-icon-grit::before,
+.mondas-roll-chat .stat-icon-grit::after {
   -webkit-mask-image: var(--icon-grit);
   mask-image: var(--icon-grit);
 }
 .mondas .stat-icon-sharp::before,
-.mondas .stat-icon-sharp::after {
+.mondas .stat-icon-sharp::after,
+.mondas-roll-chat .stat-icon-sharp::before,
+.mondas-roll-chat .stat-icon-sharp::after {
   -webkit-mask-image: var(--icon-sharp);
   mask-image: var(--icon-sharp);
 }
 .mondas .stat-icon-nerve::before,
-.mondas .stat-icon-nerve::after {
+.mondas .stat-icon-nerve::after,
+.mondas-roll-chat .stat-icon-nerve::before,
+.mondas-roll-chat .stat-icon-nerve::after {
   -webkit-mask-image: var(--icon-nerve);
   mask-image: var(--icon-nerve);
 }
@@ -212,14 +231,14 @@
 }
 
 .mondas .stat-roll-buttons {
+  grid-column: 2;
+  justify-self: stretch;
   display: flex;
-  gap: var(--sp-2);
-  margin-top: var(--sp-2);
-  justify-content: center;
+  margin: 0 -2px -2px -2px;
 }
 
 .mondas .stat-roll-buttons button {
-  width: 28px;
+  flex: 1;
   height: 28px;
   padding: 0;
   display: inline-flex;
@@ -228,10 +247,15 @@
   font-size: var(--fs-md);
   background: var(--paper);
   border: var(--b);
+  border-right: none;
   color: var(--navy);
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s, background 0.1s, color 0.1s;
   line-height: 1;
+}
+
+.mondas .stat-roll-buttons button:last-child {
+  border-right: var(--b);
 }
 
 .mondas .stat-roll-buttons button:hover {
@@ -265,7 +289,8 @@
   align-items: center;
   gap: var(--sp-6);
   flex-wrap: wrap;
-  margin-bottom: var(--sp-4);
+  padding: var(--sp-5) var(--sp-6);
+  margin: 0;
 }
 
 .mondas .track { display: flex; align-items: center; gap: var(--sp-2); }
@@ -389,13 +414,13 @@
 
 .mondas .status-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: var(--sp-5);
-  padding: var(--sp-4) 0;
+  padding: var(--sp-5) var(--sp-6);
   border-top: var(--b);
   border-bottom: var(--b);
-  margin-bottom: var(--sp-4);
+  margin: 0;
 }
 
 .mondas .harm-track { display: flex; gap: var(--sp-5); align-items: center; }
@@ -454,7 +479,7 @@
 .mondas .condition {
   display: inline-flex;
   align-items: center;
-  padding: var(--sp-2) var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
   font-size: var(--fs-sm);
   font-weight: 600;
   text-transform: uppercase;
@@ -491,8 +516,8 @@
   align-items: center;
   justify-content: space-between;
   background: var(--navy);
-  margin: var(--sp-4) calc(-1 * var(--sp-6)) var(--sp-4);
-  padding: var(--sp-3) var(--sp-6);
+  margin: 0;
+  padding: var(--sp-5) var(--sp-6);
 }
 
 .mondas .section-header h3 {
@@ -551,7 +576,7 @@
   display: flex;
   align-items: center;
   gap: var(--sp-2);
-  padding: var(--sp-1) 0;
+  padding: var(--sp-3) var(--sp-6);
 }
 
 .mondas .scar-entry input[type="text"] {
@@ -569,13 +594,14 @@
 .mondas .card-stack {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-2);
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-6);
 }
 
 .mondas .item-card {
   background: var(--paper);
   border: var(--b);
-  padding: var(--sp-4) var(--sp-4);
+  padding: var(--sp-5) var(--sp-5);
   transition: transform 0.1s, box-shadow 0.1s;
 }
 
@@ -616,10 +642,15 @@
 }
 
 .mondas .thaumatech-badge {
+  display: inline-flex;
+  align-items: center;
   font-size: var(--fs-sm);
-  padding: 0 var(--sp-3);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: var(--sp-1) var(--sp-4);
   background: var(--navy);
-  color: #fff;
+  color: var(--paper);
   flex-shrink: 0;
 }
 
@@ -659,7 +690,7 @@
 .mondas .tag {
   display: inline-block;
   font-size: var(--fs-xs);
-  padding: 1px var(--sp-3);
+  padding: var(--sp-1) var(--sp-4);
   border: var(--b-light);
   color: var(--navy);
   text-transform: uppercase;
@@ -679,6 +710,18 @@
 .mondas .card-gambit .gambit-icon { color: var(--navy); margin-right: var(--sp-1); font-size: var(--fs-md); }
 .mondas .card-gambit .gambit-name { font-weight: 600; color: var(--navy); }
 .mondas .card-gambit .gambit-effect { color: var(--navy); }
+
+/* ===================================================
+ * WEAPON SPENT STATE
+ * =================================================== */
+
+.mondas .weapon-spent {
+  opacity: 0.4;
+}
+
+.mondas .weapon-spent .card-name {
+  text-decoration: line-through;
+}
 
 /* ===================================================
  * FOCUS VISIBLE (Accessibility)

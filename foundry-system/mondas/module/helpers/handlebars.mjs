@@ -48,4 +48,10 @@ export function registerHandlebarsHelpers() {
     return val ? "checked" : "";
   });
 
+  // Format a die value for display (strips "s" prefix for sustained dice)
+  Handlebars.registerHelper("dieDisplay", function (die) {
+    if (typeof die === "string" && die.startsWith("s")) return die.slice(1);
+    return die;
+  });
+
 }

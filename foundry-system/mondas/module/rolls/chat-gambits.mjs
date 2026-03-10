@@ -171,6 +171,7 @@ export function buildTemplateData(flags) {
 
   return {
     phase: flags.phase,
+    stat: flags.stat,
     statLabel,
     rollTypeLabel,
     poolDesc: flags.poolDesc,
@@ -485,13 +486,14 @@ function _renderGambitList(container, gambits, currentGambit, diceGambits = {}, 
  */
 function _weaponDamage(flags, diceDisplay) {
   if (!flags.weapon) return null;
+  const brutal = (flags.weapon.properties || []).includes("brutal");
   const weaponDie = diceDisplay.find((d) => d.isWeapon);
   if (!weaponDie) return null;
-  if (!weaponDie.sacrificed) return { value: weaponDie.value, forfeited: false };
+  if (!weaponDie.sacrificed) return { value: weaponDie.value, forfeited: false, brutal };
   // Weapon die sacrificed — highest remaining non-weapon stat die is damage
   const remaining = diceDisplay.filter((d) => !d.isWeapon && !d.sacrificed);
-  if (remaining.length === 0) return { value: 0, forfeited: true };
-  return { value: Math.max(...remaining.map((d) => d.value)), forfeited: false };
+  if (remaining.length === 0) return { value: 0, forfeited: true, brutal };
+  return { value: Math.max(...remaining.map((d) => d.value)), forfeited: false, brutal };
 }
 
 /**
@@ -622,11 +624,21 @@ async function _resolveGambits(message, flags, diceGambits, useSetupDie = false)
       const dieValue = flags.dice.find((d) => d.index === Number(dieIdx))?.value || 0;
       const target = game.actors.get(gambit.setupTargetId);
       if (target) {
-        await target.update({
+        const updates = {
           "system.setupDie.active": true,
           "system.setupDie.value": dieValue,
           "system.setupDie.source": actor?.name || "Unknown",
-        });
+        };
+        // Route through GM socket if we don't own the target
+        if (target.isOwner) {
+          await target.update(updates);
+        } else {
+          game.socket.emit("system.mondas", {
+            action: "updateActor",
+            actorId: target.id,
+            updates,
+          });
+        }
       }
     }
   }
@@ -643,12 +655,13 @@ function _bindApplyDamage(html) {
       const { applyDamage } = await import("./damage-roll.mjs");
       const damage = Number(btn.dataset.damage);
       const coverArmor = Number(btn.dataset.cover || 0);
+      const brutal = btn.dataset.brutal === "true";
       const targets = game.user.targets;
 
       // If tokens are targeted, apply to their actors
       if (targets.size > 0) {
         for (const token of targets) {
-          await applyDamage(token.actor, damage, coverArmor);
+          await applyDamage(token.actor, damage, coverArmor, brutal);
         }
         return;
       }

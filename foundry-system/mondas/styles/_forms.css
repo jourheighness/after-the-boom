@@ -173,7 +173,7 @@
 
 .application.mondas-dialog {
   font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace !important;
-  font-size: 12px;
+  font-size: 14px;
   background: var(--navy) !important;
   border: var(--b) !important;
   color: var(--navy);
@@ -187,6 +187,7 @@
   font-size: var(--fs-md);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  padding-left: var(--sp-6) !important;
 }
 
 .application.mondas-dialog .window-header .window-title {
@@ -205,30 +206,43 @@
 .application.mondas-dialog .window-content {
   background: var(--paper) !important;
   color: var(--navy) !important;
-  padding: var(--sp-5) !important;
+  padding: 0 !important;
 }
 
 /* --- Form Layout: label above input --- */
 
 .application.mondas-dialog .form-group {
   display: flex;
-  flex-direction: column;
-  margin-bottom: var(--sp-4);
+  flex-direction: row;
+  align-items: center;
+  gap: var(--sp-4);
+  margin: 0 !important;
+  padding: var(--sp-5) var(--sp-6);
 }
 
-.application.mondas-dialog .form-group label,
-.application.mondas-dialog label {
+.application.mondas-dialog .form-group > label {
   display: block !important;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-md);
-  font-weight: 600;
+  font-size: var(--fs-sm);
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--navy) !important;
-  margin-bottom: var(--sp-2);
-  padding: var(--sp-1) 0;
+  margin: 0 !important;
+  padding: 0;
   flex: none !important;
+  width: 10em !important;
+}
+
+/* Reset width for tag-toggle labels */
+.application.mondas-dialog .tag-toggle,
+.application.mondas-dialog .form-group > label.tag-toggle {
   width: auto !important;
+  font-size: var(--fs-md);
+}
+
+.application.mondas-dialog .form-group:has(> label.tag-toggle) {
+  justify-content: center;
 }
 
 /* --- Inputs --- */
@@ -237,7 +251,9 @@
 .application.mondas-dialog input[type="number"],
 .application.mondas-dialog select,
 .application.mondas-dialog textarea {
-  width: 100% !important;
+  width: auto !important;
+  flex: 1 !important;
+  min-width: 0;
   padding: var(--sp-3) var(--sp-4) !important;
   border: var(--b) !important;
   font-family: 'IBM Plex Mono', monospace !important;
@@ -245,7 +261,14 @@
   background: var(--paper) !important;
   color: var(--navy) !important;
   box-sizing: border-box;
-  flex: none !important;
+}
+
+.application.mondas-dialog .form-group:has(textarea) {
+  align-items: flex-start;
+}
+
+.application.mondas-dialog textarea {
+  resize: vertical;
 }
 
 .application.mondas-dialog input:focus,
@@ -268,14 +291,28 @@
 
 /* --- Tag Toggles --- */
 
-.application.mondas-dialog .tag-toggles { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.application.mondas-dialog .form-group:has(.tag-toggles) {
+  flex-direction: column;
+  align-items: stretch;
+}
 
-.application.mondas-dialog .tag-toggle {
+.application.mondas-dialog .form-group:has(.tag-toggles) label:first-child {
+  margin-bottom: var(--sp-2);
+}
+
+.application.mondas-dialog .tag-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.application.mondas-dialog .tag-toggle,
+.application.mondas-dialog label.tag-toggle {
   display: inline-flex;
   align-items: center;
-  gap: var(--sp-1);
+  gap: var(--sp-2);
   font-size: var(--fs-md);
-  padding: var(--sp-2) var(--sp-4);
+  padding: var(--sp-3) var(--sp-5) !important;
   border: var(--b);
   color: var(--navy);
   background: transparent;
@@ -304,10 +341,18 @@
 
 .application.mondas-dialog .thaumatech-gambit-section,
 .application.mondas-dialog fieldset {
-  border: var(--b) !important;
-  padding: var(--sp-4) var(--sp-4);
-  margin-top: var(--sp-4);
+  border-top: var(--b) !important;
+  border-bottom: var(--b) !important;
+  border-left: none !important;
+  border-right: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
   background: transparent !important;
+}
+
+.application.mondas-dialog fieldset .form-group:last-child,
+.application.mondas-dialog .thaumatech-gambit-section .form-group:last-child {
+  padding-bottom: var(--sp-5);
 }
 
 .application.mondas-dialog .thaumatech-gambit-section legend,
@@ -317,6 +362,7 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--navy);
+  margin-left: var(--sp-6);
   padding: 0 var(--sp-2);
 }
 
@@ -334,10 +380,14 @@
   background: var(--navy) !important;
   color: #fff !important;
   border: var(--b) !important;
-  padding: var(--sp-4) var(--sp-6) !important;
+  height: 40px;
+  padding: 0 var(--sp-6) !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
-  line-height: 1.2;
+  line-height: 1;
 }
 
 .application.mondas-dialog button:hover,
@@ -374,7 +424,14 @@
 
 .application.mondas-dialog .form-footer {
   background: var(--navy) !important;
-  padding: var(--sp-4) var(--sp-5) !important;
-  border-top: var(--b-paper) !important;
+  padding: 0 !important;
+  border-top: none !important;
   margin: 0 !important;
+}
+
+.application.mondas-dialog .form-footer button,
+.application.mondas-dialog .form-footer [data-action] {
+  width: 100% !important;
+  height: 40px;
+  border: none !important;
 }

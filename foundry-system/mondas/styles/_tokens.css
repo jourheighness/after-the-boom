@@ -13,15 +13,23 @@
 
   /* Text halo for readability over patterns */
   --halo-paper:
-    -1px -1px 0 var(--paper),  1px -1px 0 var(--paper),
-    -1px  1px 0 var(--paper),  1px  1px 0 var(--paper),
-     0   -1px 0 var(--paper),  0    1px 0 var(--paper),
-    -1px  0   0 var(--paper),  1px  0   0 var(--paper);
+    -2px -2px 0 var(--paper),  2px -2px 0 var(--paper),
+    -2px  2px 0 var(--paper),  2px  2px 0 var(--paper),
+     0   -2px 0 var(--paper),  0    2px 0 var(--paper),
+    -2px  0   0 var(--paper),  2px  0   0 var(--paper),
+    -1px -2px 0 var(--paper),  1px -2px 0 var(--paper),
+    -1px  2px 0 var(--paper),  1px  2px 0 var(--paper),
+    -2px -1px 0 var(--paper),  2px -1px 0 var(--paper),
+    -2px  1px 0 var(--paper),  2px  1px 0 var(--paper);
   --halo-navy:
-    -1px -1px 0 var(--navy),  1px -1px 0 var(--navy),
-    -1px  1px 0 var(--navy),  1px  1px 0 var(--navy),
-     0   -1px 0 var(--navy),  0    1px 0 var(--navy),
-    -1px  0   0 var(--navy),  1px  0   0 var(--navy);
+    -2px -2px 0 var(--navy),  2px -2px 0 var(--navy),
+    -2px  2px 0 var(--navy),  2px  2px 0 var(--navy),
+     0   -2px 0 var(--navy),  0    2px 0 var(--navy),
+    -2px  0   0 var(--navy),  2px  0   0 var(--navy),
+    -1px -2px 0 var(--navy),  1px -2px 0 var(--navy),
+    -1px  2px 0 var(--navy),  1px  2px 0 var(--navy),
+    -2px -1px 0 var(--navy),  2px -1px 0 var(--navy),
+    -2px  1px 0 var(--navy),  2px  1px 0 var(--navy);
 
   /* Spacing */
   --sp-1: 2px;
@@ -31,18 +39,18 @@
   --sp-5: 12px;
   --sp-6: 16px;
 
-  /* Font scale */
-  --fs-xs: 0.55em;
-  --fs-sm: 0.7em;
-  --fs-md: 0.85em;
-  --fs-lg: 0.95em;
-  --fs-xl: 1.1em;
-  --fs-2xl: 1.4em;
-  --fs-stat: 3.2em;
+  /* Font scale — 12px floor */
+  --fs-xs: 0.86em;
+  --fs-sm: 0.93em;
+  --fs-md: 1em;
+  --fs-lg: 1.07em;
+  --fs-xl: 1.21em;
+  --fs-2xl: 1.57em;
+  --fs-stat: 2.7em;
 
   /* Borders */
   --b: 2px solid var(--navy);
-  --b-light: 1px solid var(--navy);
+  --b-light: 2px solid var(--navy);
   --b-paper: 2px solid var(--paper);
 
   /* Hatch patterns */

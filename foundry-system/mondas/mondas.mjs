@@ -36,6 +36,17 @@ Hooks.once("init", () => {
   ]);
 });
 
+Hooks.once("ready", () => {
+  // Socket handler for cross-player actor updates (setup die, etc.)
+  game.socket.on("system.mondas", async (data) => {
+    if (!game.user.isGM) return;
+    if (data.action === "updateActor") {
+      const actor = game.actors.get(data.actorId);
+      if (actor) await actor.update(data.updates);
+    }
+  });
+});
+
 Hooks.on("renderChatMessage", (message, html) => {
   const el = html instanceof HTMLElement ? html : html[0] ?? html;
   bindRollCard(message, el);

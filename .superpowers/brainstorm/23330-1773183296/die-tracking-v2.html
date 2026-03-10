@@ -1,0 +1,219 @@
+<h2>Die Tracking — Refined</h2>
+<p class="subtitle">× in top-right corner of each die, "d6s" notation for sustained</p>
+
+<style>
+  :root {
+    --navy: #1a1f36;
+    --paper: #f5f0e8;
+    --b: 2px solid #1a1f36;
+  }
+  .m {
+    font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace;
+    color: var(--navy); font-size: 14px; line-height: 1.5;
+    background: var(--navy); padding: 2px;
+  }
+  .pills {
+    display: flex; gap: 4px; flex-wrap: wrap; align-items: center;
+    padding: 12px 16px; background: var(--paper);
+  }
+  .pill {
+    display: inline-block; padding: 2px 8px; font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--navy);
+    background: var(--paper); border: var(--b);
+  }
+  .pill.wounded {
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, var(--navy) 2px, var(--navy) 3px);
+    text-shadow: -1px -1px 0 var(--paper), 1px -1px 0 var(--paper), -1px 1px 0 var(--paper), 1px 1px 0 var(--paper);
+  }
+  .tdmg {
+    display: flex; align-items: center; gap: 6px; margin-left: auto;
+  }
+  .tdmg-lbl {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; white-space: nowrap;
+  }
+  .tdmg-input {
+    width: 2.2em; text-align: center; font-size: 16px; font-weight: 700;
+    background: transparent; border: none; border-bottom: var(--b);
+    color: var(--navy); font-family: inherit; padding: 0;
+  }
+  .tdmg-btn {
+    padding: 2px 8px; font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.04em; background: var(--navy); border: var(--b);
+    color: var(--paper); cursor: pointer; font-family: inherit;
+  }
+
+  /* Harm row */
+  .srow {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 12px 16px; border-top: var(--b); border-bottom: var(--b); background: var(--paper);
+  }
+  .harm { display: flex; gap: 12px; align-items: center; }
+  .hg { display: flex; align-items: center; gap: 2px; }
+  .hl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; min-width: 3.5em; }
+  .hb { width: 18px; height: 18px; border: var(--b); background: var(--paper); }
+  .hb.f { background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, var(--navy) 2px, var(--navy) 3px); }
+  .conds { display: flex; gap: 4px; }
+  .cond {
+    padding: 4px 6px; font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.04em; border: var(--b); color: var(--navy); background: var(--paper);
+  }
+
+  /* Die tracking */
+  .die-track {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--navy);
+  }
+  .die-panel { background: var(--paper); padding: 10px 16px; }
+  .panel-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; opacity: 0.5; }
+  .dice-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-start; }
+
+  .die-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    position: relative;
+  }
+
+  .die-box {
+    width: 32px; height: 32px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    border: var(--b); background: var(--paper); color: var(--navy);
+    cursor: pointer; position: relative;
+  }
+  .die-box.setup {
+    background-image: radial-gradient(var(--navy) 0.8px, transparent 0.8px); background-size: 3px 3px;
+    text-shadow: -1px -1px 0 var(--paper), 1px -1px 0 var(--paper), -1px 1px 0 var(--paper), 1px 1px 0 var(--paper);
+    font-size: 14px;
+  }
+
+  /* × close button — top right corner of the die box */
+  .die-close {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    background: var(--navy);
+    color: var(--paper);
+    cursor: pointer;
+    line-height: 1;
+    z-index: 1;
+  }
+
+  .die-lbl {
+    font-size: 9px; font-weight: 600; max-width: 52px;
+    text-align: center; line-height: 1.1;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+
+  .add-die {
+    width: 32px; height: 32px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700;
+    border: 2px dashed var(--navy); opacity: 0.25; cursor: pointer;
+  }
+</style>
+
+<div class="mockup">
+  <div class="mockup-header">Full Status Area with Die Tracking</div>
+  <div class="mockup-body" style="padding:0; background: var(--navy);">
+
+    <!-- Status pills + Take Damage -->
+    <div class="m">
+      <div class="pills">
+        <span class="pill wounded">WOUNDED</span>
+        <div class="tdmg">
+          <span class="tdmg-lbl">Dmg</span>
+          <input class="tdmg-input" type="number" value="5" readonly>
+          <button class="tdmg-btn">Apply</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harm + Conditions -->
+    <div class="m">
+      <div class="srow">
+        <div class="harm">
+          <div class="hg"><span class="hl">Hurt</span><span class="hb f"></span><span class="hb"></span></div>
+          <div class="hg"><span class="hl">Wounded</span><span class="hb f"></span><span class="hb"></span></div>
+          <div class="hg"><span class="hl">Critical</span><span class="hb"></span><span class="hb"></span></div>
+        </div>
+        <div class="conds">
+          <span class="cond">Stunned</span>
+          <span class="cond">Shaken</span>
+          <span class="cond">Prone</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Die Tracking -->
+    <div class="m">
+      <div class="die-track">
+        <!-- Left: Tracking (outgoing) -->
+        <div class="die-panel">
+          <div class="panel-lbl">Tracking</div>
+          <div class="dice-row">
+            <div class="die-item">
+              <div class="die-box setup">
+                5
+                <span class="die-close">×</span>
+              </div>
+              <div class="die-lbl">SETUP</div>
+            </div>
+            <div class="die-item">
+              <div class="die-box">
+                d6s
+                <span class="die-close">×</span>
+              </div>
+              <div class="die-lbl">Grunt #2</div>
+            </div>
+            <div class="die-item">
+              <div class="die-box">
+                d4s
+                <span class="die-close">×</span>
+              </div>
+              <div class="die-lbl">Turret</div>
+            </div>
+            <div class="die-item">
+              <div class="add-die">+</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: On You (incoming) -->
+        <div class="die-panel">
+          <div class="panel-lbl">On You</div>
+          <div class="dice-row">
+            <div class="die-item">
+              <div class="die-box">
+                d6s
+                <span class="die-close">×</span>
+              </div>
+              <div class="die-lbl">Fire</div>
+            </div>
+            <div class="die-item">
+              <div class="add-die">+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div style="margin-top:20px;">
+  <h3>Changes from v1</h3>
+  <ul style="font-size:14px;">
+    <li><strong>× button</strong> now sits in the top-right corner of each die box (small navy square, paper-colored ×)</li>
+    <li><strong>d6s / d4s</strong> notation — the "s" suffix tells you it's sustained at a glance, consistent with the data model encoding</li>
+    <li>Setup die still shows the rolled value (5) since it's not a die type but a stored result</li>
+  </ul>
+</div>

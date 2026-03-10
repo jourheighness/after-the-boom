@@ -132,12 +132,15 @@
   </div>
   <div class="card-stack">
     {{#each weapons}}
-    <div class="item-card weapon-card">
+    <div class="item-card weapon-card {{#if (eq quantity 0)}}weapon-spent{{/if}}">
       <div class="card-top">
         <span class="card-name">{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
-        <span class="die-badge">{{die}}</span>
-        {{#if thaumic}}<span class="thaumatech-badge"><i class="fa-solid fa-bolt"></i></span>{{/if}}
+        <span class="die-badge">{{dieBadge}}</span>
+        {{#if isSustained}}<span class="thaumatech-badge">Sustained</span>{{/if}}
+        {{#if thaumic}}<span class="thaumatech-badge">Thaumatech</span>{{/if}}
+        {{#if isThrown}}<span class="qty-badge">×{{quantity}}</span>{{/if}}
         <div class="card-controls">
+          {{#if isThrown}}<button type="button" class="ctrl-btn" data-action="useWeapon" data-index="{{@index}}" title="Use (expend)"><i class="fa-solid fa-hand-fist"></i></button>{{/if}}
           <button type="button" class="ctrl-btn" data-action="showWeapon" data-index="{{@index}}" title="Show in Chat"><i class="fa-solid fa-comment"></i></button>
           <button type="button" class="ctrl-btn" data-action="editWeapon" data-index="{{@index}}" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
           <button type="button" class="ctrl-btn danger" data-action="removeWeapon" data-index="{{@index}}" title="Delete"><i class="fa-solid fa-trash-can"></i></button>

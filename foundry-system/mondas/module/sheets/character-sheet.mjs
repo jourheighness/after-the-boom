@@ -33,6 +33,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
       editBackground: MondasCharacterSheet.#onEditBackground,
       addScar: MondasCharacterSheet.#onAddScar,
       removeScar: MondasCharacterSheet.#onRemoveScar,
+      useWeapon: MondasCharacterSheet.#onUseWeapon,
       switchTab: MondasCharacterSheet.#onSwitchTab,
     },
     form: {
@@ -92,7 +93,15 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
 
     // Lists
     context.edges = system.edges;
-    context.weapons = system.weapons;
+    context.weapons = (system.weapons ?? []).map((w) => {
+      const isSustained = w.die.startsWith("s");
+      return {
+        ...w,
+        isThrown: (w.properties ?? []).includes("thrown"),
+        isSustained,
+        dieBadge: isSustained ? w.die.slice(1) : w.die,
+      };
+    });
     context.equipment = system.equipment;
 
     // Notes (enriched for ProseMirror)
@@ -161,6 +170,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     return foundry.applications.api.DialogV2.prompt({
       classes: ["mondas-dialog"],
       window: { title },
+      position: { width: 480 },
       content,
       ok: {
         label,
@@ -211,12 +221,14 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
         die: data.die || "d8", properties: data.properties || [],
         dieOptions: DIE_OPTIONS, propertyOptions: PROPERTY_OPTIONS,
         thaumic: data.thaumic || false,
+        quantity: data.quantity ?? 1,
         gambitName: data.gambitName || "", gambitDesc: data.gambitDesc || "",
       },
     );
     return foundry.applications.api.DialogV2.prompt({
       classes: ["mondas-dialog"],
       window: { title },
+      position: { width: 480 },
       content,
       ok: {
         label,
@@ -231,6 +243,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
             name: d.name || "", description: d.description || "",
             die: d.die || "d8", properties,
             thaumic: !!form.querySelector("input[name='thaumic']")?.checked,
+            quantity: Math.max(0, parseInt(d.quantity, 10) || 1),
             gambitName: d.gambitName || "", gambitDesc: d.gambitDesc || "",
           };
         },
@@ -264,6 +277,22 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     await this.actor.update({ "system.weapons": weapons });
   }
 
+  /** Use (expend) a thrown/consumable weapon — decrement quantity */
+  static async #onUseWeapon(event, target) {
+    const index = Number(target.dataset.index);
+    const weapons = this.actor.system.toObject().weapons;
+    const weapon = weapons[index];
+    if (!weapon || weapon.quantity <= 0) return;
+    weapon.quantity -= 1;
+    await this.actor.update({ "system.weapons": weapons });
+    // Post chat message
+    const suffix = weapon.quantity === 0 ? " — none remaining!" : ` (${weapon.quantity} left)`;
+    ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      content: `<div class="mondas-item-card"><strong>${this.actor.name}</strong> uses <strong>${weapon.name || "weapon"}</strong>${suffix}</div>`,
+    });
+  }
+
   /* ---- Equipment dialogs ---- */
 
   static async #openEquipmentDialog(title, label, data = {}) {
@@ -281,6 +310,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     return foundry.applications.api.DialogV2.prompt({
       classes: ["mondas-dialog"],
       window: { title },
+      position: { width: 480 },
       content,
       ok: {
         label,

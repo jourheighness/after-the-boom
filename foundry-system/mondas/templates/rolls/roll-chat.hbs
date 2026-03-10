@@ -1,7 +1,11 @@
 {{!-- MONDAS Roll — Chat Card (pending / resolved) --}}
 <div class="mondas-roll-chat" data-phase="{{phase}}">
   <div class="roll-header">
-    <strong>{{statLabel}}</strong> &mdash; {{rollTypeLabel}}
+    <div class="roll-header-stat">
+      <span class="stat-icon stat-icon-{{stat}}"></span>
+      <span class="stat-label">{{statLabel}}</span>
+    </div>
+    <div class="roll-header-type">{{rollTypeLabel}}</div>
   </div>
 
   <div class="pool-desc">{{poolDesc}} = {{poolLabel}}</div>
@@ -33,9 +37,9 @@
   {{#if isCombat}}
   <div class="outcome-line">Highest: {{highest}}</div>
   {{else if isDefense}}
-  <div class="outcome-line {{outcomeClass}}">{{defenseResult}}</div>
+  <div class="result-box {{outcomeClass}}">{{defenseResult}}{{#if coverArmor}} (cover +{{coverArmor}}){{/if}}</div>
   {{else}}
-  <div class="outcome-line {{outcomeClass}}">Highest: {{highest}} &mdash; {{outcome}}</div>
+  <div class="result-box {{outcomeClass}}">{{outcome}}</div>
   {{/if}}
 
   {{!-- ===== PENDING: Setup Die Toggle (all roll types) ===== --}}
@@ -111,14 +115,11 @@
 
   {{#if isCombat}}
   {{#if weaponDamage}}
-  <div class="weapon-section">
-    <strong>{{weapon.name}}</strong>
+  <div class="result-box">
     {{#if weaponDamage.forfeited}}
-    <span class="damage-forfeited">— no damage (all dice used)</span>
+    <span>No damage — all dice used</span>
     {{else}}
-    <button class="mondas-apply-damage" data-damage="{{weaponDamage.value}}" data-cover="{{coverArmor}}">
-      Apply {{weaponDamage.value}} Damage
-    </button>
+    <span>{{weapon.name}}: {{weaponDamage.value}} damage</span>
     {{/if}}
   </div>
   {{/if}}

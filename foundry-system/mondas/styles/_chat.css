@@ -202,15 +202,64 @@
 }
 
 .mondas-roll-chat .roll-header {
-  font-size: var(--fs-xl);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+  justify-items: center;
+  border: var(--b);
+  margin-bottom: var(--sp-4);
+}
+
+.mondas-roll-chat .roll-header-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  align-self: stretch;
+  justify-self: stretch;
+  justify-content: center;
+  border-right: var(--b);
+  padding: var(--sp-4) var(--sp-4) var(--sp-2);
+}
+
+.mondas-roll-chat .roll-header-stat .stat-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.mondas-roll-chat .roll-header-stat .stat-label {
+  font-size: var(--fs-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: var(--sp-2);
+}
+
+.mondas-roll-chat .roll-header-type {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: var(--sp-4);
 }
 
 .mondas-roll-chat .pool-desc { font-size: var(--fs-md); color: var(--navy); margin-bottom: var(--sp-4); }
 .mondas-roll-chat .outcome-line { margin: var(--sp-4) 0; }
+
+.mondas-roll-chat .result-box {
+  margin-top: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+  text-shadow: var(--halo-paper);
+  background-color: var(--navy);
+  background-image: radial-gradient(var(--paper) 1px, transparent 1px);
+  background-size: 3px 3px;
+  border: var(--b);
+}
 
 .mondas-roll-chat .gambits-section {
   margin-top: var(--sp-4);

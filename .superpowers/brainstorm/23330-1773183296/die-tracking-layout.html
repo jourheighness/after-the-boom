@@ -1,0 +1,343 @@
+<h2>Die Tracking & Take Damage</h2>
+<p class="subtitle">New section below the Harm + Conditions row on the character sheet</p>
+
+<div class="mockup">
+  <div class="mockup-header">Character Sheet — Status Area (current → proposed)</div>
+  <div class="mockup-body" style="padding:0; background:#1a1f36;">
+
+    <style>
+      :root {
+        --navy: #1a1f36;
+        --paper: #f5f0e8;
+        --b: 2px solid #1a1f36;
+        --b-light: 1px solid #1a1f36;
+        --sp-1: 2px; --sp-2: 4px; --sp-3: 6px; --sp-4: 8px; --sp-5: 12px; --sp-6: 16px;
+        --fs-xs: 10px; --fs-sm: 12px; --fs-md: 14px; --fs-lg: 16px; --fs-xl: 20px;
+      }
+
+      .mondas-mock {
+        font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace;
+        color: var(--navy);
+        font-size: 14px;
+        line-height: 1.5;
+        background: var(--navy);
+        padding: 2px;
+      }
+
+      /* Status pills row */
+      .mock-pills {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+        padding: 12px 16px;
+        background: var(--paper);
+      }
+      .mock-pill {
+        display: inline-block;
+        padding: 2px 8px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--navy);
+        background: var(--paper);
+        border: var(--b);
+      }
+      .mock-pill.wounded {
+        background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, var(--navy) 2px, var(--navy) 3px);
+        text-shadow: -1px -1px 0 var(--paper), 1px -1px 0 var(--paper), -1px 1px 0 var(--paper), 1px 1px 0 var(--paper);
+      }
+
+      /* Harm + conditions row */
+      .mock-status-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 16px;
+        border-top: var(--b);
+        border-bottom: var(--b);
+        background: var(--paper);
+      }
+      .mock-harm { display: flex; gap: 12px; align-items: center; }
+      .mock-harm-group { display: flex; align-items: center; gap: 2px; }
+      .mock-harm-label {
+        font-size: 10px; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.06em; color: var(--navy); min-width: 3.5em;
+      }
+      .mock-harm-box {
+        width: 18px; height: 18px; border: var(--b); background: var(--paper);
+      }
+      .mock-harm-box.filled {
+        background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, var(--navy) 2px, var(--navy) 3px);
+      }
+      .mock-conditions { display: flex; gap: 4px; }
+      .mock-condition {
+        padding: 6px 8px; font-size: 12px; font-weight: 600;
+        text-transform: uppercase; letter-spacing: 0.06em;
+        border: var(--b); color: var(--navy); background: var(--paper);
+      }
+
+      /* === NEW: Die Tracking Section === */
+      .mock-die-track {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+        background: var(--navy);
+      }
+
+      .mock-die-panel {
+        background: var(--paper);
+        padding: 12px 16px;
+      }
+
+      .mock-panel-label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--navy);
+        margin-bottom: 8px;
+        opacity: 0.6;
+      }
+
+      .mock-dice-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+
+      .mock-die-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+      }
+
+      .mock-die-box {
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 700;
+        border: var(--b);
+        background: var(--paper);
+        color: var(--navy);
+        cursor: pointer;
+        position: relative;
+      }
+
+      /* Setup die: shows the value, dot raster like die-success */
+      .mock-die-box.setup {
+        background-color: var(--paper);
+        background-image: radial-gradient(var(--navy) 0.8px, transparent 0.8px);
+        background-size: 3px 3px;
+        text-shadow: -1px -1px 0 var(--paper), 1px -1px 0 var(--paper), -1px 1px 0 var(--paper), 1px 1px 0 var(--paper);
+      }
+
+      /* Sustained die: shows die type, clean outline like die-partial */
+      .mock-die-box.sustained {
+        background: var(--paper);
+      }
+
+      .mock-die-label {
+        font-size: 9px;
+        font-weight: 600;
+        color: var(--navy);
+        text-align: center;
+        max-width: 48px;
+        line-height: 1.1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .mock-die-clear {
+        font-size: 9px;
+        color: var(--navy);
+        opacity: 0.5;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      /* Add button */
+      .mock-add-die {
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 700;
+        border: 2px dashed var(--navy);
+        background: transparent;
+        color: var(--navy);
+        opacity: 0.3;
+        cursor: pointer;
+      }
+
+      /* Take Damage section */
+      .mock-take-dmg {
+        background: var(--paper);
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .mock-take-dmg-label {
+        font-size: 12px; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.08em; color: var(--navy); min-width: 5em;
+      }
+      .mock-take-dmg-input {
+        width: 3em; text-align: center; font-size: 20px; font-weight: 700;
+        background: transparent; border: none; border-bottom: var(--b);
+        color: var(--navy); font-family: inherit; padding: 0;
+      }
+      .mock-take-dmg-btn {
+        padding: 4px 12px; font-size: 12px; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.06em;
+        background: var(--paper); border: var(--b); color: var(--navy);
+        cursor: pointer; font-family: inherit;
+      }
+
+      .mock-section-label {
+        font-size: 11px; font-weight: 700; color: #fff;
+        text-transform: uppercase; letter-spacing: 0.1em;
+        padding: 4px 16px; background: var(--navy);
+        text-align: center;
+      }
+
+      .mock-arrow {
+        text-align: center; padding: 16px; color: var(--navy);
+        font-size: 24px; background: #e8e3db;
+      }
+    </style>
+
+    <!-- Current status area context -->
+    <div class="mock-section-label">▲ Status Pills (existing)</div>
+    <div class="mondas-mock">
+      <div class="mock-pills">
+        <span class="mock-pill wounded">WOUNDED</span>
+      </div>
+    </div>
+
+    <div class="mock-section-label">▲ Harm + Conditions (existing)</div>
+    <div class="mondas-mock">
+      <div class="mock-status-row">
+        <div class="mock-harm">
+          <div class="mock-harm-group">
+            <span class="mock-harm-label">Hurt</span>
+            <span class="mock-harm-box filled"></span>
+            <span class="mock-harm-box"></span>
+          </div>
+          <div class="mock-harm-group">
+            <span class="mock-harm-label">Wounded</span>
+            <span class="mock-harm-box filled"></span>
+            <span class="mock-harm-box"></span>
+          </div>
+          <div class="mock-harm-group">
+            <span class="mock-harm-label critical-label">Critical</span>
+            <span class="mock-harm-box"></span>
+            <span class="mock-harm-box"></span>
+          </div>
+        </div>
+        <div class="mock-conditions">
+          <span class="mock-condition">Stunned</span>
+          <span class="mock-condition">Shaken</span>
+          <span class="mock-condition">Prone</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW SECTION -->
+    <div class="mock-section-label" style="background:#3a5f3a; margin-top:2px;">★ NEW: Die Tracking (below status row)</div>
+    <div class="mondas-mock">
+      <div class="mock-die-track">
+
+        <!-- Left: Your tracked dice (outgoing) -->
+        <div class="mock-die-panel">
+          <div class="mock-panel-label">Tracking</div>
+          <div class="mock-dice-row">
+            <div class="mock-die-item">
+              <div class="mock-die-box setup">5</div>
+              <div class="mock-die-label">SETUP</div>
+              <div class="mock-die-clear">×</div>
+            </div>
+            <div class="mock-die-item">
+              <div class="mock-die-box sustained">d6</div>
+              <div class="mock-die-label">Grunt #2</div>
+              <div class="mock-die-clear">×</div>
+            </div>
+            <div class="mock-die-item">
+              <div class="mock-die-box sustained">d4</div>
+              <div class="mock-die-label">Turret</div>
+              <div class="mock-die-clear">×</div>
+            </div>
+            <div class="mock-die-item">
+              <div class="mock-add-die">+</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Dice on you (incoming) -->
+        <div class="mock-die-panel">
+          <div class="mock-panel-label">On You</div>
+          <div class="mock-dice-row">
+            <div class="mock-die-item">
+              <div class="mock-die-box sustained">d6</div>
+              <div class="mock-die-label">Fire</div>
+              <div class="mock-die-clear">×</div>
+            </div>
+            <div class="mock-die-item">
+              <div class="mock-add-die">+</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Take Damage -->
+    <div class="mock-section-label" style="background:#3a5f3a;">★ NEW: Take Damage (in resources row or standalone)</div>
+    <div class="mondas-mock">
+      <div class="mock-take-dmg">
+        <span class="mock-take-dmg-label">Damage</span>
+        <input class="mock-take-dmg-input" type="number" value="5" readonly>
+        <button class="mock-take-dmg-btn">Apply</button>
+        <span style="font-size:11px; opacity:0.5; margin-left:8px;">→ Armor → Guard → Harm</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div style="margin-top:24px;">
+  <h3>How It Works</h3>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:12px;">
+    <div>
+      <h4 style="margin:0 0 8px;">Left: "Tracking"</h4>
+      <ul style="font-size:14px; margin:0; padding-left:20px;">
+        <li><strong>Setup die</strong> — value shown, dot raster style. Used in roll dialog.</li>
+        <li><strong>Sustained on enemies</strong> — die type shown (d6, d4). Click to roll → posts damage to chat. On 1 → auto-removes. Label = short note ("Grunt #2").</li>
+        <li><strong>+ button</strong> — add tracked die manually (pick die type, enter label).</li>
+        <li><strong>× to clear</strong> — remove any tracked die.</li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="margin:0 0 8px;">Right: "On You"</h4>
+      <ul style="font-size:14px; margin:0; padding-left:20px;">
+        <li><strong>Sustained on self</strong> — die type shown. Click to roll → damage through YOUR pipeline → posts to chat. On 1 → burns out, auto-removes.</li>
+        <li><strong>+ button</strong> — GM or player adds sustained effect.</li>
+        <li><strong>× to clear</strong> — spent Act to end it.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:24px;">
+  <h3>Take Damage</h3>
+  <p style="font-size:14px;">Type a number, hit Apply. The <code>applyDamage()</code> pipeline runs automatically (Armor → Guard → Scar → Harm overflow) and posts a breakdown to chat. Could live in the resources row next to Guard, or as its own strip below die tracking.</p>
+</div>
