@@ -15,6 +15,9 @@
   overflow-y: auto;
 }
 
+/* Part wrapper — transparent flex container for PARTS single-root requirement */
+.mondas .part-header { display: contents; }
+
 /* ===================================================
  * HEADER
  * =================================================== */

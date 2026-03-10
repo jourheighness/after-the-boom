@@ -96,7 +96,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     context.equipment = system.equipment;
 
     // Notes (enriched for ProseMirror)
-    context.enrichedNotes = await TextEditor.enrichHTML(system.notes, {
+    context.enrichedNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(system.notes, {
       secrets: this.actor.isOwner,
       rollData: this.actor.getRollData?.(),
     });
