@@ -17,15 +17,15 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         nerve: new fields.NumberField({ required: true, initial: 1, min: 1, max: 4, integer: true }),
       }),
 
-      // Guard
+      // Guard — value = boxes checked (spent), starts at 0
       guard: new fields.SchemaField({
-        value: new fields.NumberField({ required: true, initial: 4, min: 0, integer: true }),
+        value: new fields.NumberField({ required: true, initial: 0, min: 0, integer: true }),
         max: new fields.NumberField({ required: true, initial: 4, min: 0, integer: true }),
       }),
 
-      // Drain (4 boxes)
+      // Drain — value = boxes checked (spent), starts at 0
       drain: new fields.SchemaField({
-        value: new fields.NumberField({ required: true, initial: 4, min: 0, max: 4, integer: true }),
+        value: new fields.NumberField({ required: true, initial: 0, min: 0, max: 4, integer: true }),
         max: new fields.NumberField({ required: true, initial: 4, min: 0, max: 4, integer: true }),
       }),
 
@@ -54,6 +54,13 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
 
       // Last used weapon index for combat roll default (-1 = none yet)
       lastWeaponIndex: new fields.NumberField({ initial: -1, integer: true }),
+
+      // Setup die — banked Boon from a Setup gambit (one at a time)
+      setupDie: new fields.SchemaField({
+        active: new fields.BooleanField({ initial: false }),
+        value: new fields.NumberField({ initial: 0, min: 0, max: 6, integer: true }),
+        source: new fields.StringField({ initial: "" }),
+      }),
 
       // Edges — inline array with optional gambit
       edges: new fields.ArrayField(new fields.SchemaField({
@@ -94,7 +101,8 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
     const stats = this.stats;
     const highestStat = Math.max(stats.grit, stats.sharp, stats.nerve);
     this.guard.max = 2 + highestStat + this.scars.length;
-    this.cracked = this.drain.value === 0;
+    if (this.guard.value > this.guard.max) this.guard.value = this.guard.max;
+    this.cracked = this.drain.value >= this.drain.max;
 
     // Armor derived from equipment
     this.armor = Math.min(3,
@@ -104,7 +112,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
     // Harm-level booleans
     this.wounded = this.harm.wounded.slot1.filled || this.harm.wounded.slot2.filled;
     this.critical = this.harm.critical.slot1.filled || this.harm.critical.slot2.filled;
-    this.incapacitated = this.wounded && this.drain.value === 0;
+    this.incapacitated = this.wounded && this.drain.value >= this.drain.max;
     this.mustSpendDrain = this.critical;
 
     // Auto-snags: array of {source, applies}

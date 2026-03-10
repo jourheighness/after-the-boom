@@ -8,22 +8,50 @@
 
   <div class="dice-grid">
     {{#each dice}}
+    {{#if isWeapon}}
+    <span class="die-weapon-wrap">
+      <span
+        class="die-result die-weapon {{colorClass}} {{#if isGambitEligible}}gambit-eligible{{/if}} {{#if sacrificed}}sacrificed{{/if}}"
+        data-index="{{index}}"
+      ><span class="die-weapon-inner">{{value}}</span>{{#if assignedGambit}}<span class="die-tag">{{assignedGambit.label}}</span>{{/if}}</span>
+      <span class="die-tag">{{@root.weapon.die}}</span>
+    </span>
+    {{else}}
     <span
       class="die-result {{colorClass}} {{#if isGambitEligible}}gambit-eligible{{/if}} {{#if sacrificed}}sacrificed{{/if}}"
       data-index="{{index}}"
-    >{{value}}{{#if assignedGambit}}<span class="die-gambit-label">{{assignedGambit.label}}</span>{{/if}}</span>
+    >{{value}}{{#if assignedGambit}}<span class="die-tag">{{assignedGambit.label}}</span>{{/if}}</span>
+    {{/if}}
     {{/each}}
+    {{#if setupDie}}
+    <span class="die-result die-setup {{setupDieColorClass}} {{#if usedSetupDie}}active{{else}}{{#if (eq phase "pending")}}pending{{else}}hidden{{/if}}{{/if}}">
+      {{setupDie.value}}<span class="die-tag">SETUP</span>
+    </span>
+    {{/if}}
   </div>
 
-  <div class="outcome-line {{outcomeClass}}">
-    Highest: {{highest}} &mdash; {{outcome}}
-  </div>
+  {{#if isCombat}}
+  <div class="outcome-line">Highest: {{highest}}</div>
+  {{else if isDefense}}
+  <div class="outcome-line {{outcomeClass}}">{{defenseResult}}</div>
+  {{else}}
+  <div class="outcome-line {{outcomeClass}}">Highest: {{highest}} &mdash; {{outcome}}</div>
+  {{/if}}
 
-  {{!-- ===== PENDING: Stakes — Simple Toggle ===== --}}
+  {{!-- ===== PENDING: Setup Die Toggle (all roll types) ===== --}}
   {{#if (eq phase "pending")}}
+  {{#if setupDie}}
+  <div class="setup-die-row">
+    <button type="button" class="setup-die-toggle">
+      Use Setup Die <strong>{{setupDie.value}}</strong> from {{setupDie.source}}
+    </button>
+  </div>
+  {{/if}}
+
+  {{!-- Stakes — Simple Toggle --}}
   {{#if isStakes}}
   <div class="gambit-controls">
-    <p class="gambit-hint">Click dice showing 4+ to sacrifice for narrative leverage.</p>
+    {{#if hasGambitDice}}<p class="gambit-hint">Click dice showing 4+ to sacrifice for narrative leverage.</p>{{/if}}
     <div class="gambit-buttons">
       <button type="button" class="gambit-confirm-btn">Confirm</button>
       <button type="button" class="gambit-skip-btn">Skip</button>
@@ -31,10 +59,10 @@
   </div>
   {{/if}}
 
-  {{!-- ===== PENDING: Combat/Defense — Gambit Panel ===== --}}
+  {{!-- Combat/Defense — Gambit Panel --}}
   {{#if showGambitPanel}}
   <div class="gambit-controls">
-    <p class="gambit-hint">Click a die (4+) to select it, then choose a gambit below.</p>
+    {{#if hasGambitDice}}<p class="gambit-hint">Click a die (4+) to select it, then choose a gambit below.</p>{{/if}}
     <div class="gambit-panel" hidden>
       <div class="gambit-list">
         {{!-- Populated dynamically by JS --}}
@@ -50,6 +78,13 @@
 
   {{!-- ===== RESOLVED ===== --}}
   {{#if (eq phase "resolved")}}
+
+  {{!-- Setup die note --}}
+  {{#if usedSetupDie}}
+  <div class="gambits-section setup-die-used">
+    Setup die from <strong>{{setupDie.source}}</strong>
+  </div>
+  {{/if}}
 
   {{!-- Stakes: show sacrifice count --}}
   {{#if isStakes}}
@@ -75,12 +110,16 @@
   {{/if}}
 
   {{#if isCombat}}
-  {{#if weapon}}
+  {{#if weaponDamage}}
   <div class="weapon-section">
-    <strong>{{weapon.name}}</strong> ({{weapon.die}}): <span class="weapon-damage">{{weapon.damage}}</span>
-    <button class="mondas-apply-damage" data-damage="{{weapon.damage}}" data-cover="{{coverArmor}}">
-      Apply {{weapon.damage}} Damage
+    <strong>{{weapon.name}}</strong>
+    {{#if weaponDamage.forfeited}}
+    <span class="damage-forfeited">— no damage (all dice used)</span>
+    {{else}}
+    <button class="mondas-apply-damage" data-damage="{{weaponDamage.value}}" data-cover="{{coverArmor}}">
+      Apply {{weaponDamage.value}} Damage
     </button>
+    {{/if}}
   </div>
   {{/if}}
   {{/if}}

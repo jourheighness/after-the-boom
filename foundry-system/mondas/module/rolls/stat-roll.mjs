@@ -7,7 +7,7 @@
  * Gambit selection happens in the chat card (see chat-gambits.mjs).
  */
 
-import { buildTemplateData, buildAvailableGambits, resolveOutcome } from "./chat-gambits.mjs";
+import { buildTemplateData, buildAvailableGambits, resolveOutcome, highestAvailable } from "./chat-gambits.mjs";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 
@@ -25,6 +25,7 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
       dismissSnag: MondasRollDialog.#onDismissSnag,
       selectWeapon: MondasRollDialog.#onSelectWeapon,
       selectCover: MondasRollDialog.#onSelectCover,
+      toggleDrain: MondasRollDialog.#onToggleDrain,
       executeRoll: MondasRollDialog.#onExecuteRoll,
     },
   };
@@ -90,7 +91,7 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     context.boons = this.boons;
     context.snags = this.snags;
     context.spendDrain = this.spendDrain;
-    context.drainAvailable = system.drain.value > 0;
+    context.drainAvailable = system.drain.value < system.drain.max;
     context.isCombat = this.rollType === "combat";
     context.isDefense = this.rollType === "defense";
 
@@ -132,13 +133,21 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
   /*  Action Handlers                         */
   /* ---------------------------------------- */
 
+  /** Read checkbox state from the DOM before re-rendering. */
+  #syncCheckbox() {
+    const cb = this.element?.querySelector("input[name='spendDrain']");
+    if (cb) this.spendDrain = cb.checked;
+  }
+
   static #onAdjustBoons(event, target) {
+    this.#syncCheckbox();
     const delta = Number(target.dataset.delta);
     this.boons = Math.max(0, this.boons + delta);
     this.render();
   }
 
   static #onAdjustSnags(event, target) {
+    this.#syncCheckbox();
     const delta = Number(target.dataset.delta);
     this.snags = Math.max(0, this.snags + delta);
     this.render();
@@ -164,6 +173,11 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     this.render();
   }
 
+  static #onToggleDrain(event, target) {
+    this.spendDrain = target.checked;
+    this.render();
+  }
+
   static async #onExecuteRoll(event, target) {
     // Read current form state
     const form = this.element.querySelector("form") || this.element;
@@ -184,7 +198,7 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
 
     // Spend drain if used
     if (this.spendDrain) {
-      await this.actor.update({ "system.drain.value": system.drain.value - 1 });
+      await this.actor.update({ "system.drain.value": system.drain.value + 1 });
     }
 
     // Build pool description
@@ -198,40 +212,51 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     // Build and evaluate stat roll
     const statRoll = new Roll(isZeroPool ? "2d6" : `${pool}d6`);
     await statRoll.evaluate();
-    const dice = statRoll.terms[0].results.map((r, i) => ({ value: r.result, index: i }));
-    const highest = isZeroPool
-      ? Math.min(...dice.map((d) => d.value))
-      : Math.max(...dice.map((d) => d.value));
 
-    const hasGambitDice = dice.some((d) => d.value >= 4);
-    const { outcome, outcomeClass } = resolveOutcome(highest);
-
-    // Weapon roll (combat only)
+    // Weapon roll (combat only) — merged into dice array, placed first
     let weaponData = null;
     const rolls = [statRoll];
+    const dice = [];
+    let nextIndex = 0;
+
     if (this.rollType === "combat" && system.weaponChoices?.length > 0) {
       const weapon = system.weaponChoices[this.selectedWeaponIndex] || system.weaponChoices[0];
       const weaponRoll = new Roll(`1${weapon.die}`);
       await weaponRoll.evaluate();
+      dice.push({ value: weaponRoll.total, index: nextIndex, isWeapon: true });
       weaponData = {
         name: weapon.name || "Weapon",
         die: weapon.die,
-        damage: weaponRoll.total,
+        weaponIndex: nextIndex,
       };
+      nextIndex++;
       rolls.push(weaponRoll);
-
-      // Update last used weapon index
       await this.actor.update({ "system.lastWeaponIndex": this.selectedWeaponIndex });
     }
+
+    // Add stat dice after weapon die
+    for (const r of statRoll.terms[0].results) {
+      dice.push({ value: r.result, index: nextIndex });
+      nextIndex++;
+    }
+
+    const highest = highestAvailable(dice, new Set(), isZeroPool);
+    const hasGambitDice = dice.some((d) => d.value >= 4);
+    const { outcome, outcomeClass } = resolveOutcome(highest);
 
     // Build available gambits for combat/defense rolls
     const availableGambits = (this.rollType === "combat" || this.rollType === "defense")
       ? buildAvailableGambits(this.actor)
       : [];
 
+    // Setup die availability (post-roll decision)
+    const setupDie = system.setupDie?.active
+      ? { value: system.setupDie.value, source: system.setupDie.source }
+      : null;
+
     // Build flags — single source of truth
     const flags = {
-      phase: hasGambitDice ? "pending" : "resolved",
+      phase: (hasGambitDice || setupDie) ? "pending" : "resolved",
       actorId: this.actor.id,
       stat: this.stat,
       rollType: this.rollType,
@@ -253,6 +278,8 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
       weapon: weaponData,
       availableGambits,
       coverArmor: this.rollType === "defense" ? this.coverLevel : 0,
+      setupDie,
+      usedSetupDie: false,
     };
 
     // Render chat card

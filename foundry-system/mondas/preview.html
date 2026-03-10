@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MONDAS Preview</title>
+  <link rel="stylesheet" href="styles/mondas.css">
+  <style>
+    body { margin: 40px; background: #d4d0c8; font-family: 'IBM Plex Mono', monospace; }
+    .preview-label { font-size: 11px; color: #888; margin-bottom: 4px; }
+    .preview-section { margin-bottom: 32px; }
+  </style>
+</head>
+<body>
+
+<div class="preview-section">
+  <div class="preview-label">Stat Blocks</div>
+  <section class="mondas character-sheet" style="width: 360px; padding: 8px; background: var(--navy);">
+    <div class="stats-row">
+
+      <div class="stat-block">
+        <div class="stat-top">
+          <div class="stat-icon-col">
+            <span class="stat-icon stat-icon-grit"></span>
+            <span class="stat-label">GRIT</span>
+          </div>
+          <input type="number" class="stat-value" value="2" min="1" max="4">
+        </div>
+        <div class="stat-roll-buttons">
+          <button type="button" title="Combat"><i style="font-style:normal">⊕</i></button>
+          <button type="button" title="Defense"><i style="font-style:normal">◉</i></button>
+          <button type="button" title="Stakes"><i style="font-style:normal">⚖</i></button>
+        </div>
+      </div>
+
+      <div class="stat-block">
+        <div class="stat-top">
+          <div class="stat-icon-col">
+            <span class="stat-icon stat-icon-sharp"></span>
+            <span class="stat-label">SHARP</span>
+          </div>
+          <input type="number" class="stat-value" value="3" min="1" max="4">
+        </div>
+        <div class="stat-roll-buttons">
+          <button type="button" title="Combat"><i style="font-style:normal">⊕</i></button>
+          <button type="button" title="Defense"><i style="font-style:normal">◉</i></button>
+          <button type="button" title="Stakes"><i style="font-style:normal">⚖</i></button>
+        </div>
+      </div>
+
+      <div class="stat-block">
+        <div class="stat-top">
+          <div class="stat-icon-col">
+            <span class="stat-icon stat-icon-nerve"></span>
+            <span class="stat-label">NERVE</span>
+          </div>
+          <input type="number" class="stat-value" value="1" min="1" max="4">
+        </div>
+        <div class="stat-roll-buttons">
+          <button type="button" title="Combat"><i style="font-style:normal">⊕</i></button>
+          <button type="button" title="Defense"><i style="font-style:normal">◉</i></button>
+          <button type="button" title="Stakes"><i style="font-style:normal">⚖</i></button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+</body>
+</html>

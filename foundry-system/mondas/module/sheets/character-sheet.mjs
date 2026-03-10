@@ -45,6 +45,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
       showEdge: MondasCharacterSheet.#onShowEdge,
       showWeapon: MondasCharacterSheet.#onShowWeapon,
       showEquipment: MondasCharacterSheet.#onShowEquipment,
+      editBackground: MondasCharacterSheet.#onEditBackground,
       addScar: MondasCharacterSheet.#onAddScar,
       removeScar: MondasCharacterSheet.#onRemoveScar,
       switchTab: MondasCharacterSheet.#onSwitchTab,
@@ -79,10 +80,11 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
       value: system.stats[key],
     }));
 
-    // Guard/Drain display
+    // Guard/Drain display — remaining = max - value (checked boxes = spent)
     context.guard = system.guard;
     context.drain = system.drain;
-    context.cracked = system.cracked;
+    context.guardRemaining = system.guard.max - system.guard.value;
+    context.drainRemaining = system.drain.max - system.drain.value;
     context.armor = system.armor;
     context.scars = system.scars;
 
@@ -90,11 +92,15 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     context.harm = system.harm;
     context.conditions = system.conditions;
 
-    // Derived harm states
-    context.wounded = system.wounded;
-    context.critical = system.critical;
-    context.incapacitated = system.incapacitated;
-    context.mustSpendDrain = system.mustSpendDrain;
+    // Derived harm states — compute directly for reliability
+    context.wounded = system.harm.wounded.slot1.filled || system.harm.wounded.slot2.filled;
+    context.critical = system.harm.critical.slot1.filled || system.harm.critical.slot2.filled;
+    context.cracked = system.drain.value >= system.drain.max;
+    context.incapacitated = context.wounded && context.cracked;
+    context.mustSpendDrain = context.critical;
+
+    // Setup die
+    context.setupDie = system.setupDie;
 
     // Lists
     context.edges = system.edges;
@@ -165,6 +171,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
       { name: data.name || "", mechanical: data.mechanical || "", gambitName: data.gambitName || "", gambitDesc: data.gambitDesc || "" },
     );
     return foundry.applications.api.DialogV2.prompt({
+      classes: ["mondas-dialog"],
       window: { title },
       content,
       ok: {
@@ -220,6 +227,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
       },
     );
     return foundry.applications.api.DialogV2.prompt({
+      classes: ["mondas-dialog"],
       window: { title },
       content,
       ok: {
@@ -283,6 +291,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
       },
     );
     return foundry.applications.api.DialogV2.prompt({
+      classes: ["mondas-dialog"],
       window: { title },
       content,
       ok: {
@@ -346,7 +355,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     if (!edge?.name) return;
     let html = `<div class="card-chat-header">${edge.name}</div>`;
     if (edge.mechanical) html += `<p class="card-chat-desc">${edge.mechanical}</p>`;
-    if (edge.gambitName) html += `<div class="card-chat-gambit"><span class="gambit-icon">⚡</span> <strong>${edge.gambitName}</strong>${edge.gambitDesc ? ` — ${edge.gambitDesc}` : ""}</div>`;
+    if (edge.gambitName) html += `<div class="card-chat-gambit"><i class="fa-solid fa-bolt gambit-icon"></i> <strong>${edge.gambitName}</strong>${edge.gambitDesc ? ` — ${edge.gambitDesc}` : ""}</div>`;
     await MondasCharacterSheet.#chatCard.call(this, html);
   }
 
@@ -365,8 +374,30 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     let html = `<div class="card-chat-header">${eq.name} <span class="card-chat-qty">×${eq.quantity}</span></div>`;
     if (eq.description) html += `<p class="card-chat-desc">${eq.description}</p>`;
     if (eq.tags?.length) html += `<div class="card-chat-tags">${eq.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>`;
-    if (eq.gambitName) html += `<div class="card-chat-gambit"><span class="gambit-icon">⚡</span> <strong>${eq.gambitName}</strong>${eq.gambitDesc ? ` — ${eq.gambitDesc}` : ""}</div>`;
+    if (eq.gambitName) html += `<div class="card-chat-gambit"><i class="fa-solid fa-bolt gambit-icon"></i> <strong>${eq.gambitName}</strong>${eq.gambitDesc ? ` — ${eq.gambitDesc}` : ""}</div>`;
     await MondasCharacterSheet.#chatCard.call(this, html);
+  }
+
+  /* ---- Background ---- */
+
+  static async #onEditBackground(event, target) {
+    const current = this.actor.system.background || "";
+    const result = await foundry.applications.api.DialogV2.prompt({
+      classes: ["mondas-dialog"],
+      window: { title: "Background" },
+      content: `<form><textarea name="background" rows="4" style="width:100%;resize:vertical" placeholder="2-4 sentences..." autofocus>${current}</textarea></form>`,
+      ok: {
+        label: "Save",
+        callback: (event, button) => {
+          const form = getDialogForm(event, button);
+          if (!form) return null;
+          return new FormDataExtended(form).object.background ?? "";
+        },
+      },
+      rejectClose: false,
+    });
+    if (result === null || result === undefined) return;
+    await this.actor.update({ "system.background": result });
   }
 
   /* ---- Other toggles ---- */
