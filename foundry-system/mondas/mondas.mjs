@@ -21,6 +21,19 @@ Hooks.once("init", () => {
 
   // Register Handlebars helpers
   registerHandlebarsHelpers();
+
+  // Preload Handlebars templates
+  loadTemplates([
+    "systems/mondas/templates/actor/header.hbs",
+    "systems/mondas/templates/actor/tabs.hbs",
+    "systems/mondas/templates/actor/sheet.hbs",
+    "systems/mondas/templates/actor/notes.hbs",
+    "systems/mondas/templates/rolls/roll-dialog.hbs",
+    "systems/mondas/templates/rolls/roll-chat.hbs",
+    "systems/mondas/templates/dialogs/add-edge.hbs",
+    "systems/mondas/templates/dialogs/add-weapon.hbs",
+    "systems/mondas/templates/dialogs/add-equipment.hbs",
+  ]);
 });
 
 Hooks.on("renderChatMessage", (message, html) => {
