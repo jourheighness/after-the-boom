@@ -10,7 +10,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
   _activeTab = "sheet";
 
   static DEFAULT_OPTIONS = {
-    classes: ["mondas", "sheet", "actor", "character"],
+    classes: ["mondas", "character-sheet"],
     position: { width: 680, height: 720 },
     actions: {
       rollStat: MondasCharacterSheet.#onRollStat,
@@ -44,9 +44,12 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
   };
 
   static PARTS = {
-    sheet: {
-      template: "systems/mondas/templates/actor/character.hbs",
-    },
+    header: { template: "systems/mondas/templates/actor/header.hbs" },
+    tabs:   { template: "systems/mondas/templates/actor/tabs.hbs" },
+    sheet:  { template: "systems/mondas/templates/actor/sheet.hbs",
+              scrollable: [".tab-content[data-tab='sheet']"] },
+    notes:  { template: "systems/mondas/templates/actor/notes.hbs",
+              scrollable: [".tab-notes"] },
   };
 
   /** Prepare data for rendering */
