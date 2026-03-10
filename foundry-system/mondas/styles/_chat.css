@@ -353,7 +353,7 @@
   font-size: var(--fs-sm);
   font-weight: 600;
   cursor: pointer;
-  border: 1px solid var(--paper);
+  border: var(--b-light);
   background: transparent;
   color: var(--paper);
   transition: all 0.1s;

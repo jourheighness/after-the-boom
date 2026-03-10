@@ -679,3 +679,18 @@
 .mondas .card-gambit .gambit-icon { color: var(--navy); margin-right: var(--sp-1); font-size: var(--fs-md); }
 .mondas .card-gambit .gambit-name { font-weight: 600; color: var(--navy); }
 .mondas .card-gambit .gambit-effect { color: var(--navy); }
+
+/* ===================================================
+ * FOCUS VISIBLE (Accessibility)
+ * =================================================== */
+
+.mondas :focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 1px;
+}
+
+.mondas [data-action]:focus-visible,
+.mondas button:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 1px;
+}
