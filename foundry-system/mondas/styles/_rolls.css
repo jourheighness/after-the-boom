@@ -1,0 +1,249 @@
+/* ===================================================
+ * ROLL DIALOG
+ * =================================================== */
+
+/* ALL mondas app window headers (sheet, roll dialog, etc.) */
+.application.mondas .window-header {
+  background: var(--navy) !important;
+  color: #fff !important;
+  border-bottom: var(--b-paper) !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-size: var(--fs-md);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.application.mondas .window-header .window-title {
+  color: #fff !important;
+  font-weight: 700;
+}
+
+/* Close button uses ::before pseudo with FA font — don't override its font */
+.application.mondas .window-header button {
+  color: var(--paper) !important;
+  background: transparent !important;
+  border: none !important;
+  padding: var(--sp-2) var(--sp-4) !important;
+  font-family: "Font Awesome 6 Pro", "Font Awesome 6 Free" !important;
+}
+
+.application.mondas .window-header button:hover {
+  color: #fff !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.mondas.roll-dialog {
+  background: var(--paper);
+  color: var(--navy);
+  font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.mondas.roll-dialog .stat-header,
+.mondas.roll-dialog .modifier-row,
+.mondas.roll-dialog .roll-warning {
+  padding-left: var(--sp-5);
+  padding-right: var(--sp-5);
+}
+
+.mondas.roll-dialog .stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--sp-4);
+}
+
+.mondas.roll-dialog .stat-name {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.mondas.roll-dialog .stat-base { font-size: var(--fs-md); color: var(--navy); }
+
+.mondas.roll-dialog .modifier-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-4);
+}
+
+.mondas.roll-dialog .modifier-label {
+  font-weight: 600;
+  min-width: 4em;
+  text-transform: uppercase;
+  font-size: var(--fs-md);
+  letter-spacing: 0.04em;
+}
+
+.mondas.roll-dialog .modifier-value { font-weight: 700; min-width: 1.5em; text-align: center; }
+
+.mondas.roll-dialog .modifier-row button {
+  font-family: inherit;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  font-weight: 700;
+  background: var(--paper);
+  border: var(--b);
+  color: var(--navy);
+  cursor: pointer;
+  line-height: 1;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.mondas.roll-dialog .modifier-row button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0 var(--navy);
+}
+
+.mondas.roll-dialog .drain-toggle {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: var(--fs-md);
+  letter-spacing: 0.04em;
+}
+.mondas.roll-dialog .drain-empty { font-size: var(--fs-md); color: var(--navy); font-style: italic; }
+
+/* --- Pill Selectors --- */
+
+.mondas.roll-dialog .pill-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+
+.mondas.roll-dialog .pill {
+  padding: var(--sp-2) var(--sp-4);
+  border: var(--b);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  background: var(--paper);
+  color: var(--navy);
+  transition: transform 0.1s, box-shadow 0.1s, background 0.1s, color 0.1s;
+}
+
+.mondas.roll-dialog .pill:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 0 var(--navy);
+}
+
+.mondas.roll-dialog .pill.active {
+  background-color: var(--paper);
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+  color: var(--navy);
+  font-weight: 700;
+  text-shadow: var(--halo-paper);
+  border-color: var(--navy);
+}
+
+.mondas.roll-dialog .pill .pill-die { font-size: var(--fs-sm); margin-left: var(--sp-1); }
+
+/* --- Auto-snag Pills --- */
+
+.mondas.roll-dialog .snag-pill {
+  padding: var(--sp-1) var(--sp-4);
+  font-size: var(--fs-sm);
+  background-color: var(--paper);
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+  color: var(--navy);
+  font-weight: 700;
+  text-shadow: var(--halo-paper);
+  border: var(--b);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  cursor: pointer;
+}
+
+/* Snag source patterns — match character sheet status pills */
+.mondas.roll-dialog .snag-pill[data-source="Wounded"] {
+  background-image: var(--hatch-diag);
+}
+
+.mondas.roll-dialog .snag-pill[data-source="Cracked"] {
+  background-image: var(--hatch-dots);
+  background-size: var(--hatch-dots-size);
+}
+
+.mondas.roll-dialog .snag-pill[data-source="Shaken"] {
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+}
+
+.mondas.roll-dialog .snag-pill[data-source="Prone"] {
+  background-image: var(--hatch-horiz);
+}
+
+.mondas.roll-dialog .snag-pill .dismiss { font-weight: 700; }
+.mondas.roll-dialog .snag-pill .dismiss:hover { color: #fff; }
+
+/* --- Roll Warnings --- */
+
+.mondas.roll-dialog .roll-warning {
+  padding: var(--sp-2) var(--sp-4);
+  margin: var(--sp-2) 0;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background-color: var(--paper);
+  background-image: var(--hatch-cross);
+  color: var(--navy);
+  text-shadow: var(--halo-paper);
+  border: var(--b);
+}
+
+/* Critical/incapacitated warnings — denser cross-hatch */
+.mondas.roll-dialog .roll-warning.warning-critical,
+.mondas.roll-dialog .roll-warning.warning-incapacitated {
+  background-image: var(--hatch-cross-tight);
+}
+
+/* --- Gambit Drain Cost --- */
+
+.gambit-drain-cost { font-size: var(--fs-sm); color: var(--navy); font-style: italic; }
+
+.mondas.roll-dialog .pool-preview {
+  text-align: center;
+  padding: var(--sp-4) 0;
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  color: var(--navy);
+  border-top: var(--b);
+  margin-top: var(--sp-4);
+}
+
+.mondas.roll-dialog .roll-btn {
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  font-size: 1em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--navy);
+  color: #fff;
+  border: var(--b);
+  cursor: pointer;
+  margin-top: var(--sp-4);
+  transition: transform 0.1s, box-shadow 0.1s;
+  line-height: 1;
+}
+
+.mondas.roll-dialog .roll-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0 var(--navy);
+}
