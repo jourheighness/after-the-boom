@@ -8,8 +8,8 @@
 
   {{!-- Tabs --}}
   <nav class="sheet-tabs">
-    <button type="button" class="tab {{#if (eq activeTab 'sheet')}}active{{/if}}" data-action="switchTab" data-tab="sheet">Sheet</button>
-    <button type="button" class="tab {{#if (eq activeTab 'notes')}}active{{/if}}" data-action="switchTab" data-tab="notes">Notes</button>
+    <button type="button" class="sheet-tab {{#if (eq activeTab 'sheet')}}active{{/if}}" data-action="switchTab" data-tab="sheet">Sheet</button>
+    <button type="button" class="sheet-tab {{#if (eq activeTab 'notes')}}active{{/if}}" data-action="switchTab" data-tab="notes">Notes</button>
   </nav>
 
   {{!-- ===== SHEET TAB ===== --}}
@@ -220,7 +220,7 @@
 
   {{!-- ===== NOTES TAB ===== --}}
   <div class="tab-content tab-notes" data-tab="notes" {{#unless (eq activeTab 'notes')}}hidden{{/unless}}>
-    <textarea name="system.notes" placeholder="Session notes, plans, secrets...">{{notes}}</textarea>
+    {{editor enrichedNotes target="system.notes" button=true engine="prosemirror" collaborate=false editable=editable}}
   </div>
 
 </section>

@@ -49,8 +49,8 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
       // Background
       background: new fields.StringField({ initial: "" }),
 
-      // Notes (free-form text, shown in Notes tab)
-      notes: new fields.StringField({ initial: "" }),
+      // Notes (rich text, shown in Notes tab)
+      notes: new fields.HTMLField({ initial: "" }),
 
       // Last used weapon index for combat roll default (-1 = none yet)
       lastWeaponIndex: new fields.NumberField({ initial: -1, integer: true }),

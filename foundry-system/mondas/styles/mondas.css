@@ -94,7 +94,7 @@
   padding: 0 1rem;
 }
 
-.mondas .sheet-tabs .tab {
+.mondas .sheet-tabs .sheet-tab {
   padding: 0.35em 1.2em;
   font-size: 0.75em;
   font-weight: 600;
@@ -108,9 +108,9 @@
   transition: all 0.15s;
 }
 
-.mondas .sheet-tabs .tab:hover { color: rgba(255,255,255,0.75); }
+.mondas .sheet-tabs .sheet-tab:hover { color: rgba(255,255,255,0.75); }
 
-.mondas .sheet-tabs .tab.active {
+.mondas .sheet-tabs .sheet-tab.active {
   color: #fff;
   border-bottom-color: var(--mondas-accent);
 }
@@ -129,10 +129,21 @@
  * NOTES TAB
  * ============================================ */
 
-.mondas .tab-notes textarea {
+.mondas .tab-notes {
   flex: 1;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mondas .tab-notes .editor {
+  flex: 1;
   min-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mondas .tab-notes .editor .editor-content {
+  flex: 1;
   padding: 0.6rem;
   font-family: inherit;
   font-size: 0.95em;
@@ -141,12 +152,12 @@
   background: #fff;
   border: 1px solid var(--mondas-border);
   border-radius: 3px;
-  resize: vertical;
-  outline: none;
-  box-sizing: border-box;
+  overflow-y: auto;
 }
 
-.mondas .tab-notes textarea:focus { border-color: var(--mondas-accent); }
+.mondas .tab-notes .editor .editor-content:focus-within {
+  border-color: var(--mondas-accent);
+}
 
 /* ============================================
  * STATS

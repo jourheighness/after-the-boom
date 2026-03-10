@@ -101,8 +101,12 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     context.weapons = system.weapons;
     context.equipment = system.equipment;
 
-    // Notes
-    context.notes = system.notes;
+    // Notes (enriched for ProseMirror)
+    context.enrichedNotes = await TextEditor.enrichHTML(system.notes, {
+      secrets: this.actor.isOwner,
+      rollData: this.actor.getRollData?.(),
+    });
+    context.editable = this.isEditable;
 
     // Tab state
     context.activeTab = this._activeTab;
