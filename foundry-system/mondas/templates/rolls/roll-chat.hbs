@@ -1,0 +1,111 @@
+{{!-- MONDAS Roll — Chat Card (pending / resolved) --}}
+<div class="mondas-roll-chat" data-phase="{{phase}}">
+  <div class="roll-header">
+    {{#if stat}}
+    <div class="roll-header-stat">
+      <span class="stat-icon stat-icon-{{stat}}"></span>
+      <span class="stat-label">{{statLabel}}</span>
+    </div>
+    {{else if weapon}}
+    <div class="roll-header-stat roll-header-weapon">
+      <span class="stat-label">{{weapon.name}}</span>
+    </div>
+    {{/if}}
+    <div class="roll-header-type">{{rollTypeLabel}}</div>
+  </div>
+
+  {{#if poolDesc}}
+  <div class="pool-desc">{{poolDesc}} = {{poolLabel}}</div>
+  {{/if}}
+
+  <div class="dice-grid">
+    {{#each dice}}
+    <div class="die-slot">
+      <span
+        class="die-result {{#if isWeapon}}die-weapon{{/if}} {{colorClass}} {{#if isGambitEligible}}gambit-eligible{{/if}} {{#if sacrificed}}sacrificed{{/if}} {{#if isHighest}}die-highest{{/if}}"
+        data-index="{{index}}"
+      >{{value}}</span>
+      <span class="die-label">{{#if assignedGambit}}{{assignedGambit.label}}{{else if isWeapon}}{{@root.weapon.die}}{{/if}}</span>
+    </div>
+    {{/each}}
+    {{#if setupDie}}
+    <div class="die-slot">
+      <span
+        class="die-result die-setup {{setupDieColorClass}} {{#if usedSetupDie}}active{{else}}ghost{{/if}}"
+        title="Setup die — click to use"
+      >{{setupDie.value}}</span>
+      <span class="die-label">Setup</span>
+    </div>
+    {{/if}}
+  </div>
+
+  {{#if isCombat}}
+  {{#if weaponDamage}}
+  <div class="result-box {{#if (eq phase "pending")}}result-pending{{/if}}">
+    {{#if weaponDamage.forfeited}}
+    <span>No damage — all dice used</span>
+    {{else}}
+    <span>{{weapon.name}}: {{weaponDamage.value}} damage</span>
+    {{/if}}
+  </div>
+  {{/if}}
+  {{else if isDefense}}
+  <div class="result-box {{outcomeClass}}">{{defenseResult}}{{#if coverArmor}} (cover +{{coverArmor}}){{/if}}</div>
+  {{else}}
+  <div class="result-box {{outcomeClass}}">{{outcome}}</div>
+  {{/if}}
+
+  {{!-- ===== PENDING: Gambit/Stakes Controls ===== --}}
+  {{#if (eq phase "pending")}}
+
+  {{!-- Stakes — Simple Toggle --}}
+  {{#if isStakes}}
+  <div class="gambit-controls">
+    <div class="gambit-buttons">
+      <button type="button" class="gambit-confirm-btn">Confirm</button>
+      <button type="button" class="gambit-skip-btn">Skip</button>
+    </div>
+  </div>
+  {{/if}}
+
+  {{!-- Combat/Defense — Gambit Pill Tray --}}
+  {{#if showGambitPanel}}
+  <div class="gambit-controls">
+    <div class="gambit-tray" hidden>
+      {{!-- Populated dynamically by JS --}}
+    </div>
+    <div class="gambit-buttons">
+      <button type="button" class="gambit-confirm-btn">Confirm</button>
+      <button type="button" class="gambit-skip-btn">Skip</button>
+    </div>
+  </div>
+  {{/if}}
+  {{/if}}
+
+  {{!-- ===== RESOLVED ===== --}}
+  {{#if (eq phase "resolved")}}
+
+  {{!-- Stakes: show sacrifice count --}}
+  {{#if isStakes}}
+  {{#if sacrificedCount}}
+  <div class="gambits-section">
+    <strong>Sacrificed {{sacrificedCount}} {{#if (eq sacrificedCount 1)}}die{{else}}dice{{/if}}</strong> for narrative leverage
+  </div>
+  {{/if}}
+  {{/if}}
+
+  {{!-- Combat/Defense: show named gambits --}}
+  {{#if hasGambits}}
+  {{#each gambits}}
+  <div class="gambit-card">
+    <div class="gambit-card-header">
+      <span class="gambit-card-name">{{label}}</span>
+      <span class="mondas-tag-sm">{{tier}}</span>
+    </div>
+    <div class="gambit-card-desc">{{desc}}</div>
+  </div>
+  {{/each}}
+  {{/if}}
+
+  {{/if}}
+</div>

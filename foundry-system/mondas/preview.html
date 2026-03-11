@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MONDAS Preview</title>
+  <link rel="stylesheet" href="styles/mondas.css">
+  <style>
+    body { margin: 40px; background: #d4d0c8; font-family: 'IBM Plex Mono', monospace; }
+    .preview-label { font-size: 11px; color: #888; margin-bottom: 4px; }
+    .preview-section { margin-bottom: 32px; }
+  </style>
+</head>
+<body>
+
+<div class="preview-section">
+  <div class="preview-label">Stat Blocks</div>
+  <section class="mondas character-sheet" style="width: 360px; padding: 8px; background: var(--navy);">
+    <div class="stats-row">
+
+      <div class="stat-block">
+        <div class="stat-top">
+          <div class="stat-icon-col">
+            <span class="stat-icon stat-icon-grit"></span>
+            <span class="stat-label">GRIT</span>
+          </div>
+          <input type="number" class="stat-value" value="2" min="1" max="4">
+        </div>
+        <div class="stat-roll-buttons">
+          <button type="button" title="Combat"><i style="font-style:normal">&#8853;</i></button>
+          <button type="button" title="Defense"><i style="font-style:normal">&#9673;</i></button>
+          <button type="button" title="Stakes"><i style="font-style:normal">&#9878;</i></button>
+        </div>
+      </div>
+
+      <div class="stat-block">
+        <div class="stat-top">
+          <div class="stat-icon-col">
+            <span class="stat-icon stat-icon-sharp"></span>
+            <span class="stat-label">SHARP</span>
+          </div>
+          <input type="number" class="stat-value" value="3" min="1" max="4">
+        </div>
+        <div class="stat-roll-buttons">
+          <button type="button" title="Combat"><i style="font-style:normal">&#8853;</i></button>
+          <button type="button" title="Defense"><i style="font-style:normal">&#9673;</i></button>
+          <button type="button" title="Stakes"><i style="font-style:normal">&#9878;</i></button>
+        </div>
+      </div>
+
+      <div class="stat-block">
+        <div class="stat-top">
+          <div class="stat-icon-col">
+            <span class="stat-icon stat-icon-nerve"></span>
+            <span class="stat-label">NERVE</span>
+          </div>
+          <input type="number" class="stat-value" value="1" min="1" max="4">
+        </div>
+        <div class="stat-roll-buttons">
+          <button type="button" title="Combat"><i style="font-style:normal">&#8853;</i></button>
+          <button type="button" title="Defense"><i style="font-style:normal">&#9673;</i></button>
+          <button type="button" title="Stakes"><i style="font-style:normal">&#9878;</i></button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<div class="preview-section">
+  <div class="preview-label">Dialog Form (mock)</div>
+  <div class="application mondas-dialog" style="width: 380px; position: relative;">
+    <div class="window-header" style="display: flex; justify-content: space-between; align-items: center; padding: 6px 12px;">
+      <h1 class="window-title" style="font-size: 0.85em; margin: 0;">New Item</h1>
+      <button type="button" style="font-size: 1em;">&#10005;</button>
+    </div>
+    <div class="window-content">
+      <form>
+        <div class="form-group">
+          <label for="demo-name">Item Name</label>
+          <input type="text" id="demo-name" placeholder="Enter name...">
+        </div>
+
+        <div class="form-group">
+          <label for="demo-type">Item Type</label>
+          <select id="demo-type">
+            <option>Weapon</option>
+            <option>Equipment</option>
+            <option>Edge</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="demo-qty">Quantity</label>
+          <input type="number" id="demo-qty" value="1" min="0">
+        </div>
+
+        <div class="form-group">
+          <label for="demo-desc">Description</label>
+          <textarea id="demo-desc" rows="3" placeholder="Describe the item..."></textarea>
+        </div>
+
+        <div class="form-group" style="flex-direction: row; align-items: center; gap: 8px;">
+          <input type="checkbox" id="demo-thaumatech">
+          <label for="demo-thaumatech" style="margin-bottom: 0; padding: 0;">Thaumatech</label>
+        </div>
+
+        <div class="form-group">
+          <label>Tags</label>
+          <div class="tag-toggles">
+            <label class="tag-toggle"><input type="checkbox"> Melee</label>
+            <label class="tag-toggle"><input type="checkbox" checked> Ranged</label>
+            <label class="tag-toggle"><input type="checkbox"> Heavy</label>
+            <label class="tag-toggle"><input type="checkbox" checked> Loud</label>
+          </div>
+        </div>
+
+        <fieldset>
+          <legend>Advanced Options</legend>
+          <div class="form-group">
+            <label for="demo-drain">Drain Cost</label>
+            <input type="number" id="demo-drain" value="0" min="0">
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div class="form-footer" style="display: flex; gap: 6px;">
+      <button type="button">Cancel</button>
+      <button type="submit">Create Item</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

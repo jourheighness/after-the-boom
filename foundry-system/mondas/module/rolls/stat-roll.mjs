@@ -1,0 +1,353 @@
+/**
+ * MONDAS Stat Roll Dialog
+ *
+ * Config-only dialog: pool builder (stat + boons/snags + drain + weapon).
+ * Roll type comes from the sheet button click (combat/defense/stakes).
+ * On "Roll", evaluates dice, posts chat card, and closes.
+ * Gambit selection happens in the chat card (see chat-gambits.mjs).
+ */
+
+import { buildTemplateData, buildAvailableGambits, resolveOutcome, highestAvailable } from "./chat-gambits.mjs";
+
+const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
+
+export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
+
+  static DEFAULT_OPTIONS = {
+    id: "mondas-roll-dialog",
+    classes: ["mondas", "roll-dialog"],
+    tag: "form",
+    window: { title: "MONDAS Roll", resizable: false },
+    position: { width: 360, height: "auto" },
+    actions: {
+      adjustBoons: MondasRollDialog.#onAdjustBoons,
+      adjustSnags: MondasRollDialog.#onAdjustSnags,
+      dismissSnag: MondasRollDialog.#onDismissSnag,
+      selectWeapon: MondasRollDialog.#onSelectWeapon,
+      selectCover: MondasRollDialog.#onSelectCover,
+      toggleDrain: MondasRollDialog.#onToggleDrain,
+      executeRoll: MondasRollDialog.#onExecuteRoll,
+    },
+  };
+
+  static PARTS = {
+    content: { template: "systems/mondas/templates/rolls/roll-dialog.hbs" },
+  };
+
+  /* ---------------------------------------- */
+  /*  Construction                            */
+  /* ---------------------------------------- */
+
+  constructor(actor, stat, rollType, options = {}) {
+    super(options);
+    this.actor = actor;
+    this.stat = stat;
+    this.rollType = rollType || "stakes";
+    this.boons = 0;
+    this.snags = 0;
+    this.spendDrain = false;
+    this.coverLevel = 0; // 0=none, 1=partial, 2=full
+
+    // Pre-selected weapon for weapon-only combat (stat=null)
+    this.weapon = options.weapon || null;
+
+    // Auto-snags from actor state, filtered by roll type
+    const allSnags = actor.system.autoSnags ?? [];
+    this.activeAutoSnags = allSnags.filter((s) =>
+      s.applies === "all" || s.applies === this.rollType,
+    );
+    this.dismissedSnags = new Set();
+
+    // Weapon selection (stat-based combat only)
+    this.selectedWeaponIndex = actor.system.defaultWeaponIndex ?? 0;
+  }
+
+  /**
+   * Factory — create and render in one call.
+   */
+  static create(actor, stat, rollType, options = {}) {
+    const dialog = new MondasRollDialog(actor, stat, rollType, options);
+    dialog.render(true);
+    return dialog;
+  }
+
+  get title() {
+    return game.i18n.localize(`MONDAS.Roll.${this.rollType}`);
+  }
+
+  /* ---------------------------------------- */
+  /*  Context                                 */
+  /* ---------------------------------------- */
+
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    const system = this.actor.system;
+    const isWeaponOnly = !this.stat && !!this.weapon;
+    const statValue = this.stat ? system.stats[this.stat] : 0;
+
+    context.stat = this.stat;
+    context.statLabel = this.stat ? game.i18n.localize(`MONDAS.Stat.${this.stat}`) : "";
+    context.statValue = statValue;
+    context.rollType = this.rollType;
+    context.rollTypeLabel = game.i18n.localize(`MONDAS.Roll.${this.rollType}`);
+    context.boons = this.boons;
+    context.snags = this.snags;
+    context.spendDrain = this.spendDrain;
+    context.drainAvailable = system.drain.value < system.drain.max;
+    context.isCombat = this.rollType === "combat";
+    context.isDefense = this.rollType === "defense";
+    context.isWeaponOnly = isWeaponOnly;
+    context.weapon = this.weapon;
+
+    // Auto-snags (with dismiss tracking)
+    context.autoSnags = this.activeAutoSnags.map((s, i) => ({
+      ...s,
+      index: i,
+      dismissed: this.dismissedSnags.has(i),
+    }));
+    const activeAutoSnagCount = this.activeAutoSnags.filter(
+      (_, i) => !this.dismissedSnags.has(i),
+    ).length;
+
+    // Weapon choices (stat-based combat only)
+    context.weaponChoices = isWeaponOnly ? [] : (system.weaponChoices ?? []);
+    context.selectedWeaponIndex = this.selectedWeaponIndex;
+
+    // Cover (defense only)
+    context.coverLevel = this.coverLevel;
+
+    // Warnings
+    context.incapacitated = system.incapacitated;
+    context.mustSpendDrain = system.mustSpendDrain;
+    context.showDrainWarning = system.mustSpendDrain && !this.spendDrain;
+
+    // Calculate pool: stat + boons - (manual snags + active auto-snags) + drain
+    const drainBonus = this.spendDrain ? 1 : 0;
+    const totalSnags = this.snags + activeAutoSnagCount;
+    const pool = Math.max(0, statValue + this.boons - totalSnags + drainBonus);
+    context.pool = pool;
+    context.totalSnags = totalSnags;
+
+    if (isWeaponOnly) {
+      const rollDie = this.weapon.die.startsWith("s") ? this.weapon.die.slice(1) : this.weapon.die;
+      context.poolZero = false;
+      context.poolLabel = pool > 0 ? `${pool}d6 + ${rollDie}` : rollDie;
+    } else {
+      context.poolZero = pool === 0;
+      context.poolLabel = pool === 0 ? "2d6 take lowest" : `${pool}d6`;
+    }
+
+    return context;
+  }
+
+  /* ---------------------------------------- */
+  /*  Action Handlers                         */
+  /* ---------------------------------------- */
+
+  /** Read checkbox state from the DOM before re-rendering. */
+  #syncCheckbox() {
+    const cb = this.element?.querySelector("input[name='spendDrain']");
+    if (cb) this.spendDrain = cb.checked;
+  }
+
+  static #onAdjustBoons(event, target) {
+    this.#syncCheckbox();
+    const delta = Number(target.dataset.delta);
+    this.boons = Math.max(0, this.boons + delta);
+    this.render();
+  }
+
+  static #onAdjustSnags(event, target) {
+    this.#syncCheckbox();
+    const delta = Number(target.dataset.delta);
+    this.snags = Math.max(0, this.snags + delta);
+    this.render();
+  }
+
+  static #onDismissSnag(event, target) {
+    const index = Number(target.dataset.index);
+    if (this.dismissedSnags.has(index)) {
+      this.dismissedSnags.delete(index);
+    } else {
+      this.dismissedSnags.add(index);
+    }
+    this.render();
+  }
+
+  static #onSelectWeapon(event, target) {
+    this.selectedWeaponIndex = Number(target.dataset.index);
+    this.render();
+  }
+
+  static #onSelectCover(event, target) {
+    this.coverLevel = Number(target.dataset.cover);
+    this.render();
+  }
+
+  static #onToggleDrain(event, target) {
+    this.spendDrain = target.checked;
+    this.render();
+  }
+
+  static async #onExecuteRoll(event, target) {
+    // Read current form state
+    const form = this.element.querySelector("form") || this.element;
+
+    const drainCheckbox = form.querySelector("input[name='spendDrain']");
+    if (drainCheckbox) this.spendDrain = drainCheckbox.checked;
+
+    // Calculate pool
+    const system = this.actor.system;
+    const isWeaponOnly = !this.stat && !!this.weapon;
+    const statValue = this.stat ? system.stats[this.stat] : 0;
+    const drainBonus = this.spendDrain ? 1 : 0;
+    const activeAutoSnagCount = this.activeAutoSnags.filter(
+      (_, i) => !this.dismissedSnags.has(i),
+    ).length;
+    const totalSnags = this.snags + activeAutoSnagCount;
+    const rawPool = statValue + this.boons - totalSnags + drainBonus;
+    // Snags overflow past stat pool eats the weapon die (stat-based only)
+    const hasWeapon = isWeaponOnly || (this.rollType === "combat" && system.weaponChoices?.length > 0);
+    const weaponSnagged = !isWeaponOnly && hasWeapon && rawPool < 0;
+    const pool = Math.max(0, rawPool);
+    const isZeroPool = !isWeaponOnly && pool === 0;
+
+    // Spend drain if used
+    if (this.spendDrain) {
+      await this.actor.update({ "system.drain.value": system.drain.value + 1 });
+    }
+
+    // Thrown weapon: decrement quantity
+    if (isWeaponOnly && (this.weapon.properties ?? []).includes("thrown")) {
+      const weapons = system.toObject().weapons;
+      const wi = this.weapon.weaponIndex;
+      if (weapons[wi]) {
+        weapons[wi].quantity = Math.max(0, (weapons[wi].quantity || 0) - 1);
+        await this.actor.update({ "system.weapons": weapons });
+      }
+    }
+
+    // Build pool description
+    const poolParts = [];
+    if (!isWeaponOnly) poolParts.push(`Base ${statValue}`);
+    if (this.boons > 0) poolParts.push(`+${this.boons} Boon${this.boons > 1 ? "s" : ""}`);
+    if (totalSnags > 0) poolParts.push(`-${totalSnags} Snag${totalSnags > 1 ? "s" : ""}`);
+    if (this.spendDrain) poolParts.push("+1 Drain");
+    if (weaponSnagged) poolParts.push("(weapon die snagged)");
+    const poolDesc = poolParts.join(" ");
+
+    let poolLabel;
+    if (isWeaponOnly) {
+      const rollDie = this.weapon.die.startsWith("s") ? this.weapon.die.slice(1) : this.weapon.die;
+      poolLabel = pool > 0 ? `${pool}d6 + ${rollDie}` : rollDie;
+    } else {
+      poolLabel = isZeroPool ? "2d6 take lowest" : `${pool}d6`;
+    }
+
+    // Build rolls and dice array
+    let weaponData = null;
+    const rolls = [];
+    const dice = [];
+    let nextIndex = 0;
+
+    // Weapon die first (weapon-only: always; stat-based: if not snagged)
+    if (isWeaponOnly) {
+      const rollDie = this.weapon.die.startsWith("s") ? this.weapon.die.slice(1) : this.weapon.die;
+      const weaponRoll = new Roll(`1${rollDie}`);
+      await weaponRoll.evaluate();
+      dice.push({ value: weaponRoll.total, index: nextIndex, isWeapon: true });
+      weaponData = {
+        name: this.weapon.name || "Weapon",
+        die: this.weapon.die,
+        properties: this.weapon.properties || [],
+        weaponIndex: nextIndex,
+      };
+      nextIndex++;
+      rolls.push(weaponRoll);
+    } else if (hasWeapon && !weaponSnagged) {
+      const weapon = system.weaponChoices[this.selectedWeaponIndex] || system.weaponChoices[0];
+      const rollDie = weapon.die.startsWith("s") ? weapon.die.slice(1) : weapon.die;
+      const weaponRoll = new Roll(`1${rollDie}`);
+      await weaponRoll.evaluate();
+      dice.push({ value: weaponRoll.total, index: nextIndex, isWeapon: true });
+      weaponData = {
+        name: weapon.name || "Weapon",
+        die: weapon.die,
+        properties: weapon.properties || [],
+        weaponIndex: nextIndex,
+      };
+      nextIndex++;
+      rolls.push(weaponRoll);
+      await this.actor.update({ "system.lastWeaponIndex": this.selectedWeaponIndex });
+    }
+
+    // Extra d6s from boons/drain (or stat pool for stat-based)
+    if (isZeroPool || pool > 0) {
+      const statRoll = new Roll(isZeroPool ? "2d6" : `${pool}d6`);
+      await statRoll.evaluate();
+      for (const r of statRoll.terms[0].results) {
+        dice.push({ value: r.result, index: nextIndex });
+        nextIndex++;
+      }
+      rolls.push(statRoll);
+    }
+
+    const highest = highestAvailable(dice, new Set(), isZeroPool);
+    const hasGambitDice = dice.some((d) => d.value >= 4);
+    const { outcome, outcomeClass } = resolveOutcome(highest);
+
+    // Build available gambits for combat/defense rolls
+    const availableGambits = (this.rollType === "combat" || this.rollType === "defense")
+      ? buildAvailableGambits(this.actor)
+      : [];
+
+    // Setup die availability (post-roll decision)
+    const setupDie = system.setupDie?.active
+      ? { value: system.setupDie.value, source: system.setupDie.source }
+      : null;
+
+    // Build flags — single source of truth
+    const flags = {
+      phase: (hasGambitDice || setupDie) ? "pending" : "resolved",
+      actorId: this.actor.id,
+      stat: this.stat,
+      rollType: this.rollType,
+      statValue,
+      boons: this.boons,
+      snags: totalSnags,
+      spendDrain: this.spendDrain,
+      pool,
+      poolLabel,
+      poolDesc,
+      isZeroPool,
+      dice,
+      sacrificedIndices: [],
+      diceGambits: {},
+      hasGambitDice,
+      highest,
+      outcome,
+      outcomeClass,
+      weapon: weaponData,
+      availableGambits,
+      coverArmor: this.rollType === "defense" ? this.coverLevel : 0,
+      setupDie,
+      usedSetupDie: false,
+    };
+
+    // Render chat card
+    const content = await renderTemplate(
+      "systems/mondas/templates/rolls/roll-chat.hbs",
+      buildTemplateData(flags),
+    );
+
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      content,
+      rolls,
+      flags: { mondas: flags },
+      style: CONST.CHAT_MESSAGE_STYLES.OTHER,
+    });
+
+    await this.close();
+  }
+}

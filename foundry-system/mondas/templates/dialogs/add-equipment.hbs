@@ -1,0 +1,46 @@
+{{!-- MONDAS — Add/Edit Equipment Dialog --}}
+<div class="mondas-dialog add-equipment-form">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" name="name" value="{{name}}" placeholder="What is it?" autofocus>
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <textarea name="description" rows="3" placeholder="What it does">{{description}}</textarea>
+  </div>
+
+  <div class="form-group">
+    <label>Quantity</label>
+    <input type="number" name="quantity" value="{{quantity}}" min="0">
+  </div>
+
+  <div class="form-group">
+    <label>Armor Value</label>
+    <input type="number" name="armorValue" value="{{armorValue}}" min="0" max="3" placeholder="0 = not armor">
+  </div>
+
+  <div class="form-group">
+    <label>Tags</label>
+    <div class="tag-toggles">
+      {{#each tags}}
+      <label class="tag-toggle">
+        <input type="checkbox" name="tag" value="{{this}}" {{#if (includes ../checkedTags this)}}checked{{/if}}>
+        <span>{{this}}</span>
+      </label>
+      {{/each}}
+    </div>
+  </div>
+
+  <fieldset class="thaumatech-gambit-section">
+    <legend>Thaumatech Gambit (optional)</legend>
+    <div class="form-group">
+      <label>Gambit Name</label>
+      <input type="text" name="gambitName" value="{{gambitName}}" placeholder="Name of the device gambit">
+    </div>
+    <div class="form-group">
+      <label>Gambit Effect</label>
+      <textarea name="gambitDesc" rows="3" placeholder="What it does when used">{{gambitDesc}}</textarea>
+    </div>
+  </fieldset>
+</div>

@@ -1,0 +1,103 @@
+{{!-- MONDAS Roll Dialog --}}
+<div class="roll-config">
+  {{#if isWeaponOnly}}
+  <div class="stat-header">
+    <span class="weapon-header-name">{{weapon.name}}</span>
+    <span class="stat-base">{{weapon.die}}</span>
+  </div>
+  {{else}}
+  <div class="stat-header">
+    <div class="stat-icon-col">
+      <span class="stat-icon stat-icon-{{stat}}"></span>
+      <span class="stat-label">{{statLabel}}</span>
+    </div>
+    <span class="stat-base">Base pool: {{statValue}}</span>
+  </div>
+  {{/if}}
+
+  {{!-- Warnings --}}
+  {{#if incapacitated}}
+  <div class="roll-warning warning-incapacitated">INCAPACITATED — cannot act</div>
+  {{/if}}
+  {{#if showDrainWarning}}
+  <div class="roll-warning warning-critical">CRITICAL — must spend Drain to act</div>
+  {{/if}}
+
+  {{!-- Auto-applied Snags --}}
+  {{#if autoSnags.length}}
+  <div class="modifier-row">
+    <span class="modifier-label">Auto</span>
+    <div class="pill-row">
+      {{#each autoSnags}}
+      {{#unless dismissed}}
+      <span class="snag-pill" data-action="dismissSnag" data-index="{{index}}" data-source="{{source}}">
+        {{source}} <span class="dismiss">✕</span>
+      </span>
+      {{/unless}}
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+
+  {{!-- Boons --}}
+  <div class="modifier-row">
+    <span class="modifier-label">Boons</span>
+    <button type="button" data-action="adjustBoons" data-delta="-1">−</button>
+    <span class="modifier-value">{{boons}}</span>
+    <button type="button" data-action="adjustBoons" data-delta="1">+</button>
+  </div>
+
+  {{!-- Snags (manual) --}}
+  <div class="modifier-row">
+    <span class="modifier-label">Snags</span>
+    <button type="button" data-action="adjustSnags" data-delta="-1">−</button>
+    <span class="modifier-value">{{snags}}</span>
+    <button type="button" data-action="adjustSnags" data-delta="1">+</button>
+  </div>
+
+  {{!-- Spend Drain --}}
+  <div class="modifier-row">
+    <label class="drain-toggle">
+      <input type="checkbox" name="spendDrain" {{checked spendDrain}} {{#unless drainAvailable}}disabled{{/unless}} data-action="toggleDrain" />
+      Spend Drain (+1d)
+    </label>
+    {{#unless drainAvailable}}<span class="drain-empty">No drain available</span>{{/unless}}
+  </div>
+
+  {{!-- Weapon Selector (stat-based combat only) --}}
+  {{#if isCombat}}
+  {{#unless isWeaponOnly}}
+  <div class="modifier-row">
+    <span class="modifier-label">Weapon</span>
+    <div class="pill-row">
+      {{#each weaponChoices}}
+      <span class="pill {{#if (eq @index ../selectedWeaponIndex)}}active{{/if}}"
+            data-action="selectWeapon" data-index="{{@index}}">
+        {{name}} <span class="pill-die">{{dieDisplay die}}</span>
+      </span>
+      {{/each}}
+    </div>
+  </div>
+  {{/unless}}
+  {{/if}}
+
+  {{!-- Cover Selector (defense only) --}}
+  {{#if isDefense}}
+  <div class="modifier-row">
+    <span class="modifier-label">Cover</span>
+    <div class="pill-row">
+      <span class="pill {{#if (eq coverLevel 0)}}active{{/if}}" data-action="selectCover" data-cover="0">None</span>
+      <span class="pill {{#if (eq coverLevel 1)}}active{{/if}}" data-action="selectCover" data-cover="1">Partial +1</span>
+      <span class="pill {{#if (eq coverLevel 2)}}active{{/if}}" data-action="selectCover" data-cover="2">Full +2</span>
+    </div>
+  </div>
+  {{/if}}
+
+  {{!-- Pool Preview --}}
+  <div class="pool-preview">
+    Rolling <strong>{{poolLabel}}</strong>
+  </div>
+
+  {{!-- Roll Button --}}
+  <button type="button" class="roll-btn" data-action="executeRoll">Roll</button>
+</div>

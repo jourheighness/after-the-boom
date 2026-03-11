@@ -1,0 +1,57 @@
+{{!-- MONDAS — Add/Edit Weapon Dialog --}}
+<div class="mondas-dialog add-weapon-form">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" name="name" value="{{name}}" placeholder="Weapon name" autofocus>
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <textarea name="description" rows="3" placeholder="What it does">{{description}}</textarea>
+  </div>
+
+  <div class="form-group">
+    <label>Damage Die</label>
+    <select name="die">
+      {{#each dieOptions}}
+      <option value="{{@key}}" {{#if (eq @key ../die)}}selected{{/if}}>{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Properties</label>
+    <div class="tag-toggles">
+      {{#each propertyOptions}}
+      <label class="tag-toggle">
+        <input type="checkbox" name="property" value="{{this}}" {{#if (includes ../properties this)}}checked{{/if}}>
+        <span>{{this}}</span>
+      </label>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Quantity</label>
+    <input type="number" name="quantity" value="{{quantity}}" min="0">
+  </div>
+
+  <div class="form-group">
+    <label class="tag-toggle thaumic-toggle">
+      <input type="checkbox" name="thaumic" {{#if thaumic}}checked{{/if}}>
+      <span>Thaumatech</span>
+    </label>
+  </div>
+
+  <fieldset class="thaumatech-gambit-section">
+    <legend>Weapon Gambit (optional)</legend>
+    <div class="form-group">
+      <label>Gambit Name</label>
+      <input type="text" name="gambitName" value="{{gambitName}}" placeholder="Name of the weapon gambit">
+    </div>
+    <div class="form-group">
+      <label>Gambit Effect</label>
+      <textarea name="gambitDesc" rows="3" placeholder="What it does when used">{{gambitDesc}}</textarea>
+    </div>
+  </fieldset>
+</div>

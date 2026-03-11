@@ -1,0 +1,135 @@
+/* ===================================================
+ * FOUNDRY FULL RESET
+ * System layer beats Foundry's elements/blocks/applications layers.
+ * No !important needed — cascade layer order handles priority.
+ * =================================================== */
+
+/* --- Wrapper-level: window-content padding, window-app vars --- */
+.application.mondas .window-content,
+.application.mondas-dialog .window-content {
+  padding: 0 !important;
+  overflow: hidden auto;
+}
+
+.application.mondas .window-content > form {
+  gap: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.application.mondas,
+.application.mondas-dialog {
+  --paddingX: 0;
+  --paddingY: 0;
+  --color-scrollbar: var(--navy);
+  --color-scrollbar-track: var(--paper);
+  --color-shadow-primary: var(--navy);
+  --color-border-highlight: var(--navy);
+  --color-border-highlight-alt: var(--navy);
+  --input-focus-outline-color: var(--navy);
+  --button-focus-outline-color: var(--navy);
+  gap: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.application.mondas button,
+.application.mondas-dialog button {
+  --button-focus-outline-color: var(--navy);
+}
+
+.mondas-roll-chat,
+.mondas-damage-report,
+.mondas-item-card {
+  border-radius: 0 !important;
+}
+
+/* --- Universal child reset --- */
+.mondas *,
+.mondas-dialog *,
+.mondas-roll-chat *,
+.mondas-damage-report *,
+.mondas-item-card *,
+.application.mondas *,
+.application.mondas-dialog * {
+  border-radius: 0 !important;
+  box-sizing: border-box;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* --- Global input resets (Foundry sets width:100%, height:2rem, padding) --- */
+.mondas input[type="text"],
+.mondas input[type="number"],
+.mondas select,
+.mondas textarea,
+.mondas-dialog input[type="text"],
+.mondas-dialog input[type="number"],
+.mondas-dialog select,
+.mondas-dialog textarea {
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  box-shadow: none;
+}
+
+/* --- Global button reset (Foundry sets height, min-height, gap, padding) --- */
+.mondas button,
+.mondas-dialog button {
+  height: auto;
+  min-height: 0;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* --- Tabs reset (Foundry nav.tabs sets gap:1rem, line-height:2.5) --- */
+.mondas nav.tabs,
+.mondas nav.sheet-tabs {
+  gap: 0;
+  line-height: inherit;
+}
+
+/* --- Kill standard-form if it ever leaks in --- */
+.application.mondas .standard-form,
+.application.mondas .standard-form .tab,
+.application.mondas .standard-form .tab.active,
+.application.mondas .standard-form fieldset,
+.application.mondas .standard-form .form-group,
+.application.mondas .standard-form .form-fields {
+  gap: 0;
+  padding: 0;
+  margin: 0;
+}
+
+/* --- img reset (Foundry sets display:block, max-width:100%) --- */
+.mondas img {
+  display: inline;
+  max-width: none;
+}
+
+/* --- Tab visibility (Foundry hides non-active via display:none) --- */
+.mondas .tab-content[hidden] {
+  display: none;
+}
+
+/* Preserve Font Awesome icons everywhere */
+.mondas i[class*="fa-"],
+.application.mondas-dialog i[class*="fa-"],
+.mondas-roll-chat i[class*="fa-"] {
+  font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro" !important;
+  font-style: normal !important;
+  -webkit-font-smoothing: antialiased;
+}

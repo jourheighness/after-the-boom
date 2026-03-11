@@ -1,0 +1,24 @@
+{{!-- MONDAS — Add/Edit Edge Dialog --}}
+<div class="mondas-dialog add-edge-form">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" name="name" value="{{name}}" placeholder="Edge name" autofocus>
+  </div>
+
+  <div class="form-group">
+    <label>Mechanical Effect</label>
+    <textarea name="mechanical" rows="3" placeholder="What it does mechanically">{{mechanical}}</textarea>
+  </div>
+
+  <fieldset class="thaumatech-gambit-section">
+    <legend>Gambit (optional)</legend>
+    <div class="form-group">
+      <label>Gambit Name</label>
+      <input type="text" name="gambitName" value="{{gambitName}}" placeholder="Name of the gambit">
+    </div>
+    <div class="form-group">
+      <label>Gambit Effect</label>
+      <textarea name="gambitDesc" rows="3" placeholder="What it does when used">{{gambitDesc}}</textarea>
+    </div>
+  </fieldset>
+</div>
