@@ -1,0 +1,128 @@
+<h2>Pivotal Moment — Raster Text + Skull</h2>
+
+<style>
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
+  :root {
+    --navy: #1c2b3a;
+    --paper: #ebe7df;
+    --b: 2px solid #1c2b3a;
+    --sp-3: 6px; --sp-4: 8px; --sp-5: 12px; --sp-6: 16px;
+    --fs-sm: 12px; --fs-md: 14px; --fs-xl: 20px;
+    --hatch-cross-tight: repeating-linear-gradient(45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px), repeating-linear-gradient(-45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px);
+    --halo-navy-thick:
+      -3px -3px 0 var(--navy), 3px -3px 0 var(--navy),
+      -3px 3px 0 var(--navy), 3px 3px 0 var(--navy),
+      0 -3px 0 var(--navy), 0 3px 0 var(--navy),
+      -3px 0 0 var(--navy), 3px 0 0 var(--navy),
+      -2px -3px 0 var(--navy), 2px -3px 0 var(--navy),
+      -2px 3px 0 var(--navy), 2px 3px 0 var(--navy),
+      -3px -2px 0 var(--navy), 3px -2px 0 var(--navy),
+      -3px 2px 0 var(--navy), 3px 2px 0 var(--navy),
+      -1px -3px 0 var(--navy), 1px -3px 0 var(--navy),
+      -1px 3px 0 var(--navy), 1px 3px 0 var(--navy),
+      -3px -1px 0 var(--navy), 3px -1px 0 var(--navy),
+      -3px 1px 0 var(--navy), 3px 1px 0 var(--navy);
+    --halo-navy:
+      -2px -2px 0 var(--navy), 2px -2px 0 var(--navy),
+      -2px 2px 0 var(--navy), 2px 2px 0 var(--navy),
+      0 -2px 0 var(--navy), 0 2px 0 var(--navy),
+      -2px 0 0 var(--navy), 2px 0 0 var(--navy);
+  }
+
+  .pv {
+    font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace;
+    color: var(--navy);
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .pv .header-box {
+    padding: var(--sp-4) var(--sp-5);
+    font-size: var(--fs-xl);
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background-color: var(--navy);
+    background-image: radial-gradient(var(--paper) 1px, transparent 1px);
+    background-size: 3px 3px;
+    color: var(--paper);
+    text-shadow: var(--halo-navy);
+    border: var(--b);
+  }
+
+  .pv .skull-field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px 16px;
+    border-left: var(--b);
+    border-right: var(--b);
+    background-color: var(--navy);
+    background-image: radial-gradient(var(--paper) 0.8px, transparent 0.8px);
+    background-size: 4px 4px;
+  }
+
+  .pv .raster-text {
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+    background-image: radial-gradient(var(--paper) 1px, transparent 1px);
+    background-size: 3px 3px;
+    background-color: transparent;
+  }
+
+  .pv .skull-word {
+    font-size: var(--fs-xl);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .pv .raster-skull {
+    font-size: 80px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .pv .body-text {
+    padding: var(--sp-5);
+    border: var(--b);
+    border-top: none;
+    background-color: var(--paper);
+    background-image: var(--hatch-cross-tight);
+    text-align: center;
+  }
+  .pv .body-text p {
+    margin: 0 0 var(--sp-3);
+    font-weight: 700;
+    font-size: var(--fs-md);
+    color: #fff;
+    text-shadow: var(--halo-navy-thick);
+  }
+  .pv .body-text p:last-child {
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: var(--fs-sm);
+  }
+</style>
+
+<div class="mockup">
+  <div class="mockup-header">Pivotal Moment — Final</div>
+  <div class="mockup-body" style="padding: 24px; background: #ddd;">
+    <div class="pv">
+      <div class="header-box">Murph</div>
+      <div class="skull-field">
+        <span class="skull-word raster-text">DEATH</span>
+        <i class="fa-solid fa-skull raster-skull raster-text"></i>
+        <span class="skull-word raster-text">AWAITS</span>
+      </div>
+      <div class="body-text">
+        <p>Both critical slots filled. This is a pivotal moment.</p>
+        <p>The table decides: grievous wound, dramatic death, or something worse.</p>
+      </div>
+    </div>
+  </div>
+</div>

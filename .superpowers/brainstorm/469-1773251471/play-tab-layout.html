@@ -1,0 +1,406 @@
+<h2>Play Tab — Layout Options</h2>
+<p class="subtitle">The main sheet: tracking + actions only. No editing, no descriptions. Click to act.</p>
+
+<style>
+  /* Shared mockup styles */
+  .sheet-mock {
+    background: #1a2332;
+    color: #c8d6e5;
+    font-family: 'Courier New', monospace;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .sheet-mock h4 {
+    color: #d4956a;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin: 0 0 8px 0;
+    border-bottom: 1px solid #2a3a4a;
+    padding-bottom: 4px;
+  }
+  .mock-stat-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .mock-stat {
+    flex: 1;
+    background: #0d1820;
+    border: 1px solid #2a3a4a;
+    border-radius: 6px;
+    padding: 8px;
+    text-align: center;
+  }
+  .mock-stat .label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #7a8a9a; }
+  .mock-stat .val { font-size: 24px; font-weight: bold; color: #e8d5b7; }
+  .mock-stat .btns { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
+  .mock-stat .btns span {
+    background: #2a3a4a;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 9px;
+    cursor: pointer;
+    color: #8a9aaa;
+  }
+  .mock-minicard-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .mock-minicard {
+    background: #0d1820;
+    border: 1px solid #2a3a4a;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+  .mock-minicard:hover { border-color: #d4956a; }
+  .mock-minicard .mc-name { color: #e8d5b7; font-weight: bold; }
+  .mock-minicard .mc-die { color: #d4956a; font-size: 10px; }
+  .mock-minicard .mc-armor { color: #6ab4d4; font-size: 10px; }
+  .mock-minicard .mc-qty { color: #7a8a9a; font-size: 9px; }
+  .mock-minicard .mc-use {
+    background: #2a5a3a;
+    color: #8fd4a8;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-size: 9px;
+  }
+  .mock-minicard.weapon { border-left: 3px solid #d4956a; }
+  .mock-minicard.edge { border-left: 3px solid #8a7ad4; }
+  .mock-minicard.equipment { border-left: 3px solid #6ab4d4; }
+  .mock-minicard.consumable { border-left: 3px solid #5aaa6a; }
+  .mock-minicard.spent { opacity: 0.4; }
+
+  .mock-tracks {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+    align-items: center;
+  }
+  .mock-track { display: flex; align-items: center; gap: 4px; }
+  .mock-track .tlabel { font-size: 9px; text-transform: uppercase; color: #7a8a9a; letter-spacing: 1px; min-width: 40px; }
+  .mock-box {
+    width: 14px; height: 14px;
+    border: 1px solid #4a5a6a;
+    border-radius: 2px;
+    display: inline-block;
+  }
+  .mock-box.filled { background: #c8d6e5; }
+  .mock-box.wound-filled { background: #d4956a; }
+  .mock-box.crit-filled { background: #d45a5a; }
+  .mock-counter { font-size: 10px; color: #7a8a9a; margin-left: 2px; }
+
+  .mock-harm-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .mock-harm-group { display: flex; align-items: center; gap: 4px; }
+  .mock-harm-group .hlabel { font-size: 9px; text-transform: uppercase; color: #7a8a9a; min-width: 55px; }
+
+  .mock-conditions {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .mock-cond {
+    background: #0d1820;
+    border: 1px solid #2a3a4a;
+    border-radius: 3px;
+    padding: 3px 8px;
+    font-size: 10px;
+    color: #5a6a7a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .mock-cond.active { background: #d45a3a; color: #fff; border-color: #d45a3a; }
+
+  .mock-die-track {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .mock-die-panel {
+    flex: 1;
+    background: #0d1820;
+    border: 1px solid #2a3a4a;
+    border-radius: 4px;
+    padding: 6px 8px;
+  }
+  .mock-die-panel .dp-label { font-size: 9px; text-transform: uppercase; color: #7a8a9a; margin-bottom: 4px; }
+  .mock-die-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    background: #1a3040;
+    border: 1px dashed #3a5a6a;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #6ab4d4;
+    margin-right: 4px;
+  }
+  .mock-die-box.add { color: #4a5a6a; cursor: pointer; }
+
+  .mock-status-banner {
+    background: #d45a3a22;
+    border: 1px solid #d45a3a;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 10px;
+    color: #d45a3a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .mock-dmg {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    font-size: 10px;
+  }
+  .mock-dmg input {
+    width: 30px;
+    background: #0d1820;
+    border: 1px solid #4a5a6a;
+    border-radius: 3px;
+    color: #c8d6e5;
+    padding: 2px 4px;
+    text-align: center;
+    font-size: 10px;
+  }
+  .mock-dmg button {
+    background: #2a3a4a;
+    border: none;
+    color: #c8d6e5;
+    border-radius: 3px;
+    padding: 2px 8px;
+    font-size: 9px;
+    cursor: pointer;
+  }
+  .section-divider {
+    border: none;
+    border-top: 1px solid #2a3a4a;
+    margin: 8px 0;
+  }
+
+  .tooltip-demo {
+    position: relative;
+  }
+  .tooltip-demo .tt {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0d1820;
+    border: 1px solid #d4956a;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 10px;
+    color: #c8d6e5;
+    white-space: nowrap;
+    z-index: 10;
+    margin-bottom: 4px;
+  }
+  .tooltip-demo:hover .tt { display: block; }
+  .tt .tt-mech { color: #aabbcc; }
+  .tt .tt-gambit { color: #d4956a; font-style: italic; }
+</style>
+
+<div class="cards">
+  <!-- Option A: Horizontal strips -->
+  <div class="card" data-choice="strips" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="sheet-mock">
+        <div class="mock-status-banner">CRITICAL</div>
+
+        <div class="mock-stat-row">
+          <div class="mock-stat"><div class="label">Grit</div><div class="val">3</div><div class="btns"><span>🛡</span><span>⚖</span></div></div>
+          <div class="mock-stat"><div class="label">Sharp</div><div class="val">1</div><div class="btns"><span>🛡</span><span>⚖</span></div></div>
+          <div class="mock-stat"><div class="label">Nerve</div><div class="val">2</div><div class="btns"><span>🛡</span><span>⚖</span></div></div>
+        </div>
+
+        <h4>Weapons</h4>
+        <div class="mock-minicard-row">
+          <div class="mock-minicard weapon tooltip-demo">
+            <span class="mc-name">Pistol</span><span class="mc-die">d8</span>
+            <div class="tt"><div class="tt-mech">ranged · loud</div><div class="tt-gambit">⚡ Fanning — empty clip for +2d</div></div>
+          </div>
+          <div class="mock-minicard weapon"><span class="mc-name">Molotov</span><span class="mc-die">d6</span><span class="mc-qty">×2</span></div>
+          <div class="mock-minicard weapon spent"><span class="mc-name">Flashbang</span><span class="mc-die">d6</span><span class="mc-qty">×0</span></div>
+        </div>
+
+        <h4>Edges</h4>
+        <div class="mock-minicard-row">
+          <div class="mock-minicard edge tooltip-demo">
+            <span class="mc-name">Born Fighter</span>
+            <div class="tt"><div class="tt-mech">+1d when outnumbered</div><div class="tt-gambit">⚡ Flurry</div></div>
+          </div>
+          <div class="mock-minicard edge"><span class="mc-name">Patron's Whisper</span></div>
+        </div>
+
+        <h4>Gear</h4>
+        <div class="mock-minicard-row">
+          <div class="mock-minicard equipment"><span class="mc-name">Security Vest</span><span class="mc-armor">🛡1</span></div>
+          <div class="mock-minicard consumable"><span class="mc-name">Medkit</span><span class="mc-qty">×2</span><span class="mc-use">USE</span></div>
+          <div class="mock-minicard consumable"><span class="mc-name">Stim</span><span class="mc-qty">×1</span><span class="mc-use">USE</span></div>
+          <div class="mock-minicard equipment"><span class="mc-name">Radio</span></div>
+        </div>
+
+        <hr class="section-divider">
+
+        <div class="mock-tracks">
+          <div class="mock-track">
+            <span class="tlabel">Guard</span>
+            <span class="mock-box filled"></span><span class="mock-box filled"></span><span class="mock-box"></span><span class="mock-box"></span><span class="mock-box"></span><span class="mock-box"></span>
+            <span class="mock-counter">4/6</span>
+          </div>
+          <div class="mock-track">
+            <span class="tlabel">Drain</span>
+            <span class="mock-box filled"></span><span class="mock-box filled"></span><span class="mock-box"></span><span class="mock-box"></span>
+            <span class="mock-counter">2/4</span>
+          </div>
+          <div class="mock-track">
+            <span class="tlabel">Armor</span>
+            <span class="mock-counter" style="font-size:14px; color:#6ab4d4;">1</span>
+          </div>
+          <div class="mock-dmg">
+            <span style="color:#7a8a9a">DMG</span>
+            <input type="text" value="" placeholder="—">
+            <button>Apply</button>
+          </div>
+        </div>
+
+        <div class="mock-harm-row">
+          <div class="mock-harm-group"><span class="hlabel">Hurt</span><span class="mock-box filled"></span><span class="mock-box"></span></div>
+          <div class="mock-harm-group"><span class="hlabel">Wounded</span><span class="mock-box wound-filled"></span><span class="mock-box"></span></div>
+          <div class="mock-harm-group"><span class="hlabel">Critical</span><span class="mock-box crit-filled"></span><span class="mock-box"></span></div>
+        </div>
+
+        <div class="mock-conditions">
+          <span class="mock-cond active">Stunned</span>
+          <span class="mock-cond">Shaken</span>
+          <span class="mock-cond">Prone</span>
+        </div>
+
+        <div class="mock-die-track">
+          <div class="mock-die-panel">
+            <div class="dp-label">Tracking</div>
+            <span class="mock-die-box">d6s</span>
+            <span class="mock-die-box add">+</span>
+          </div>
+          <div class="mock-die-panel">
+            <div class="dp-label">On You</div>
+            <span class="mock-die-box add">+</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A: Horizontal Strips</h3>
+      <p>Weapons, edges, gear as labeled strips top-to-bottom. Each section has its own header. Scrolls vertically if lots of items. <strong>Mirrors the current layout logic</strong> but with minicards instead of full cards.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Action bar -->
+  <div class="card" data-choice="action-bar" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="sheet-mock">
+        <div class="mock-status-banner">CRITICAL</div>
+
+        <div class="mock-stat-row">
+          <div class="mock-stat"><div class="label">Grit</div><div class="val">3</div><div class="btns"><span>🛡</span><span>⚖</span></div></div>
+          <div class="mock-stat"><div class="label">Sharp</div><div class="val">1</div><div class="btns"><span>🛡</span><span>⚖</span></div></div>
+          <div class="mock-stat"><div class="label">Nerve</div><div class="val">2</div><div class="btns"><span>🛡</span><span>⚖</span></div></div>
+        </div>
+
+        <!-- All minicards in one mixed row -->
+        <h4>Actions</h4>
+        <div class="mock-minicard-row">
+          <div class="mock-minicard weapon tooltip-demo">
+            <span class="mc-name">Pistol</span><span class="mc-die">d8</span>
+            <div class="tt"><div class="tt-mech">ranged · loud</div><div class="tt-gambit">⚡ Fanning</div></div>
+          </div>
+          <div class="mock-minicard weapon"><span class="mc-name">Molotov</span><span class="mc-die">d6</span><span class="mc-qty">×2</span></div>
+          <div class="mock-minicard edge"><span class="mc-name">Born Fighter</span></div>
+          <div class="mock-minicard edge"><span class="mc-name">Patron's Whisper</span></div>
+          <div class="mock-minicard consumable"><span class="mc-name">Medkit</span><span class="mc-qty">×2</span><span class="mc-use">USE</span></div>
+          <div class="mock-minicard consumable"><span class="mc-name">Stim</span><span class="mc-qty">×1</span><span class="mc-use">USE</span></div>
+        </div>
+
+        <hr class="section-divider">
+
+        <div class="mock-tracks">
+          <div class="mock-track">
+            <span class="tlabel">Guard</span>
+            <span class="mock-box filled"></span><span class="mock-box filled"></span><span class="mock-box"></span><span class="mock-box"></span><span class="mock-box"></span><span class="mock-box"></span>
+            <span class="mock-counter">4/6</span>
+          </div>
+          <div class="mock-track">
+            <span class="tlabel">Drain</span>
+            <span class="mock-box filled"></span><span class="mock-box filled"></span><span class="mock-box"></span><span class="mock-box"></span>
+            <span class="mock-counter">2/4</span>
+          </div>
+          <div class="mock-track">
+            <span class="tlabel">Armor</span>
+            <span class="mock-counter" style="font-size:14px; color:#6ab4d4;">1</span>
+          </div>
+          <div class="mock-dmg">
+            <span style="color:#7a8a9a">DMG</span>
+            <input type="text" value="" placeholder="—">
+            <button>Apply</button>
+          </div>
+        </div>
+
+        <div class="mock-harm-row">
+          <div class="mock-harm-group"><span class="hlabel">Hurt</span><span class="mock-box filled"></span><span class="mock-box"></span></div>
+          <div class="mock-harm-group"><span class="hlabel">Wounded</span><span class="mock-box wound-filled"></span><span class="mock-box"></span></div>
+          <div class="mock-harm-group"><span class="hlabel">Critical</span><span class="mock-box crit-filled"></span><span class="mock-box"></span></div>
+        </div>
+
+        <div class="mock-conditions">
+          <span class="mock-cond active">Stunned</span>
+          <span class="mock-cond">Shaken</span>
+          <span class="mock-cond">Prone</span>
+        </div>
+
+        <div class="mock-die-track">
+          <div class="mock-die-panel">
+            <div class="dp-label">Tracking</div>
+            <span class="mock-die-box">d6s</span>
+            <span class="mock-die-box add">+</span>
+          </div>
+          <div class="mock-die-panel">
+            <div class="dp-label">On You</div>
+            <span class="mock-die-box add">+</span>
+          </div>
+        </div>
+
+        <!-- Passive gear at bottom -->
+        <h4 style="color:#4a5a6a">Passive</h4>
+        <div class="mock-minicard-row" style="opacity:0.6">
+          <div class="mock-minicard equipment"><span class="mc-name">Security Vest</span><span class="mc-armor">🛡1</span></div>
+          <div class="mock-minicard equipment"><span class="mc-name">Radio</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B: Unified Action Bar</h3>
+      <p>All clickable things (weapons, edges, consumables) in one "Actions" strip. Color-coded left borders distinguish types. Passive gear (armor, radio) faded at the bottom. <strong>Fewer sections, denser layout.</strong></p>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:24px">Hover over "Pistol" or "Born Fighter" in Option A to see the tooltip demo. Both options use identical tracking (guard/drain/harm/conditions/dice) below the action area.</p>

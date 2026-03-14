@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MONDAS — Play Tab Hierarchy</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+  --navy: #1c2b3a;
+  --paper: #ebe7df;
+  --sp-1: 2px; --sp-2: 4px; --sp-3: 6px; --sp-4: 8px; --sp-5: 12px; --sp-6: 16px;
+  --fs-xs: 0.86em; --fs-sm: 0.93em; --fs-md: 1em; --fs-lg: 1.07em;
+  --fs-xl: 1.21em; --fs-2xl: 1.57em; --fs-stat: 2.7em;
+  --b: 2px solid var(--navy);
+  --b-paper: 2px solid var(--paper);
+  --b-light: 2px solid var(--navy);
+  --hatch-dots: radial-gradient(var(--navy) 1px, transparent 1px);
+  --hatch-dots-size: 4px 4px;
+  --hatch-diag-tight: repeating-linear-gradient(45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px);
+  --hatch-cross-tight: repeating-linear-gradient(45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px), repeating-linear-gradient(-45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px);
+  --active-bg: radial-gradient(var(--navy) 1px, transparent 1px);
+  --active-bg-size: 3px 3px;
+  --halo-paper:
+    -2px -2px 0 var(--paper), 2px -2px 0 var(--paper),
+    -2px 2px 0 var(--paper), 2px 2px 0 var(--paper),
+    0 -2px 0 var(--paper), 0 2px 0 var(--paper),
+    -2px 0 0 var(--paper), 2px 0 0 var(--paper);
+  --halo-navy:
+    -2px -2px 0 var(--navy), 2px -2px 0 var(--navy),
+    -2px 2px 0 var(--navy), 2px 2px 0 var(--navy),
+    0 -2px 0 var(--navy), 0 2px 0 var(--navy),
+    -2px 0 0 var(--navy), 2px 0 0 var(--navy);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; }
+body {
+  background: #111;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  color: var(--navy);
+  display: flex;
+  gap: 40px;
+  padding: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.sheet-frame {
+  width: 680px;
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #000;
+}
+.sheet-header {
+  background: var(--navy);
+  color: #fff;
+  padding: var(--sp-6) var(--sp-6) var(--sp-5);
+}
+.char-name {
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  display: block;
+  border-bottom: var(--b-paper);
+  padding: var(--sp-1) 0;
+}
+.sheet-tabs {
+  display: flex;
+  background: var(--navy);
+  padding: 0 var(--sp-6);
+  border-bottom: var(--b-paper);
+}
+.sheet-tab {
+  font-family: inherit;
+  padding: var(--sp-4) var(--sp-6);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: transparent;
+  border: 2px solid transparent;
+  border-bottom: none;
+  margin-bottom: -2px;
+  color: var(--paper);
+  cursor: pointer;
+}
+.sheet-tab.active {
+  color: var(--navy);
+  border-color: var(--paper);
+  background: var(--paper);
+}
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  flex: 1;
+}
+.tab-content > * { flex-shrink: 0; }
+
+/* Zone labels hidden */
+.zone-label { display: none; }
+
+/* Stats */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+  padding: var(--sp-5) var(--sp-6);
+}
+.stat-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  justify-items: center;
+  background: var(--paper);
+  border: var(--b);
+}
+.stat-icon-col {
+  grid-row: 1 / -1;
+  align-self: stretch;
+  justify-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-4) var(--sp-2) var(--sp-2);
+  border-right: var(--b);
+}
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border: var(--b);
+}
+.stat-icon-grit { background: radial-gradient(circle, var(--navy) 1px, transparent 1px); background-size: 4px 4px; }
+.stat-icon-sharp { background: repeating-linear-gradient(45deg, var(--navy), var(--navy) 1px, transparent 1px, transparent 3px); }
+.stat-icon-nerve { background: repeating-linear-gradient(0deg, var(--navy), var(--navy) 1px, transparent 1px, transparent 3px); }
+.stat-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.stat-value {
+  font-size: var(--fs-stat);
+  font-weight: 700;
+}
+.stat-roll-buttons {
+  grid-column: 2;
+  justify-self: stretch;
+  display: flex;
+  margin: 0 -2px -2px -2px;
+}
+.stat-roll-buttons button {
+  flex: 1;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-md);
+  background: var(--paper);
+  border: var(--b);
+  border-right: none;
+  color: var(--navy);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.stat-roll-buttons button:last-child { border-right: var(--b); }
+.stat-roll-buttons button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0 var(--navy);
+}
+
+/* Background snippet */
+.bg-snippet {
+  padding: var(--sp-3) var(--sp-6);
+  font-size: var(--fs-sm);
+  color: var(--navy);
+  opacity: 0.7;
+  line-height: 1.4;
+  border-bottom: var(--b);
+  font-style: italic;
+}
+
+/* Damage + Harm block */
+.damage-block {
+  padding: var(--sp-5) var(--sp-6);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  flex-wrap: wrap;
+}
+.harm-track { display: flex; gap: var(--sp-5); align-items: center; }
+.harm-group { display: flex; align-items: center; gap: var(--sp-1); }
+.harm-level {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  min-width: 3.5em;
+}
+.harm-box {
+  width: 18px; height: 18px;
+  border: var(--b);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.harm-box:hover { transform: translate(-1px, -1px); box-shadow: 1px 1px 0 var(--navy); }
+.harm-box.filled { background-color: var(--paper); background-image: var(--hatch-dots); background-size: var(--hatch-dots-size); }
+.harm-box.wounded.filled { background-image: var(--hatch-diag-tight); }
+.harm-box.critical.filled { background-image: var(--hatch-cross-tight); }
+.take-damage {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-left: auto;
+}
+.take-damage-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.take-damage-input {
+  width: 3em;
+  font-family: inherit;
+  font-size: var(--fs-lg);
+  background: transparent;
+  border: none;
+  border-bottom: var(--b);
+  text-align: center;
+  color: var(--navy);
+  outline: none;
+}
+.take-damage-btn {
+  padding: var(--sp-1) var(--sp-4);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  font-family: inherit;
+  text-transform: uppercase;
+  background: var(--navy);
+  border: var(--b);
+  color: var(--paper);
+  cursor: pointer;
+}
+
+/* Status pills inline with harm */
+.status-pills-inline {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+.status-pill {
+  display: inline-block;
+  padding: var(--sp-1) var(--sp-4);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: var(--b);
+}
+.pill-wounded {
+  background-color: var(--paper);
+  background-image: var(--hatch-diag-tight);
+  text-shadow: var(--halo-paper);
+}
+.pill-critical {
+  background-color: var(--paper);
+  background-image: var(--hatch-cross-tight);
+  color: #fff;
+  text-shadow: var(--halo-navy);
+}
+
+/* Conditions toggle */
+.conditions-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-6);
+  border-bottom: var(--b);
+}
+.cond-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  font-family: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: var(--b);
+  color: var(--navy);
+  cursor: pointer;
+  background: var(--paper);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.cond-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 0 var(--navy);
+}
+.cond-btn.active {
+  background-color: var(--paper);
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+  font-weight: 700;
+  text-shadow: var(--halo-paper);
+}
+.cond-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+  opacity: 0.5;
+}
+
+/* Resources */
+.resources-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+  padding: var(--sp-5) var(--sp-6);
+}
+.track { display: flex; align-items: center; gap: var(--sp-2); }
+.track-label {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  min-width: 3em;
+}
+.track-boxes { display: flex; gap: var(--sp-1); }
+.track-box {
+  width: 16px; height: 16px;
+  border: var(--b);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.track-box:hover { transform: translate(-1px, -1px); box-shadow: 1px 1px 0 var(--navy); }
+.track-box.guard.filled:nth-child(1) { background-image: repeating-linear-gradient(0deg, transparent, transparent 6px, var(--navy) 6px, var(--navy) 7px); }
+.track-box.guard.filled:nth-child(2) { background-image: repeating-linear-gradient(0deg, transparent, transparent 4px, var(--navy) 4px, var(--navy) 5px); }
+.track-box.drain.filled:nth-child(1) { background-image: repeating-linear-gradient(90deg, transparent, transparent 6px, var(--navy) 6px, var(--navy) 7px); }
+.track-box.drain.filled:nth-child(2) { background-image: repeating-linear-gradient(90deg, transparent, transparent 4px, var(--navy) 4px, var(--navy) 5px); }
+.track-counter {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  min-width: 2em;
+  text-align: center;
+}
+.armor-value {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  min-width: 2rem;
+  text-align: center;
+}
+
+/* Minicard sections */
+.minicard-section { padding: 0; }
+.minicard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--navy);
+  padding: var(--sp-3) var(--sp-6);
+}
+.minicard-header h3 {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #fff;
+  border: none;
+}
+.minicard-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-6);
+}
+.minicard {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  border: var(--b);
+  background: var(--paper);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  position: relative;
+}
+.minicard:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0 var(--navy);
+}
+.minicard-name {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: var(--fs-sm);
+}
+.minicard .die-badge {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  padding: 0 var(--sp-2);
+  border: var(--b);
+}
+.minicard .qty-badge {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+.minicard .armor-badge {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  padding: 0 var(--sp-3);
+  border: var(--b);
+}
+.minicard .use-btn {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0 var(--sp-3);
+  background: var(--navy);
+  color: var(--paper);
+  border: var(--b);
+  cursor: pointer;
+}
+.minicard.spent { opacity: 0.3; pointer-events: none; }
+
+/* Tooltip */
+.minicard .mc-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--navy);
+  color: var(--paper);
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--fs-xs);
+  white-space: nowrap;
+  z-index: 100;
+  border: var(--b-paper);
+  line-height: 1.5;
+}
+.minicard .mc-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--navy);
+}
+.minicard:hover .mc-tooltip { display: block; }
+.tt-gambit { opacity: 0.7; font-style: italic; }
+
+/* Die tracking */
+.die-track {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--navy);
+}
+.die-panel {
+  background: var(--paper);
+  padding: var(--sp-4) var(--sp-6);
+}
+.die-panel-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--sp-3);
+  opacity: 0.5;
+}
+.dice-row { display: flex; gap: var(--sp-4); flex-wrap: wrap; }
+.die-item { display: flex; flex-direction: column; align-items: center; gap: var(--sp-1); }
+.die-box {
+  width: 32px; height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  border: var(--b);
+  background: var(--paper);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.die-box:hover { transform: translate(-1px, -1px); box-shadow: 1px 1px 0 var(--navy); }
+.die-add { border: 2px dashed var(--navy); opacity: 0.25; background: transparent; }
+.die-add:hover { opacity: 0.6; }
+.die-item-label { font-size: 9px; font-weight: 600; text-align: center; width: 32px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.die-setup-tracked {
+  font-size: var(--fs-md);
+  background-color: var(--paper);
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+  text-shadow: var(--halo-paper);
+}
+
+/* Option labels */
+.option-label {
+  background: var(--navy);
+  color: var(--paper);
+  text-align: center;
+  padding: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.option-desc {
+  background: #222;
+  color: #aaa;
+  padding: 12px 16px;
+  font-size: 12px;
+  line-height: 1.5;
+  max-width: 680px;
+}
+
+/* Section add btn */
+.section-add {
+  width: 20px; height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-md);
+  font-weight: 700;
+  background: transparent;
+  border: var(--b-paper);
+  color: var(--paper);
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- ========== OPTION A: Health-first ========== -->
+<div>
+  <div class="sheet-frame">
+    <div class="sheet-header">
+      <span class="char-name">Murph Callahan</span>
+    </div>
+    <nav class="sheet-tabs">
+      <button class="sheet-tab active">Play</button>
+      <button class="sheet-tab">Gear</button>
+      <button class="sheet-tab">Character</button>
+      <button class="sheet-tab">Notes</button>
+    </nav>
+    <div class="tab-content">
+
+      <!-- ZONE 1: Stats + background -->
+      <div class="zone-label">① Roll <span>— every turn</span></div>
+      <div class="stats-row">
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-grit"></span><span class="stat-label">Grit</span></div>
+          <span class="stat-value">1</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-sharp"></span><span class="stat-label">Sharp</span></div>
+          <span class="stat-value">1</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-nerve"></span><span class="stat-label">Nerve</span></div>
+          <span class="stat-value">3</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+      </div>
+      <div class="bg-snippet">"Former union electrician who saw things in the walls he shouldn't have."</div>
+
+      <!-- ZONE 2: Health — Guard/Drain + Harm + DMG together -->
+      <div class="zone-label">② Survive <span>— guard, drain, harm, damage</span></div>
+      <div class="resources-row">
+        <div class="track">
+          <span class="track-label">Guard</span>
+          <div class="track-boxes">
+            <span class="track-box guard filled"></span><span class="track-box guard filled"></span>
+            <span class="track-box guard"></span><span class="track-box guard"></span><span class="track-box guard"></span><span class="track-box guard"></span>
+          </div>
+          <span class="track-counter">4/6</span>
+        </div>
+        <div class="track">
+          <span class="track-label">Drain</span>
+          <div class="track-boxes">
+            <span class="track-box drain filled"></span><span class="track-box drain filled"></span>
+            <span class="track-box drain"></span><span class="track-box drain"></span>
+          </div>
+          <span class="track-counter">2/4</span>
+        </div>
+        <div class="track">
+          <span class="track-label">Armor</span>
+          <span class="armor-value">1</span>
+        </div>
+      </div>
+
+      <div class="damage-block">
+        <div class="status-pills-inline">
+          <span class="status-pill pill-critical">Critical</span>
+          <span class="status-pill pill-wounded">Wounded</span>
+        </div>
+        <div class="harm-track">
+          <div class="harm-group"><span class="harm-level">Hurt</span><span class="harm-box filled"></span><span class="harm-box"></span></div>
+          <div class="harm-group"><span class="harm-level">Wound</span><span class="harm-box wounded filled"></span><span class="harm-box wounded"></span></div>
+          <div class="harm-group"><span class="harm-level">Crit</span><span class="harm-box critical filled"></span><span class="harm-box critical"></span></div>
+        </div>
+        <div class="take-damage">
+          <span class="take-damage-label">Dmg</span>
+          <input type="text" class="take-damage-input" placeholder="—">
+          <button class="take-damage-btn">Apply</button>
+        </div>
+      </div>
+
+      <!-- Conditions inline — small, only shown when active + toggle to apply -->
+      <div class="conditions-toggle">
+        <span class="cond-label">Conditions</span>
+        <span class="cond-btn active">Stunned</span>
+        <span class="cond-btn">Shaken</span>
+        <span class="cond-btn">Prone</span>
+      </div>
+
+      <!-- ZONE 3: Act — weapons, edges, gear -->
+      <div class="zone-label">③ Act <span>— weapons, edges, consumables</span></div>
+      <div class="minicard-section">
+        <div class="minicard-header"><h3>Weapons</h3></div>
+        <div class="minicard-row">
+          <div class="minicard">
+            <span class="minicard-name">Pistol</span><span class="die-badge">d8</span>
+            <div class="mc-tooltip"><div>ranged · loud</div><div class="tt-gambit"><i class="fa-solid fa-bolt"></i> Fanning</div></div>
+          </div>
+          <div class="minicard">
+            <span class="minicard-name">Molotov</span><span class="die-badge">d6</span><span class="qty-badge">×2</span>
+          </div>
+          <div class="minicard spent"><span class="minicard-name">Flashbang</span><span class="die-badge">d6</span><span class="qty-badge">×0</span></div>
+        </div>
+      </div>
+      <div class="minicard-section">
+        <div class="minicard-header"><h3>Edges</h3></div>
+        <div class="minicard-row">
+          <div class="minicard">
+            <span class="minicard-name">Patron's Whisper</span>
+            <div class="mc-tooltip"><div>1/scene — ask a yes/no question</div><div class="tt-gambit"><i class="fa-solid fa-bolt"></i> Demand</div></div>
+          </div>
+          <div class="minicard"><span class="minicard-name">Born Fighter</span>
+            <div class="mc-tooltip"><div>+1d when outnumbered</div><div class="tt-gambit"><i class="fa-solid fa-bolt"></i> Flurry</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="minicard-section">
+        <div class="minicard-header"><h3>Gear</h3></div>
+        <div class="minicard-row">
+          <div class="minicard"><span class="minicard-name">Security Vest</span><span class="armor-badge"><i class="fa-solid fa-shield-halved"></i> 1</span></div>
+          <div class="minicard"><span class="minicard-name">Medkit</span><span class="qty-badge">×2</span><span class="use-btn">Use</span></div>
+          <div class="minicard"><span class="minicard-name">Stim</span><span class="qty-badge">×1</span><span class="use-btn">Use</span></div>
+          <div class="minicard"><span class="minicard-name">Radio</span></div>
+        </div>
+      </div>
+
+      <!-- ZONE 4: Sustained -->
+      <div class="zone-label">④ Sustained <span>— die tracking</span></div>
+      <div class="die-track">
+        <div class="die-panel">
+          <div class="die-panel-label">Tracking</div>
+          <div class="dice-row">
+            <div class="die-item"><div class="die-box die-setup-tracked">4</div><div class="die-item-label">SETUP</div></div>
+            <div class="die-item"><div class="die-box">d6s</div><div class="die-item-label">Pistol</div></div>
+            <div class="die-item"><div class="die-box die-add">+</div></div>
+          </div>
+        </div>
+        <div class="die-panel">
+          <div class="die-panel-label">On You</div>
+          <div class="dice-row">
+            <div class="die-item"><div class="die-box die-add">+</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="option-label">A: Roll → Survive → Act → Sustained</div>
+  <div class="option-desc">Stats + background at top (for motivating boons). Then all health tracking in one block: guard/drain, then harm+dmg+status pills together. Conditions as small inline toggles. Actions below. Die tracking at bottom.</div>
+</div>
+
+<!-- ========== OPTION B: Actions-first ========== -->
+<div>
+  <div class="sheet-frame">
+    <div class="sheet-header">
+      <span class="char-name">Murph Callahan</span>
+    </div>
+    <nav class="sheet-tabs">
+      <button class="sheet-tab active">Play</button>
+      <button class="sheet-tab">Gear</button>
+      <button class="sheet-tab">Character</button>
+      <button class="sheet-tab">Notes</button>
+    </nav>
+    <div class="tab-content">
+
+      <!-- ZONE 1: Stats + background -->
+      <div class="zone-label">① Roll <span>— every turn</span></div>
+      <div class="stats-row">
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-grit"></span><span class="stat-label">Grit</span></div>
+          <span class="stat-value">1</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-sharp"></span><span class="stat-label">Sharp</span></div>
+          <span class="stat-value">1</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-nerve"></span><span class="stat-label">Nerve</span></div>
+          <span class="stat-value">3</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+      </div>
+      <div class="bg-snippet">"Former union electrician who saw things in the walls he shouldn't have."</div>
+
+      <!-- ZONE 2: Act — weapons, edges, consumables -->
+      <div class="zone-label">② Act <span>— weapons, edges, consumables</span></div>
+      <div class="minicard-section">
+        <div class="minicard-header"><h3>Weapons</h3></div>
+        <div class="minicard-row">
+          <div class="minicard"><span class="minicard-name">Pistol</span><span class="die-badge">d8</span>
+            <div class="mc-tooltip"><div>ranged · loud</div><div class="tt-gambit"><i class="fa-solid fa-bolt"></i> Fanning</div></div>
+          </div>
+          <div class="minicard"><span class="minicard-name">Molotov</span><span class="die-badge">d6</span><span class="qty-badge">×2</span></div>
+          <div class="minicard spent"><span class="minicard-name">Flashbang</span><span class="die-badge">d6</span><span class="qty-badge">×0</span></div>
+        </div>
+      </div>
+      <div class="minicard-section">
+        <div class="minicard-header"><h3>Edges</h3></div>
+        <div class="minicard-row">
+          <div class="minicard"><span class="minicard-name">Patron's Whisper</span>
+            <div class="mc-tooltip"><div>1/scene — ask a yes/no question</div><div class="tt-gambit"><i class="fa-solid fa-bolt"></i> Demand</div></div>
+          </div>
+          <div class="minicard"><span class="minicard-name">Born Fighter</span>
+            <div class="mc-tooltip"><div>+1d when outnumbered</div><div class="tt-gambit"><i class="fa-solid fa-bolt"></i> Flurry</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="minicard-section">
+        <div class="minicard-header"><h3>Gear</h3></div>
+        <div class="minicard-row">
+          <div class="minicard"><span class="minicard-name">Security Vest</span><span class="armor-badge"><i class="fa-solid fa-shield-halved"></i> 1</span></div>
+          <div class="minicard"><span class="minicard-name">Medkit</span><span class="qty-badge">×2</span><span class="use-btn">Use</span></div>
+          <div class="minicard"><span class="minicard-name">Stim</span><span class="qty-badge">×1</span><span class="use-btn">Use</span></div>
+          <div class="minicard"><span class="minicard-name">Radio</span></div>
+        </div>
+      </div>
+
+      <!-- ZONE 3: Survive — all health tracking -->
+      <div class="zone-label">③ Survive <span>— resources, harm, conditions</span></div>
+      <div class="resources-row">
+        <div class="track">
+          <span class="track-label">Guard</span>
+          <div class="track-boxes">
+            <span class="track-box guard filled"></span><span class="track-box guard filled"></span>
+            <span class="track-box guard"></span><span class="track-box guard"></span><span class="track-box guard"></span><span class="track-box guard"></span>
+          </div>
+          <span class="track-counter">4/6</span>
+        </div>
+        <div class="track">
+          <span class="track-label">Drain</span>
+          <div class="track-boxes">
+            <span class="track-box drain filled"></span><span class="track-box drain filled"></span>
+            <span class="track-box drain"></span><span class="track-box drain"></span>
+          </div>
+          <span class="track-counter">2/4</span>
+        </div>
+        <div class="track">
+          <span class="track-label">Armor</span>
+          <span class="armor-value">1</span>
+        </div>
+      </div>
+
+      <div class="damage-block">
+        <div class="status-pills-inline">
+          <span class="status-pill pill-critical">Critical</span>
+          <span class="status-pill pill-wounded">Wounded</span>
+        </div>
+        <div class="harm-track">
+          <div class="harm-group"><span class="harm-level">Hurt</span><span class="harm-box filled"></span><span class="harm-box"></span></div>
+          <div class="harm-group"><span class="harm-level">Wound</span><span class="harm-box wounded filled"></span><span class="harm-box wounded"></span></div>
+          <div class="harm-group"><span class="harm-level">Crit</span><span class="harm-box critical filled"></span><span class="harm-box critical"></span></div>
+        </div>
+        <div class="take-damage">
+          <span class="take-damage-label">Dmg</span>
+          <input type="text" class="take-damage-input" placeholder="—">
+          <button class="take-damage-btn">Apply</button>
+        </div>
+      </div>
+
+      <div class="conditions-toggle">
+        <span class="cond-label">Conditions</span>
+        <span class="cond-btn active">Stunned</span>
+        <span class="cond-btn">Shaken</span>
+        <span class="cond-btn">Prone</span>
+      </div>
+
+      <!-- ZONE 4: Sustained -->
+      <div class="zone-label">④ Sustained <span>— die tracking</span></div>
+      <div class="die-track">
+        <div class="die-panel">
+          <div class="die-panel-label">Tracking</div>
+          <div class="dice-row">
+            <div class="die-item"><div class="die-box die-setup-tracked">4</div><div class="die-item-label">SETUP</div></div>
+            <div class="die-item"><div class="die-box">d6s</div><div class="die-item-label">Pistol</div></div>
+            <div class="die-item"><div class="die-box die-add">+</div></div>
+          </div>
+        </div>
+        <div class="die-panel">
+          <div class="die-panel-label">On You</div>
+          <div class="dice-row">
+            <div class="die-item"><div class="die-box die-add">+</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="option-label">B: Roll → Act → Survive → Sustained</div>
+  <div class="option-desc">Stats + background at top. Then actions (what you DO on your turn). Then health tracking (what happens TO you). The logic: you look at what you can do first, then manage consequences after. Die tracking last.</div>
+</div>
+
+</body>
+</html>

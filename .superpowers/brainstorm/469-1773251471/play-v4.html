@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MONDAS — Play Tab v4</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+  --navy: #1c2b3a;
+  --paper: #ebe7df;
+  --halo-paper:
+    -2px -2px 0 var(--paper), 2px -2px 0 var(--paper),
+    -2px 2px 0 var(--paper), 2px 2px 0 var(--paper),
+    0 -2px 0 var(--paper), 0 2px 0 var(--paper),
+    -2px 0 0 var(--paper), 2px 0 0 var(--paper);
+  --halo-navy:
+    -2px -2px 0 var(--navy), 2px -2px 0 var(--navy),
+    -2px 2px 0 var(--navy), 2px 2px 0 var(--navy),
+    0 -2px 0 var(--navy), 0 2px 0 var(--navy),
+    -2px 0 0 var(--navy), 2px 0 0 var(--navy);
+  --sp-1: 2px; --sp-2: 4px; --sp-3: 6px; --sp-4: 8px; --sp-5: 12px; --sp-6: 16px;
+  --fs-xs: 0.86em; --fs-sm: 0.93em; --fs-md: 1em; --fs-lg: 1.07em;
+  --fs-xl: 1.21em; --fs-2xl: 1.57em; --fs-stat: 2.7em;
+  --b: 2px solid var(--navy);
+  --b-paper: 2px solid var(--paper);
+  --hatch-dots: radial-gradient(var(--navy) 1px, transparent 1px);
+  --hatch-dots-size: 4px 4px;
+  --hatch-diag-tight: repeating-linear-gradient(45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px);
+  --hatch-cross-tight: repeating-linear-gradient(45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px), repeating-linear-gradient(-45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px);
+  --active-bg: radial-gradient(var(--navy) 1px, transparent 1px);
+  --active-bg-size: 3px 3px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; }
+body {
+  background: #111;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  color: var(--navy);
+  display: flex;
+  gap: 40px;
+  padding: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.sheet-frame {
+  width: 680px;
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #000;
+}
+.sheet-header {
+  background: var(--navy);
+  color: #fff;
+  padding: var(--sp-6) var(--sp-6) 0;
+}
+.char-name {
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  display: block;
+  border-bottom: var(--b-paper);
+  padding: var(--sp-1) 0;
+}
+.background-section {
+  background: var(--navy);
+  color: #fff;
+  padding: var(--sp-3) var(--sp-6) var(--sp-5);
+}
+.background-section h3 {
+  color: var(--paper);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--sp-2);
+  border: none;
+}
+.background-text {
+  color: var(--paper);
+  font-size: var(--fs-md);
+  line-height: 1.4;
+}
+.sheet-tabs {
+  display: flex;
+  background: var(--navy);
+  padding: 0 var(--sp-6);
+  border-bottom: var(--b-paper);
+}
+.sheet-tab {
+  font-family: inherit;
+  padding: var(--sp-4) var(--sp-6);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: transparent;
+  border: 2px solid transparent;
+  border-bottom: none;
+  margin-bottom: -2px;
+  color: var(--paper);
+  cursor: pointer;
+}
+.sheet-tab.active {
+  color: var(--navy);
+  border-color: var(--paper);
+  background: var(--paper);
+}
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  flex: 1;
+  overflow-y: auto;
+}
+.tab-content > * { flex-shrink: 0; }
+
+/* ========== STATUS STRIP (top) ========== */
+/* All conditions in one row: auto-derived (Critical/Wounded/Cracked) + manual (Stunned/Shaken/Prone) */
+.status-strip {
+  display: flex;
+  gap: var(--sp-2);
+  padding: var(--sp-4) var(--sp-6);
+  min-height: 32px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.status-strip:empty { padding: var(--sp-2) var(--sp-6); }
+.status-pill {
+  display: inline-block;
+  padding: var(--sp-1) var(--sp-4);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+  background: var(--paper);
+  border: var(--b);
+}
+.pill-critical {
+  background-color: var(--paper);
+  background-image: var(--hatch-cross-tight);
+  color: #fff;
+  text-shadow: var(--halo-navy);
+}
+.pill-wounded {
+  background-color: var(--paper);
+  background-image: var(--hatch-diag-tight);
+  text-shadow: var(--halo-paper);
+}
+.pill-cracked {
+  background-color: var(--paper);
+  background-image: var(--hatch-dots);
+  background-size: var(--hatch-dots-size);
+  text-shadow: var(--halo-paper);
+}
+/* Manual conditions use same pill style but lighter pattern */
+.pill-condition {
+  background-color: var(--paper);
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+  text-shadow: var(--halo-paper);
+}
+
+/* ========== STATS ========== */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+  padding: var(--sp-5) var(--sp-6) var(--sp-6);
+}
+.stat-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  justify-items: center;
+  background: var(--paper);
+  border: var(--b);
+}
+.stat-icon-col {
+  grid-row: 1 / -1;
+  align-self: stretch;
+  justify-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-4) var(--sp-2) var(--sp-2);
+  border-right: var(--b);
+}
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border: var(--b);
+}
+.stat-icon-grit { background: radial-gradient(circle, var(--navy) 1px, transparent 1px); background-size: 4px 4px; }
+.stat-icon-sharp { background: repeating-linear-gradient(45deg, var(--navy), var(--navy) 1px, transparent 1px, transparent 3px); }
+.stat-icon-nerve { background: repeating-linear-gradient(0deg, var(--navy), var(--navy) 1px, transparent 1px, transparent 3px); }
+.stat-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.stat-value {
+  font-size: var(--fs-stat);
+  font-weight: 700;
+}
+.stat-roll-buttons {
+  grid-column: 2;
+  justify-self: stretch;
+  display: flex;
+  margin: 0 -2px -2px -2px;
+}
+.stat-roll-buttons button {
+  flex: 1;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-md);
+  background: var(--paper);
+  border: var(--b);
+  border-right: none;
+  color: var(--navy);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.stat-roll-buttons button:last-child { border-right: var(--b); }
+.stat-roll-buttons button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0 var(--navy);
+}
+
+/* ========== GUARD / DRAIN ========== */
+.resources-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+  padding: 0 var(--sp-6) var(--sp-6);
+}
+.track { display: flex; align-items: center; gap: var(--sp-2); }
+.track-label {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  min-width: 3em;
+}
+.track-boxes { display: flex; gap: var(--sp-1); }
+.track-box {
+  width: 16px; height: 16px;
+  border: var(--b);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.track-box:hover { transform: translate(-1px, -1px); box-shadow: 1px 1px 0 var(--navy); }
+.track-box.guard.filled:nth-child(1) { background-image: repeating-linear-gradient(0deg, transparent, transparent 6px, var(--navy) 6px, var(--navy) 7px); }
+.track-box.guard.filled:nth-child(2) { background-image: repeating-linear-gradient(0deg, transparent, transparent 4px, var(--navy) 4px, var(--navy) 5px); }
+.track-box.guard.filled:nth-child(3) { background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, var(--navy) 3px, var(--navy) 4px); }
+.track-box.guard.filled:nth-child(4) { background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--navy) 2px, var(--navy) 3px); }
+.track-box.guard.filled:nth-child(5) { background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px); }
+.track-box.guard.filled:nth-child(n+6) { background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 2px); }
+.track-box.drain.filled:nth-child(1) { background-image: repeating-linear-gradient(90deg, transparent, transparent 6px, var(--navy) 6px, var(--navy) 7px); }
+.track-box.drain.filled:nth-child(2) { background-image: repeating-linear-gradient(90deg, transparent, transparent 4px, var(--navy) 4px, var(--navy) 5px); }
+.track-box.drain.filled:nth-child(3) { background-image: repeating-linear-gradient(90deg, transparent, transparent 3px, var(--navy) 3px, var(--navy) 4px); }
+.track-box.drain.filled:nth-child(4) { background-image: repeating-linear-gradient(90deg, transparent, transparent 2px, var(--navy) 2px, var(--navy) 3px); }
+.track-counter {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  min-width: 2em;
+  text-align: center;
+}
+
+/* ========== HARM + APPLY ROW ========== */
+.apply-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  padding: 0 var(--sp-6) var(--sp-6);
+}
+.harm-track { display: flex; gap: var(--sp-4); align-items: center; }
+.harm-group { display: flex; align-items: center; gap: var(--sp-1); }
+.harm-level {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  min-width: 3em;
+}
+.harm-box {
+  width: 18px; height: 18px;
+  border: var(--b);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.harm-box:hover { transform: translate(-1px, -1px); box-shadow: 1px 1px 0 var(--navy); }
+.harm-box.filled { background-color: var(--paper); background-image: var(--hatch-dots); background-size: var(--hatch-dots-size); }
+.harm-box.wounded.filled { background-image: var(--hatch-diag-tight); }
+.harm-box.critical.filled { background-image: var(--hatch-cross-tight); }
+
+.apply-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-left: auto;
+}
+.apply-input-group {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.apply-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.apply-input {
+  width: 3em;
+  font-family: inherit;
+  font-size: var(--fs-lg);
+  background: transparent;
+  border: none;
+  border-bottom: var(--b);
+  text-align: center;
+  color: var(--navy);
+  outline: none;
+}
+.armor-value {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  min-width: 1.5rem;
+  text-align: center;
+}
+.apply-btn {
+  padding: var(--sp-2) var(--sp-5);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--navy);
+  border: var(--b);
+  color: var(--paper);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.apply-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 0 var(--navy);
+}
+/* Condition button — secondary, opens a toggle popover or cycles conditions */
+.condition-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-md);
+  background: var(--paper);
+  border: var(--b);
+  color: var(--navy);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.condition-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 0 var(--navy);
+}
+/* When any condition is active, show dot raster to signal "something's on" */
+.condition-btn.has-active {
+  background-color: var(--paper);
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+  text-shadow: var(--halo-paper);
+}
+
+/* Condition popover (shown on click) */
+.condition-popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: var(--navy);
+  border: var(--b-paper);
+  padding: var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  z-index: 100;
+  min-width: 120px;
+}
+.condition-popover .pop-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-4);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--paper);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.condition-popover .pop-item:hover {
+  background: rgba(255,255,255,0.1);
+}
+.condition-popover .pop-item.active {
+  color: #fff;
+  font-weight: 700;
+}
+.condition-popover .pop-item .pop-check {
+  width: 14px;
+  height: 14px;
+  border: var(--b-paper);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+.condition-popover .pop-item.active .pop-check {
+  background: var(--paper);
+  color: var(--navy);
+}
+
+/* ========== COMBAT STRIP ========== */
+.combat-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  padding: 0 var(--sp-6) var(--sp-6);
+}
+.combat-weapon {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  border: var(--b);
+  background: var(--paper);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.combat-weapon:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0 var(--navy);
+}
+.combat-weapon-name {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: var(--fs-sm);
+}
+.combat-weapon-die {
+  font-weight: 700;
+  font-size: var(--fs-xs);
+  border: var(--b);
+  padding: 0 var(--sp-2);
+}
+.combat-weapon-qty {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
+/* ========== DIE TRACKING — only section with lines ========== */
+.die-track {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--navy);
+  border-top: var(--b);
+}
+.die-panel {
+  background: var(--paper);
+  padding: var(--sp-4) var(--sp-6);
+}
+.die-panel-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--sp-3);
+  opacity: 0.5;
+}
+.dice-row { display: flex; gap: var(--sp-4); flex-wrap: wrap; }
+.die-item { display: flex; flex-direction: column; align-items: center; gap: var(--sp-1); }
+.die-box {
+  width: 32px; height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  border: var(--b);
+  background: var(--paper);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.die-box:hover { transform: translate(-1px, -1px); box-shadow: 1px 1px 0 var(--navy); }
+.die-add { border: 2px dashed var(--navy); opacity: 0.25; background: transparent; }
+.die-add:hover { opacity: 0.6; }
+.die-item-label { font-size: 9px; font-weight: 600; text-align: center; width: 32px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.die-setup-tracked {
+  font-size: var(--fs-md);
+  background-color: var(--paper);
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+  text-shadow: var(--halo-paper);
+}
+
+/* Option labels */
+.option-label {
+  background: var(--navy);
+  color: var(--paper);
+  text-align: center;
+  padding: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.option-desc {
+  background: #222;
+  color: #aaa;
+  padding: 12px 16px;
+  font-size: 12px;
+  line-height: 1.6;
+  max-width: 680px;
+}
+
+/* Position helper for popover */
+.apply-controls-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-left: auto;
+}
+</style>
+</head>
+<body>
+
+<!-- ========== CLEAN STATE ========== -->
+<div>
+  <div class="sheet-frame">
+    <div class="sheet-header">
+      <span class="char-name">Murph Callahan</span>
+    </div>
+    <div class="background-section">
+      <h3>Background</h3>
+      <span class="background-text">Former union electrician who saw things in the walls he shouldn't have. Now he talks to something that talks back.</span>
+    </div>
+    <nav class="sheet-tabs">
+      <button class="sheet-tab active">Play</button>
+      <button class="sheet-tab">Gear</button>
+      <button class="sheet-tab">Character</button>
+      <button class="sheet-tab">Notes</button>
+    </nav>
+    <div class="tab-content">
+
+      <!-- Status strip — empty when healthy -->
+      <div class="status-strip"></div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-grit"></span><span class="stat-label">Grit</span></div>
+          <span class="stat-value">1</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-sharp"></span><span class="stat-label">Sharp</span></div>
+          <span class="stat-value">1</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-nerve"></span><span class="stat-label">Nerve</span></div>
+          <span class="stat-value">3</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+      </div>
+
+      <!-- Guard / Drain -->
+      <div class="resources-row">
+        <div class="track">
+          <span class="track-label">Guard</span>
+          <div class="track-boxes">
+            <span class="track-box guard"></span><span class="track-box guard"></span>
+            <span class="track-box guard"></span><span class="track-box guard"></span><span class="track-box guard"></span><span class="track-box guard"></span>
+          </div>
+          <span class="track-counter">6/6</span>
+        </div>
+        <div class="track">
+          <span class="track-label">Drain</span>
+          <div class="track-boxes">
+            <span class="track-box drain"></span><span class="track-box drain"></span>
+            <span class="track-box drain"></span><span class="track-box drain"></span>
+          </div>
+          <span class="track-counter">4/4</span>
+        </div>
+      </div>
+
+      <!-- Harm + Apply -->
+      <div class="apply-row">
+        <div class="harm-track">
+          <div class="harm-group"><span class="harm-level">Hurt</span><span class="harm-box"></span><span class="harm-box"></span></div>
+          <div class="harm-group"><span class="harm-level">Wound</span><span class="harm-box wounded"></span><span class="harm-box wounded"></span></div>
+          <div class="harm-group"><span class="harm-level">Crit</span><span class="harm-box critical"></span><span class="harm-box critical"></span></div>
+        </div>
+        <div class="apply-controls-wrap">
+          <div class="apply-input-group">
+            <span class="apply-label">Armor</span>
+            <span class="armor-value">1</span>
+          </div>
+          <div class="apply-input-group">
+            <span class="apply-label">Dmg</span>
+            <input type="text" class="apply-input" placeholder="—">
+          </div>
+          <button class="apply-btn">Apply</button>
+          <button class="condition-btn" title="Toggle Conditions"><i class="fa-solid fa-person-falling-burst"></i></button>
+        </div>
+      </div>
+
+      <!-- Combat strip -->
+      <div class="combat-strip">
+        <div class="combat-weapon"><span class="combat-weapon-name">Molotov</span><span class="combat-weapon-die">d6</span><span class="combat-weapon-qty">×2</span></div>
+        <div class="combat-weapon"><span class="combat-weapon-name">Pistol</span><span class="combat-weapon-die">d8</span></div>
+      </div>
+
+      <!-- Die tracking -->
+      <div class="die-track">
+        <div class="die-panel">
+          <div class="die-panel-label">Tracking</div>
+          <div class="dice-row">
+            <div class="die-item"><div class="die-box die-add">+</div></div>
+          </div>
+        </div>
+        <div class="die-panel">
+          <div class="die-panel-label">On You</div>
+          <div class="dice-row">
+            <div class="die-item"><div class="die-box die-add">+</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="option-label">Clean State</div>
+  <div class="option-desc">No conditions. Status strip empty. Condition button (person-falling icon) sits next to Apply — click to open popover with Stunned/Shaken/Prone/Pinned toggles.</div>
+</div>
+
+<!-- ========== BEAT UP — with popover open ========== -->
+<div>
+  <div class="sheet-frame">
+    <div class="sheet-header">
+      <span class="char-name">Murph Callahan</span>
+    </div>
+    <div class="background-section">
+      <h3>Background</h3>
+      <span class="background-text">Former union electrician who saw things in the walls he shouldn't have. Now he talks to something that talks back.</span>
+    </div>
+    <nav class="sheet-tabs">
+      <button class="sheet-tab active">Play</button>
+      <button class="sheet-tab">Gear</button>
+      <button class="sheet-tab">Character</button>
+      <button class="sheet-tab">Notes</button>
+    </nav>
+    <div class="tab-content">
+
+      <!-- Status strip — all conditions shown together -->
+      <div class="status-strip">
+        <span class="status-pill pill-critical">Critical</span>
+        <span class="status-pill pill-wounded">Wounded</span>
+        <span class="status-pill pill-cracked">Cracked</span>
+        <span class="status-pill pill-condition">Stunned</span>
+        <span class="status-pill pill-condition">Prone</span>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-grit"></span><span class="stat-label">Grit</span></div>
+          <span class="stat-value">1</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-sharp"></span><span class="stat-label">Sharp</span></div>
+          <span class="stat-value">1</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-nerve"></span><span class="stat-label">Nerve</span></div>
+          <span class="stat-value">3</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+      </div>
+
+      <!-- Guard / Drain — fully spent -->
+      <div class="resources-row">
+        <div class="track">
+          <span class="track-label">Guard</span>
+          <div class="track-boxes">
+            <span class="track-box guard filled"></span><span class="track-box guard filled"></span>
+            <span class="track-box guard filled"></span><span class="track-box guard filled"></span>
+            <span class="track-box guard filled"></span><span class="track-box guard filled"></span>
+          </div>
+          <span class="track-counter">0/6</span>
+        </div>
+        <div class="track">
+          <span class="track-label">Drain</span>
+          <div class="track-boxes">
+            <span class="track-box drain filled"></span><span class="track-box drain filled"></span>
+            <span class="track-box drain filled"></span><span class="track-box drain filled"></span>
+          </div>
+          <span class="track-counter">0/4</span>
+        </div>
+      </div>
+
+      <!-- Harm + Apply — with popover open -->
+      <div class="apply-row">
+        <div class="harm-track">
+          <div class="harm-group"><span class="harm-level">Hurt</span><span class="harm-box filled"></span><span class="harm-box filled"></span></div>
+          <div class="harm-group"><span class="harm-level">Wound</span><span class="harm-box wounded filled"></span><span class="harm-box wounded"></span></div>
+          <div class="harm-group"><span class="harm-level">Crit</span><span class="harm-box critical filled"></span><span class="harm-box critical"></span></div>
+        </div>
+        <div class="apply-controls-wrap">
+          <div class="apply-input-group">
+            <span class="apply-label">Armor</span>
+            <span class="armor-value">1</span>
+          </div>
+          <div class="apply-input-group">
+            <span class="apply-label">Dmg</span>
+            <input type="text" class="apply-input" placeholder="—">
+          </div>
+          <button class="apply-btn">Apply</button>
+          <button class="condition-btn has-active" title="Toggle Conditions"><i class="fa-solid fa-person-falling-burst"></i></button>
+          <!-- Popover shown -->
+          <div class="condition-popover">
+            <div class="pop-item active"><span class="pop-check">✓</span> Stunned</div>
+            <div class="pop-item"><span class="pop-check"></span> Shaken</div>
+            <div class="pop-item active"><span class="pop-check">✓</span> Prone</div>
+            <div class="pop-item"><span class="pop-check"></span> Pinned</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Combat strip -->
+      <div class="combat-strip">
+        <div class="combat-weapon"><span class="combat-weapon-name">Molotov</span><span class="combat-weapon-die">d6</span><span class="combat-weapon-qty">×2</span></div>
+        <div class="combat-weapon"><span class="combat-weapon-name">Pistol</span><span class="combat-weapon-die">d8</span></div>
+      </div>
+
+      <!-- Die tracking -->
+      <div class="die-track">
+        <div class="die-panel">
+          <div class="die-panel-label">Tracking</div>
+          <div class="dice-row">
+            <div class="die-item"><div class="die-box die-setup-tracked">4</div><div class="die-item-label">SETUP</div></div>
+            <div class="die-item"><div class="die-box">d6s</div><div class="die-item-label">Pistol</div></div>
+            <div class="die-item"><div class="die-box die-add">+</div></div>
+          </div>
+        </div>
+        <div class="die-panel">
+          <div class="die-panel-label">On You</div>
+          <div class="dice-row">
+            <div class="die-item"><div class="die-box">d8s</div><div class="die-item-label">Spell</div></div>
+            <div class="die-item"><div class="die-box die-add">+</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="option-label">Beat Up + Popover Open</div>
+  <div class="option-desc">Top strip shows everything: Critical, Wounded, Cracked (auto) + Stunned, Prone (manual). Condition button has dot-raster fill when any condition is active. Popover shows toggles.</div>
+</div>
+
+</body>
+</html>

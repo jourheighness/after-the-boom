@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MONDAS — Current vs Proposed</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+  --navy: #1c2b3a;
+  --paper: #ebe7df;
+  --halo-paper:
+    -2px -2px 0 var(--paper), 2px -2px 0 var(--paper),
+    -2px 2px 0 var(--paper), 2px 2px 0 var(--paper),
+    0 -2px 0 var(--paper), 0 2px 0 var(--paper),
+    -2px 0 0 var(--paper), 2px 0 0 var(--paper);
+  --halo-navy:
+    -2px -2px 0 var(--navy), 2px -2px 0 var(--navy),
+    -2px 2px 0 var(--navy), 2px 2px 0 var(--navy),
+    0 -2px 0 var(--navy), 0 2px 0 var(--navy),
+    -2px 0 0 var(--navy), 2px 0 0 var(--navy);
+  --sp-1: 2px; --sp-2: 4px; --sp-3: 6px; --sp-4: 8px; --sp-5: 12px; --sp-6: 16px;
+  --fs-xs: 0.86em; --fs-sm: 0.93em; --fs-md: 1em; --fs-lg: 1.07em;
+  --fs-xl: 1.21em; --fs-2xl: 1.57em; --fs-stat: 2.7em;
+  --b: 2px solid var(--navy);
+  --b-light: 2px solid var(--navy);
+  --b-paper: 2px solid var(--paper);
+  --hatch-dots: radial-gradient(var(--navy) 1px, transparent 1px);
+  --hatch-dots-size: 4px 4px;
+  --hatch-diag: repeating-linear-gradient(45deg, transparent, transparent 2px, var(--navy) 2px, var(--navy) 3px);
+  --hatch-diag-tight: repeating-linear-gradient(45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px);
+  --hatch-cross-tight: repeating-linear-gradient(45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px), repeating-linear-gradient(-45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px);
+  --active-bg: radial-gradient(var(--navy) 1px, transparent 1px);
+  --active-bg-size: 3px 3px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; }
+body {
+  background: #111;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  color: var(--navy);
+  display: flex;
+  gap: 40px;
+  padding: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.sheet-frame {
+  width: 680px;
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #000;
+}
+.sheet-header {
+  background: var(--navy);
+  color: #fff;
+  padding: var(--sp-6) var(--sp-6) 0;
+}
+.char-name {
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  display: block;
+  border-bottom: var(--b-paper);
+  padding: var(--sp-1) 0;
+}
+.background-section {
+  background: var(--navy);
+  color: #fff;
+  padding: var(--sp-3) var(--sp-6) var(--sp-5);
+}
+.background-section h3 {
+  color: var(--paper);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--sp-2);
+  border: none;
+}
+.background-text {
+  color: var(--paper);
+  font-size: var(--fs-md);
+  line-height: 1.4;
+}
+.sheet-tabs {
+  display: flex;
+  background: var(--navy);
+  padding: 0 var(--sp-6);
+  border-bottom: var(--b-paper);
+}
+.sheet-tab {
+  font-family: inherit;
+  padding: var(--sp-4) var(--sp-6);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: transparent;
+  border: 2px solid transparent;
+  border-bottom: none;
+  margin-bottom: -2px;
+  color: var(--paper);
+  cursor: pointer;
+}
+.sheet-tab.active {
+  color: var(--navy);
+  border-color: var(--paper);
+  background: var(--paper);
+}
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--sp-6) 0;
+}
+.tab-content > * { flex-shrink: 0; }
+
+/* Status pills */
+.status-pills {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  min-height: 20px;
+  padding: var(--sp-5) var(--sp-6);
+}
+.status-pill {
+  display: inline-block;
+  padding: var(--sp-1) var(--sp-4);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+  background: var(--paper);
+  border: var(--b);
+}
+.pill-critical {
+  background-color: var(--paper);
+  background-image: var(--hatch-cross-tight);
+  color: #fff;
+  text-shadow: var(--halo-navy);
+}
+.pill-wounded {
+  background-color: var(--paper);
+  background-image: var(--hatch-diag-tight);
+  text-shadow: var(--halo-paper);
+}
+.pill-cracked {
+  background-color: var(--paper);
+  background-image: var(--hatch-dots);
+  background-size: var(--hatch-dots-size);
+  text-shadow: var(--halo-paper);
+}
+
+/* Take damage */
+.take-damage {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-left: auto;
+}
+.take-damage-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.take-damage-input {
+  width: 3em;
+  font-family: inherit;
+  font-size: var(--fs-lg);
+  background: transparent;
+  border: none;
+  border-bottom: var(--b);
+  text-align: center;
+  color: var(--navy);
+  outline: none;
+}
+.take-damage-btn {
+  padding: var(--sp-1) var(--sp-4);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--navy);
+  border: var(--b);
+  color: var(--paper);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.take-damage-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 0 var(--navy);
+}
+
+/* Stats */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+  padding: var(--sp-5) var(--sp-6);
+}
+.stat-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  justify-items: center;
+  background: var(--paper);
+  border: var(--b);
+}
+.stat-icon-col {
+  grid-row: 1 / -1;
+  align-self: stretch;
+  justify-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-4) var(--sp-2) var(--sp-2);
+  border-right: var(--b);
+}
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border: var(--b);
+}
+.stat-icon-grit { background: radial-gradient(circle, var(--navy) 1px, transparent 1px); background-size: 4px 4px; }
+.stat-icon-sharp { background: repeating-linear-gradient(45deg, var(--navy), var(--navy) 1px, transparent 1px, transparent 3px); }
+.stat-icon-nerve { background: repeating-linear-gradient(0deg, var(--navy), var(--navy) 1px, transparent 1px, transparent 3px); }
+.stat-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.stat-value {
+  font-size: var(--fs-stat);
+  font-weight: 700;
+}
+.stat-roll-buttons {
+  grid-column: 2;
+  justify-self: stretch;
+  display: flex;
+  margin: 0 -2px -2px -2px;
+}
+.stat-roll-buttons button {
+  flex: 1;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-md);
+  background: var(--paper);
+  border: var(--b);
+  border-right: none;
+  color: var(--navy);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.stat-roll-buttons button:last-child { border-right: var(--b); }
+.stat-roll-buttons button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0 var(--navy);
+}
+
+/* Combat strip */
+.combat-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-6);
+}
+.combat-weapon {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  border: var(--b);
+  background: var(--paper);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.combat-weapon:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0 var(--navy);
+}
+.combat-weapon-name {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: var(--fs-sm);
+}
+.combat-weapon-die {
+  font-weight: 700;
+  font-size: var(--fs-xs);
+  border: var(--b);
+  padding: 0 var(--sp-2);
+}
+.combat-weapon-gambit {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border: var(--b-light);
+  padding: 0 var(--sp-2);
+}
+.combat-weapon-qty {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+.combat-weapon.weapon-spent { opacity: 0.3; pointer-events: none; }
+
+/* Resources */
+.resources-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+  padding: var(--sp-5) var(--sp-6);
+}
+.track { display: flex; align-items: center; gap: var(--sp-2); }
+.track-label {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  min-width: 3em;
+}
+.track-boxes { display: flex; gap: var(--sp-1); }
+.track-box {
+  width: 16px; height: 16px;
+  border: var(--b);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.track-box:hover { transform: translate(-1px, -1px); box-shadow: 1px 1px 0 var(--navy); }
+.track-box.guard.filled:nth-child(1) { background-image: repeating-linear-gradient(0deg, transparent, transparent 6px, var(--navy) 6px, var(--navy) 7px); }
+.track-box.guard.filled:nth-child(2) { background-image: repeating-linear-gradient(0deg, transparent, transparent 4px, var(--navy) 4px, var(--navy) 5px); }
+.track-box.drain.filled:nth-child(1) { background-image: repeating-linear-gradient(90deg, transparent, transparent 6px, var(--navy) 6px, var(--navy) 7px); }
+.track-box.drain.filled:nth-child(2) { background-image: repeating-linear-gradient(90deg, transparent, transparent 4px, var(--navy) 4px, var(--navy) 5px); }
+.track-counter {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  min-width: 2em;
+  text-align: center;
+}
+.armor-value {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  min-width: 2rem;
+  text-align: center;
+}
+
+/* Harm + Conditions row */
+.status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  padding: var(--sp-5) var(--sp-6);
+  border-top: var(--b);
+  border-bottom: var(--b);
+}
+.harm-track { display: flex; gap: var(--sp-5); align-items: center; }
+.harm-group { display: flex; align-items: center; gap: var(--sp-1); }
+.harm-level {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  min-width: 3.5em;
+}
+.harm-box {
+  width: 18px; height: 18px;
+  border: var(--b);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.harm-box:hover { transform: translate(-1px, -1px); box-shadow: 1px 1px 0 var(--navy); }
+.harm-box.filled { background-color: var(--paper); background-image: var(--hatch-dots); background-size: var(--hatch-dots-size); }
+.harm-box.wounded.filled { background-image: var(--hatch-diag-tight); }
+.harm-box.critical.filled { background-image: var(--hatch-cross-tight); }
+.conditions-bar { display: flex; gap: var(--sp-2); }
+.condition {
+  display: inline-flex;
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: var(--b);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.condition:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0 var(--navy);
+}
+.condition.active {
+  background-color: var(--paper);
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+  font-weight: 700;
+  text-shadow: var(--halo-paper);
+}
+
+/* Die tracking */
+.die-track {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--navy);
+}
+.die-panel {
+  background: var(--paper);
+  padding: var(--sp-4) var(--sp-6);
+}
+.die-panel-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--sp-3);
+  opacity: 0.5;
+}
+.dice-row { display: flex; gap: var(--sp-4); flex-wrap: wrap; }
+.die-item { display: flex; flex-direction: column; align-items: center; gap: var(--sp-1); }
+.die-box {
+  width: 32px; height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  border: var(--b);
+  background: var(--paper);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.die-box:hover { transform: translate(-1px, -1px); box-shadow: 1px 1px 0 var(--navy); }
+.die-add { border: 2px dashed var(--navy); opacity: 0.25; background: transparent; }
+.die-add:hover { opacity: 0.6; }
+.die-item-label { font-size: 9px; font-weight: 600; text-align: center; width: 32px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.die-setup-tracked {
+  font-size: var(--fs-md);
+  background-color: var(--paper);
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+  text-shadow: var(--halo-paper);
+}
+
+/* Section headers */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--navy);
+  padding: var(--sp-5) var(--sp-6);
+}
+.section-header h3 {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #fff;
+  border: none;
+}
+.section-add {
+  width: 24px; height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  background: transparent;
+  border: var(--b-paper);
+  color: var(--paper);
+  cursor: pointer;
+}
+
+/* Item cards */
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-6);
+}
+.item-card {
+  background: var(--paper);
+  border: var(--b);
+  padding: var(--sp-5);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.item-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0 var(--navy);
+}
+.card-top { display: flex; align-items: center; gap: var(--sp-3); }
+.card-name { font-weight: 700; font-size: var(--fs-lg); }
+.die-badge {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  padding: 0 var(--sp-3);
+  border: var(--b);
+}
+.qty-badge { font-size: var(--fs-md); font-weight: 600; }
+.armor-badge { font-size: var(--fs-sm); font-weight: 700; padding: 0 var(--sp-3); border: var(--b); }
+.thaumatech-badge {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: var(--sp-1) var(--sp-4);
+  background: var(--navy);
+  color: var(--paper);
+}
+.card-controls {
+  display: flex;
+  gap: var(--sp-1);
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.item-card:hover .card-controls { opacity: 1; }
+.ctrl-btn {
+  width: 24px; height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-sm);
+  background: transparent;
+  border: var(--b);
+  color: var(--navy);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.ctrl-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 0 var(--navy);
+}
+.card-desc {
+  font-size: var(--fs-md);
+  margin-top: var(--sp-2);
+  line-height: 1.4;
+}
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+  margin-top: var(--sp-2);
+}
+.tag {
+  font-size: var(--fs-xs);
+  padding: var(--sp-1) var(--sp-4);
+  border: var(--b-light);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.card-gambit {
+  margin-top: var(--sp-3);
+  padding: var(--sp-2) var(--sp-4);
+  border-left: var(--b);
+  font-size: var(--fs-md);
+  line-height: 1.4;
+}
+.gambit-icon { margin-right: var(--sp-1); }
+.gambit-name { font-weight: 600; }
+
+/* Scars */
+.scar-entry {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-6);
+}
+.scar-entry input {
+  flex: 1;
+  font-family: inherit;
+  font-size: var(--fs-md);
+  background: transparent;
+  border: none;
+  border-bottom: var(--b);
+  color: var(--navy);
+  outline: none;
+}
+
+/* Option labels */
+.option-label {
+  background: var(--navy);
+  color: var(--paper);
+  text-align: center;
+  padding: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ========== NEW: Conditions strip at top ========== */
+.conditions-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-6);
+  border-bottom: var(--b);
+}
+.conditions-strip .status-pill {
+  font-size: var(--fs-xs);
+}
+.conditions-strip .cond-btn {
+  display: inline-flex;
+  padding: var(--sp-1) var(--sp-4);
+  font-family: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: var(--b);
+  cursor: pointer;
+  background: var(--paper);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.conditions-strip .cond-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 0 var(--navy);
+}
+.conditions-strip .cond-btn.active {
+  background-color: var(--paper);
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+  font-weight: 700;
+  text-shadow: var(--halo-paper);
+}
+
+/* NEW: harm row with dmg apply instead of conditions */
+.harm-dmg-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  padding: var(--sp-5) var(--sp-6);
+  border-top: var(--b);
+  border-bottom: var(--b);
+}
+</style>
+</head>
+<body>
+
+<!-- ========== CURRENT LAYOUT (as-is) ========== -->
+<div>
+  <div class="sheet-frame">
+    <div class="sheet-header">
+      <span class="char-name">Murph Callahan</span>
+    </div>
+    <div class="background-section">
+      <h3>Background</h3>
+      <span class="background-text">Former union electrician who saw things in the walls he shouldn't have. Now he talks to something that talks back.</span>
+    </div>
+    <nav class="sheet-tabs">
+      <button class="sheet-tab active">Sheet</button>
+      <button class="sheet-tab">Notes</button>
+    </nav>
+    <div class="tab-content">
+
+      <!-- Status pills + DMG -->
+      <div class="status-pills">
+        <span class="status-pill pill-critical">Critical</span>
+        <div class="take-damage">
+          <span class="take-damage-label">Dmg</span>
+          <input type="text" class="take-damage-input" placeholder="—">
+          <button class="take-damage-btn">Apply</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-grit"></span><span class="stat-label">Grit</span></div>
+          <span class="stat-value">1</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-sharp"></span><span class="stat-label">Sharp</span></div>
+          <span class="stat-value">1</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-nerve"></span><span class="stat-label">Nerve</span></div>
+          <span class="stat-value">3</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+      </div>
+
+      <!-- Combat strip -->
+      <div class="combat-strip">
+        <div class="combat-weapon"><span class="combat-weapon-name">Molotov</span><span class="combat-weapon-die">d6</span><span class="combat-weapon-qty">×2</span></div>
+        <div class="combat-weapon"><span class="combat-weapon-name">Pistol</span><span class="combat-weapon-die">d8</span></div>
+      </div>
+
+      <!-- Resources -->
+      <div class="resources-row">
+        <div class="track">
+          <span class="track-label">Guard</span>
+          <div class="track-boxes">
+            <span class="track-box guard filled"></span><span class="track-box guard filled"></span>
+            <span class="track-box guard"></span><span class="track-box guard"></span><span class="track-box guard"></span><span class="track-box guard"></span>
+          </div>
+          <span class="track-counter">4/6</span>
+        </div>
+        <div class="track">
+          <span class="track-label">Drain</span>
+          <div class="track-boxes">
+            <span class="track-box drain filled"></span><span class="track-box drain filled"></span>
+            <span class="track-box drain"></span><span class="track-box drain"></span>
+          </div>
+          <span class="track-counter">2/4</span>
+        </div>
+        <div class="track">
+          <span class="track-label">Armor</span>
+          <span class="armor-value">1</span>
+        </div>
+      </div>
+
+      <!-- Harm + Conditions -->
+      <div class="status-row">
+        <div class="harm-track">
+          <div class="harm-group"><span class="harm-level">Hurt</span><span class="harm-box filled"></span><span class="harm-box"></span></div>
+          <div class="harm-group"><span class="harm-level">Wounded</span><span class="harm-box wounded filled"></span><span class="harm-box wounded"></span></div>
+          <div class="harm-group"><span class="harm-level">Critical</span><span class="harm-box critical filled"></span><span class="harm-box critical"></span></div>
+        </div>
+        <div class="conditions-bar">
+          <span class="condition active">Stunned</span>
+          <span class="condition">Shaken</span>
+          <span class="condition">Prone</span>
+        </div>
+      </div>
+
+      <!-- Die tracking -->
+      <div class="die-track">
+        <div class="die-panel">
+          <div class="die-panel-label">Tracking</div>
+          <div class="dice-row">
+            <div class="die-item"><div class="die-box die-setup-tracked">4</div><div class="die-item-label">SETUP</div></div>
+            <div class="die-item"><div class="die-box">d6s</div><div class="die-item-label">Pistol</div></div>
+            <div class="die-item"><div class="die-box die-add">+</div></div>
+          </div>
+        </div>
+        <div class="die-panel">
+          <div class="die-panel-label">On You</div>
+          <div class="dice-row">
+            <div class="die-item"><div class="die-box die-add">+</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edges -->
+      <div class="list-section">
+        <div class="section-header"><h3>Edges</h3><button class="section-add">+</button></div>
+        <div class="card-stack">
+          <div class="item-card">
+            <div class="card-top">
+              <span class="card-name">Patron's Whisper</span>
+              <div class="card-controls">
+                <button class="ctrl-btn"><i class="fa-solid fa-comment"></i></button>
+                <button class="ctrl-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button class="ctrl-btn"><i class="fa-solid fa-trash-can"></i></button>
+              </div>
+            </div>
+            <p class="card-desc">1/scene — ask a yes/no question</p>
+            <div class="card-gambit"><i class="fa-solid fa-bolt gambit-icon"></i><span class="gambit-name">Demand</span> <span>— compel a truthful answer, costs 2 Drain</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weapons -->
+      <div class="list-section">
+        <div class="section-header"><h3>Weapons</h3><button class="section-add">+</button></div>
+        <div class="card-stack">
+          <div class="item-card">
+            <div class="card-top">
+              <span class="card-name">Pistol</span>
+              <span class="die-badge">d8</span>
+              <div class="card-controls">
+                <button class="ctrl-btn"><i class="fa-solid fa-comment"></i></button>
+                <button class="ctrl-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button class="ctrl-btn"><i class="fa-solid fa-trash-can"></i></button>
+              </div>
+            </div>
+            <p class="card-desc">Standard sidearm</p>
+            <div class="card-tags"><span class="tag">ranged</span><span class="tag">loud</span></div>
+            <div class="card-gambit"><i class="fa-solid fa-bolt gambit-icon"></i><span class="gambit-name">Fanning</span> <span>— empty clip for +2d</span></div>
+          </div>
+          <div class="item-card">
+            <div class="card-top">
+              <span class="card-name">Molotov</span>
+              <span class="die-badge">d6</span>
+              <span class="qty-badge">×2</span>
+              <div class="card-controls">
+                <button class="ctrl-btn"><i class="fa-solid fa-comment"></i></button>
+                <button class="ctrl-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button class="ctrl-btn"><i class="fa-solid fa-trash-can"></i></button>
+              </div>
+            </div>
+            <div class="card-tags"><span class="tag">thrown</span><span class="tag">area</span><span class="tag">loud</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Equipment -->
+      <div class="list-section">
+        <div class="section-header"><h3>Equipment</h3><button class="section-add">+</button></div>
+        <div class="card-stack">
+          <div class="item-card">
+            <div class="card-top">
+              <span class="card-name">Security Vest</span>
+              <span class="armor-badge"><i class="fa-solid fa-shield-halved"></i> 1</span>
+              <div class="card-controls">
+                <button class="ctrl-btn"><i class="fa-solid fa-comment"></i></button>
+                <button class="ctrl-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button class="ctrl-btn"><i class="fa-solid fa-trash-can"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scars -->
+      <div class="list-section">
+        <div class="section-header"><h3>Scars (1)</h3><button class="section-add">+</button></div>
+        <div class="scar-entry">
+          <input type="text" value="Burn scar on left forearm from the duct fire">
+          <button class="ctrl-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="option-label">Current Layout</div>
+</div>
+
+<!-- ========== PROPOSED LAYOUT ========== -->
+<div>
+  <div class="sheet-frame">
+    <div class="sheet-header">
+      <span class="char-name">Murph Callahan</span>
+    </div>
+    <div class="background-section">
+      <h3>Background</h3>
+      <span class="background-text">Former union electrician who saw things in the walls he shouldn't have. Now he talks to something that talks back.</span>
+    </div>
+    <nav class="sheet-tabs">
+      <button class="sheet-tab active">Play</button>
+      <button class="sheet-tab">Gear</button>
+      <button class="sheet-tab">Character</button>
+      <button class="sheet-tab">Notes</button>
+    </nav>
+    <div class="tab-content">
+
+      <!-- Conditions strip at top — status pills + condition toggles -->
+      <div class="conditions-strip">
+        <span class="status-pill pill-critical" style="font-size: var(--fs-xs);">Critical</span>
+        <span class="status-pill pill-wounded" style="font-size: var(--fs-xs);">Wounded</span>
+        <span class="cond-btn active">Stunned</span>
+        <span class="cond-btn">Shaken</span>
+        <span class="cond-btn">Prone</span>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row" style="border-bottom: var(--b);">
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-grit"></span><span class="stat-label">Grit</span></div>
+          <span class="stat-value">1</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-sharp"></span><span class="stat-label">Sharp</span></div>
+          <span class="stat-value">1</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-icon-col"><span class="stat-icon stat-icon-nerve"></span><span class="stat-label">Nerve</span></div>
+          <span class="stat-value">3</span>
+          <div class="stat-roll-buttons"><button><i class="fa-solid fa-shield-halved"></i></button><button><i class="fa-solid fa-scale-balanced"></i></button></div>
+        </div>
+      </div>
+
+      <!-- Guard / Drain / Armor -->
+      <div class="resources-row" style="border-bottom: var(--b);">
+        <div class="track">
+          <span class="track-label">Guard</span>
+          <div class="track-boxes">
+            <span class="track-box guard filled"></span><span class="track-box guard filled"></span>
+            <span class="track-box guard"></span><span class="track-box guard"></span><span class="track-box guard"></span><span class="track-box guard"></span>
+          </div>
+          <span class="track-counter">4/6</span>
+        </div>
+        <div class="track">
+          <span class="track-label">Drain</span>
+          <div class="track-boxes">
+            <span class="track-box drain filled"></span><span class="track-box drain filled"></span>
+            <span class="track-box drain"></span><span class="track-box drain"></span>
+          </div>
+          <span class="track-counter">2/4</span>
+        </div>
+        <div class="track">
+          <span class="track-label">Armor</span>
+          <span class="armor-value">1</span>
+        </div>
+      </div>
+
+      <!-- Harm + DMG Apply (conditions removed, dmg moved here) -->
+      <div class="harm-dmg-row">
+        <div class="harm-track">
+          <div class="harm-group"><span class="harm-level">Hurt</span><span class="harm-box filled"></span><span class="harm-box"></span></div>
+          <div class="harm-group"><span class="harm-level">Wound</span><span class="harm-box wounded filled"></span><span class="harm-box wounded"></span></div>
+          <div class="harm-group"><span class="harm-level">Crit</span><span class="harm-box critical filled"></span><span class="harm-box critical"></span></div>
+        </div>
+        <div class="take-damage">
+          <span class="take-damage-label">Dmg</span>
+          <input type="text" class="take-damage-input" placeholder="—">
+          <button class="take-damage-btn">Apply</button>
+        </div>
+      </div>
+
+      <!-- Combat strip -->
+      <div class="combat-strip" style="border-bottom: var(--b);">
+        <div class="combat-weapon"><span class="combat-weapon-name">Molotov</span><span class="combat-weapon-die">d6</span><span class="combat-weapon-qty">×2</span></div>
+        <div class="combat-weapon"><span class="combat-weapon-name">Pistol</span><span class="combat-weapon-die">d8</span></div>
+      </div>
+
+      <!-- Die tracking -->
+      <div class="die-track">
+        <div class="die-panel">
+          <div class="die-panel-label">Tracking</div>
+          <div class="dice-row">
+            <div class="die-item"><div class="die-box die-setup-tracked">4</div><div class="die-item-label">SETUP</div></div>
+            <div class="die-item"><div class="die-box">d6s</div><div class="die-item-label">Pistol</div></div>
+            <div class="die-item"><div class="die-box die-add">+</div></div>
+          </div>
+        </div>
+        <div class="die-panel">
+          <div class="die-panel-label">On You</div>
+          <div class="dice-row">
+            <div class="die-item"><div class="die-box die-add">+</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="option-label">Proposed Play Tab</div>
+</div>
+
+</body>
+</html>

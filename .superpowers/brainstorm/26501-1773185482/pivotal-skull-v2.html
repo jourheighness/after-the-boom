@@ -1,0 +1,166 @@
+<h2>Pivotal Moment — Raster Skull Cutout</h2>
+<p class="subtitle">Navy background, skull as raster cutout. Three density levels.</p>
+
+<style>
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
+  :root {
+    --navy: #1c2b3a;
+    --paper: #ebe7df;
+    --b: 2px solid #1c2b3a;
+    --sp-3: 6px; --sp-4: 8px; --sp-5: 12px; --sp-6: 16px;
+    --fs-sm: 12px; --fs-md: 14px; --fs-xl: 20px;
+    --hatch-cross-tight: repeating-linear-gradient(45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px), repeating-linear-gradient(-45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px);
+    --halo-navy:
+      -2px -2px 0 var(--navy), 2px -2px 0 var(--navy),
+      -2px 2px 0 var(--navy), 2px 2px 0 var(--navy),
+      0 -2px 0 var(--navy), 0 2px 0 var(--navy),
+      -2px 0 0 var(--navy), 2px 0 0 var(--navy),
+      -1px -2px 0 var(--navy), 1px -2px 0 var(--navy),
+      -1px 2px 0 var(--navy), 1px 2px 0 var(--navy),
+      -2px -1px 0 var(--navy), 2px -1px 0 var(--navy),
+      -2px 1px 0 var(--navy), 2px 1px 0 var(--navy);
+    --halo-navy-thick:
+      -3px -3px 0 var(--navy), 3px -3px 0 var(--navy),
+      -3px 3px 0 var(--navy), 3px 3px 0 var(--navy),
+      0 -3px 0 var(--navy), 0 3px 0 var(--navy),
+      -3px 0 0 var(--navy), 3px 0 0 var(--navy),
+      -2px -3px 0 var(--navy), 2px -3px 0 var(--navy),
+      -2px 3px 0 var(--navy), 2px 3px 0 var(--navy),
+      -3px -2px 0 var(--navy), 3px -2px 0 var(--navy),
+      -3px 2px 0 var(--navy), 3px 2px 0 var(--navy),
+      -1px -3px 0 var(--navy), 1px -3px 0 var(--navy),
+      -1px 3px 0 var(--navy), 1px 3px 0 var(--navy),
+      -3px -1px 0 var(--navy), 3px -1px 0 var(--navy),
+      -3px 1px 0 var(--navy), 3px 1px 0 var(--navy);
+  }
+
+  .pv {
+    font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace;
+    color: var(--navy);
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .pv .header-box {
+    padding: var(--sp-4) var(--sp-5);
+    font-size: var(--fs-xl);
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background-color: var(--navy);
+    background-image: radial-gradient(var(--paper) 1px, transparent 1px);
+    background-size: 3px 3px;
+    color: var(--paper);
+    text-shadow: var(--halo-navy);
+    border: var(--b);
+  }
+
+  .pv .skull-field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    border-left: var(--b);
+    border-right: var(--b);
+    background: var(--navy);
+  }
+
+  /* The raster skull — background-clip:text fills icon shape with pattern */
+  .pv .raster-skull {
+    font-size: 80px;
+    line-height: 1;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .pv .body-text {
+    padding: var(--sp-5);
+    border: var(--b);
+    border-top: none;
+    background-color: var(--paper);
+    background-image: var(--hatch-cross-tight);
+    text-align: center;
+  }
+  .pv .body-text p {
+    margin: 0 0 var(--sp-3);
+    font-weight: 700;
+    font-size: var(--fs-md);
+    color: #fff;
+    text-shadow: var(--halo-navy-thick);
+  }
+  .pv .body-text p:last-child {
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: var(--fs-sm);
+  }
+</style>
+
+<div class="cards">
+
+  <!-- A: Sparse dot raster — the skull is barely there, spectral -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-body">
+      <h3>A — Sparse Dots</h3>
+      <p>Skull filled with loose dot raster (5px grid). Spectral, barely materializing out of the navy void. The dots suggest form without committing to it.</p>
+      <div class="pv" style="margin-top:12px;">
+        <div class="header-box">Murph</div>
+        <div class="skull-field">
+          <i class="fa-solid fa-skull raster-skull" style="
+            background: radial-gradient(var(--paper) 1.2px, transparent 1.2px);
+            background-size: 5px 5px;
+          "></i>
+        </div>
+        <div class="body-text">
+          <p>Both critical slots filled. This is a pivotal moment.</p>
+          <p>The table decides: grievous wound, dramatic death, or something worse.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B: Medium dot raster — the standard MONDAS stamp density -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-body">
+      <h3>B — Standard Stamp</h3>
+      <p>Same dot density as the system's active-state raster (3px grid). The skull is a clerk's stamp — official, processed, filed. Matches the design language exactly.</p>
+      <div class="pv" style="margin-top:12px;">
+        <div class="header-box">Murph</div>
+        <div class="skull-field">
+          <i class="fa-solid fa-skull raster-skull" style="
+            background: radial-gradient(var(--paper) 1px, transparent 1px);
+            background-size: 3px 3px;
+          "></i>
+        </div>
+        <div class="body-text">
+          <p>Both critical slots filled. This is a pivotal moment.</p>
+          <p>The table decides: grievous wound, dramatic death, or something worse.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C: Dense dot raster — nearly solid, heavy, final -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-body">
+      <h3>C — Dense / Near-Solid</h3>
+      <p>Tight dot raster (2.5px grid, larger dots). The skull is almost solid — the raster texture gives it a printed, physical quality. Heavy. Final.</p>
+      <div class="pv" style="margin-top:12px;">
+        <div class="header-box">Murph</div>
+        <div class="skull-field">
+          <i class="fa-solid fa-skull raster-skull" style="
+            background: radial-gradient(var(--paper) 1.3px, transparent 1.3px);
+            background-size: 2.5px 2.5px;
+          "></i>
+        </div>
+        <div class="body-text">
+          <p>Both critical slots filled. This is a pivotal moment.</p>
+          <p>The table decides: grievous wound, dramatic death, or something worse.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

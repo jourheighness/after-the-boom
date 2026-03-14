@@ -1,0 +1,221 @@
+<h2>Pivotal Moment — Skull Treatment</h2>
+<p class="subtitle">Three approaches. Which one hits hardest?</p>
+
+<style>
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
+  :root {
+    --navy: #1c2b3a;
+    --paper: #ebe7df;
+    --b: 2px solid #1c2b3a;
+    --sp-3: 6px; --sp-4: 8px; --sp-5: 12px; --sp-6: 16px;
+    --fs-sm: 12px; --fs-md: 14px; --fs-xl: 20px;
+    --hatch-cross-tight: repeating-linear-gradient(45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px), repeating-linear-gradient(-45deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px);
+    --halo-paper:
+      -2px -2px 0 var(--paper), 2px -2px 0 var(--paper),
+      -2px 2px 0 var(--paper), 2px 2px 0 var(--paper),
+      0 -2px 0 var(--paper), 0 2px 0 var(--paper),
+      -2px 0 0 var(--paper), 2px 0 0 var(--paper),
+      -1px -2px 0 var(--paper), 1px -2px 0 var(--paper),
+      -1px 2px 0 var(--paper), 1px 2px 0 var(--paper),
+      -2px -1px 0 var(--paper), 2px -1px 0 var(--paper),
+      -2px 1px 0 var(--paper), 2px 1px 0 var(--paper);
+    --halo-navy:
+      -2px -2px 0 var(--navy), 2px -2px 0 var(--navy),
+      -2px 2px 0 var(--navy), 2px 2px 0 var(--navy),
+      0 -2px 0 var(--navy), 0 2px 0 var(--navy),
+      -2px 0 0 var(--navy), 2px 0 0 var(--navy),
+      -1px -2px 0 var(--navy), 1px -2px 0 var(--navy),
+      -1px 2px 0 var(--navy), 1px 2px 0 var(--navy),
+      -2px -1px 0 var(--navy), 2px -1px 0 var(--navy),
+      -2px 1px 0 var(--navy), 2px 1px 0 var(--navy);
+  }
+
+  .pv {
+    font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace;
+    color: var(--navy);
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .pv .header-box {
+    padding: var(--sp-4) var(--sp-5);
+    font-size: var(--fs-xl);
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background-color: var(--navy);
+    background-image: radial-gradient(var(--paper) 1px, transparent 1px);
+    background-size: 3px 3px;
+    color: var(--paper);
+    text-shadow: var(--halo-navy);
+    border: var(--b);
+  }
+
+  .pv .body-text {
+    border: var(--b);
+    border-top: none;
+    text-align: center;
+  }
+  .pv .body-text p {
+    margin: 0 0 var(--sp-3);
+    font-weight: 700;
+    color: #fff;
+    text-shadow: var(--halo-navy);
+  }
+  .pv .body-text p:last-child {
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: var(--fs-sm);
+  }
+</style>
+
+<div class="cards">
+
+  <!-- A: Inverted skull — navy skull on paper raster, skull is the void -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-body">
+      <h3>A — Negative Space Skull</h3>
+      <p>Navy background, skull cut out as a paper-colored void with raster dots filling it. The skull is absence, not presence.</p>
+      <div class="pv" style="margin-top:12px;">
+        <div class="header-box">Murph</div>
+        <div style="
+          display:flex; align-items:center; justify-content:center;
+          padding: 20px 0;
+          border-left: var(--b); border-right: var(--b);
+          background: var(--navy);
+          position: relative;
+        ">
+          <i class="fa-solid fa-skull" style="
+            font-size: 80px;
+            color: var(--paper);
+            text-shadow:
+              0 0 12px var(--paper),
+              0 0 24px rgba(235,231,223,0.3);
+            opacity: 0.9;
+          "></i>
+        </div>
+        <div class="body-text" style="
+          padding: var(--sp-5);
+          background-color: var(--paper);
+          background-image: var(--hatch-cross-tight);
+        ">
+          <p>Both critical slots filled. This is a pivotal moment.</p>
+          <p>The table decides: grievous wound, dramatic death, or something worse.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B: Raster-stamped skull — dot pattern fills the skull shape, like a bureaucratic death stamp -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-body">
+      <h3>B — Bureaucratic Death Stamp</h3>
+      <p>Paper background with the skull rendered as a dense dot-raster pattern — like an official stamp marking a file "DECEASED." The system processes your death.</p>
+      <div class="pv" style="margin-top:12px;">
+        <div class="header-box">Murph</div>
+        <div style="
+          display:flex; align-items:center; justify-content:center;
+          padding: 24px 0;
+          border-left: var(--b); border-right: var(--b);
+          background: var(--paper);
+          position: relative;
+        ">
+          <!-- Skull built from layered raster -->
+          <div style="position:relative; width:80px; height:80px; display:flex; align-items:center; justify-content:center;">
+            <!-- Paper halo behind -->
+            <i class="fa-solid fa-skull" style="
+              position:absolute;
+              font-size: 84px;
+              color: var(--paper);
+              z-index: 0;
+            "></i>
+            <!-- Raster fill clipped to skull using background-clip trick -->
+            <i class="fa-solid fa-skull" style="
+              position: relative;
+              font-size: 80px;
+              background: radial-gradient(var(--navy) 1.2px, transparent 1.2px);
+              background-size: 4px 4px;
+              -webkit-background-clip: text;
+              background-clip: text;
+              -webkit-text-fill-color: transparent;
+              z-index: 1;
+            "></i>
+          </div>
+        </div>
+        <div class="body-text" style="
+          padding: var(--sp-5);
+          background-color: var(--paper);
+          background-image: var(--hatch-cross-tight);
+        ">
+          <p>Both critical slots filled. This is a pivotal moment.</p>
+          <p>The table decides: grievous wound, dramatic death, or something worse.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C: Full-bleed cross-hatch with solid skull breaking through -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-body">
+      <h3>C — Breaking Through</h3>
+      <p>The entire card is consumed by cross-hatch. The skull is solid navy, massive, bleeding into the header and text. No containment — the severity has taken over the layout.</p>
+      <div class="pv" style="margin-top:12px;">
+        <div style="
+          position: relative;
+          border: var(--b);
+          background-color: var(--paper);
+          background-image: var(--hatch-cross-tight);
+          padding: 16px;
+          text-align: center;
+          overflow: hidden;
+        ">
+          <!-- Skull behind everything, huge, bleeding -->
+          <i class="fa-solid fa-skull" style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 140px;
+            color: var(--navy);
+            opacity: 0.15;
+            z-index: 0;
+          "></i>
+          <div style="position:relative; z-index:1;">
+            <div style="
+              font-size: var(--fs-xl);
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.08em;
+              color: #fff;
+              text-shadow: var(--halo-navy);
+              margin-bottom: 8px;
+            ">Murph</div>
+            <i class="fa-solid fa-skull" style="
+              font-size: 64px;
+              color: var(--navy);
+              display: block;
+              margin: 8px auto;
+              text-shadow: var(--halo-paper);
+            "></i>
+            <p style="
+              margin: 12px 0 4px;
+              font-size: var(--fs-md);
+              font-weight: 700;
+              color: #fff;
+              text-shadow: var(--halo-navy);
+            ">Both critical slots filled. This is a pivotal moment.</p>
+            <p style="
+              margin: 0;
+              font-size: var(--fs-sm);
+              color: #fff;
+              text-shadow: var(--halo-navy);
+            ">The table decides: grievous wound, dramatic death, or something worse.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
