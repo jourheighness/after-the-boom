@@ -22,13 +22,24 @@
   background-image: var(--hatch-cross-tight);
 }
 
+/* ===================================================
+ * STATUS STRIP (pills left, controls right)
+ * =================================================== */
+
+.mondas .status-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-4) var(--sp-6);
+  min-height: 36px;
+  flex-wrap: wrap;
+}
+
 .mondas .status-pills {
   display: flex;
   gap: var(--sp-2);
   flex-wrap: wrap;
-  min-height: 20px;
-  padding: var(--sp-5) var(--sp-6);
-  margin: 0;
+  align-items: center;
 }
 
 .mondas .status-pill {
@@ -71,6 +82,147 @@
   text-shadow: var(--halo-navy);
 }
 
+/* Condition pill — dot raster (applied conditions: stunned, shaken, prone) */
+.mondas .pill-condition {
+  background-color: var(--paper);
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+  text-shadow: var(--halo-paper);
+}
+
+/* Strip controls — right side of status strip */
+.mondas .strip-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-left: auto;
+  position: relative;
+}
+
+.mondas .strip-input-group {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.mondas .strip-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.mondas input[type="number"].strip-input {
+  width: 3em;
+  min-width: 0;
+  font-size: var(--fs-lg);
+  padding: 0;
+}
+
+.mondas .strip-input::-webkit-inner-spin-button,
+.mondas .strip-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.mondas .strip-input:focus {
+  outline: none;
+  border-bottom-color: var(--navy);
+}
+
+.mondas .strip-btn {
+  padding: var(--sp-2) var(--sp-5);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--navy);
+  border: var(--b);
+  color: var(--paper);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.mondas .strip-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 0 var(--navy);
+}
+
+/* Condition toggle button */
+.mondas .condition-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-md);
+  background: var(--paper);
+  border: var(--b);
+  color: var(--navy);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.mondas .condition-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 0 var(--navy);
+}
+
+.mondas .condition-btn.has-active {
+  background-color: var(--paper);
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+  text-shadow: var(--halo-paper);
+}
+
+/* Condition popover */
+.mondas .condition-popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: var(--navy);
+  border: var(--b-paper);
+  padding: var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  z-index: 100;
+  min-width: 120px;
+}
+
+.mondas .pop-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-4);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--paper);
+  cursor: pointer;
+}
+
+.mondas .pop-item:hover { background: rgba(255,255,255,0.1); }
+.mondas .pop-item.active { color: #fff; font-weight: 700; }
+
+.mondas .pop-check {
+  width: 14px;
+  height: 14px;
+  border: var(--b-paper);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+.mondas .pop-item.active .pop-check {
+  background: var(--paper);
+  color: var(--navy);
+}
+
 /* ===================================================
  * STATS
  * =================================================== */
@@ -79,7 +231,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--sp-6);
-  padding: var(--sp-5) var(--sp-6);
+  padding: var(--sp-6) var(--sp-6) 24px;
   margin: 0;
 }
 
@@ -288,7 +440,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-3);
-  padding: var(--sp-4) var(--sp-6);
+  padding: 0 var(--sp-6) 24px;
   margin: 0;
 }
 
@@ -353,16 +505,44 @@
 }
 
 /* ===================================================
- * RESOURCES (Guard / Drain / Armor)
+ * DEFENSE TRACK (Guard → Armor → Harm)
  * =================================================== */
 
-.mondas .resources-row {
+.mondas .defense-track {
   display: flex;
   align-items: center;
-  gap: var(--sp-6);
-  flex-wrap: wrap;
-  padding: var(--sp-5) var(--sp-6);
-  margin: 0;
+  gap: var(--sp-5);
+  padding: 0 var(--sp-6) 24px;
+}
+
+/* Armor label + value */
+.mondas .armor-block {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.mondas .armor-label {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Harm container — groups hurt/wound/crit together */
+.mondas .harm-container {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-left: auto;
+}
+
+/* Drain row */
+.mondas .drain-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0 var(--sp-6) 24px;
 }
 
 .mondas .track { display: flex; align-items: center; gap: var(--sp-2); }
@@ -480,22 +660,6 @@
 
 .mondas .track input[type="number"]:focus { border-bottom-color: var(--navy); }
 
-/* ===================================================
- * STATUS ROW (Harm + Conditions)
- * =================================================== */
-
-.mondas .status-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-5);
-  padding: var(--sp-5) var(--sp-6);
-  border-top: var(--b);
-  border-bottom: var(--b);
-  margin: 0;
-}
-
-.mondas .harm-track { display: flex; gap: var(--sp-5); align-items: center; }
 .mondas .harm-group { display: flex; align-items: center; gap: var(--sp-1); }
 
 .mondas .harm-level {
@@ -544,40 +708,7 @@
   border-color: var(--navy);
 }
 
-/* --- Conditions --- */
-
-.mondas .conditions-bar { display: flex; gap: var(--sp-2); align-items: center; }
-
-.mondas .condition {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--sp-3) var(--sp-4);
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  border: var(--b);
-  color: var(--navy);
-  cursor: pointer;
-  user-select: none;
-  transition: transform 0.1s, box-shadow 0.1s, background 0.1s, color 0.1s;
-}
-
-.mondas .condition:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 2px 2px 0 var(--navy);
-}
-
-/* Active condition — dot raster stamp (clerk's mark) */
-.mondas .condition.active {
-  background-color: var(--paper);
-  background-image: var(--active-bg);
-  background-size: var(--active-bg-size);
-  border-color: var(--navy);
-  color: var(--navy);
-  font-weight: 700;
-  text-shadow: var(--halo-paper);
-}
+/* Conditions now live in the popover — see STATUS STRIP section */
 
 /* ===================================================
  * SECTION HEADERS (Navy bars)
@@ -726,7 +857,15 @@
   flex-shrink: 0;
 }
 
-.mondas .armor-value {
+.mondas .defense-track .armor-value {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  min-width: 2em;
+  text-align: center;
+}
+
+/* Armor value in item cards — keep larger */
+.mondas .card-top .armor-value {
   display: inline-block;
   font-size: var(--fs-xl);
   font-weight: 700;
@@ -783,63 +922,7 @@
 .mondas .card-gambit .gambit-name { font-weight: 600; color: var(--navy); }
 .mondas .card-gambit .gambit-effect { color: var(--navy); }
 
-/* ===================================================
- * TAKE DAMAGE (in status pills row)
- * =================================================== */
-
-.mondas .take-damage {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  margin-left: auto;
-}
-
-.mondas .take-damage-label {
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--navy);
-  white-space: nowrap;
-}
-
-.mondas input[type="number"].take-damage-input {
-  width: 3em;
-  min-width: 0;
-  font-size: var(--fs-lg);
-  padding: 0;
-}
-
-.mondas .take-damage-input::-webkit-inner-spin-button,
-.mondas .take-damage-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.mondas .take-damage-input:focus {
-  outline: none;
-  border-bottom-color: var(--navy);
-}
-
-.mondas .take-damage-btn {
-  padding: var(--sp-1) var(--sp-4);
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  font-family: inherit;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  background: var(--navy);
-  border: var(--b);
-  color: var(--paper);
-  cursor: pointer;
-  white-space: nowrap;
-  transition: transform 0.1s, box-shadow 0.1s;
-}
-
-.mondas .take-damage-btn:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 1px 1px 0 var(--navy);
-}
+/* Take damage controls now live in strip-controls — see STATUS STRIP section */
 
 /* ===================================================
  * DIE TRACKING
@@ -848,8 +931,7 @@
 .mondas .die-track {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  background: var(--navy);
+  gap: 0;
 }
 
 .mondas .die-panel {
@@ -864,7 +946,6 @@
   letter-spacing: 0.1em;
   color: var(--navy);
   margin-bottom: var(--sp-3);
-  opacity: 0.5;
 }
 
 .mondas .dice-row {

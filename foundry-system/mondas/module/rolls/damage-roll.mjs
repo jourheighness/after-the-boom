@@ -15,19 +15,20 @@ export async function applyDamage(actor, rawDamage, coverArmor = 0, brutal = fal
 
   let remaining = rawDamage;
 
-  // Step 1: Subtract from Guard
-  const guardBefore = system.guard.value;
-  const guardAfter = Math.max(0, guardBefore - remaining);
-  const guardAbsorbed = guardBefore - guardAfter;
+  // Step 1: Subtract from Guard (value = boxes spent, remaining = max - value)
+  const guardRemaining = system.guard.max - system.guard.value;
+  const guardAbsorbed = Math.min(guardRemaining, remaining);
   remaining -= guardAbsorbed;
-  updates["system.guard.value"] = guardAfter;
+  const newGuardValue = system.guard.value + guardAbsorbed;
+  updates["system.guard.value"] = newGuardValue;
 
   if (guardAbsorbed > 0) {
-    messages.push(`Guard absorbs ${guardAbsorbed} (${guardBefore} → ${guardAfter})`);
+    const newRemaining = system.guard.max - newGuardValue;
+    messages.push(`Guard absorbs ${guardAbsorbed} (${guardRemaining} → ${newRemaining})`);
   }
 
   // Step 2: Check for Guard break
-  if (guardBefore > 0 && guardAfter === 0) {
+  if (guardRemaining > 0 && newGuardValue >= system.guard.max) {
     messages.push("⚠ Guard broken!");
 
     // Brutal: +2 overflow when damage breaks Guard

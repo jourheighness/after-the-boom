@@ -1,4 +1,6 @@
 <nav class="sheet-tabs">
-  <button type="button" class="sheet-tab {{#if (eq activeTab 'sheet')}}active{{/if}}" data-action="switchTab" data-tab="sheet">Sheet</button>
+  <button type="button" class="sheet-tab {{#if (eq activeTab 'play')}}active{{/if}}" data-action="switchTab" data-tab="play">Play</button>
+  <button type="button" class="sheet-tab {{#if (eq activeTab 'gear')}}active{{/if}}" data-action="switchTab" data-tab="gear">Gear</button>
+  <button type="button" class="sheet-tab {{#if (eq activeTab 'character')}}active{{/if}}" data-action="switchTab" data-tab="character">Character</button>
   <button type="button" class="sheet-tab {{#if (eq activeTab 'notes')}}active{{/if}}" data-action="switchTab" data-tab="notes">Notes</button>
 </nav>

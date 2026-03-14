@@ -7,11 +7,14 @@ const { ActorSheetV2 } = foundry.applications.sheets;
 export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
   /** Track active tab across renders */
-  _activeTab = "sheet";
+  _activeTab = "play";
+
+  /** Track condition popover open state */
+  _conditionPopoverOpen = false;
 
   static DEFAULT_OPTIONS = {
     classes: ["mondas", "character-sheet"],
-    position: { width: 680, height: 720 },
+    position: { width: 680, height: 820 },
     actions: {
       rollStat: MondasCharacterSheet.#onRollStat,
       addEdge: MondasCharacterSheet.#onAddEdge,
@@ -35,6 +38,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
       addScar: MondasCharacterSheet.#onAddScar,
       removeScar: MondasCharacterSheet.#onRemoveScar,
       takeDamage: MondasCharacterSheet.#onTakeDamage,
+      toggleConditionPopover: MondasCharacterSheet.#onToggleConditionPopover,
       addTrackedDie: MondasCharacterSheet.#onAddTrackedDie,
       rollTrackedDie: MondasCharacterSheet.#onRollTrackedDie,
       removeTrackedDie: MondasCharacterSheet.#onRemoveTrackedDie,
@@ -50,12 +54,16 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
   };
 
   static PARTS = {
-    header: { template: "systems/mondas/templates/actor/header.hbs" },
-    tabs:   { template: "systems/mondas/templates/actor/tabs.hbs" },
-    sheet:  { template: "systems/mondas/templates/actor/sheet.hbs",
-              scrollable: [""] },
-    notes:  { template: "systems/mondas/templates/actor/notes.hbs",
-              scrollable: [""] },
+    header:    { template: "systems/mondas/templates/actor/header.hbs" },
+    tabs:      { template: "systems/mondas/templates/actor/tabs.hbs" },
+    play:      { template: "systems/mondas/templates/actor/sheet.hbs",
+                 scrollable: [""] },
+    gear:      { template: "systems/mondas/templates/actor/gear.hbs",
+                 scrollable: [""] },
+    character: { template: "systems/mondas/templates/actor/character.hbs",
+                 scrollable: [""] },
+    notes:     { template: "systems/mondas/templates/actor/notes.hbs",
+                 scrollable: [""] },
   };
 
   /** Prepare data for rendering */
@@ -85,6 +93,8 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     // Harm
     context.harm = system.harm;
     context.conditions = system.conditions;
+    context.hasActiveCondition = Object.values(system.conditions).some(v => v);
+    context.conditionPopoverOpen = this._conditionPopoverOpen;
 
     // Derived harm states — compute directly for reliability
     context.wounded = system.harm.wounded.slot1.filled || system.harm.wounded.slot2.filled;
@@ -451,10 +461,17 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     await this.actor.update({ [path]: !current });
   }
 
+  /* ---- Condition Popover ---- */
+
+  static #onToggleConditionPopover(event, target) {
+    this._conditionPopoverOpen = !this._conditionPopoverOpen;
+    this.render();
+  }
+
   /* ---- Take Damage ---- */
 
   static async #onTakeDamage(event, target) {
-    const input = this.element.querySelector(".take-damage-input");
+    const input = this.element.querySelector(".strip-input");
     const raw = parseInt(input?.value, 10);
     if (!raw || raw <= 0) return;
     const { applyDamage } = await import("../rolls/damage-roll.mjs");
@@ -640,9 +657,10 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     await this.actor.update({ "system.setupDie": { active: false, value: 0, source: "" } });
   }
 
-  /** Switch between Sheet and Notes tabs */
+  /** Switch tabs */
   static #onSwitchTab(event, target) {
     this._activeTab = target.dataset.tab;
+    this._conditionPopoverOpen = false;
     this.render();
   }
 }
