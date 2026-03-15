@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gambit Tag Variations</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1c2b3a;
+    --paper: #ebe7df;
+    --halo-paper:
+      -2px -2px 0 var(--paper),  2px -2px 0 var(--paper),
+      -2px  2px 0 var(--paper),  2px  2px 0 var(--paper),
+       0   -2px 0 var(--paper),  0    2px 0 var(--paper),
+      -2px  0   0 var(--paper),  2px  0   0 var(--paper),
+      -1px -2px 0 var(--paper),  1px -2px 0 var(--paper),
+      -1px  2px 0 var(--paper),  1px  2px 0 var(--paper),
+      -2px -1px 0 var(--paper),  2px -1px 0 var(--paper),
+      -2px  1px 0 var(--paper),  2px  1px 0 var(--paper);
+    --halo-navy:
+      -2px -2px 0 var(--navy),  2px -2px 0 var(--navy),
+      -2px  2px 0 var(--navy),  2px  2px 0 var(--navy),
+       0   -2px 0 var(--navy),  0    2px 0 var(--navy),
+      -2px  0   0 var(--navy),  2px  0   0 var(--navy),
+      -1px -2px 0 var(--navy),  1px -2px 0 var(--navy),
+      -1px  2px 0 var(--navy),  1px  2px 0 var(--navy),
+      -2px -1px 0 var(--navy),  2px -1px 0 var(--navy),
+      -2px  1px 0 var(--navy),  2px  1px 0 var(--navy);
+    --b: 2px solid var(--navy);
+  }
+
+  body {
+    font-family: 'IBM Plex Mono', monospace;
+    background: var(--navy);
+    color: var(--paper);
+    padding: 2rem;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  h1 { font-size: 1.4rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.2rem; }
+  .subtitle { color: #8a9aaa; margin-bottom: 2rem; font-size: 0.8rem; }
+  h2 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08em; margin: 2rem 0 0.5rem; border-bottom: 2px solid var(--paper); padding-bottom: 0.3rem; }
+  h2 span { color: #8a9aaa; font-weight: 400; font-size: 0.7rem; margin-left: 0.5rem; text-transform: none; letter-spacing: 0; }
+  .note { color: #7a8a9a; font-size: 0.75rem; margin-bottom: 10px; }
+
+  /* ===== CHIP (matches actual combat strip) ===== */
+  .chip {
+    display: inline-flex;
+    align-items: stretch;
+    border: var(--b);
+    margin: 0 8px 10px 0;
+  }
+  .cell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.85em;
+    color: var(--navy);
+    background: var(--paper);
+  }
+  .cell + .cell { border-left: var(--b); }
+  .cell.die {
+    background: repeating-linear-gradient(to bottom, var(--navy) 0 1px, var(--paper) 1px 4px);
+    text-shadow: var(--halo-paper);
+    font-size: 0.8em;
+    padding: 4px 6px;
+  }
+
+  /* ===== GAMBIT CELL VARIATIONS =====
+     Connected to chip — same height, border-left divider.
+     8pt text, die icon, name only. No description. */
+
+  /* V1: Light diagonal raster */
+  .cell.gam-v1 {
+    font-size: 8pt;
+    padding: 4px 6px;
+    gap: 3px;
+    background: repeating-linear-gradient(45deg, var(--navy) 0 1px, var(--paper) 1px 4px);
+    text-shadow: var(--halo-paper);
+  }
+
+  /* V2: Light diagonal, looser */
+  .cell.gam-v2 {
+    font-size: 8pt;
+    padding: 4px 6px;
+    gap: 3px;
+    background: repeating-linear-gradient(45deg, var(--navy) 0 1px, var(--paper) 1px 6px);
+    text-shadow: var(--halo-paper);
+  }
+
+  /* V3: Dot raster */
+  .cell.gam-v3 {
+    font-size: 8pt;
+    padding: 4px 6px;
+    gap: 3px;
+    background: var(--paper);
+    background-image: radial-gradient(var(--navy) 1px, transparent 1px);
+    background-size: 4px 4px;
+    text-shadow: var(--halo-paper);
+  }
+
+  /* V4: Solid navy, paper text */
+  .cell.gam-v4 {
+    font-size: 8pt;
+    padding: 4px 6px;
+    gap: 3px;
+    background: var(--navy);
+    color: var(--paper);
+    text-shadow: none;
+  }
+  .cell.gam-v4 .g-icon { opacity: 0.7; }
+
+  /* V5: Dark offset dots */
+  .cell.gam-v5 {
+    font-size: 8pt;
+    padding: 4px 6px;
+    gap: 3px;
+    background: var(--navy);
+    background-image: radial-gradient(var(--paper) 1px, transparent 1px), radial-gradient(var(--paper) 1px, transparent 1px);
+    background-size: 5px 5px;
+    background-position: 0 0, 2.5px 2.5px;
+    color: var(--paper);
+    text-shadow: var(--halo-navy);
+  }
+
+  /* V6: Two-part — icon in raster, name plain */
+  .cell.gam-v6-icon {
+    font-size: 8pt;
+    padding: 4px 5px;
+    background: repeating-linear-gradient(45deg, var(--navy) 0 1px, var(--paper) 1px 4px);
+    text-shadow: var(--halo-paper);
+  }
+  .cell.gam-v6-name {
+    font-size: 8pt;
+    padding: 4px 6px;
+    background: var(--paper);
+  }
+
+  /* V7: Two-part — icon in dark, name in dark */
+  .cell.gam-v7-icon {
+    font-size: 8pt;
+    padding: 4px 5px;
+    background: var(--navy);
+    background-image: radial-gradient(var(--paper) 1px, transparent 1px), radial-gradient(var(--paper) 1px, transparent 1px);
+    background-size: 5px 5px;
+    background-position: 0 0, 2.5px 2.5px;
+    color: var(--paper);
+    text-shadow: var(--halo-navy);
+  }
+  .cell.gam-v7-name {
+    font-size: 8pt;
+    padding: 4px 6px;
+    background: var(--navy);
+    color: var(--paper);
+  }
+
+  /* V8: H-line raster (matching die cell direction) */
+  .cell.gam-v8 {
+    font-size: 8pt;
+    padding: 4px 6px;
+    gap: 3px;
+    background: repeating-linear-gradient(to bottom, var(--navy) 0 1px, var(--paper) 1px 3px);
+    text-shadow: var(--halo-paper);
+  }
+
+  /* V9: V-line raster (perpendicular to die cell) */
+  .cell.gam-v9 {
+    font-size: 8pt;
+    padding: 4px 6px;
+    gap: 3px;
+    background: repeating-linear-gradient(to right, var(--navy) 0 1px, var(--paper) 1px 3px);
+    text-shadow: var(--halo-paper);
+  }
+
+  /* V10: Plain paper, just smaller text */
+  .cell.gam-v10 {
+    font-size: 8pt;
+    padding: 4px 6px;
+    gap: 3px;
+    background: var(--paper);
+  }
+  .cell.gam-v10 .g-icon { opacity: 0.5; }
+
+  /* ===== CARD with gambit description outside ===== */
+  .mock-card {
+    background: var(--paper);
+    border: var(--b);
+    padding: 8px 10px;
+    margin-bottom: 4px;
+    max-width: 420px;
+    color: var(--navy);
+  }
+  .mock-card-name { font-weight: 700; font-size: 1em; }
+  .mock-card-desc { font-size: 0.9em; margin-top: 4px; }
+  .mock-card-gambit-desc {
+    font-size: 8pt;
+    color: var(--navy);
+    margin: 4px 0 10px;
+    padding-left: 2px;
+    max-width: 420px;
+    opacity: 0.7;
+  }
+
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; padding: 8px 0; }
+  .col { display: flex; flex-direction: column; }
+</style>
+</head>
+<body>
+
+<h1>Gambit Tag</h1>
+<p class="subtitle">Connected chip cell, 8pt, die icon + name only. Description outside in card context.</p>
+
+<!-- ===== WEAPON CHIPS ===== -->
+<h2>Weapon Chips <span>gambit cell connected to weapon + die, same height</span></h2>
+
+<p class="note">V1: Diagonal raster (medium)</p>
+<div class="chip"><span class="cell">Pipe Wrench</span><span class="cell die">d10</span><span class="cell gam-v1"><i class="fa-solid fa-dice-four g-icon"></i> Shatter</span></div>
+<div class="chip"><span class="cell">Throwing Knives</span><span class="cell">x6</span><span class="cell die">d6</span><span class="cell gam-v1"><i class="fa-solid fa-dice-four g-icon"></i> Pin</span></div>
+
+<p class="note">V2: Diagonal raster (light)</p>
+<div class="chip"><span class="cell">Pipe Wrench</span><span class="cell die">d10</span><span class="cell gam-v2"><i class="fa-solid fa-dice-four g-icon"></i> Shatter</span></div>
+<div class="chip"><span class="cell">Throwing Knives</span><span class="cell">x6</span><span class="cell die">d6</span><span class="cell gam-v2"><i class="fa-solid fa-dice-four g-icon"></i> Pin</span></div>
+
+<p class="note">V3: Dot raster</p>
+<div class="chip"><span class="cell">Pipe Wrench</span><span class="cell die">d10</span><span class="cell gam-v3"><i class="fa-solid fa-dice-four g-icon"></i> Shatter</span></div>
+<div class="chip"><span class="cell">Throwing Knives</span><span class="cell">x6</span><span class="cell die">d6</span><span class="cell gam-v3"><i class="fa-solid fa-dice-four g-icon"></i> Pin</span></div>
+
+<p class="note">V4: Solid navy</p>
+<div class="chip"><span class="cell">Pipe Wrench</span><span class="cell die">d10</span><span class="cell gam-v4"><i class="fa-solid fa-dice-four g-icon"></i> Shatter</span></div>
+<div class="chip"><span class="cell">Throwing Knives</span><span class="cell">x6</span><span class="cell die">d6</span><span class="cell gam-v4"><i class="fa-solid fa-dice-four g-icon"></i> Pin</span></div>
+
+<p class="note">V5: Dark offset dots</p>
+<div class="chip"><span class="cell">Pipe Wrench</span><span class="cell die">d10</span><span class="cell gam-v5"><i class="fa-solid fa-dice-four g-icon"></i> Shatter</span></div>
+<div class="chip"><span class="cell">Throwing Knives</span><span class="cell">x6</span><span class="cell die">d6</span><span class="cell gam-v5"><i class="fa-solid fa-dice-four g-icon"></i> Pin</span></div>
+
+<p class="note">V6: Two-part — die icon in raster cell, name plain</p>
+<div class="chip"><span class="cell">Pipe Wrench</span><span class="cell die">d10</span><span class="cell gam-v6-icon"><i class="fa-solid fa-dice-four"></i></span><span class="cell gam-v6-name">Shatter</span></div>
+<div class="chip"><span class="cell">Throwing Knives</span><span class="cell">x6</span><span class="cell die">d6</span><span class="cell gam-v6-icon"><i class="fa-solid fa-dice-four"></i></span><span class="cell gam-v6-name">Pin</span></div>
+
+<p class="note">V7: Two-part dark — die icon in dark raster, name in solid navy</p>
+<div class="chip"><span class="cell">Pipe Wrench</span><span class="cell die">d10</span><span class="cell gam-v7-icon"><i class="fa-solid fa-dice-four"></i></span><span class="cell gam-v7-name">Shatter</span></div>
+<div class="chip"><span class="cell">Throwing Knives</span><span class="cell">x6</span><span class="cell die">d6</span><span class="cell gam-v7-icon"><i class="fa-solid fa-dice-four"></i></span><span class="cell gam-v7-name">Pin</span></div>
+
+<p class="note">V8: H-line raster (denser, same direction as die cell)</p>
+<div class="chip"><span class="cell">Pipe Wrench</span><span class="cell die">d10</span><span class="cell gam-v8"><i class="fa-solid fa-dice-four g-icon"></i> Shatter</span></div>
+<div class="chip"><span class="cell">Throwing Knives</span><span class="cell">x6</span><span class="cell die">d6</span><span class="cell gam-v8"><i class="fa-solid fa-dice-four g-icon"></i> Pin</span></div>
+
+<p class="note">V9: V-line raster (perpendicular to die cell)</p>
+<div class="chip"><span class="cell">Pipe Wrench</span><span class="cell die">d10</span><span class="cell gam-v9"><i class="fa-solid fa-dice-four g-icon"></i> Shatter</span></div>
+<div class="chip"><span class="cell">Throwing Knives</span><span class="cell">x6</span><span class="cell die">d6</span><span class="cell gam-v9"><i class="fa-solid fa-dice-four g-icon"></i> Pin</span></div>
+
+<p class="note">V10: Plain paper, small text, subtle icon</p>
+<div class="chip"><span class="cell">Pipe Wrench</span><span class="cell die">d10</span><span class="cell gam-v10"><i class="fa-solid fa-dice-four g-icon"></i> Shatter</span></div>
+<div class="chip"><span class="cell">Throwing Knives</span><span class="cell">x6</span><span class="cell die">d6</span><span class="cell gam-v10"><i class="fa-solid fa-dice-four g-icon"></i> Pin</span></div>
+
+<!-- ===== EDGE CHIPS (no die) ===== -->
+<h2>Edge Chips <span>no die cell — just name + gambit</span></h2>
+
+<div class="row">
+  <div class="chip"><span class="cell">Hard to Kill</span><span class="cell gam-v1"><i class="fa-solid fa-dice-four g-icon"></i> Dig In</span></div>
+  <div class="chip"><span class="cell">Hard to Kill</span><span class="cell gam-v4"><i class="fa-solid fa-dice-four g-icon"></i> Dig In</span></div>
+  <div class="chip"><span class="cell">Hard to Kill</span><span class="cell gam-v5"><i class="fa-solid fa-dice-four g-icon"></i> Dig In</span></div>
+  <div class="chip"><span class="cell">Hard to Kill</span><span class="cell gam-v6-icon"><i class="fa-solid fa-dice-four"></i></span><span class="cell gam-v6-name">Dig In</span></div>
+</div>
+
+<!-- ===== IN CARD CONTEXT ===== -->
+<h2>In Card Context <span>gear / character tabs — description below the tag, outside it</span></h2>
+<p class="note">Tag is the same chip cell. Description is separate text underneath.</p>
+
+<div class="col">
+  <div class="mock-card">
+    <div class="mock-card-name">Pipe Wrench</div>
+    <div class="mock-card-desc">Two-handed. Dented.</div>
+    <div style="margin-top: 6px;"><span style="display: inline-flex; align-items: center; gap: 3px; padding: 2px 6px; border: var(--b); font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: repeating-linear-gradient(45deg, var(--navy) 0 1px, var(--paper) 1px 4px); text-shadow: var(--halo-paper); color: var(--navy);"><i class="fa-solid fa-dice-four"></i> Shatter</span></div>
+  </div>
+  <div class="mock-card-gambit-desc">Sacrifice 1 die: target armor reduced by 1 until repaired.</div>
+</div>
+
+<div class="col">
+  <div class="mock-card">
+    <div class="mock-card-name">Pipe Wrench</div>
+    <div class="mock-card-desc">Two-handed. Dented.</div>
+    <div style="margin-top: 6px;"><span style="display: inline-flex; align-items: center; gap: 3px; padding: 2px 6px; font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: var(--navy); color: var(--paper);"><i class="fa-solid fa-dice-four"></i> Shatter</span></div>
+  </div>
+  <div class="mock-card-gambit-desc">Sacrifice 1 die: target armor reduced by 1 until repaired.</div>
+</div>
+
+<div class="col">
+  <div class="mock-card">
+    <div class="mock-card-name">Pipe Wrench</div>
+    <div class="mock-card-desc">Two-handed. Dented.</div>
+    <div style="margin-top: 6px;"><span style="display: inline-flex; align-items: center; gap: 3px; padding: 2px 6px; font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: var(--navy); background-image: radial-gradient(var(--paper) 1px, transparent 1px), radial-gradient(var(--paper) 1px, transparent 1px); background-size: 5px 5px; background-position: 0 0, 2.5px 2.5px; color: var(--paper); text-shadow: var(--halo-navy);"><i class="fa-solid fa-dice-four"></i> Shatter</span></div>
+  </div>
+  <div class="mock-card-gambit-desc">Sacrifice 1 die: target armor reduced by 1 until repaired.</div>
+</div>
+
+<div class="col">
+  <div class="mock-card">
+    <div class="mock-card-name">Hard to Kill</div>
+    <div class="mock-card-desc">+1 Guard max</div>
+    <div style="margin-top: 6px;"><span style="display: inline-flex; align-items: center; gap: 3px; padding: 2px 6px; border: var(--b); font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: repeating-linear-gradient(45deg, var(--navy) 0 1px, var(--paper) 1px 4px); text-shadow: var(--halo-paper); color: var(--navy);"><i class="fa-solid fa-dice-four"></i> Dig In</span></div>
+  </div>
+  <div class="mock-card-gambit-desc">Sacrifice 1 die: gain 2 Guard instead of acting.</div>
+</div>
+
+<div class="col">
+  <div class="mock-card">
+    <div class="mock-card-name">Hard to Kill</div>
+    <div class="mock-card-desc">+1 Guard max</div>
+    <div style="margin-top: 6px;"><span style="display: inline-flex; align-items: center; gap: 3px; padding: 2px 6px; font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: var(--navy); color: var(--paper);"><i class="fa-solid fa-dice-four"></i> Dig In</span></div>
+  </div>
+  <div class="mock-card-gambit-desc">Sacrifice 1 die: gain 2 Guard instead of acting.</div>
+</div>
+
+</body>
+</html>

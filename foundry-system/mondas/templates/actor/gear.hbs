@@ -10,7 +10,7 @@
     {{#each weapons}}
     <div class="item-card weapon-card {{#if (eq quantity 0)}}weapon-spent{{/if}}">
       <div class="card-top">
-        <span class="card-name">{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
+        <span class="card-name">{{#if isThrown}}<i class="fa-solid fa-bomb"></i>{{else}}<i class="fa-solid fa-gun"></i>{{/if}}{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
         <span class="die-badge">{{dieBadge}}</span>
         {{#if isSustained}}<span class="thaumatech-badge">Sustained</span>{{/if}}
         {{#if thaumic}}<span class="thaumatech-badge">Thaumatech</span>{{/if}}
@@ -22,18 +22,10 @@
         </div>
       </div>
       {{#if description}}<p class="card-desc">{{description}}</p>{{/if}}
-      {{#if properties.length}}
       <div class="card-tags">
         {{#each properties}}<span class="tag">{{this}}</span>{{/each}}
+        {{#if gambitName}}<span class="tag tag-gambit" {{#if gambitDesc}}data-tip="{{gambitDesc}}"{{/if}}><i class="fa-solid fa-dice-four"></i>{{gambitName}}</span>{{/if}}
       </div>
-      {{/if}}
-      {{#if gambitName}}
-      <div class="card-gambit">
-        <i class="fa-solid fa-bolt gambit-icon"></i>
-        <span class="gambit-name">{{gambitName}}</span>
-        {{#if gambitDesc}}<span class="gambit-effect">— {{gambitDesc}}</span>{{/if}}
-      </div>
-      {{/if}}
     </div>
     {{/each}}
   </div>
@@ -49,7 +41,7 @@
     {{#each equipment}}
     <div class="item-card">
       <div class="card-top">
-        <span class="card-name">{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
+        <span class="card-name"><i class="fa-solid fa-toolbox"></i>{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
         <span class="qty-badge">×{{quantity}}</span>
         {{#if armorValue}}<span class="armor-badge"><i class="fa-solid fa-shield-halved"></i> {{armorValue}}</span>{{/if}}
         <div class="card-controls">
@@ -59,18 +51,10 @@
         </div>
       </div>
       {{#if description}}<p class="card-desc">{{description}}</p>{{/if}}
-      {{#if tags.length}}
       <div class="card-tags">
         {{#each tags}}<span class="tag">{{this}}</span>{{/each}}
+        {{#if gambitName}}<span class="tag tag-gambit" {{#if gambitDesc}}data-tip="{{gambitDesc}}"{{/if}}><i class="fa-solid fa-dice-four"></i>{{gambitName}}</span>{{/if}}
       </div>
-      {{/if}}
-      {{#if gambitName}}
-      <div class="card-gambit">
-        <i class="fa-solid fa-bolt gambit-icon"></i>
-        <span class="gambit-name">{{gambitName}}</span>
-        {{#if gambitDesc}}<span class="gambit-effect">— {{gambitDesc}}</span>{{/if}}
-      </div>
-      {{/if}}
     </div>
     {{/each}}
   </div>

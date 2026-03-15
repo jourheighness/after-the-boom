@@ -366,6 +366,11 @@
   text-shadow: var(--halo-paper) !important;
 }
 
+/* --- Damage dialog condition tags --- */
+.application.mondas-dialog .damage-conditions {
+  padding: var(--sp-5) var(--sp-6);
+}
+
 /* --- Fieldsets --- */
 
 .application.mondas-dialog .thaumatech-gambit-section,

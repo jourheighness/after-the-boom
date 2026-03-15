@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mondas Raster Effects</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1c2b3a;
+    --paper: #ebe7df;
+    --halo-paper:
+      -2px -2px 0 var(--paper),  2px -2px 0 var(--paper),
+      -2px  2px 0 var(--paper),  2px  2px 0 var(--paper),
+       0   -2px 0 var(--paper),  0    2px 0 var(--paper),
+      -2px  0   0 var(--paper),  2px  0   0 var(--paper),
+      -1px -2px 0 var(--paper),  1px -2px 0 var(--paper),
+      -1px  2px 0 var(--paper),  1px  2px 0 var(--paper),
+      -2px -1px 0 var(--paper),  2px -1px 0 var(--paper),
+      -2px  1px 0 var(--paper),  2px  1px 0 var(--paper);
+    --halo-navy:
+      -2px -2px 0 var(--navy),  2px -2px 0 var(--navy),
+      -2px  2px 0 var(--navy),  2px  2px 0 var(--navy),
+       0   -2px 0 var(--navy),  0    2px 0 var(--navy),
+      -2px  0   0 var(--navy),  2px  0   0 var(--navy),
+      -1px -2px 0 var(--navy),  1px -2px 0 var(--navy),
+      -1px  2px 0 var(--navy),  1px  2px 0 var(--navy),
+      -2px -1px 0 var(--navy),  2px -1px 0 var(--navy),
+      -2px  1px 0 var(--navy),  2px  1px 0 var(--navy);
+    --b: 2px solid var(--navy);
+    --b-paper: 2px solid var(--paper);
+  }
+
+  body {
+    font-family: 'IBM Plex Mono', monospace;
+    background: var(--navy);
+    color: var(--paper);
+    padding: 2rem;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+
+  h1 { font-size: 1.6rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.2rem; }
+  .subtitle { color: #8a9aaa; margin-bottom: 2rem; font-size: 0.8rem; }
+  h2 {
+    font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em;
+    margin: 2.5rem 0 0.3rem; padding-bottom: 0.3rem; border-bottom: 2px solid var(--paper);
+  }
+  h2 span { color: #8a9aaa; font-weight: 400; font-size: 0.7rem; margin-left: 0.5rem; text-transform: none; letter-spacing: 0; }
+  .desc { color: #7a8a9a; margin-bottom: 1rem; font-size: 0.75rem; }
+
+  /* ========== GAUGE STRIP (mockup component) ========== */
+  .strip {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px; background: var(--paper); border: var(--b);
+    margin-bottom: 6px;
+  }
+  .strip-inv { background: var(--navy); border: var(--b-paper); }
+  .strip-label {
+    font-size: 0.85em; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--navy); min-width: 6.5em;
+  }
+  .strip-inv .strip-label { color: var(--paper); }
+  .boxes { display: flex; gap: 2px; }
+  .box {
+    width: 28px; height: 28px; border: var(--b);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 700; color: var(--navy);
+    text-shadow: var(--halo-paper);
+  }
+  .strip-inv .box { border: var(--b-paper); color: var(--paper); text-shadow: var(--halo-navy); }
+
+  /* Large preview box */
+  .box-lg {
+    width: 48px; height: 48px; border: var(--b);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; font-weight: 700; color: var(--navy);
+    text-shadow: var(--halo-paper);
+  }
+  .box-lg-inv { border: var(--b-paper); color: var(--paper); text-shadow: var(--halo-navy); }
+
+  /* Pill mockup */
+  .pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 4px 8px; font-size: 0.85em; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    border: var(--b); color: var(--navy); text-shadow: var(--halo-paper);
+  }
+  .pill-inv { border: var(--b-paper); color: var(--paper); text-shadow: var(--halo-navy); }
+
+  /* Banner mockup */
+  .banner {
+    padding: 8px 16px; font-weight: 700; text-align: center;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    border: var(--b); color: var(--navy); text-shadow: var(--halo-paper);
+    font-size: 0.9em; margin-bottom: 6px;
+  }
+  .banner-inv { border: var(--b-paper); color: var(--paper); text-shadow: var(--halo-navy); }
+
+  /* Chip mockup */
+  .chip { display: inline-flex; align-items: stretch; border: var(--b); margin: 0 4px 4px 0; }
+  .chip-cell {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 4px 8px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.04em; font-size: 0.85em; color: var(--navy);
+  }
+  .chip-cell + .chip-cell { border-left: var(--b); }
+  .chip-cell.raster { text-shadow: var(--halo-paper); }
+  .chip-cell.raster-inv { color: var(--paper); text-shadow: var(--halo-navy); }
+
+  /* Code card grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .card { border: 2px solid var(--paper); overflow: hidden; }
+  .card-prev { height: 90px; display: flex; align-items: center; justify-content: center; }
+  .card-prev .txt { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+  .card-prev .txt.p { color: var(--navy); text-shadow: var(--halo-paper); }
+  .card-prev .txt.n { color: var(--paper); text-shadow: var(--halo-navy); }
+  .card-info { padding: 0.5rem; background: var(--navy); border-top: 2px solid var(--paper); }
+  .card-info h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.1rem; }
+  .card-info .fill { font-size: 0.65rem; color: #6a7a8a; margin-bottom: 0.35rem; }
+  .code-wrap { position: relative; border: 1px solid #2a3a4a; }
+  .code-wrap pre { padding: 0.4rem; font-size: 0.6rem; overflow-x: auto; white-space: pre; color: #8a9aaa; max-height: 120px; background: #0d1520; }
+  .copy-btn {
+    position: absolute; top: 3px; right: 3px;
+    background: var(--navy); border: 1px solid #4a5a6a; color: var(--paper);
+    font-size: 0.55rem; padding: 1px 4px; cursor: pointer;
+    font-family: inherit; text-transform: uppercase;
+  }
+  .copy-btn:hover { background: #2a3a4a; }
+
+  /* =============================================
+     RASTER PATTERNS
+     Dots + lines only. No circles, no checkerboard.
+     Max density capped so base color always shows.
+
+     DENSITY STEPS (single layer):
+       1 = 1px / 8px  → 12% fill
+       2 = 1px / 6px  → 17%
+       3 = 1px / 4px  → 25%
+       4 = 1px / 3px  → 33%
+       5 = 1px / 2.5px → 40% (cap — base always visible)
+
+     COMBO LAYERS (grid/diamond) use wider spacing
+     so combined fill stays under ~45%.
+     ============================================= */
+
+  /* ---------- DOTS ----------
+     radial-gradient dots. Fill % = pi*r^2 / (size^2).
+     Capped: r=1.2px on 3px grid = ~50% (still gappy). */
+  /* Dots: min 1px radius always. Density via spacing only.
+     Steps 6-8 use larger dots to push into 50-80% fill. */
+  .r-dot-1 { background: var(--paper); background-image: radial-gradient(var(--navy) 1px, transparent 1px); background-size: 8px 8px; }
+  .r-dot-2 { background: var(--paper); background-image: radial-gradient(var(--navy) 1px, transparent 1px); background-size: 6px 6px; }
+  .r-dot-3 { background: var(--paper); background-image: radial-gradient(var(--navy) 1px, transparent 1px); background-size: 5px 5px; }
+  .r-dot-4 { background: var(--paper); background-image: radial-gradient(var(--navy) 1px, transparent 1px); background-size: 4px 4px; }
+  .r-dot-5 { background: var(--paper); background-image: radial-gradient(var(--navy) 1.2px, transparent 1.2px); background-size: 3.5px 3.5px; }
+  .r-dot-6 { background: var(--paper); background-image: radial-gradient(var(--navy) 1.2px, transparent 1.2px); background-size: 3px 3px; }
+  /* Steps 7-8: radial-gradient gets muddy at small sizes, switch to linear-gradient grid — stays crisp */
+  .r-dot-7 { background: var(--paper); background-image: repeating-linear-gradient(0deg, var(--navy) 0 1px, transparent 1px 2.5px), repeating-linear-gradient(90deg, var(--navy) 0 1px, transparent 1px 2.5px); }
+  .r-dot-8 { background: var(--paper); background-image: repeating-linear-gradient(0deg, var(--navy) 0 2px, transparent 2px 3px), repeating-linear-gradient(90deg, var(--navy) 0 2px, transparent 2px 3px); }
+
+  .r-dot-i1 { background: var(--navy); background-image: radial-gradient(var(--paper) 1px, transparent 1px); background-size: 8px 8px; }
+  .r-dot-i2 { background: var(--navy); background-image: radial-gradient(var(--paper) 1px, transparent 1px); background-size: 6px 6px; }
+  .r-dot-i3 { background: var(--navy); background-image: radial-gradient(var(--paper) 1px, transparent 1px); background-size: 5px 5px; }
+  .r-dot-i4 { background: var(--navy); background-image: radial-gradient(var(--paper) 1px, transparent 1px); background-size: 4px 4px; }
+  .r-dot-i5 { background: var(--navy); background-image: radial-gradient(var(--paper) 1.2px, transparent 1.2px); background-size: 3.5px 3.5px; }
+  .r-dot-i6 { background: var(--navy); background-image: radial-gradient(var(--paper) 1.2px, transparent 1.2px); background-size: 3px 3px; }
+  .r-dot-i7 { background: var(--navy); background-image: repeating-linear-gradient(0deg, var(--paper) 0 1px, transparent 1px 2.5px), repeating-linear-gradient(90deg, var(--paper) 0 1px, transparent 1px 2.5px); }
+  .r-dot-i8 { background: var(--navy); background-image: repeating-linear-gradient(0deg, var(--paper) 0 2px, transparent 2px 3px), repeating-linear-gradient(90deg, var(--paper) 0 2px, transparent 2px 3px); }
+
+  /* ---------- OFFSET DOTS (staggered halftone) ---------- */
+  /* Offset dots: min 1px radius, density via spacing. */
+  .r-odot-1 { background: var(--paper); background-image: radial-gradient(var(--navy) 1px, transparent 1px), radial-gradient(var(--navy) 1px, transparent 1px); background-size: 10px 10px; background-position: 0 0, 5px 5px; }
+  .r-odot-2 { background: var(--paper); background-image: radial-gradient(var(--navy) 1px, transparent 1px), radial-gradient(var(--navy) 1px, transparent 1px); background-size: 8px 8px; background-position: 0 0, 4px 4px; }
+  .r-odot-3 { background: var(--paper); background-image: radial-gradient(var(--navy) 1px, transparent 1px), radial-gradient(var(--navy) 1px, transparent 1px); background-size: 6px 6px; background-position: 0 0, 3px 3px; }
+  .r-odot-4 { background: var(--paper); background-image: radial-gradient(var(--navy) 1px, transparent 1px), radial-gradient(var(--navy) 1px, transparent 1px); background-size: 5px 5px; background-position: 0 0, 2.5px 2.5px; }
+  .r-odot-5 { background: var(--paper); background-image: radial-gradient(var(--navy) 1px, transparent 1px), radial-gradient(var(--navy) 1px, transparent 1px); background-size: 4px 4px; background-position: 0 0, 2px 2px; }
+  .r-odot-6 { background: var(--paper); background-image: radial-gradient(var(--navy) 1.2px, transparent 1.2px), radial-gradient(var(--navy) 1.2px, transparent 1.2px); background-size: 3.5px 3.5px; background-position: 0 0, 1.75px 1.75px; }
+  /* Steps 7-8: switch to diagonal grid — reads as dense offset dots but stays crisp */
+  .r-odot-7 { background: var(--paper); background-image: repeating-linear-gradient(45deg, var(--navy) 0 1px, transparent 1px 2.5px), repeating-linear-gradient(-45deg, var(--navy) 0 1px, transparent 1px 2.5px); }
+  .r-odot-8 { background: var(--paper); background-image: repeating-linear-gradient(45deg, var(--navy) 0 2px, transparent 2px 3px), repeating-linear-gradient(-45deg, var(--navy) 0 2px, transparent 2px 3px); }
+
+  .r-odot-i1 { background: var(--navy); background-image: radial-gradient(var(--paper) 1px, transparent 1px), radial-gradient(var(--paper) 1px, transparent 1px); background-size: 10px 10px; background-position: 0 0, 5px 5px; }
+  .r-odot-i2 { background: var(--navy); background-image: radial-gradient(var(--paper) 1px, transparent 1px), radial-gradient(var(--paper) 1px, transparent 1px); background-size: 8px 8px; background-position: 0 0, 4px 4px; }
+  .r-odot-i3 { background: var(--navy); background-image: radial-gradient(var(--paper) 1px, transparent 1px), radial-gradient(var(--paper) 1px, transparent 1px); background-size: 6px 6px; background-position: 0 0, 3px 3px; }
+  .r-odot-i4 { background: var(--navy); background-image: radial-gradient(var(--paper) 1px, transparent 1px), radial-gradient(var(--paper) 1px, transparent 1px); background-size: 5px 5px; background-position: 0 0, 2.5px 2.5px; }
+  .r-odot-i5 { background: var(--navy); background-image: radial-gradient(var(--paper) 1px, transparent 1px), radial-gradient(var(--paper) 1px, transparent 1px); background-size: 4px 4px; background-position: 0 0, 2px 2px; }
+  .r-odot-i6 { background: var(--navy); background-image: radial-gradient(var(--paper) 1.2px, transparent 1.2px), radial-gradient(var(--paper) 1.2px, transparent 1.2px); background-size: 3.5px 3.5px; background-position: 0 0, 1.75px 1.75px; }
+  .r-odot-i7 { background: var(--navy); background-image: repeating-linear-gradient(45deg, var(--paper) 0 1px, transparent 1px 2.5px), repeating-linear-gradient(-45deg, var(--paper) 0 1px, transparent 1px 2.5px); }
+  .r-odot-i8 { background: var(--navy); background-image: repeating-linear-gradient(45deg, var(--paper) 0 2px, transparent 2px 3px), repeating-linear-gradient(-45deg, var(--paper) 0 2px, transparent 2px 3px); }
+
+  /* ---------- HORIZONTAL LINES (0deg) ---------- */
+  .r-h-1 { background: repeating-linear-gradient(to bottom, var(--navy) 0 1px, var(--paper) 1px 8px); }
+  .r-h-2 { background: repeating-linear-gradient(to bottom, var(--navy) 0 1px, var(--paper) 1px 6px); }
+  .r-h-3 { background: repeating-linear-gradient(to bottom, var(--navy) 0 1px, var(--paper) 1px 4px); }
+  .r-h-4 { background: repeating-linear-gradient(to bottom, var(--navy) 0 1px, var(--paper) 1px 3px); }
+  .r-h-5 { background: repeating-linear-gradient(to bottom, var(--navy) 0 1px, var(--paper) 1px 2.5px); }
+  .r-h-6 { background: repeating-linear-gradient(to bottom, var(--navy) 0 2px, var(--paper) 2px 3.5px); }
+  .r-h-7 { background: repeating-linear-gradient(to bottom, var(--navy) 0 2px, var(--paper) 2px 3px); }
+  .r-h-8 { background: repeating-linear-gradient(to bottom, var(--navy) 0 3px, var(--paper) 3px 4px); }
+
+  .r-h-i1 { background: repeating-linear-gradient(to bottom, var(--paper) 0 1px, var(--navy) 1px 8px); }
+  .r-h-i2 { background: repeating-linear-gradient(to bottom, var(--paper) 0 1px, var(--navy) 1px 6px); }
+  .r-h-i3 { background: repeating-linear-gradient(to bottom, var(--paper) 0 1px, var(--navy) 1px 4px); }
+  .r-h-i4 { background: repeating-linear-gradient(to bottom, var(--paper) 0 1px, var(--navy) 1px 3px); }
+  .r-h-i5 { background: repeating-linear-gradient(to bottom, var(--paper) 0 1px, var(--navy) 1px 2.5px); }
+  .r-h-i6 { background: repeating-linear-gradient(to bottom, var(--paper) 0 2px, var(--navy) 2px 3.5px); }
+  .r-h-i7 { background: repeating-linear-gradient(to bottom, var(--paper) 0 2px, var(--navy) 2px 3px); }
+  .r-h-i8 { background: repeating-linear-gradient(to bottom, var(--paper) 0 3px, var(--navy) 3px 4px); }
+
+  /* ---------- VERTICAL LINES (90deg) ---------- */
+  .r-v-1 { background: repeating-linear-gradient(to right, var(--navy) 0 1px, var(--paper) 1px 8px); }
+  .r-v-2 { background: repeating-linear-gradient(to right, var(--navy) 0 1px, var(--paper) 1px 6px); }
+  .r-v-3 { background: repeating-linear-gradient(to right, var(--navy) 0 1px, var(--paper) 1px 4px); }
+  .r-v-4 { background: repeating-linear-gradient(to right, var(--navy) 0 1px, var(--paper) 1px 3px); }
+  .r-v-5 { background: repeating-linear-gradient(to right, var(--navy) 0 1px, var(--paper) 1px 2.5px); }
+  .r-v-6 { background: repeating-linear-gradient(to right, var(--navy) 0 2px, var(--paper) 2px 3.5px); }
+  .r-v-7 { background: repeating-linear-gradient(to right, var(--navy) 0 2px, var(--paper) 2px 3px); }
+  .r-v-8 { background: repeating-linear-gradient(to right, var(--navy) 0 3px, var(--paper) 3px 4px); }
+
+  .r-v-i1 { background: repeating-linear-gradient(to right, var(--paper) 0 1px, var(--navy) 1px 8px); }
+  .r-v-i2 { background: repeating-linear-gradient(to right, var(--paper) 0 1px, var(--navy) 1px 6px); }
+  .r-v-i3 { background: repeating-linear-gradient(to right, var(--paper) 0 1px, var(--navy) 1px 4px); }
+  .r-v-i4 { background: repeating-linear-gradient(to right, var(--paper) 0 1px, var(--navy) 1px 3px); }
+  .r-v-i5 { background: repeating-linear-gradient(to right, var(--paper) 0 1px, var(--navy) 1px 2.5px); }
+  .r-v-i6 { background: repeating-linear-gradient(to right, var(--paper) 0 2px, var(--navy) 2px 3.5px); }
+  .r-v-i7 { background: repeating-linear-gradient(to right, var(--paper) 0 2px, var(--navy) 2px 3px); }
+  .r-v-i8 { background: repeating-linear-gradient(to right, var(--paper) 0 3px, var(--navy) 3px 4px); }
+
+  /* ---------- DIAGONAL 45deg ---------- */
+  .r-d45-1 { background: repeating-linear-gradient(45deg, var(--navy) 0 1px, var(--paper) 1px 8px); }
+  .r-d45-2 { background: repeating-linear-gradient(45deg, var(--navy) 0 1px, var(--paper) 1px 6px); }
+  .r-d45-3 { background: repeating-linear-gradient(45deg, var(--navy) 0 1px, var(--paper) 1px 4px); }
+  .r-d45-4 { background: repeating-linear-gradient(45deg, var(--navy) 0 1px, var(--paper) 1px 3px); }
+  .r-d45-5 { background: repeating-linear-gradient(45deg, var(--navy) 0 1px, var(--paper) 1px 2.5px); }
+  .r-d45-6 { background: repeating-linear-gradient(45deg, var(--navy) 0 2px, var(--paper) 2px 3.5px); }
+  .r-d45-7 { background: repeating-linear-gradient(45deg, var(--navy) 0 2px, var(--paper) 2px 3px); }
+  .r-d45-8 { background: repeating-linear-gradient(45deg, var(--navy) 0 3px, var(--paper) 3px 4px); }
+
+  .r-d45-i1 { background: repeating-linear-gradient(45deg, var(--paper) 0 1px, var(--navy) 1px 8px); }
+  .r-d45-i2 { background: repeating-linear-gradient(45deg, var(--paper) 0 1px, var(--navy) 1px 6px); }
+  .r-d45-i3 { background: repeating-linear-gradient(45deg, var(--paper) 0 1px, var(--navy) 1px 4px); }
+  .r-d45-i4 { background: repeating-linear-gradient(45deg, var(--paper) 0 1px, var(--navy) 1px 3px); }
+  .r-d45-i5 { background: repeating-linear-gradient(45deg, var(--paper) 0 1px, var(--navy) 1px 2.5px); }
+  .r-d45-i6 { background: repeating-linear-gradient(45deg, var(--paper) 0 2px, var(--navy) 2px 3.5px); }
+  .r-d45-i7 { background: repeating-linear-gradient(45deg, var(--paper) 0 2px, var(--navy) 2px 3px); }
+  .r-d45-i8 { background: repeating-linear-gradient(45deg, var(--paper) 0 3px, var(--navy) 3px 4px); }
+
+  /* ---------- DIAGONAL -45deg (135deg) ---------- */
+  .r-d135-1 { background: repeating-linear-gradient(-45deg, var(--navy) 0 1px, var(--paper) 1px 8px); }
+  .r-d135-2 { background: repeating-linear-gradient(-45deg, var(--navy) 0 1px, var(--paper) 1px 6px); }
+  .r-d135-3 { background: repeating-linear-gradient(-45deg, var(--navy) 0 1px, var(--paper) 1px 4px); }
+  .r-d135-4 { background: repeating-linear-gradient(-45deg, var(--navy) 0 1px, var(--paper) 1px 3px); }
+  .r-d135-5 { background: repeating-linear-gradient(-45deg, var(--navy) 0 1px, var(--paper) 1px 2.5px); }
+  .r-d135-6 { background: repeating-linear-gradient(-45deg, var(--navy) 0 2px, var(--paper) 2px 3.5px); }
+  .r-d135-7 { background: repeating-linear-gradient(-45deg, var(--navy) 0 2px, var(--paper) 2px 3px); }
+  .r-d135-8 { background: repeating-linear-gradient(-45deg, var(--navy) 0 3px, var(--paper) 3px 4px); }
+
+  .r-d135-i1 { background: repeating-linear-gradient(-45deg, var(--paper) 0 1px, var(--navy) 1px 8px); }
+  .r-d135-i2 { background: repeating-linear-gradient(-45deg, var(--paper) 0 1px, var(--navy) 1px 6px); }
+  .r-d135-i3 { background: repeating-linear-gradient(-45deg, var(--paper) 0 1px, var(--navy) 1px 4px); }
+  .r-d135-i4 { background: repeating-linear-gradient(-45deg, var(--paper) 0 1px, var(--navy) 1px 3px); }
+  .r-d135-i5 { background: repeating-linear-gradient(-45deg, var(--paper) 0 1px, var(--navy) 1px 2.5px); }
+  .r-d135-i6 { background: repeating-linear-gradient(-45deg, var(--paper) 0 2px, var(--navy) 2px 3.5px); }
+  .r-d135-i7 { background: repeating-linear-gradient(-45deg, var(--paper) 0 2px, var(--navy) 2px 3px); }
+  .r-d135-i8 { background: repeating-linear-gradient(-45deg, var(--paper) 0 3px, var(--navy) 3px 4px); }
+
+  /* ---------- GRID (0 + 90) ----------
+     Each layer uses wider spacing so combined fill stays under 45%.
+     Step 5 = 1px/5px per layer ≈ 20% each = ~36% combined. */
+  .r-grid-1 { background: var(--paper); background-image: repeating-linear-gradient(0deg, var(--navy) 0 1px, transparent 1px 12px), repeating-linear-gradient(90deg, var(--navy) 0 1px, transparent 1px 12px); }
+  .r-grid-2 { background: var(--paper); background-image: repeating-linear-gradient(0deg, var(--navy) 0 1px, transparent 1px 10px), repeating-linear-gradient(90deg, var(--navy) 0 1px, transparent 1px 10px); }
+  .r-grid-3 { background: var(--paper); background-image: repeating-linear-gradient(0deg, var(--navy) 0 1px, transparent 1px 8px), repeating-linear-gradient(90deg, var(--navy) 0 1px, transparent 1px 8px); }
+  .r-grid-4 { background: var(--paper); background-image: repeating-linear-gradient(0deg, var(--navy) 0 1px, transparent 1px 6px), repeating-linear-gradient(90deg, var(--navy) 0 1px, transparent 1px 6px); }
+  .r-grid-5 { background: var(--paper); background-image: repeating-linear-gradient(0deg, var(--navy) 0 1px, transparent 1px 5px), repeating-linear-gradient(90deg, var(--navy) 0 1px, transparent 1px 5px); }
+  .r-grid-6 { background: var(--paper); background-image: repeating-linear-gradient(0deg, var(--navy) 0 1px, transparent 1px 4px), repeating-linear-gradient(90deg, var(--navy) 0 1px, transparent 1px 4px); }
+  .r-grid-7 { background: var(--paper); background-image: repeating-linear-gradient(0deg, var(--navy) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, var(--navy) 0 1px, transparent 1px 3px); }
+  .r-grid-8 { background: var(--paper); background-image: repeating-linear-gradient(0deg, var(--navy) 0 2px, transparent 2px 3.5px), repeating-linear-gradient(90deg, var(--navy) 0 2px, transparent 2px 3.5px); }
+
+  .r-grid-i1 { background: var(--navy); background-image: repeating-linear-gradient(0deg, var(--paper) 0 1px, transparent 1px 12px), repeating-linear-gradient(90deg, var(--paper) 0 1px, transparent 1px 12px); }
+  .r-grid-i2 { background: var(--navy); background-image: repeating-linear-gradient(0deg, var(--paper) 0 1px, transparent 1px 10px), repeating-linear-gradient(90deg, var(--paper) 0 1px, transparent 1px 10px); }
+  .r-grid-i3 { background: var(--navy); background-image: repeating-linear-gradient(0deg, var(--paper) 0 1px, transparent 1px 8px), repeating-linear-gradient(90deg, var(--paper) 0 1px, transparent 1px 8px); }
+  .r-grid-i4 { background: var(--navy); background-image: repeating-linear-gradient(0deg, var(--paper) 0 1px, transparent 1px 6px), repeating-linear-gradient(90deg, var(--paper) 0 1px, transparent 1px 6px); }
+  .r-grid-i5 { background: var(--navy); background-image: repeating-linear-gradient(0deg, var(--paper) 0 1px, transparent 1px 5px), repeating-linear-gradient(90deg, var(--paper) 0 1px, transparent 1px 5px); }
+  .r-grid-i6 { background: var(--navy); background-image: repeating-linear-gradient(0deg, var(--paper) 0 1px, transparent 1px 4px), repeating-linear-gradient(90deg, var(--paper) 0 1px, transparent 1px 4px); }
+  .r-grid-i7 { background: var(--navy); background-image: repeating-linear-gradient(0deg, var(--paper) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, var(--paper) 0 1px, transparent 1px 3px); }
+  .r-grid-i8 { background: var(--navy); background-image: repeating-linear-gradient(0deg, var(--paper) 0 2px, transparent 2px 3.5px), repeating-linear-gradient(90deg, var(--paper) 0 2px, transparent 2px 3.5px); }
+
+  /* ---------- DIAMOND (45 + -45) ---------- */
+  .r-diam-1 { background: var(--paper); background-image: repeating-linear-gradient(45deg, var(--navy) 0 1px, transparent 1px 12px), repeating-linear-gradient(-45deg, var(--navy) 0 1px, transparent 1px 12px); }
+  .r-diam-2 { background: var(--paper); background-image: repeating-linear-gradient(45deg, var(--navy) 0 1px, transparent 1px 10px), repeating-linear-gradient(-45deg, var(--navy) 0 1px, transparent 1px 10px); }
+  .r-diam-3 { background: var(--paper); background-image: repeating-linear-gradient(45deg, var(--navy) 0 1px, transparent 1px 8px), repeating-linear-gradient(-45deg, var(--navy) 0 1px, transparent 1px 8px); }
+  .r-diam-4 { background: var(--paper); background-image: repeating-linear-gradient(45deg, var(--navy) 0 1px, transparent 1px 6px), repeating-linear-gradient(-45deg, var(--navy) 0 1px, transparent 1px 6px); }
+  .r-diam-5 { background: var(--paper); background-image: repeating-linear-gradient(45deg, var(--navy) 0 1px, transparent 1px 5px), repeating-linear-gradient(-45deg, var(--navy) 0 1px, transparent 1px 5px); }
+  .r-diam-6 { background: var(--paper); background-image: repeating-linear-gradient(45deg, var(--navy) 0 1px, transparent 1px 4px), repeating-linear-gradient(-45deg, var(--navy) 0 1px, transparent 1px 4px); }
+  .r-diam-7 { background: var(--paper); background-image: repeating-linear-gradient(45deg, var(--navy) 0 1px, transparent 1px 3px), repeating-linear-gradient(-45deg, var(--navy) 0 1px, transparent 1px 3px); }
+  .r-diam-8 { background: var(--paper); background-image: repeating-linear-gradient(45deg, var(--navy) 0 2px, transparent 2px 3.5px), repeating-linear-gradient(-45deg, var(--navy) 0 2px, transparent 2px 3.5px); }
+
+  .r-diam-i1 { background: var(--navy); background-image: repeating-linear-gradient(45deg, var(--paper) 0 1px, transparent 1px 12px), repeating-linear-gradient(-45deg, var(--paper) 0 1px, transparent 1px 12px); }
+  .r-diam-i2 { background: var(--navy); background-image: repeating-linear-gradient(45deg, var(--paper) 0 1px, transparent 1px 10px), repeating-linear-gradient(-45deg, var(--paper) 0 1px, transparent 1px 10px); }
+  .r-diam-i3 { background: var(--navy); background-image: repeating-linear-gradient(45deg, var(--paper) 0 1px, transparent 1px 8px), repeating-linear-gradient(-45deg, var(--paper) 0 1px, transparent 1px 8px); }
+  .r-diam-i4 { background: var(--navy); background-image: repeating-linear-gradient(45deg, var(--paper) 0 1px, transparent 1px 6px), repeating-linear-gradient(-45deg, var(--paper) 0 1px, transparent 1px 6px); }
+  .r-diam-i5 { background: var(--navy); background-image: repeating-linear-gradient(45deg, var(--paper) 0 1px, transparent 1px 5px), repeating-linear-gradient(-45deg, var(--paper) 0 1px, transparent 1px 5px); }
+  .r-diam-i6 { background: var(--navy); background-image: repeating-linear-gradient(45deg, var(--paper) 0 1px, transparent 1px 4px), repeating-linear-gradient(-45deg, var(--paper) 0 1px, transparent 1px 4px); }
+  .r-diam-i7 { background: var(--navy); background-image: repeating-linear-gradient(45deg, var(--paper) 0 1px, transparent 1px 3px), repeating-linear-gradient(-45deg, var(--paper) 0 1px, transparent 1px 3px); }
+  .r-diam-i8 { background: var(--navy); background-image: repeating-linear-gradient(45deg, var(--paper) 0 2px, transparent 2px 3.5px), repeating-linear-gradient(-45deg, var(--paper) 0 2px, transparent 2px 3.5px); }
+
+
+</style>
+</head>
+<body>
+
+<h1>Mondas Raster</h1>
+<p class="subtitle">Dots + lines at 0/45/90/135deg. Combined as grids + diamonds. Density capped — base color always visible.</p>
+
+<!-- ============ PROGRESSIONS ON PAPER ============ -->
+<h2>Light → Dark <span>paper base, navy marks — 5 density steps</span></h2>
+<p class="desc">Each row steps from ~12% to ~75% fill. Paper always shows through even at step 8.</p>
+
+<div class="strip"><span class="strip-label">Dots</span><div class="boxes"><div class="box r-dot-1">1</div><div class="box r-dot-2">2</div><div class="box r-dot-3">3</div><div class="box r-dot-4">4</div><div class="box r-dot-5">5</div><div class="box r-dot-6">6</div><div class="box r-dot-7">7</div><div class="box r-dot-8">8</div></div></div>
+<div class="strip"><span class="strip-label">Offset</span><div class="boxes"><div class="box r-odot-1">1</div><div class="box r-odot-2">2</div><div class="box r-odot-3">3</div><div class="box r-odot-4">4</div><div class="box r-odot-5">5</div><div class="box r-odot-6">6</div><div class="box r-odot-7">7</div><div class="box r-odot-8">8</div></div></div>
+<div class="strip"><span class="strip-label">H-Lines</span><div class="boxes"><div class="box r-h-1">1</div><div class="box r-h-2">2</div><div class="box r-h-3">3</div><div class="box r-h-4">4</div><div class="box r-h-5">5</div><div class="box r-h-6">6</div><div class="box r-h-7">7</div><div class="box r-h-8">8</div></div></div>
+<div class="strip"><span class="strip-label">V-Lines</span><div class="boxes"><div class="box r-v-1">1</div><div class="box r-v-2">2</div><div class="box r-v-3">3</div><div class="box r-v-4">4</div><div class="box r-v-5">5</div><div class="box r-v-6">6</div><div class="box r-v-7">7</div><div class="box r-v-8">8</div></div></div>
+<div class="strip"><span class="strip-label">Diag 45</span><div class="boxes"><div class="box r-d45-1">1</div><div class="box r-d45-2">2</div><div class="box r-d45-3">3</div><div class="box r-d45-4">4</div><div class="box r-d45-5">5</div><div class="box r-d45-6">6</div><div class="box r-d45-7">7</div><div class="box r-d45-8">8</div></div></div>
+<div class="strip"><span class="strip-label">Diag -45</span><div class="boxes"><div class="box r-d135-1">1</div><div class="box r-d135-2">2</div><div class="box r-d135-3">3</div><div class="box r-d135-4">4</div><div class="box r-d135-5">5</div><div class="box r-d135-6">6</div><div class="box r-d135-7">7</div><div class="box r-d135-8">8</div></div></div>
+<div class="strip"><span class="strip-label">Grid</span><div class="boxes"><div class="box r-grid-1">1</div><div class="box r-grid-2">2</div><div class="box r-grid-3">3</div><div class="box r-grid-4">4</div><div class="box r-grid-5">5</div><div class="box r-grid-6">6</div><div class="box r-grid-7">7</div><div class="box r-grid-8">8</div></div></div>
+<div class="strip"><span class="strip-label">Diamond</span><div class="boxes"><div class="box r-diam-1">1</div><div class="box r-diam-2">2</div><div class="box r-diam-3">3</div><div class="box r-diam-4">4</div><div class="box r-diam-5">5</div><div class="box r-diam-6">6</div><div class="box r-diam-7">7</div><div class="box r-diam-8">8</div></div></div>
+
+<!-- ============ PROGRESSIONS ON NAVY ============ -->
+<h2>Dark → Light <span>navy base, paper marks — 5 density steps</span></h2>
+
+<div class="strip strip-inv"><span class="strip-label">Dots</span><div class="boxes"><div class="box r-dot-i1">1</div><div class="box r-dot-i2">2</div><div class="box r-dot-i3">3</div><div class="box r-dot-i4">4</div><div class="box r-dot-i5">5</div><div class="box r-dot-i6">6</div><div class="box r-dot-i7">7</div><div class="box r-dot-i8">8</div></div></div>
+<div class="strip strip-inv"><span class="strip-label">Offset</span><div class="boxes"><div class="box r-odot-i1">1</div><div class="box r-odot-i2">2</div><div class="box r-odot-i3">3</div><div class="box r-odot-i4">4</div><div class="box r-odot-i5">5</div><div class="box r-odot-i6">6</div><div class="box r-odot-i7">7</div><div class="box r-odot-i8">8</div></div></div>
+<div class="strip strip-inv"><span class="strip-label">H-Lines</span><div class="boxes"><div class="box r-h-i1">1</div><div class="box r-h-i2">2</div><div class="box r-h-i3">3</div><div class="box r-h-i4">4</div><div class="box r-h-i5">5</div><div class="box r-h-i6">6</div><div class="box r-h-i7">7</div><div class="box r-h-i8">8</div></div></div>
+<div class="strip strip-inv"><span class="strip-label">V-Lines</span><div class="boxes"><div class="box r-v-i1">1</div><div class="box r-v-i2">2</div><div class="box r-v-i3">3</div><div class="box r-v-i4">4</div><div class="box r-v-i5">5</div><div class="box r-v-i6">6</div><div class="box r-v-i7">7</div><div class="box r-v-i8">8</div></div></div>
+<div class="strip strip-inv"><span class="strip-label">Diag 45</span><div class="boxes"><div class="box r-d45-i1">1</div><div class="box r-d45-i2">2</div><div class="box r-d45-i3">3</div><div class="box r-d45-i4">4</div><div class="box r-d45-i5">5</div><div class="box r-d45-i6">6</div><div class="box r-d45-i7">7</div><div class="box r-d45-i8">8</div></div></div>
+<div class="strip strip-inv"><span class="strip-label">Diag -45</span><div class="boxes"><div class="box r-d135-i1">1</div><div class="box r-d135-i2">2</div><div class="box r-d135-i3">3</div><div class="box r-d135-i4">4</div><div class="box r-d135-i5">5</div><div class="box r-d135-i6">6</div><div class="box r-d135-i7">7</div><div class="box r-d135-i8">8</div></div></div>
+<div class="strip strip-inv"><span class="strip-label">Grid</span><div class="boxes"><div class="box r-grid-i1">1</div><div class="box r-grid-i2">2</div><div class="box r-grid-i3">3</div><div class="box r-grid-i4">4</div><div class="box r-grid-i5">5</div><div class="box r-grid-i6">6</div><div class="box r-grid-i7">7</div><div class="box r-grid-i8">8</div></div></div>
+<div class="strip strip-inv"><span class="strip-label">Diamond</span><div class="boxes"><div class="box r-diam-i1">1</div><div class="box r-diam-i2">2</div><div class="box r-diam-i3">3</div><div class="box r-diam-i4">4</div><div class="box r-diam-i5">5</div><div class="box r-diam-i6">6</div><div class="box r-diam-i7">7</div><div class="box r-diam-i8">8</div></div></div>
+
+<!-- ============ IN COMPONENTS ============ -->
+<h2>In Components <span>pills, banners, chips, stat icons</span></h2>
+
+<p class="desc">Condition pills — each severity gets a distinct pattern type.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 0;">
+  <span class="pill" style="background: var(--paper); opacity: 0.35;">Inactive</span>
+  <span class="pill r-dot-3">Cracked</span>
+  <span class="pill r-d45-2">Wounded</span>
+  <span class="pill r-diam-3">Critical</span>
+  <span class="pill r-diam-4">Stunned</span>
+  <span class="pill r-diam-3">Prone</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; padding: 0 0 10px;">
+  <span class="pill pill-inv r-dot-i3">Cracked</span>
+  <span class="pill pill-inv r-d45-i2">Wounded</span>
+  <span class="pill pill-inv r-diam-i3">Critical</span>
+  <span class="pill pill-inv r-diam-i4">Stunned</span>
+  <span class="pill pill-inv r-diam-i3">Prone</span>
+</div>
+
+<p class="desc">Status banners — full-width severity alerts.</p>
+<div class="banner r-diam-3">Incapacitated — Cannot Act</div>
+<div class="banner r-diam-4">Warning — Drain Critical</div>
+<div class="banner r-diam-4">Unstable — Logic Collapse</div>
+<div class="banner banner-inv r-diam-i3">Boom Surge — BTC Spike</div>
+<div class="banner banner-inv r-diam-i3">Cracked — All Drain Spent</div>
+
+<p class="desc" style="margin-top: 1rem;">Combat chips — name + die (h-lines) + gambit (diamond variant).</p>
+<div style="padding: 10px 0;">
+  <div class="chip"><span class="chip-cell" style="background: var(--paper);">Pipe Wrench</span><span class="chip-cell raster r-h-3">d10</span><span class="chip-cell raster r-diam-3">Shatter</span></div>
+  <div class="chip"><span class="chip-cell" style="background: var(--paper);">Snub Revolver</span><span class="chip-cell raster r-h-3">d8</span></div>
+  <div class="chip"><span class="chip-cell" style="background: var(--paper);">Throwing Knives</span><span class="chip-cell" style="background: var(--paper);">x6</span><span class="chip-cell raster r-h-2">d6</span><span class="chip-cell raster r-diam-4">Pin</span></div>
+  <div class="chip"><span class="chip-cell" style="background: var(--paper);">Hard to Kill</span><span class="chip-cell raster r-diam-2">Dig In</span></div>
+</div>
+<div style="padding: 0 0 10px;">
+  <div class="chip" style="border-color: var(--paper);"><span class="chip-cell" style="background: var(--navy); color: var(--paper);">Siphon Probe</span><span class="chip-cell raster-inv r-h-i3">d6</span><span class="chip-cell raster-inv r-diam-i4">Overload</span></div>
+  <div class="chip" style="border-color: var(--paper);"><span class="chip-cell" style="background: var(--navy); color: var(--paper);">Ghost</span><span class="chip-cell raster-inv r-diam-i2">Vanish</span></div>
+</div>
+
+<p class="desc">Stat icons — 48px boxes, each stat has a raster identity.</p>
+<div style="display: flex; gap: 8px; padding: 10px 0; flex-wrap: wrap;">
+  <div style="text-align: center;"><div class="box-lg r-dot-3">G</div><div style="font-size: 0.65rem; margin-top: 2px; color: #8a9aaa;">Grit</div></div>
+  <div style="text-align: center;"><div class="box-lg r-d45-2">S</div><div style="font-size: 0.65rem; margin-top: 2px; color: #8a9aaa;">Sharp</div></div>
+  <div style="text-align: center;"><div class="box-lg r-h-2">N</div><div style="font-size: 0.65rem; margin-top: 2px; color: #8a9aaa;">Nerve</div></div>
+</div>
+<div style="display: flex; gap: 8px; padding: 0 0 10px; flex-wrap: wrap;">
+  <div style="text-align: center;"><div class="box-lg box-lg-inv r-dot-i3">G</div><div style="font-size: 0.65rem; margin-top: 2px; color: #8a9aaa;">Grit inv</div></div>
+  <div style="text-align: center;"><div class="box-lg box-lg-inv r-d45-i2">S</div><div style="font-size: 0.65rem; margin-top: 2px; color: #8a9aaa;">Sharp inv</div></div>
+  <div style="text-align: center;"><div class="box-lg box-lg-inv r-h-i2">N</div><div style="font-size: 0.65rem; margin-top: 2px; color: #8a9aaa;">Nerve inv</div></div>
+</div>
+
+<!-- ============ FULL CATALOG ============ -->
+<h2>Full Catalog <span>copy-paste reference cards</span></h2>
+<div class="grid" id="catalog"></div>
+
+<script>
+function getCSS(cls) {
+  for (const sheet of document.styleSheets) {
+    try { for (const rule of sheet.cssRules) {
+      if (rule.selectorText === "." + cls)
+        return rule.cssText.replace(/^[^{]+\{\s*/, "").replace(/\s*\}$/, "")
+          .split(";").filter(s => s.trim()).map(s => "  " + s.trim() + ";").join("\n");
+    }} catch(e) {}
+  }
+  return "";
+}
+
+const cats = [
+  { label: "Dots", pre: "r-dot-", steps: 8, inv: "r-dot-i" },
+  { label: "Offset Dots", pre: "r-odot-", steps: 8, inv: "r-odot-i" },
+  { label: "H-Lines", pre: "r-h-", steps: 8, inv: "r-h-i" },
+  { label: "V-Lines", pre: "r-v-", steps: 8, inv: "r-v-i" },
+  { label: "Diag 45", pre: "r-d45-", steps: 8, inv: "r-d45-i" },
+  { label: "Diag -45", pre: "r-d135-", steps: 8, inv: "r-d135-i" },
+  { label: "Grid", pre: "r-grid-", steps: 8, inv: "r-grid-i" },
+  { label: "Diamond", pre: "r-diam-", steps: 8, inv: "r-diam-i" },
+];
+
+const el = document.getElementById("catalog");
+let html = "";
+for (const cat of cats) {
+  for (let i = 1; i <= cat.steps; i++) {
+    for (const [cls, base] of [[cat.pre + i, "paper"], [cat.inv + i, "navy"]]) {
+      const css = getCSS(cls);
+      if (!css) continue;
+      const tc = base === "paper" ? "p" : "n";
+      html += `<div class="card">
+        <div class="card-prev ${cls}"><span class="txt ${tc}">${cat.label} ${i}</span></div>
+        <div class="card-info">
+          <h3>${cat.label} ${i} &middot; ${base}</h3>
+          <p class="fill">.${cls}</p>
+          <div class="code-wrap">
+            <button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector('code').textContent)">Copy</button>
+            <pre><code>.${cls} {\n${css}\n}</code></pre>
+          </div>
+        </div>
+      </div>`;
+    }
+  }
+}
+el.innerHTML = html;
+</script>
+</body>
+</html>

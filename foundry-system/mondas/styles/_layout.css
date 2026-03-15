@@ -194,6 +194,11 @@
   background: var(--paper);
 }
 
+/* Play tab: sections control their own spacing */
+.mondas .tab-content[data-tab="play"] {
+  padding: 0;
+}
+
 /* Tab children must not shrink — let the container scroll */
 .mondas .tab-content[data-tab="play"] > *,
 .mondas .tab-content[data-tab="gear"] > *,

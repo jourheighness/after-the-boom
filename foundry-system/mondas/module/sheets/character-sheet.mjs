@@ -9,9 +9,6 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
   /** Track active tab across renders */
   _activeTab = "play";
 
-  /** Track condition popover open state */
-  _conditionPopoverOpen = false;
-
   static DEFAULT_OPTIONS = {
     classes: ["mondas", "character-sheet"],
     position: { width: 680, height: 820 },
@@ -37,8 +34,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
       editBackground: MondasCharacterSheet.#onEditBackground,
       addScar: MondasCharacterSheet.#onAddScar,
       removeScar: MondasCharacterSheet.#onRemoveScar,
-      takeDamage: MondasCharacterSheet.#onTakeDamage,
-      toggleConditionPopover: MondasCharacterSheet.#onToggleConditionPopover,
+      openDamageDialog: MondasCharacterSheet.#onOpenDamageDialog,
       addTrackedDie: MondasCharacterSheet.#onAddTrackedDie,
       rollTrackedDie: MondasCharacterSheet.#onRollTrackedDie,
       removeTrackedDie: MondasCharacterSheet.#onRemoveTrackedDie,
@@ -65,6 +61,43 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     notes:     { template: "systems/mondas/templates/actor/notes.hbs",
                  scrollable: [""] },
   };
+
+  /* ---- Tooltip (shared DOM element, escapes overflow) ---- */
+
+  _onRender(context, options) {
+    super._onRender(context, options);
+    MondasCharacterSheet.#initTooltip(this.element);
+  }
+
+  static #tipEl = null;
+
+  static #initTooltip(root) {
+    // Create shared tooltip element once
+    if (!MondasCharacterSheet.#tipEl) {
+      const el = document.createElement("div");
+      el.id = "mondas-tip";
+      document.body.appendChild(el);
+      MondasCharacterSheet.#tipEl = el;
+    }
+    const tip = MondasCharacterSheet.#tipEl;
+
+    root.querySelectorAll("[data-tip]").forEach((node) => {
+      node.addEventListener("pointerenter", (e) => {
+        const text = node.getAttribute("data-tip");
+        if (!text) return;
+        tip.textContent = text;
+        tip.style.display = "block";
+        const rect = node.getBoundingClientRect();
+        tip.style.left = `${rect.left}px`;
+        tip.style.top = `${rect.bottom + 6}px`;
+        requestAnimationFrame(() => tip.classList.add("visible"));
+      });
+      node.addEventListener("pointerleave", () => {
+        tip.classList.remove("visible");
+        tip.style.display = "none";
+      });
+    });
+  }
 
   /** Prepare data for rendering */
   async _prepareContext(options) {
@@ -93,8 +126,6 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     // Harm
     context.harm = system.harm;
     context.conditions = system.conditions;
-    context.hasActiveCondition = Object.values(system.conditions).some(v => v);
-    context.conditionPopoverOpen = this._conditionPopoverOpen;
 
     // Derived harm states — compute directly for reliability
     context.wounded = system.harm.wounded.slot1.filled || system.harm.wounded.slot2.filled;
@@ -103,21 +134,41 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     context.incapacitated = context.wounded && context.cracked;
     context.mustSpendDrain = context.critical;
 
+    // Any active condition or sustained-self die? Hide panel if empty
+    const hasTrackedSelf = (system.trackedDice ?? []).some((d) => d.type === "sustained-self");
+    context.hasConditions = system.conditions.stunned || system.conditions.shaken || system.conditions.prone
+      || context.cracked || context.wounded || context.critical || hasTrackedSelf;
+
     // Setup die
     context.setupDie = system.setupDie;
 
     // Lists
-    context.edges = system.edges;
     context.weapons = (system.weapons ?? []).map((w) => {
       const isSustained = w.die.startsWith("s");
+      const tipParts = [];
+      if (w.description) tipParts.push(w.description);
+      if (w.properties?.length) tipParts.push(w.properties.join(", "));
+      if (w.gambitName) tipParts.push(`${w.gambitName}${w.gambitDesc ? " — " + w.gambitDesc : ""}`);
       return {
         ...w,
         isThrown: (w.properties ?? []).includes("thrown"),
         isSustained,
         dieBadge: isSustained ? w.die.slice(1) : w.die,
+        tip: tipParts.join(" · "),
       };
     });
-    context.equipment = system.equipment;
+    context.edges = (system.edges ?? []).map((e) => {
+      const tipParts = [];
+      if (e.mechanical) tipParts.push(e.mechanical);
+      if (e.gambitName) tipParts.push(`${e.gambitName}${e.gambitDesc ? " — " + e.gambitDesc : ""}`);
+      return { ...e, tip: tipParts.join(" · ") };
+    });
+    context.equipment = (system.equipment ?? []).map((eq) => {
+      const tipParts = [];
+      if (eq.description) tipParts.push(eq.description);
+      if (eq.gambitName) tipParts.push(`${eq.gambitName}${eq.gambitDesc ? " — " + eq.gambitDesc : ""}`);
+      return { ...eq, tip: tipParts.join(" · ") };
+    });
 
     // Tracked dice — split into outgoing (tracking) and incoming (on you)
     const tracked = system.trackedDice ?? [];
@@ -396,7 +447,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     if (!edge?.name) return;
     let html = `<div class="card-chat-header">${edge.name}</div>`;
     if (edge.mechanical) html += `<p class="card-chat-desc">${edge.mechanical}</p>`;
-    if (edge.gambitName) html += `<div class="card-chat-gambit"><i class="fa-solid fa-bolt gambit-icon"></i> <strong>${edge.gambitName}</strong>${edge.gambitDesc ? ` — ${edge.gambitDesc}` : ""}</div>`;
+    if (edge.gambitName) html += `<div class="card-chat-tags"><span class="tag"><i class="fa-solid fa-dice-four"></i> ${edge.gambitName}</span></div>${edge.gambitDesc ? `<p class="card-chat-desc">${edge.gambitDesc}</p>` : ""}`;
     await MondasCharacterSheet.#chatCard.call(this, html);
   }
 
@@ -415,7 +466,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     let html = `<div class="card-chat-header">${eq.name} <span class="card-chat-qty">×${eq.quantity}</span></div>`;
     if (eq.description) html += `<p class="card-chat-desc">${eq.description}</p>`;
     if (eq.tags?.length) html += `<div class="card-chat-tags">${eq.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>`;
-    if (eq.gambitName) html += `<div class="card-chat-gambit"><i class="fa-solid fa-bolt gambit-icon"></i> <strong>${eq.gambitName}</strong>${eq.gambitDesc ? ` — ${eq.gambitDesc}` : ""}</div>`;
+    if (eq.gambitName) html += `<div class="card-chat-tags"><span class="tag"><i class="fa-solid fa-dice-four"></i> ${eq.gambitName}</span></div>${eq.gambitDesc ? `<p class="card-chat-desc">${eq.gambitDesc}</p>` : ""}`;
     await MondasCharacterSheet.#chatCard.call(this, html);
   }
 
@@ -461,22 +512,92 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     await this.actor.update({ [path]: !current });
   }
 
-  /* ---- Condition Popover ---- */
+  /* ---- Damage Dialog ---- */
 
-  static #onToggleConditionPopover(event, target) {
-    this._conditionPopoverOpen = !this._conditionPopoverOpen;
-    this.render();
-  }
+  static async #onOpenDamageDialog(event, target) {
+    const conditions = this.actor.system.conditions;
+    const defaultLabel = MondasCharacterSheet.#nextLabel(this.actor.system.trackedDice, "sustained-self");
+    const content = `<form class="mondas-dialog-body damage-dialog">
+      <div class="form-group">
+        <label>Damage</label>
+        <input type="number" name="damage" min="0" value="" placeholder="—" autofocus>
+      </div>
+      <div class="tag-toggles damage-conditions">
+        <label class="tag-toggle"><input type="checkbox" name="stunned" ${conditions.stunned ? "checked" : ""}> Stunned</label>
+        <label class="tag-toggle"><input type="checkbox" name="shaken" ${conditions.shaken ? "checked" : ""}> Shaken</label>
+        <label class="tag-toggle"><input type="checkbox" name="prone" ${conditions.prone ? "checked" : ""}> Prone</label>
+      </div>
+      <fieldset>
+        <legend>Add Sustained Die</legend>
+        <div class="form-group">
+          <label>Die</label>
+          <select name="sustainedDie">
+            <option value="">None</option>
+            <option value="d4s">d4s</option>
+            <option value="d6s">d6s</option>
+            <option value="d8s">d8s</option>
+            <option value="d10s">d10s</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Label</label>
+          <input type="text" name="sustainedLabel" placeholder="${defaultLabel}" maxlength="24">
+        </div>
+      </fieldset>
+    </form>`;
 
-  /* ---- Take Damage ---- */
+    const result = await foundry.applications.api.DialogV2.prompt({
+      classes: ["mondas-dialog"],
+      window: { title: "Damage" },
+      position: { width: 400 },
+      content,
+      ok: {
+        label: "Apply",
+        callback: (event, button) => {
+          const form = getDialogForm(event, button);
+          if (!form) return null;
+          const fd = new FormDataExtended(form);
+          const d = fd.object;
+          return {
+            damage: parseInt(d.damage, 10) || 0,
+            stunned: !!d.stunned,
+            shaken: !!d.shaken,
+            prone: !!d.prone,
+            sustainedDie: d.sustainedDie || "",
+            sustainedLabel: d.sustainedLabel || "",
+          };
+        },
+      },
+      rejectClose: false,
+    });
 
-  static async #onTakeDamage(event, target) {
-    const input = this.element.querySelector(".strip-input");
-    const raw = parseInt(input?.value, 10);
-    if (!raw || raw <= 0) return;
-    const { applyDamage } = await import("../rolls/damage-roll.mjs");
-    await applyDamage(this.actor, raw);
-    if (input) input.value = "";
+    if (!result) return;
+
+    // Apply conditions
+    const updates = {
+      "system.conditions.stunned": result.stunned,
+      "system.conditions.shaken": result.shaken,
+      "system.conditions.prone": result.prone,
+    };
+
+    // Add sustained die if selected
+    if (result.sustainedDie) {
+      const label = result.sustainedLabel || MondasCharacterSheet.#nextLabel(this.actor.system.trackedDice, "sustained-self");
+      const dice = [...this.actor.system.toObject().trackedDice, {
+        die: result.sustainedDie,
+        label,
+        type: "sustained-self",
+      }];
+      updates["system.trackedDice"] = dice;
+    }
+
+    await this.actor.update(updates);
+
+    // Apply damage through pipeline if > 0
+    if (result.damage > 0) {
+      const { applyDamage } = await import("../rolls/damage-roll.mjs");
+      await applyDamage(this.actor, result.damage);
+    }
   }
 
   /* ---- Tracked Dice ---- */
@@ -660,7 +781,6 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
   /** Switch tabs */
   static #onSwitchTab(event, target) {
     this._activeTab = target.dataset.tab;
-    this._conditionPopoverOpen = false;
     this.render();
   }
 }

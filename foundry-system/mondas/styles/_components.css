@@ -11,216 +11,130 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   background-color: var(--paper);
-  background-image: var(--hatch-cross);
+  background-image: var(--r-diam-3);
   color: var(--navy);
   text-shadow: var(--halo-paper);
   border: var(--b);
 }
 
-/* INCAPACITATED banner — denser cross-hatch */
+/* INCAPACITATED banner — denser diamond */
 .mondas .banner-critical {
-  background-image: var(--hatch-cross-tight);
+  background-image: var(--r-diam-5);
 }
 
 /* ===================================================
- * STATUS STRIP (pills left, controls right)
+ * RESOURCE STRIP (Drain | Guard | Arm | Hrt | Wnd | Crt)
  * =================================================== */
 
-.mondas .status-strip {
+.mondas .resource-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  padding: var(--sp-5) var(--sp-6) 24px;
+}
+
+.mondas .gauge {
   display: flex;
   align-items: center;
   gap: var(--sp-2);
-  padding: var(--sp-4) var(--sp-6);
-  min-height: 36px;
-  flex-wrap: wrap;
 }
 
-.mondas .status-pills {
-  display: flex;
-  gap: var(--sp-2);
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.mondas .status-pill {
-  display: inline-block;
-  padding: var(--sp-1) var(--sp-4);
+.mondas .gauge-label {
   font-size: var(--fs-sm);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--navy);
-  background: var(--paper);
+}
+
+.mondas .gauge-boxes { display: flex; gap: var(--sp-1); }
+
+.mondas .gauge-box {
+  width: 18px;
+  height: 18px;
   border: var(--b);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.mondas .gauge-box:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 0 var(--navy);
 }
 
-/* Setup: clean outline — informational */
-.mondas .pill-setup {
+/* Drain filled: diagonal 45deg, density increases with each box */
+.mondas .gauge-box.drain.filled { background-color: var(--paper); }
+.mondas .gauge-box.drain.filled:nth-child(1) { background: var(--r-d45-5); }
+.mondas .gauge-box.drain.filled:nth-child(2) { background: repeating-linear-gradient(45deg, var(--navy) 0 1px, var(--paper) 1px 2.5px); }
+.mondas .gauge-box.drain.filled:nth-child(3) { background: repeating-linear-gradient(45deg, var(--navy) 0 2px, var(--paper) 2px 3.5px); }
+.mondas .gauge-box.drain.filled:nth-child(4) { background: repeating-linear-gradient(45deg, var(--navy) 0 2px, var(--paper) 2px 3px); }
+.mondas .gauge-box.drain.filled:nth-child(n+5) { background: repeating-linear-gradient(45deg, var(--navy) 0 3px, var(--paper) 3px 4px); }
+
+/* Guard filled: light offset dots — more guard = darker (more navy dots) */
+.mondas .gauge-box.guard.filled {
   background: var(--paper);
 }
+.mondas .gauge-box.guard.filled:nth-child(1) { background-image: radial-gradient(var(--navy) 1px, transparent 1px), radial-gradient(var(--navy) 1px, transparent 1px); background-size: 10px 10px; background-position: 0 0, 5px 5px; }
+.mondas .gauge-box.guard.filled:nth-child(2) { background-image: radial-gradient(var(--navy) 1px, transparent 1px), radial-gradient(var(--navy) 1px, transparent 1px); background-size: 8px 8px; background-position: 0 0, 4px 4px; }
+.mondas .gauge-box.guard.filled:nth-child(3) { background-image: radial-gradient(var(--navy) 1px, transparent 1px), radial-gradient(var(--navy) 1px, transparent 1px); background-size: 6px 6px; background-position: 0 0, 3px 3px; }
+.mondas .gauge-box.guard.filled:nth-child(4) { background-image: radial-gradient(var(--navy) 1px, transparent 1px), radial-gradient(var(--navy) 1px, transparent 1px); background-size: 5px 5px; background-position: 0 0, 2.5px 2.5px; }
+.mondas .gauge-box.guard.filled:nth-child(5) { background-image: radial-gradient(var(--navy) 1px, transparent 1px), radial-gradient(var(--navy) 1px, transparent 1px); background-size: 4px 4px; background-position: 0 0, 2px 2px; }
+.mondas .gauge-box.guard.filled:nth-child(6) { background-image: radial-gradient(var(--navy) 1.2px, transparent 1.2px), radial-gradient(var(--navy) 1.2px, transparent 1.2px); background-size: 3.5px 3.5px; background-position: 0 0, 1.75px 1.75px; }
+.mondas .gauge-box.guard.filled:nth-child(7) { background-image: repeating-linear-gradient(45deg, var(--navy) 0 1px, transparent 1px 2.5px), repeating-linear-gradient(-45deg, var(--navy) 0 1px, transparent 1px 2.5px); }
+.mondas .gauge-box.guard.filled:nth-child(n+8) { background-image: repeating-linear-gradient(45deg, var(--navy) 0 2px, transparent 2px 3px), repeating-linear-gradient(-45deg, var(--navy) 0 2px, transparent 2px 3px); }
 
-/* Cracked: dot raster stamp */
-.mondas .pill-cracked {
-  background-color: var(--paper);
-  background-image: var(--hatch-dots);
-  background-size: var(--hatch-dots-size);
-  text-shadow: var(--halo-paper);
-}
-
-/* Wounded: diagonal line stamp */
-.mondas .pill-wounded {
-  background-color: var(--paper);
-  background-image: var(--hatch-diag);
-  text-shadow: var(--halo-paper);
-}
-
-/* Critical: dense cross-hatch stamp — white text on heavy pattern */
-.mondas .pill-critical {
-  background-color: var(--paper);
-  background-image: var(--hatch-cross-tight);
-  color: #fff;
-  text-shadow: var(--halo-navy);
-}
-
-/* Condition pill — dot raster (applied conditions: stunned, shaken, prone) */
-.mondas .pill-condition {
-  background-color: var(--paper);
-  background-image: var(--active-bg);
-  background-size: var(--active-bg-size);
-  text-shadow: var(--halo-paper);
-}
-
-/* Strip controls — right side of status strip */
-.mondas .strip-controls {
+/* Armor value block */
+.mondas .armor-block {
   display: flex;
   align-items: center;
-  gap: var(--sp-3);
+  gap: var(--sp-2);
+}
+.mondas .armor-val {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  width: 18px; height: 18px;
+  border: var(--b);
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+}
+
+/* Harm container — right-aligned */
+.mondas .harm-container {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
   margin-left: auto;
-  position: relative;
 }
 
-.mondas .strip-input-group {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-}
+.mondas .harm-group { display: flex; align-items: center; gap: var(--sp-1); }
 
-.mondas .strip-label {
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.mondas input[type="number"].strip-input {
-  width: 3em;
-  min-width: 0;
-  font-size: var(--fs-lg);
-  padding: 0;
-}
-
-.mondas .strip-input::-webkit-inner-spin-button,
-.mondas .strip-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.mondas .strip-input:focus {
-  outline: none;
-  border-bottom-color: var(--navy);
-}
-
-.mondas .strip-btn {
-  padding: var(--sp-2) var(--sp-5);
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  font-family: inherit;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  background: var(--navy);
+.mondas .harm-box {
+  width: 18px;
+  height: 18px;
   border: var(--b);
-  color: var(--paper);
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
 }
-
-.mondas .strip-btn:hover {
+.mondas .harm-box:hover {
   transform: translate(-1px, -1px);
   box-shadow: 1px 1px 0 var(--navy);
 }
 
-/* Condition toggle button */
-.mondas .condition-btn {
-  width: 32px;
-  height: 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--fs-md);
-  background: var(--paper);
-  border: var(--b);
-  color: var(--navy);
-  cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s;
-}
-
-.mondas .condition-btn:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 1px 1px 0 var(--navy);
-}
-
-.mondas .condition-btn.has-active {
+/* Hurt filled: dot raster — medium density */
+.mondas .harm-box.hurt.filled {
   background-color: var(--paper);
-  background-image: var(--active-bg);
-  background-size: var(--active-bg-size);
-  text-shadow: var(--halo-paper);
+  background-image: var(--r-dot-4);
+  background-size: var(--r-dot-4-size);
 }
-
-/* Condition popover */
-.mondas .condition-popover {
-  position: absolute;
-  top: calc(100% + 4px);
-  right: 0;
+/* Wound filled: dense diagonal lines */
+.mondas .harm-box.wound.filled {
+  background: var(--r-d45-5);
+}
+/* Crit filled: dark offset dots */
+.mondas .harm-box.crit.filled {
   background: var(--navy);
-  border: var(--b-paper);
-  padding: var(--sp-3);
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-2);
-  z-index: 100;
-  min-width: 120px;
-}
-
-.mondas .pop-item {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  padding: var(--sp-2) var(--sp-4);
-  font-size: var(--fs-xs);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--paper);
-  cursor: pointer;
-}
-
-.mondas .pop-item:hover { background: rgba(255,255,255,0.1); }
-.mondas .pop-item.active { color: #fff; font-weight: 700; }
-
-.mondas .pop-check {
-  width: 14px;
-  height: 14px;
-  border: var(--b-paper);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 9px;
-  flex-shrink: 0;
-}
-
-.mondas .pop-item.active .pop-check {
-  background: var(--paper);
-  color: var(--navy);
+  background-image: radial-gradient(var(--paper) 1px, transparent 1px), radial-gradient(var(--paper) 1px, transparent 1px);
+  background-size: 5px 5px;
+  background-position: 0 0, 2.5px 2.5px;
 }
 
 /* ===================================================
@@ -231,7 +145,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--sp-6);
-  padding: var(--sp-6) var(--sp-6) 24px;
+  padding: 0 var(--sp-6) 24px;
   margin: 0;
 }
 
@@ -301,23 +215,20 @@
   flex-shrink: 0;
   border: var(--b);
 }
-/* Pattern background per stat */
+/* Pattern background per stat — each stat has a unique raster identity */
 .mondas .stat-icon-grit,
 .mondas-roll-chat .stat-icon-grit {
-  background: radial-gradient(circle, var(--navy) 1px, transparent 1px);
-  background-size: 4px 4px;
+  background-color: var(--paper);
+  background-image: var(--r-dot-3);
+  background-size: var(--r-dot-3-size);
 }
 .mondas .stat-icon-sharp,
 .mondas-roll-chat .stat-icon-sharp {
-  background: repeating-linear-gradient(
-    45deg, var(--navy), var(--navy) 1px, transparent 1px, transparent 3px
-  );
+  background: var(--r-d45-3);
 }
 .mondas .stat-icon-nerve,
 .mondas-roll-chat .stat-icon-nerve {
-  background: repeating-linear-gradient(
-    0deg, var(--navy), var(--navy) 1px, transparent 1px, transparent 3px
-  );
+  background: var(--r-h-3);
 }
 /* Paper halo behind the symbol */
 .mondas .stat-icon::before,
@@ -433,7 +344,7 @@
 }
 
 /* ===================================================
- * COMBAT STRIP
+ * COMBAT STRIP — CHIP-BASED ITEMS
  * =================================================== */
 
 .mondas .combat-strip {
@@ -444,271 +355,86 @@
   margin: 0;
 }
 
-.mondas .combat-weapon {
+.mondas .combat-chip {
   display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  padding: var(--sp-2) var(--sp-4);
+  align-items: stretch;
   border: var(--b);
   background: var(--paper);
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
 }
-
-.mondas .combat-weapon:hover {
+.mondas .combat-chip:hover {
   transform: translate(-2px, -2px);
   box-shadow: 2px 2px 0 var(--navy);
 }
-
-.mondas .combat-weapon:active {
+.mondas .combat-chip:active {
   background-image: var(--active-bg);
   background-size: var(--active-bg-size);
   transform: none;
   box-shadow: none;
 }
 
-.mondas .combat-weapon-name {
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: var(--fs-sm);
-  color: var(--navy);
-}
-
-.mondas .combat-weapon-die {
-  font-weight: 700;
-  font-size: var(--fs-xs);
-  border: var(--b);
-  padding: 0 var(--sp-2);
-  color: var(--navy);
-}
-
-.mondas .combat-weapon-gambit {
-  font-size: var(--fs-xs);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--navy);
-  border: var(--b-light);
-  padding: 0 var(--sp-2);
-}
-
-.mondas .combat-weapon-qty {
-  font-size: var(--fs-xs);
-  font-weight: 600;
-  color: var(--navy);
-}
-
-.mondas .combat-weapon.weapon-spent {
+.mondas .combat-chip.chip-spent {
   opacity: 0.3;
   pointer-events: none;
 }
 
-/* ===================================================
- * DEFENSE TRACK (Guard → Armor → Harm)
- * =================================================== */
-
-.mondas .defense-track {
-  display: flex;
+/* Each cell inside a chip */
+.mondas .chip-cell {
+  display: inline-flex;
   align-items: center;
-  gap: var(--sp-5);
-  padding: 0 var(--sp-6) 24px;
-}
-
-/* Armor label + value */
-.mondas .armor-block {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-}
-
-.mondas .armor-label {
-  font-size: var(--fs-sm);
+  justify-content: center;
+  padding: var(--sp-2) var(--sp-4);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-/* Harm container — groups hurt/wound/crit together */
-.mondas .harm-container {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-4);
-  margin-left: auto;
-}
-
-/* Drain row */
-.mondas .drain-row {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  padding: 0 var(--sp-6) 24px;
-}
-
-.mondas .track { display: flex; align-items: center; gap: var(--sp-2); }
-
-.mondas .track-label {
+  letter-spacing: 0.04em;
   font-size: var(--fs-sm);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
   color: var(--navy);
-  min-width: 3em;
 }
 
-.mondas .track-boxes { display: flex; gap: var(--sp-1); }
-
-.mondas .track-box {
-  width: 16px;
-  height: 16px;
-  border: var(--b);
-  cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s;
-}
-
-.mondas .track-box:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 1px 1px 0 var(--navy);
-}
-
-/* Guard: horizontal lines — density increases per box */
-.mondas .track-box.guard.filled { background-color: var(--paper); border-color: var(--navy); }
-
-.mondas .track-box.guard.filled:nth-child(1) {
-  background-image: repeating-linear-gradient(0deg, transparent, transparent 6px, var(--navy) 6px, var(--navy) 7px);
-}
-.mondas .track-box.guard.filled:nth-child(2) {
-  background-image: repeating-linear-gradient(0deg, transparent, transparent 4px, var(--navy) 4px, var(--navy) 5px);
-}
-.mondas .track-box.guard.filled:nth-child(3) {
-  background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, var(--navy) 3px, var(--navy) 4px);
-}
-.mondas .track-box.guard.filled:nth-child(4) {
-  background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--navy) 2px, var(--navy) 3px);
-}
-.mondas .track-box.guard.filled:nth-child(5) {
-  background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px);
-}
-.mondas .track-box.guard.filled:nth-child(n+6) {
-  background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 2px);
-}
-
-/* Drain: vertical lines — density increases per box */
-.mondas .track-box.drain.filled { background-color: var(--paper); border-color: var(--navy); }
-
-.mondas .track-box.drain.filled:nth-child(1) {
-  background-image: repeating-linear-gradient(90deg, transparent, transparent 6px, var(--navy) 6px, var(--navy) 7px);
-}
-.mondas .track-box.drain.filled:nth-child(2) {
-  background-image: repeating-linear-gradient(90deg, transparent, transparent 4px, var(--navy) 4px, var(--navy) 5px);
-}
-.mondas .track-box.drain.filled:nth-child(3) {
-  background-image: repeating-linear-gradient(90deg, transparent, transparent 3px, var(--navy) 3px, var(--navy) 4px);
-}
-.mondas .track-box.drain.filled:nth-child(4) {
-  background-image: repeating-linear-gradient(90deg, transparent, transparent 2px, var(--navy) 2px, var(--navy) 3px);
-}
-.mondas .track-box.drain.filled:nth-child(5) {
-  background-image: repeating-linear-gradient(90deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 3px);
-}
-.mondas .track-box.drain.filled:nth-child(n+6) {
-  background-image: repeating-linear-gradient(90deg, transparent, transparent 1px, var(--navy) 1px, var(--navy) 2px);
-}
-
-.mondas .track-counter {
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--navy);
-  min-width: 2em;
-  text-align: center;
-}
-
-/* Cracked badge — dot raster stamp (matches pill-cracked) */
-.mondas .cracked-badge {
+/* Type cells — each type has ONE consistent style across all items */
+.mondas .chip-cell.cell-die,
+.mondas .chip-cell.cell-qty {
   font-size: var(--fs-xs);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--navy);
-  padding: 1px var(--sp-3);
-  border: var(--b);
-  background-color: var(--paper);
-  background-image: var(--hatch-dots);
-  background-size: var(--hatch-dots-size);
+  padding: var(--sp-2) var(--sp-3);
   text-shadow: var(--halo-paper);
 }
 
-.mondas .track input[type="number"] {
-  font-family: inherit;
-  width: 2em;
-  text-align: center;
-  font-size: var(--fs-xl);
-  font-weight: 700;
-  background: transparent;
-  border: none;
-  border-bottom: var(--b);
-  padding: 0;
-  outline: none;
-  -moz-appearance: textfield;
+/* Damage die: horizontal lines */
+.mondas .chip-cell.cell-die {
+  background: var(--r-h-3);
 }
 
-.mondas .track input[type="number"]::-webkit-inner-spin-button,
-.mondas .track input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+/* Quantity: plain paper */
+.mondas .chip-cell.cell-qty {
+  background: var(--paper);
 }
 
-.mondas .track input[type="number"]:focus { border-bottom-color: var(--navy); }
-
-.mondas .harm-group { display: flex; align-items: center; gap: var(--sp-1); }
-
-.mondas .harm-level {
+/* Gambit cell — plain tag style, matches .tag */
+.mondas .chip-cell.cell-gambit {
   font-size: var(--fs-xs);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--navy);
-  min-width: 3.5em;
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--paper);
+  font-weight: 400;
+  text-shadow: none;
 }
 
-.mondas .harm-level.critical-label { color: var(--navy); font-weight: 700; }
-
-.mondas .harm-box {
-  width: 18px;
-  height: 18px;
-  border: var(--b);
-  cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s;
+/* Internal divider — left border on non-first cells */
+.mondas .chip-cell + .chip-cell {
+  border-left: var(--b);
 }
 
-.mondas .harm-box:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 1px 1px 0 var(--navy);
+/* Sustained self chip in conditions panel */
+.mondas .sustained-self-chip {
+  position: relative;
+}
+.mondas .sustained-self-chip .die-close {
+  position: absolute;
+  top: -5px;
+  right: -5px;
 }
 
-/* Hurt: dot raster */
-.mondas .harm-box.filled {
-  background-color: var(--paper);
-  background-image: var(--hatch-dots);
-  background-size: var(--hatch-dots-size);
-  border-color: var(--navy);
-}
-
-/* Wounded: diagonal lines — tighter, heavier than hurt */
-.mondas .harm-box.wounded.filled {
-  background-color: var(--paper);
-  background-image: var(--hatch-diag-tight);
-  border-color: var(--navy);
-}
-
-/* Critical: dense cross-hatch — near-solid, maximum severity */
-.mondas .harm-box.critical.filled {
-  background-color: var(--paper);
-  background-image: var(--hatch-cross-tight);
-  border-color: var(--navy);
-}
-
-/* Conditions now live in the popover — see STATUS STRIP section */
+/* Defense track + drain row styles removed — now in RESOURCE STRIP section */
 
 /* ===================================================
  * SECTION HEADERS (Navy bars)
@@ -816,6 +542,29 @@
 .mondas .card-top { display: flex; align-items: center; gap: var(--sp-3); }
 .mondas .card-name { font-weight: 700; font-size: var(--fs-lg); color: var(--navy); }
 
+/* Gambit sub-section within a card */
+.mondas .card-gambit {
+  border-top: 2px dashed var(--navy);
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  margin-left: calc(-1 * var(--sp-5));
+  margin-right: calc(-1 * var(--sp-5));
+  padding-left: var(--sp-5);
+  padding-right: var(--sp-5);
+}
+.mondas .card-gambit-name {
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+}
+.mondas .card-gambit-name i { margin-right: var(--sp-4); }
+.mondas .card-gambit-desc {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-sm);
+}
+
 /* Shared badge base */
 .mondas .die-badge,
 .mondas .armor-badge,
@@ -909,51 +658,93 @@
   white-space: nowrap;
 }
 
-.mondas .card-gambit {
-  margin-top: var(--sp-3);
-  padding: var(--sp-2) var(--sp-4);
-  background: var(--paper);
-  border-left: var(--b);
-  font-size: var(--fs-md);
-  line-height: 1.4;
+/* Gambit tag — sits in .card-tags alongside property/equipment tags.
+   Icon gets spacing via gap on .tag (inherited from .card-tags gap).
+   Uses [data-tip] for description on hover. */
+.mondas .card-name i,
+.mondas .chip-cell i,
+.mondas .tag-gambit i {
+  margin-right: var(--sp-4);
 }
-
-.mondas .card-gambit .gambit-icon { color: var(--navy); margin-right: var(--sp-1); font-size: var(--fs-md); }
-.mondas .card-gambit .gambit-name { font-weight: 600; color: var(--navy); }
-.mondas .card-gambit .gambit-effect { color: var(--navy); }
-
-/* Take damage controls now live in strip-controls — see STATUS STRIP section */
 
 /* ===================================================
- * DIE TRACKING
+ * TOOLTIP — #mondas-tip, positioned via JS
+ * Fixed to document body so it escapes all overflow.
+ * Attach via data-tip="text" on any element.
  * =================================================== */
 
-.mondas .die-track {
+#mondas-tip {
+  display: none;
+  position: fixed;
+  padding: 6px 10px;
+  background: var(--navy, #1c2b3a);
+  color: var(--paper, #ebe7df);
+  border: 2px solid var(--paper, #ebe7df);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: normal;
+  max-width: 300px;
+  width: max-content;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+
+#mondas-tip.visible {
+  opacity: 1;
+}
+
+/* ===================================================
+ * BOTTOM PANELS (Dice Tracking | Conditions)
+ * =================================================== */
+
+.mondas .bottom-panels {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
+  border-top: var(--b);
+  border-bottom: var(--b);
+  min-height: 120px;
 }
 
-.mondas .die-panel {
+.mondas .panel {
+  padding: var(--sp-5) var(--sp-6);
+  position: relative;
+}
+.mondas .panel + .panel {
+  border-left: var(--b);
+}
+
+/* Fieldset-style label */
+.mondas .panel-label {
+  position: absolute;
+  top: -1px;
+  left: var(--sp-6);
+  transform: translateY(-50%);
   background: var(--paper);
-  padding: var(--sp-4) var(--sp-6);
-}
-
-.mondas .die-panel-label {
+  padding: 0 var(--sp-3);
   font-size: var(--fs-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--navy);
-  margin-bottom: var(--sp-3);
+  white-space: nowrap;
 }
 
-.mondas .dice-row {
+.mondas .panel-content {
   display: flex;
-  gap: var(--sp-4);
   flex-wrap: wrap;
+  gap: var(--sp-4);
   align-items: flex-start;
+  padding-top: var(--sp-4);
 }
+
+/* ===================================================
+ * DIE TRACKING (inside bottom panels)
+ * =================================================== */
 
 .mondas .die-item {
   display: flex;
@@ -963,12 +754,12 @@
 }
 
 .mondas .die-box {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--fs-sm);
+  font-size: var(--fs-lg);
   font-weight: 700;
   border: var(--b);
   background: var(--paper);
@@ -983,16 +774,16 @@
   box-shadow: 1px 1px 0 var(--navy);
 }
 
-/* Setup die in tracking — dot raster like die-success */
+/* Setup die — dot raster */
 .mondas .die-setup-tracked {
   font-size: var(--fs-md);
   background-color: var(--paper);
-  background-image: var(--active-bg);
-  background-size: var(--active-bg-size);
+  background-image: var(--r-dot-4);
+  background-size: var(--r-dot-4-size);
   text-shadow: var(--halo-paper);
 }
 
-/* × close — hidden until die-box hover */
+/* × close — hidden until die-box or chip hover */
 .mondas .die-close {
   position: absolute;
   top: -5px;
@@ -1013,7 +804,8 @@
   transition: opacity 0.1s;
 }
 
-.mondas .die-box:hover .die-close {
+.mondas .die-box:hover .die-close,
+.mondas .combat-chip:hover .die-close {
   opacity: 1;
 }
 
@@ -1022,7 +814,7 @@
   font-weight: 600;
   color: var(--navy);
   text-align: center;
-  width: 32px;
+  width: 36px;
   line-height: 1.1;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1041,7 +833,106 @@
 }
 
 /* ===================================================
- * WEAPON SPENT STATE
+ * CONDITION PILLS (inside bottom panels)
+ * =================================================== */
+
+.mondas .condition-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+  background: var(--paper);
+  border: var(--b);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.mondas .condition-pill:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 0 var(--navy);
+}
+
+/* Toggleable condition — inactive state (muted) */
+.mondas .condition-pill.condition {
+  opacity: 0.35;
+}
+
+/* Toggleable condition — active state */
+.mondas .condition-pill.condition.active {
+  opacity: 1;
+  background-color: var(--paper);
+  background-image: var(--active-bg);
+  background-size: var(--active-bg-size);
+  text-shadow: var(--halo-paper);
+}
+
+/* Cracked: dot raster */
+.mondas .condition-pill.cracked {
+  background-color: var(--paper);
+  background-image: var(--r-dot-4);
+  background-size: var(--r-dot-4-size);
+  text-shadow: var(--halo-paper);
+}
+
+/* Wounded: dense diagonal */
+.mondas .condition-pill.wounded {
+  background: var(--r-d45-5);
+  text-shadow: var(--halo-paper);
+}
+
+/* Critical: dark offset dots */
+.mondas .condition-pill.critical {
+  background: var(--navy);
+  background-image: radial-gradient(var(--paper) 1px, transparent 1px), radial-gradient(var(--paper) 1px, transparent 1px);
+  background-size: 5px 5px;
+  background-position: 0 0, 2.5px 2.5px;
+  color: var(--paper);
+  text-shadow: var(--halo-navy);
+}
+
+/* ===================================================
+ * FOOTER BAR (Damage button)
+ * =================================================== */
+
+.mondas .footer-bar {
+  background: var(--navy);
+  padding: var(--sp-4) var(--sp-6);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-4);
+  margin-top: auto;
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+}
+
+.mondas .take-dmg-btn {
+  padding: var(--sp-2) var(--sp-6);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: transparent;
+  border: var(--b-paper);
+  color: var(--paper);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.mondas .take-dmg-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 0 var(--paper);
+  border-color: #fff;
+  color: #fff;
+}
+
+/* ===================================================
+ * WEAPON SPENT STATE (gear tab cards)
  * =================================================== */
 
 .mondas .weapon-spent {
@@ -1050,6 +941,23 @@
 
 .mondas .weapon-spent .card-name {
   text-decoration: line-through;
+}
+
+/* Damage dialog — condition checks layout */
+.mondas-dialog .condition-checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+}
+.mondas-dialog .condition-checks label {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: var(--fs-sm);
+  cursor: pointer;
 }
 
 /* ===================================================

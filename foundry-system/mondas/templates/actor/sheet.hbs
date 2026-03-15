@@ -1,35 +1,55 @@
 <div class="tab-content" data-tab="play" {{#unless (eq activeTab 'play')}}hidden{{/unless}}>
 
-{{!-- Status Strip — pills left, dmg + condition controls right --}}
+{{!-- Incapacitated Banner --}}
 {{#if incapacitated}}
 <div class="status-banner banner-critical">INCAPACITATED — cannot act</div>
-{{else}}
-<div class="status-strip">
-  <div class="status-pills">
-    {{#if critical}}<span class="status-pill pill-critical">CRITICAL</span>{{/if}}
-    {{#if wounded}}<span class="status-pill pill-wounded">WOUNDED</span>{{/if}}
-    {{#if cracked}}<span class="status-pill pill-cracked">CRACKED</span>{{/if}}
-    {{#if conditions.stunned}}<span class="status-pill pill-condition">STUNNED</span>{{/if}}
-    {{#if conditions.shaken}}<span class="status-pill pill-condition">SHAKEN</span>{{/if}}
-    {{#if conditions.prone}}<span class="status-pill pill-condition">PRONE</span>{{/if}}
+{{/if}}
+
+{{!-- Resource Strip: Drain | Guard | [spacer] | Arm | Hrt | Wnd | Crt --}}
+<div class="resource-strip">
+  <div class="gauge" title="Drain — spend to fuel bonus dice, thaumatech, and crits">
+    <span class="gauge-label">Drain</span>
+    <div class="gauge-boxes">
+      {{#times drain.max}}
+      <span class="gauge-box drain {{#if (lt this ../drain.value)}}filled{{/if}}" data-action="toggleDrainBox" data-index="{{this}}"></span>
+      {{/times}}
+    </div>
   </div>
-  <div class="strip-controls">
-    <div class="strip-input-group">
-      <span class="strip-label">Dmg</span>
-      <input type="number" class="strip-input" value="" min="0" placeholder="—">
+
+  <div class="gauge" title="Guard — absorbs incoming damage before it reaches Harm">
+    <span class="gauge-label">Guard</span>
+    <div class="gauge-boxes">
+      {{#times guard.max}}
+      <span class="gauge-box guard {{#if (lt this ../guard.value)}}filled{{/if}}" data-action="toggleGuardBox" data-index="{{this}}"></span>
+      {{/times}}
     </div>
-    <button type="button" class="strip-btn" data-action="takeDamage">Apply</button>
-    <button type="button" class="condition-btn {{#if hasActiveCondition}}has-active{{/if}}" data-action="toggleConditionPopover" title="Toggle Conditions"><i class="fa-solid fa-person-falling-burst"></i></button>
-    {{#if conditionPopoverOpen}}
-    <div class="condition-popover">
-      <div class="pop-item {{#if conditions.stunned}}active{{/if}}" data-action="toggleCondition" data-condition="stunned"><span class="pop-check">{{#if conditions.stunned}}✓{{/if}}</span> Stunned</div>
-      <div class="pop-item {{#if conditions.shaken}}active{{/if}}" data-action="toggleCondition" data-condition="shaken"><span class="pop-check">{{#if conditions.shaken}}✓{{/if}}</span> Shaken</div>
-      <div class="pop-item {{#if conditions.prone}}active{{/if}}" data-action="toggleCondition" data-condition="prone"><span class="pop-check">{{#if conditions.prone}}✓{{/if}}</span> Prone</div>
+  </div>
+
+  <div class="harm-container">
+    <div class="armor-block" title="Armor — reduces overflow damage after Guard breaks">
+      <span class="gauge-label">Arm</span>
+      <span class="armor-val">{{armor}}</span>
     </div>
-    {{/if}}
+
+    <div class="harm-group" title="Hurt — minor harm (1-2 overflow)">
+      <span class="gauge-label">Hrt</span>
+      <span class="harm-box hurt {{#if harm.hurt.slot1.filled}}filled{{/if}}" data-action="toggleHarm" data-level="hurt" data-slot="slot1"></span>
+      <span class="harm-box hurt {{#if harm.hurt.slot2.filled}}filled{{/if}}" data-action="toggleHarm" data-level="hurt" data-slot="slot2"></span>
+    </div>
+
+    <div class="harm-group" title="Wound — serious harm (3-4 overflow), applies Wounded">
+      <span class="gauge-label">Wnd</span>
+      <span class="harm-box wound {{#if harm.wounded.slot1.filled}}filled{{/if}}" data-action="toggleHarm" data-level="wounded" data-slot="slot1"></span>
+      <span class="harm-box wound {{#if harm.wounded.slot2.filled}}filled{{/if}}" data-action="toggleHarm" data-level="wounded" data-slot="slot2"></span>
+    </div>
+
+    <div class="harm-group" title="Crit — critical harm (5+ overflow), consider a Scar">
+      <span class="gauge-label">Crt</span>
+      <span class="harm-box crit {{#if harm.critical.slot1.filled}}filled{{/if}}" data-action="toggleHarm" data-level="critical" data-slot="slot1"></span>
+      <span class="harm-box crit {{#if harm.critical.slot2.filled}}filled{{/if}}" data-action="toggleHarm" data-level="critical" data-slot="slot2"></span>
+    </div>
   </div>
 </div>
-{{/if}}
 
 {{!-- Stats --}}
 <div class="stats-row">
@@ -50,99 +70,39 @@
   {{/each}}
 </div>
 
-{{!-- Weapon Minicards --}}
-{{#if weapons.length}}
+{{!-- Combat Strip: all usable items in one flex-wrap container --}}
 <div class="combat-strip">
   {{#each weapons}}
-  <div class="combat-weapon {{#if (eq quantity 0)}}weapon-spent{{/if}}" data-action="attackWeapon" data-index="{{@index}}">
-    <span class="combat-weapon-name">{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
-    <span class="combat-weapon-die">{{dieBadge}}</span>
-    {{#if gambitName}}<span class="combat-weapon-gambit">{{gambitName}}</span>{{/if}}
-    {{#if isThrown}}<span class="combat-weapon-qty">×{{quantity}}</span>{{/if}}
+  <div class="combat-chip {{#if (eq quantity 0)}}chip-spent{{/if}}" data-action="attackWeapon" data-index="{{@index}}" {{#if tip}}data-tip="{{tip}}"{{/if}}>
+    <span class="chip-cell">{{#if isThrown}}<i class="fa-solid fa-bomb"></i>{{else}}<i class="fa-solid fa-gun"></i>{{/if}}{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
+    <span class="chip-cell cell-die">{{dieBadge}}</span>
+    {{#if isThrown}}<span class="chip-cell cell-qty">×{{quantity}}</span>{{/if}}
+    {{#if gambitName}}<span class="chip-cell cell-gambit"><i class="fa-solid fa-dice-four"></i>{{gambitName}}</span>{{/if}}
   </div>
   {{/each}}
-</div>
-{{/if}}
-
-{{!-- Edge Minicards --}}
-{{#if edges.length}}
-<div class="combat-strip">
   {{#each edges}}
-  <div class="combat-weapon" data-action="showEdge" data-index="{{@index}}">
-    <span class="combat-weapon-name">{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
-    {{#if gambitName}}<span class="combat-weapon-gambit">{{gambitName}}</span>{{/if}}
+  <div class="combat-chip" data-action="showEdge" data-index="{{@index}}" {{#if tip}}data-tip="{{tip}}"{{/if}}>
+    <span class="chip-cell"><i class="fa-solid fa-fingerprint"></i>{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
+    {{#if gambitName}}<span class="chip-cell cell-gambit"><i class="fa-solid fa-dice-four"></i>{{gambitName}}</span>{{/if}}
   </div>
   {{/each}}
-</div>
-{{/if}}
-
-{{!-- Equipment Minicards --}}
-{{#if equipment.length}}
-<div class="combat-strip">
   {{#each equipment}}
-  <div class="combat-weapon" data-action="showEquipment" data-index="{{@index}}">
-    <span class="combat-weapon-name">{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
-    <span class="combat-weapon-qty">×{{quantity}}</span>
+  <div class="combat-chip" data-action="showEquipment" data-index="{{@index}}" {{#if tip}}data-tip="{{tip}}"{{/if}}>
+    <span class="chip-cell"><i class="fa-solid fa-toolbox"></i>{{#if name}}{{name}}{{else}}(unnamed){{/if}}</span>
+    <span class="chip-cell cell-qty">×{{quantity}}</span>
   </div>
   {{/each}}
 </div>
-{{/if}}
 
-{{!-- Defense Track: Guard → Armor → [Hurt | Wound | Crit] --}}
-<div class="defense-track">
-  <div class="track">
-    <span class="track-label">Guard</span>
-    <div class="track-boxes">
-      {{#times guard.max}}
-      <span class="track-box guard {{#if (lt this ../guard.value)}}filled{{/if}}" data-action="toggleGuardBox" data-index="{{this}}"></span>
-      {{/times}}
-    </div>
-    <span class="track-counter">{{guardRemaining}}/{{guard.max}}</span>
-  </div>
-
-  <div class="armor-block">
-    <span class="armor-label">Armor</span>
-    <span class="armor-value">{{armor}}</span>
-  </div>
-
-  <div class="harm-container">
-    <div class="harm-group">
-      <span class="harm-level">Hurt</span>
-      <span class="harm-box {{#if harm.hurt.slot1.filled}}filled{{/if}}" data-action="toggleHarm" data-level="hurt" data-slot="slot1"></span>
-      <span class="harm-box {{#if harm.hurt.slot2.filled}}filled{{/if}}" data-action="toggleHarm" data-level="hurt" data-slot="slot2"></span>
-    </div>
-    <div class="harm-group">
-      <span class="harm-level">Wound</span>
-      <span class="harm-box wounded {{#if harm.wounded.slot1.filled}}filled{{/if}}" data-action="toggleHarm" data-level="wounded" data-slot="slot1"></span>
-      <span class="harm-box wounded {{#if harm.wounded.slot2.filled}}filled{{/if}}" data-action="toggleHarm" data-level="wounded" data-slot="slot2"></span>
-    </div>
-    <div class="harm-group">
-      <span class="harm-level">Crit</span>
-      <span class="harm-box critical {{#if harm.critical.slot1.filled}}filled{{/if}}" data-action="toggleHarm" data-level="critical" data-slot="slot1"></span>
-      <span class="harm-box critical {{#if harm.critical.slot2.filled}}filled{{/if}}" data-action="toggleHarm" data-level="critical" data-slot="slot2"></span>
-    </div>
-  </div>
-</div>
-
-{{!-- Drain --}}
-<div class="drain-row">
-  <span class="track-label">Drain</span>
-  <div class="track-boxes">
-    {{#times drain.max}}
-    <span class="track-box drain {{#if (lt this ../drain.value)}}filled{{/if}}" data-action="toggleDrainBox" data-index="{{this}}"></span>
-    {{/times}}
-  </div>
-  <span class="track-counter">{{drainRemaining}}/{{drain.max}}</span>
-</div>
-
-{{!-- Die Tracking --}}
-<div class="die-track">
-  <div class="die-panel">
-    <div class="die-panel-label">Tracking</div>
-    <div class="dice-row">
+{{!-- Bottom Panels --}}
+<div class="bottom-panels">
+  {{!-- Left: Dice Tracking --}}
+  <div class="panel">
+    <span class="panel-label">Dice Tracking</span>
+    <div class="panel-content">
       {{#if setupDie.active}}
       <div class="die-item">
-        <div class="die-box die-setup-tracked" title="Setup die — used in roll dialog">
+        <div class="die-box die-setup-tracked" title="Setup die — automatically added to next roll">
           {{setupDie.value}}
           <span class="die-close" data-action="clearSetupDie">×</span>
         </div>
@@ -151,7 +111,7 @@
       {{/if}}
       {{#each trackedOut}}
       <div class="die-item">
-        <div class="die-box die-tracked" data-action="rollTrackedDie" data-index="{{realIndex}}" title="Click to roll">
+        <div class="die-box die-tracked" data-action="rollTrackedDie" data-index="{{realIndex}}" title="Click to roll — sustained die on target">
           {{die}}
           <span class="die-close" data-action="removeTrackedDie" data-index="{{realIndex}}">×</span>
         </div>
@@ -159,27 +119,37 @@
       </div>
       {{/each}}
       <div class="die-item">
-        <div class="die-box die-add" data-action="addTrackedDie" data-dtype="sustained-enemy">+</div>
+        <div class="die-box die-add" data-action="addTrackedDie" data-dtype="sustained-enemy" title="Add a tracked die">+</div>
       </div>
     </div>
   </div>
-  <div class="die-panel">
-    <div class="die-panel-label">On You</div>
-    <div class="dice-row">
+
+  {{!-- Right: Conditions (hidden when nothing active) --}}
+  {{#if hasConditions}}
+  <div class="panel">
+    <span class="panel-label">Conditions</span>
+    <div class="panel-content">
+      {{#if conditions.stunned}}<span class="condition-pill condition active" data-action="toggleCondition" data-condition="stunned" title="Stunned — lose your next action"><i class="fa-solid fa-bolt"></i> Stunned</span>{{/if}}
+      {{#if conditions.shaken}}<span class="condition-pill condition active" data-action="toggleCondition" data-condition="shaken" title="Shaken — Snag on all rolls until recovered"><i class="fa-solid fa-hand"></i> Shaken</span>{{/if}}
+      {{#if conditions.prone}}<span class="condition-pill condition active" data-action="toggleCondition" data-condition="prone" title="Prone — Snag on attacks, opponents get Boon against you"><i class="fa-solid fa-person-falling"></i> Prone</span>{{/if}}
+      {{#if cracked}}<span class="condition-pill cracked" title="Cracked — all Drain spent"><i class="fa-solid fa-heart-crack"></i> Cracked</span>{{/if}}
+      {{#if wounded}}<span class="condition-pill wounded" title="Wounded — Wound slot filled"><i class="fa-solid fa-droplet"></i> Wounded</span>{{/if}}
+      {{#if critical}}<span class="condition-pill critical" title="Critical — Crit slot filled, must spend Drain to act"><i class="fa-solid fa-skull"></i> Critical</span>{{/if}}
       {{#each trackedSelf}}
-      <div class="die-item">
-        <div class="die-box die-tracked" data-action="rollTrackedDie" data-index="{{realIndex}}" title="Click to roll">
-          {{die}}
-          <span class="die-close" data-action="removeTrackedDie" data-index="{{realIndex}}">×</span>
-        </div>
-        <div class="die-item-label">{{label}}</div>
+      <div class="combat-chip sustained-self-chip" data-action="rollTrackedDie" data-index="{{realIndex}}" title="Sustained damage on you — click to roll">
+        <span class="chip-cell"><i class="fa-solid fa-arrows-spin"></i> Sust</span>
+        <span class="chip-cell cell-die">{{die}}</span>
+        <span class="die-close" data-action="removeTrackedDie" data-index="{{realIndex}}">×</span>
       </div>
       {{/each}}
-      <div class="die-item">
-        <div class="die-box die-add" data-action="addTrackedDie" data-dtype="sustained-self">+</div>
-      </div>
     </div>
   </div>
+  {{/if}}
+</div>
+
+{{!-- Footer: Damage button --}}
+<div class="footer-bar">
+  <button type="button" class="take-dmg-btn" data-action="openDamageDialog" title="Open damage dialog — apply damage, conditions, or sustained dice"><i class="fa-solid fa-burst"></i> Damage</button>
 </div>
 
 </div>
