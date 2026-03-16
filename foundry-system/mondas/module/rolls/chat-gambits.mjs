@@ -22,23 +22,29 @@ export const COMBAT_GAMBITS = [
 export function buildAvailableGambits(actor) {
   const gambits = [...COMBAT_GAMBITS];
 
-  // Setup gambit — single entry with target picker
-  const pcs = game.actors.filter((a) => a.type === "character" && a.hasPlayerOwner);
-  const setupTargets = [
-    { id: actor.id, label: "Self" },
-    ...pcs
-      .filter((a) => a.id !== actor.id)
-      .map((a) => ({ id: a.id, label: a.name })),
-  ];
-  gambits.push({
-    key: "setup",
-    label: "Setup",
-    desc: "Bank this die for a future roll",
-    source: "base",
-    isSetup: true,
-    setupTargets,
-    setupTargetId: actor.id, // default to self
-  });
+  // Setup gambit — filter targets by who can receive a setup die
+  const pcs = game.actors.filter((a) => a.type === "character");
+  const actorHasSetup = actor.system.setupDie?.active;
+  const setupTargets = [];
+  // Self: only if you don't already have a setup die
+  if (!actorHasSetup) setupTargets.push({ id: actor.id, label: "Self" });
+  // Others: only if they don't already have a setup die
+  for (const pc of pcs) {
+    if (pc.id === actor.id) continue;
+    if (!pc.system.setupDie?.active) setupTargets.push({ id: pc.id, label: pc.name });
+  }
+  // Only add setup gambit if there are valid targets
+  if (setupTargets.length > 0) {
+    gambits.push({
+      key: "setup",
+      label: "Setup",
+      desc: "Bank this die for a future roll",
+      source: "base",
+      isSetup: true,
+      setupTargets,
+      setupTargetId: setupTargets[0].id,
+    });
+  }
 
   // Thaumatech gambits from equipment
   for (const item of actor.system.equipment ?? []) {
@@ -90,10 +96,22 @@ export function buildAvailableGambits(actor) {
  * @returns {number}
  */
 export function highestAvailable(dice, usedIndices, isZeroPool = false, setupDie = null, useSetupDie = false) {
-  const values = dice.filter((d) => !usedIndices.has(d.index)).map((d) => d.value);
+  const remaining = dice.filter((d) => !usedIndices.has(d.index));
+  if (remaining.length === 0 && !(useSetupDie && setupDie)) return 0;
+
+  // Zero-pool: take lowest of stat dice only, then compare against weapon/setup normally
+  if (isZeroPool) {
+    const statDice = remaining.filter((d) => !d.isWeapon).map((d) => d.value);
+    const weaponDice = remaining.filter((d) => d.isWeapon).map((d) => d.value);
+    const candidates = [...weaponDice];
+    if (statDice.length > 0) candidates.push(Math.min(...statDice));
+    if (useSetupDie && setupDie) candidates.push(setupDie.value);
+    return candidates.length > 0 ? Math.max(...candidates) : 0;
+  }
+
+  const values = remaining.map((d) => d.value);
   if (useSetupDie && setupDie) values.push(setupDie.value);
-  if (values.length === 0) return 0;
-  return isZeroPool ? Math.min(...values) : Math.max(...values);
+  return Math.max(...values);
 }
 
 /**
@@ -126,23 +144,45 @@ export function buildTemplateData(flags) {
   const rollTypeLabel = game.i18n.localize(`MONDAS.Roll.${flags.rollType}`);
 
   const sacrificedSet = new Set(flags.sacrificedIndices ?? []);
+
+  // In 0d mode, find the lowest die — it's the result die and can't be sacrificed
+  let zeroPoolResultIndex = -1;
+  if (flags.isZeroPool) {
+    const statDice = flags.dice.filter((d) => !d.isWeapon);
+    if (statDice.length > 0) {
+      const minVal = Math.min(...statDice.map((d) => d.value));
+      zeroPoolResultIndex = statDice.find((d) => d.value === minVal).index;
+    }
+  }
+
   const diceDisplay = flags.dice.map((d) => ({
     value: d.value,
     index: d.index,
     isWeapon: d.isWeapon || false,
     colorClass: d.value === 6 ? "die-success" : d.value >= 4 ? "die-partial" : "die-fail",
-    isGambitEligible: d.value >= 4,
+    isGambitEligible: d.value >= 4 && d.index !== zeroPoolResultIndex,
     sacrificed: sacrificedSet.has(d.index),
     assignedGambit: flags.diceGambits?.[d.index] || null,
   }));
 
   // Mark the die that produced the highest result (first match among non-sacrificed)
+  let setupDieIsHighest = false;
   if (flags.phase === "resolved") {
     const available = diceDisplay.filter((d) => !d.sacrificed);
-    const compareFn = flags.isZeroPool ? Math.min : Math.max;
-    const bestValue = compareFn(...available.map((d) => d.value));
-    const best = available.find((d) => d.value === bestValue);
-    if (best) best.isHighest = true;
+    const values = available.map((d) => d.value);
+    const usedSetup = flags.usedSetupDie && flags.setupDie;
+    if (usedSetup) values.push(flags.setupDie.value);
+    if (values.length > 0) {
+      const compareFn = flags.isZeroPool ? Math.min : Math.max;
+      const bestValue = compareFn(...values);
+      // Check if setup die is the best
+      if (usedSetup && flags.setupDie.value === bestValue) {
+        setupDieIsHighest = true;
+      } else {
+        const best = available.find((d) => d.value === bestValue);
+        if (best) best.isHighest = true;
+      }
+    }
   }
 
   // Build resolved gambit list from diceGambits map
@@ -205,6 +245,8 @@ export function buildTemplateData(flags) {
     defenseResult: isDefense ? _defenseLabel(flags.highest) : null,
     setupDie: flags.setupDie || null,
     usedSetupDie: flags.usedSetupDie || false,
+    setupDieGambit: _enrichSetupGambit(flags),
+    setupDieIsHighest,
     setupDieColorClass: flags.setupDie
       ? (flags.setupDie.value === 6 ? "die-success" : flags.setupDie.value >= 4 ? "die-partial" : "die-fail")
       : "",
@@ -310,16 +352,27 @@ function _bindGambitControls(message, html, flags) {
   let useSetupDie = false;
   const tray = html.querySelector(".gambit-tray");
 
+  // Helper: dismiss any stuck tooltip before DOM changes
+  function dismissTip() {
+    const tip = document.getElementById("mondas-tip");
+    if (tip) { tip.classList.remove("visible"); tip.style.display = "none"; }
+  }
+
   // Helper: update tray pills to reflect current state
   function refreshTray() {
     if (!tray) return;
+    dismissTip();
     const usedKeys = new Set();
     for (const [idx, g] of Object.entries(diceGambits)) {
       if (Number(idx) !== selectedDieIndex && g) usedKeys.add(g.key);
     }
     const currentKey = diceGambits[selectedDieIndex]?.key;
 
-    tray.innerHTML = (flags.availableGambits || []).map((g) => {
+    tray.innerHTML = (flags.availableGambits || []).filter((g) => {
+      // Can't use Setup gambit with the setup die itself (circular)
+      if (selectedDieIndex === "setup" && g.isSetup) return false;
+      return true;
+    }).map((g) => {
       const isActive = currentKey === g.key;
       const isTaken = !isActive && usedKeys.has(g.key);
       const cls = [
@@ -327,11 +380,23 @@ function _bindGambitControls(message, html, flags) {
         isActive ? "active" : "",
         isTaken ? "taken" : "",
       ].filter(Boolean).join(" ");
-      return `<span class="${cls}" data-gambit-key="${g.key}">${g.label}</span>`;
+      const tip = g.desc ? ` data-tip="${g.desc.replace(/"/g, '&quot;')}"` : "";
+      return `<span class="${cls}" data-gambit-key="${g.key}"${tip}>${g.label}</span>`;
     }).join("");
+
+    // Bind tooltips on the new pills
+    _bindTipListeners(tray);
   }
 
-  // Helper: tag a die with its gambit name (updates the .die-label below the die)
+  // Helper: update setup die label + data-label for hover
+  function tagSetupDie(label) {
+    const slot = setupDieEl?.closest(".die-slot");
+    const lbl = slot?.querySelector(".die-label");
+    if (lbl) lbl.textContent = label;
+    if (slot) slot.dataset.label = label;
+  }
+
+  // Helper: tag a die with its gambit name (updates label + data-label for hover)
   function tagDie(index, label) {
     const die = html.querySelector(`.die-result[data-index="${index}"]`);
     if (!die) return;
@@ -339,6 +404,7 @@ function _bindGambitControls(message, html, flags) {
     const slot = die.closest(".die-slot");
     const labelEl = slot?.querySelector(".die-label");
     if (labelEl) labelEl.textContent = label;
+    if (slot) slot.dataset.label = label;
   }
 
   // Helper: clear tag from a die
@@ -350,7 +416,9 @@ function _bindGambitControls(message, html, flags) {
     const labelEl = slot?.querySelector(".die-label");
     // Restore original label (weapon die type or empty)
     const dieData = flags.dice.find((d) => d.index === index);
-    if (labelEl) labelEl.textContent = dieData?.isWeapon ? (flags.weapon?.die || "") : "";
+    const origLabel = dieData?.isWeapon ? (flags.weapon?.die || "") : "";
+    if (labelEl) labelEl.textContent = origLabel;
+    if (slot) { if (origLabel) slot.dataset.label = origLabel; else delete slot.dataset.label; }
   }
 
   // Click eligible die → select it, show pill tray
@@ -365,9 +433,9 @@ function _bindGambitControls(message, html, flags) {
         die.classList.remove("selected");
         if (selectedDieIndex === index) {
           selectedDieIndex = null;
-          if (tray) tray.hidden = true;
+          if (tray) tray.innerHTML = "";
         }
-        _updateOutcomePreview(html, flags, new Set(Object.keys(diceGambits).map(Number)), useSetupDie);
+        _getSacrificedAndUpdate();
         return;
       }
 
@@ -378,15 +446,35 @@ function _bindGambitControls(message, html, flags) {
 
       // Show tray
       if (tray) {
-        tray.hidden = false;
         refreshTray();
       }
     });
   });
 
-  // Click a gambit pill → assign to selected die
+  // Click a gambit pill → assign to selected die (or show target picker for Setup)
   if (tray) {
     tray.addEventListener("click", (e) => {
+      // Handle setup target sub-pill click
+      const targetPill = e.target.closest(".setup-target-pill");
+      if (targetPill && selectedDieIndex !== null) {
+        const targetId = targetPill.dataset.targetId;
+        const targetLabel = targetPill.textContent;
+        const setupGambit = (flags.availableGambits || []).find((g) => g.isSetup);
+        if (!setupGambit) return;
+        diceGambits[selectedDieIndex] = { ...setupGambit, setupTargetId: targetId };
+        const label = `Setup → ${targetLabel}`;
+        if (selectedDieIndex === "setup") {
+          setupDieEl?.classList.add("sacrificed");
+          tagSetupDie(label);
+        } else {
+          tagDie(selectedDieIndex, label);
+        }
+        // Deselect + hide
+        _deselectDie();
+        _getSacrificedAndUpdate();
+        return;
+      }
+
       const pill = e.target.closest(".gambit-pill");
       if (!pill || selectedDieIndex === null) return;
       if (pill.classList.contains("taken")) return;
@@ -398,30 +486,131 @@ function _bindGambitControls(message, html, flags) {
       // Toggle off if clicking the active gambit
       if (diceGambits[selectedDieIndex]?.key === gambitKey) {
         delete diceGambits[selectedDieIndex];
-        untagDie(selectedDieIndex);
-      } else {
-        diceGambits[selectedDieIndex] = { ...gambit };
-        const label = gambit.isSetup
-          ? `Setup → ${gambit.setupTargets?.[0]?.label || "Self"}`
-          : gambit.label;
-        tagDie(selectedDieIndex, label);
+        if (selectedDieIndex === "setup") {
+          setupDieEl?.classList.remove("sacrificed");
+          tagSetupDie("Setup");
+        } else {
+          untagDie(selectedDieIndex);
+        }
+        _getSacrificedAndUpdate();
+        return;
       }
 
-      // Deselect die, hide tray
-      html.querySelector(`.die-result[data-index="${selectedDieIndex}"]`)?.classList.remove("selected");
-      selectedDieIndex = null;
-      tray.hidden = true;
+      // Setup gambit → show target picker instead of immediate assign
+      if (gambit.isSetup) {
+        const targets = gambit.setupTargets || [];
+        if (targets.length === 1) {
+          // Only one valid target — assign directly
+          diceGambits[selectedDieIndex] = { ...gambit, setupTargetId: targets[0].id };
+          const label = `Setup → ${targets[0].label}`;
+          if (selectedDieIndex === "setup") {
+            setupDieEl?.classList.add("sacrificed");
+            tagSetupDie(label);
+          } else {
+            tagDie(selectedDieIndex, label);
+          }
+          _deselectDie();
+          _getSacrificedAndUpdate();
+        } else {
+          // Show target sub-pills inside the tray
+          dismissTip();
+          tray.innerHTML = targets.map((t) =>
+            `<span class="gambit-pill setup-target-pill" data-target-id="${t.id}">${t.label}</span>`
+          ).join("");
+        }
+        return;
+      }
 
-      _updateOutcomePreview(html, flags, new Set(Object.keys(diceGambits).map(Number)), useSetupDie);
+      // Normal gambit — assign directly
+      diceGambits[selectedDieIndex] = { ...gambit };
+      if (selectedDieIndex === "setup") {
+        setupDieEl?.classList.add("sacrificed");
+        tagSetupDie(gambit.label);
+      } else {
+        tagDie(selectedDieIndex, gambit.label);
+      }
+      _deselectDie();
+      _getSacrificedAndUpdate();
     });
   }
 
-  // Setup die toggle
-  _bindSetupDieToggle(html, flags, () => {
-    useSetupDie = !useSetupDie;
-    _updateOutcomePreview(html, flags, new Set(Object.keys(diceGambits).map(Number)), useSetupDie);
-    return useSetupDie;
-  });
+  // Helper: deselect current die and hide tray
+  function _deselectDie() {
+    dismissTip();
+    if (selectedDieIndex === "setup") {
+      setupDieEl?.classList.remove("selected");
+    } else if (selectedDieIndex !== null) {
+      html.querySelector(`.die-result[data-index="${selectedDieIndex}"]`)?.classList.remove("selected");
+    }
+    selectedDieIndex = null;
+    if (tray) tray.innerHTML = "";
+  }
+
+  // Setup die — integrated: activate for damage OR sacrifice for gambit
+  const setupDieEl = html.querySelector(".die-setup");
+  const setupGambitEligible = flags.setupDie && flags.setupDie.value >= 4;
+
+  if (setupDieEl && flags.setupDie) {
+    setupDieEl.addEventListener("click", () => {
+      // If has gambit assigned, clear it
+      if (diceGambits["setup"]) {
+        delete diceGambits["setup"];
+        setupDieEl.classList.remove("sacrificed");
+        tagSetupDie("Setup");
+        // Stay active (still in pool for damage)
+        if (selectedDieIndex === "setup") {
+          selectedDieIndex = null;
+          if (tray) tray.innerHTML = "";
+        }
+        _getSacrificedAndUpdate();
+        return;
+      }
+
+      if (!useSetupDie) {
+        // Activate
+        useSetupDie = true;
+        setupDieEl.classList.add("active");
+        setupDieEl.classList.remove("ghost");
+        // If gambit-eligible, select it for tray
+        if (setupGambitEligible) {
+          html.querySelectorAll(".die-result.selected").forEach((d) => d.classList.remove("selected"));
+          selectedDieIndex = "setup";
+          setupDieEl.classList.add("selected");
+          if (tray) { refreshTray(); }
+        }
+      } else if (selectedDieIndex === "setup") {
+        // Already selected — deselect (stay active for damage)
+        setupDieEl.classList.remove("selected");
+        selectedDieIndex = null;
+        if (tray) tray.innerHTML = "";
+      } else if (setupGambitEligible) {
+        // Active but not selected — select for gambit
+        html.querySelectorAll(".die-result.selected").forEach((d) => d.classList.remove("selected"));
+        selectedDieIndex = "setup";
+        setupDieEl.classList.add("selected");
+        if (tray) { refreshTray(); }
+      } else {
+        // Not gambit eligible — deactivate
+        useSetupDie = false;
+        setupDieEl.classList.remove("active");
+        setupDieEl.classList.add("ghost");
+      }
+      _getSacrificedAndUpdate();
+    });
+  }
+
+  // Helper: compute effective state and update preview
+  function _getSacrificedAndUpdate() {
+    const sacrificedSet = new Set(
+      Object.keys(diceGambits).filter((k) => k !== "setup").map(Number),
+    );
+    // Setup die with gambit → sacrificed for gambit, not for damage
+    const effectiveUseSetup = useSetupDie && !diceGambits["setup"];
+    _updateOutcomePreview(html, flags, sacrificedSet, effectiveUseSetup);
+  }
+
+  // Patch existing die click and gambit pill handlers to use _getSacrificedAndUpdate
+  // (re-bind the outcome update to use the helper)
 
   // Confirm
   const confirmBtn = html.querySelector(".gambit-confirm-btn");
@@ -430,17 +619,22 @@ function _bindGambitControls(message, html, flags) {
       confirmBtn.disabled = true;
       const skipBtn = html.querySelector(".gambit-skip-btn");
       if (skipBtn) skipBtn.disabled = true;
-      await _resolveGambits(message, flags, diceGambits, useSetupDie);
+      // Separate setup gambit from dice gambits for resolution
+      const setupGambit = diceGambits["setup"] || null;
+      const realDiceGambits = { ...diceGambits };
+      delete realDiceGambits["setup"];
+      const effectiveUseSetup = useSetupDie && !setupGambit;
+      await _resolveGambits(message, flags, realDiceGambits, effectiveUseSetup, setupGambit);
     });
   }
 
-  // Skip
+  // Skip — resolve with no gambits, don't consume setup die
   const skipBtn = html.querySelector(".gambit-skip-btn");
   if (skipBtn) {
     skipBtn.addEventListener("click", async () => {
       skipBtn.disabled = true;
       if (confirmBtn) confirmBtn.disabled = true;
-      await _resolveGambits(message, flags, {}, useSetupDie);
+      await _resolveGambits(message, flags, {}, false);
     });
   }
 }
@@ -454,8 +648,11 @@ function _weaponDamage(flags, diceDisplay) {
   if (!flags.weapon) return null;
   const brutal = (flags.weapon.properties || []).includes("brutal");
   const remaining = diceDisplay.filter((d) => !d.sacrificed);
-  if (remaining.length === 0) return { value: 0, forfeited: true, brutal };
-  return { value: Math.max(...remaining.map((d) => d.value)), forfeited: false, brutal };
+  const values = remaining.map((d) => d.value);
+  if (flags.usedSetupDie && flags.setupDie) values.push(flags.setupDie.value);
+  if (values.length === 0) return { value: 0, forfeited: true, brutal };
+  const value = flags.isZeroPool ? Math.min(...values) : Math.max(...values);
+  return { value, forfeited: false, brutal };
 }
 
 /**
@@ -491,7 +688,7 @@ function _updateOutcomePreview(html, flags, sacrificedSet, useSetupDie = false) 
   const outcomeLine = html.querySelector(".outcome-line");
   if (outcomeLine) {
     if (flags.rollType === "combat") {
-      outcomeLine.textContent = `Highest: ${highest}`;
+      outcomeLine.textContent = flags.isZeroPool ? `Lowest: ${highest}` : `Highest: ${highest}`;
       outcomeLine.className = "outcome-line";
     } else if (flags.rollType === "defense") {
       outcomeLine.textContent = _defenseLabel(highest);
@@ -507,10 +704,12 @@ function _updateOutcomePreview(html, flags, sacrificedSet, useSetupDie = false) 
     const resultBox = html.querySelector(".result-box");
     if (resultBox) {
       const remaining = flags.dice.filter((d) => !sacrificedSet.has(d.index));
-      if (remaining.length === 0) {
+      const values = remaining.map((d) => d.value);
+      if (useSetupDie && flags.setupDie) values.push(flags.setupDie.value);
+      if (values.length === 0) {
         resultBox.querySelector("span").textContent = "No damage — all dice used";
       } else {
-        const dmg = Math.max(...remaining.map((d) => d.value));
+        const dmg = flags.isZeroPool ? Math.min(...values) : Math.max(...values);
         resultBox.querySelector("span").textContent = `${flags.weapon.name}: ${dmg} damage`;
       }
     }
@@ -557,28 +756,33 @@ async function _resolveStakes(message, flags, sacrificedSet, useSetupDie = false
 /**
  * Finalize combat/defense gambits — with named gambit assignments.
  */
-async function _resolveGambits(message, flags, diceGambits, useSetupDie = false) {
+async function _resolveGambits(message, flags, diceGambits, useSetupDie = false, setupGambit = null) {
   const sacrificedSet = new Set(Object.keys(diceGambits).map(Number));
   const highest = highestAvailable(flags.dice, sacrificedSet, flags.isZeroPool, flags.setupDie, useSetupDie);
   const { outcome, outcomeClass } = resolveOutcome(highest);
 
-  // Consume setup die if used
-  if (useSetupDie && flags.setupDie) {
+  // Consume setup die if used (for damage OR for gambit)
+  if ((useSetupDie || setupGambit) && flags.setupDie) {
     const actor = game.actors.get(flags.actorId);
     if (actor) {
       await actor.update({ "system.setupDie.active": false, "system.setupDie.value": 0, "system.setupDie.source": "" });
     }
   }
 
+  // Merge setup gambit into diceGambits for display (use string key "setup")
+  const allGambits = { ...diceGambits };
+  if (setupGambit) allGambits["setup"] = setupGambit;
+
   const resolvedFlags = {
     ...flags,
     phase: "resolved",
     sacrificedIndices: Array.from(sacrificedSet),
-    diceGambits,
+    diceGambits: allGambits,
     highest,
     outcome,
     outcomeClass,
     usedSetupDie: useSetupDie,
+    setupDieGambit: setupGambit,
   };
 
   const content = await renderTemplate(
@@ -591,36 +795,88 @@ async function _resolveGambits(message, flags, diceGambits, useSetupDie = false)
     "flags.mondas": resolvedFlags,
   });
 
-  // Apply Setup die to target actors — bank the sacrificed die's value
+  // Apply Setup gambit to target actors — bank the sacrificed die's value
   const actor = game.actors.get(flags.actorId);
+
+  async function _bankSetupDie(targetId, dieValue) {
+    const target = game.actors.get(targetId);
+    if (!target) return;
+    const updates = {
+      "system.setupDie.active": true,
+      "system.setupDie.value": dieValue,
+      "system.setupDie.source": actor?.name || "Unknown",
+    };
+    if (target.isOwner) {
+      await target.update(updates);
+    } else {
+      game.socket.emit("system.mondas", { action: "updateActor", actorId: target.id, updates });
+    }
+  }
+
+  // From regular dice sacrificed for Setup gambit
   for (const [dieIdx, gambit] of Object.entries(diceGambits)) {
     if (gambit?.setupTargetId) {
       const dieValue = flags.dice.find((d) => d.index === Number(dieIdx))?.value || 0;
-      const target = game.actors.get(gambit.setupTargetId);
-      if (target) {
-        const updates = {
-          "system.setupDie.active": true,
-          "system.setupDie.value": dieValue,
-          "system.setupDie.source": actor?.name || "Unknown",
-        };
-        // Route through GM socket if we don't own the target
-        if (target.isOwner) {
-          await target.update(updates);
-        } else {
-          game.socket.emit("system.mondas", {
-            action: "updateActor",
-            actorId: target.id,
-            updates,
-          });
-        }
-      }
+      await _bankSetupDie(gambit.setupTargetId, dieValue);
     }
+  }
+
+  // From setup die sacrificed for Setup gambit (re-banking to another target)
+  if (setupGambit?.setupTargetId && flags.setupDie) {
+    await _bankSetupDie(setupGambit.setupTargetId, flags.setupDie.value);
   }
 }
 
 /* ---------------------------------------- */
 /*  Internal — Apply Damage                 */
 /* ---------------------------------------- */
+
+/**
+ * Bind mondas-tip tooltips on [data-tip] elements within a container.
+ * Reuses the shared #mondas-tip element created by the character sheet.
+ */
+function _bindTipListeners(root) {
+  const tip = document.getElementById("mondas-tip");
+  if (!tip) return;
+  root.querySelectorAll("[data-tip]").forEach((node) => {
+    node.addEventListener("pointerenter", () => {
+      const text = node.getAttribute("data-tip");
+      if (!text) return;
+      tip.textContent = text;
+      tip.style.display = "block";
+      tip.style.left = "0";
+      tip.style.top = "0";
+      const rect = node.getBoundingClientRect();
+      const tipRect = tip.getBoundingClientRect();
+      let left = rect.left;
+      let top = rect.bottom + 6;
+      if (left + tipRect.width > window.innerWidth - 8) left = window.innerWidth - tipRect.width - 8;
+      if (left < 8) left = 8;
+      if (top + tipRect.height > window.innerHeight - 8) top = rect.top - tipRect.height - 6;
+      tip.style.left = `${left}px`;
+      tip.style.top = `${top}px`;
+      requestAnimationFrame(() => tip.classList.add("visible"));
+    });
+    node.addEventListener("pointerleave", () => {
+      tip.classList.remove("visible");
+      tip.style.display = "none";
+    });
+  });
+}
+
+/**
+ * Enrich setup die gambit with target name for display.
+ */
+function _enrichSetupGambit(flags) {
+  const g = flags.setupDieGambit;
+  if (!g) return null;
+  if (g.setupTargetId) {
+    const targetActor = game.actors.get(g.setupTargetId);
+    const targetName = g.setupTargetId === flags.actorId ? "Self" : (targetActor?.name || "?");
+    return { ...g, label: `Setup → ${targetName}` };
+  }
+  return g;
+}
 
 function _bindApplyDamage(html) {
   html.querySelectorAll(".mondas-apply-damage").forEach((btn) => {

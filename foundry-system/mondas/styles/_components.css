@@ -28,9 +28,18 @@
 
 .mondas .resource-strip {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4) var(--sp-6);
+  padding: var(--sp-5) var(--sp-6) var(--sp-7);
+}
+
+.mondas .pool-group {
+  display: flex;
   align-items: center;
   gap: var(--sp-6);
-  padding: var(--sp-5) var(--sp-6) 24px;
+  flex-shrink: 0;
 }
 
 .mondas .gauge {
@@ -48,6 +57,14 @@
 }
 
 .mondas .gauge-boxes { display: flex; gap: var(--sp-1); }
+
+.mondas .gauge-counter {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--navy);
+  min-width: 2.5em;
+  text-align: center;
+}
 
 .mondas .gauge-box {
   width: 18px;
@@ -97,15 +114,38 @@
   text-align: center;
 }
 
-/* Harm container — right-aligned */
+/* Harm container — right-aligned via space-between on parent */
 .mondas .harm-container {
   display: flex;
   align-items: center;
   gap: var(--sp-6);
-  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .mondas .harm-group { display: flex; align-items: center; gap: var(--sp-1); }
+
+/* Prevent gauge elements from shrinking */
+.mondas .gauge,
+.mondas .harm-container,
+.mondas .harm-group,
+.mondas .armor-block { flex-shrink: 0; }
+
+/* Responsive resource strip — abbreviate Drain/Guard when harm track wraps.
+   Both groups have flex-shrink:0, so wrapping is purely width-driven.
+   Abbreviate at the same breakpoint where wrapping occurs to save space. */
+@container (max-width: 660px) {
+  .mondas .pool-group .gauge-label[data-short] {
+    text-indent: -9999px;
+    line-height: 0;
+    display: inline-block;
+  }
+  .mondas .pool-group .gauge-label[data-short]::after {
+    content: attr(data-short);
+    text-indent: 0;
+    line-height: normal;
+    display: block;
+  }
+}
 
 .mondas .harm-box {
   width: 18px;
@@ -145,7 +185,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--sp-6);
-  padding: 0 var(--sp-6) 24px;
+  padding: 0 var(--sp-6) var(--sp-7);
   margin: 0;
 }
 
@@ -343,6 +383,50 @@
   line-height: 1;
 }
 
+/* Compact stat blocks — label on top, no icons, min-width control */
+@container (max-width: 520px) {
+  .mondas .stat-block {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 0;
+  }
+
+  .mondas .stat-block .stat-top {
+    display: contents;
+  }
+
+  .mondas .stat-block .stat-icon-col {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    grid-row: auto;
+    border-right: none;
+    border-bottom: var(--b);
+    padding: var(--sp-2) var(--sp-4);
+  }
+
+  .mondas .stat-block .stat-icon {
+    display: none;
+  }
+
+  .mondas .stat-block .stat-label {
+    font-size: var(--fs-sm);
+  }
+
+  .mondas .stat-block .stat-value {
+    padding: var(--sp-2) 0;
+    align-self: center;
+  }
+
+  .mondas .stat-roll-buttons {
+    grid-column: auto;
+    margin: 0 -2px -2px -2px;
+  }
+}
+
 /* ===================================================
  * COMBAT STRIP — CHIP-BASED ITEMS
  * =================================================== */
@@ -351,7 +435,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-3);
-  padding: 0 var(--sp-6) 24px;
+  padding: 0 var(--sp-6) var(--sp-7);
   margin: 0;
 }
 
@@ -375,7 +459,7 @@
 }
 
 .mondas .combat-chip.chip-spent {
-  opacity: 0.3;
+  opacity: var(--opacity-muted);
   pointer-events: none;
 }
 
@@ -443,10 +527,20 @@
 .mondas .section-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background: var(--navy);
+  gap: var(--sp-4);
   margin: 0;
-  padding: var(--sp-5) var(--sp-6);
+  padding: var(--sp-5) 0;
+}
+
+.mondas .section-header::before,
+.mondas .section-header::after {
+  content: "";
+  flex: 1;
+  border-top: var(--b);
+}
+
+.mondas .section-header::before {
+  flex: 0 0 var(--sp-6);
 }
 
 .mondas .section-header h3 {
@@ -454,10 +548,11 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #fff;
+  color: var(--navy);
   margin: 0;
   padding: 0;
   border: none;
+  white-space: nowrap;
 }
 
 .mondas h3 {
@@ -472,29 +567,27 @@
 }
 
 .mondas .section-add {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   padding: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: inherit;
-  font-size: var(--fs-lg);
+  font-size: var(--fs-sm);
   font-weight: 700;
   background: transparent;
-  border: var(--b-paper);
-  color: var(--paper);
+  border: var(--b);
+  color: var(--navy);
   cursor: pointer;
   line-height: 1;
-  transition: transform 0.1s, box-shadow 0.1s, border-color 0.1s, color 0.1s;
+  flex-shrink: 0;
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .mondas .section-add:hover {
-  border-color: #fff;
-  color: #fff;
-  background: transparent;
   transform: translate(-1px, -1px);
-  box-shadow: 1px 1px 0 #fff;
+  box-shadow: 1px 1px 0 var(--navy);
 }
 
 /* ===================================================
@@ -567,10 +660,7 @@
 
 /* Shared badge base */
 .mondas .die-badge,
-.mondas .armor-badge,
-.mondas .cracked-badge,
-.mondas-roll-chat .gambit-tier,
-.mondas-roll-chat .gambit-source-tag {
+.mondas .armor-badge {
   font-size: var(--fs-sm);
   font-weight: 700;
   padding: 0 var(--sp-3);
@@ -604,13 +694,6 @@
   background: var(--navy);
   color: var(--paper);
   flex-shrink: 0;
-}
-
-.mondas .defense-track .armor-value {
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  min-width: 2em;
-  text-align: center;
 }
 
 /* Armor value in item cards — keep larger */
@@ -680,12 +763,12 @@
   background: var(--navy, #1c2b3a);
   color: var(--paper, #ebe7df);
   border: 2px solid var(--paper, #ebe7df);
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
-  font-family: 'IBM Plex Mono', monospace;
+  box-shadow: 2px 2px 0 var(--shadow);
+  font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 400;
   line-height: 1.4;
-  white-space: normal;
+  white-space: pre-line;
   max-width: 300px;
   width: max-content;
   z-index: 10000;
@@ -716,6 +799,9 @@
 }
 .mondas .panel + .panel {
   border-left: var(--b);
+}
+.mondas .panel:only-child {
+  grid-column: 1 / -1;
 }
 
 /* Fieldset-style label */
@@ -783,7 +869,47 @@
   text-shadow: var(--halo-paper);
 }
 
-/* × close — hidden until die-box or chip hover */
+/* × close — standard removable affordance
+   Used on: die-box, combat-chip, condition-pill, chat dice.
+   Hidden until parent hover; inverts on own hover. */
+.mondas .close-x {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--navy);
+  color: var(--paper);
+  text-shadow: none;
+  font-style: normal;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+  line-height: 1;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.1s, background 0.1s, color 0.1s;
+}
+
+.mondas .die-box:hover .close-x,
+.mondas .combat-chip:hover .close-x,
+.mondas .condition-pill:hover .close-x {
+  opacity: 1;
+}
+
+.mondas .close-x:hover {
+  background: var(--paper);
+  color: var(--navy);
+  border: var(--b);
+  text-shadow: none;
+}
+
+/* Legacy — redirect to .close-x pattern */
 .mondas .die-close {
   position: absolute;
   top: -5px;
@@ -797,16 +923,27 @@
   font-weight: 700;
   background: var(--navy);
   color: var(--paper);
+  text-shadow: none;
+  font-style: normal;
+  letter-spacing: 0;
+  text-transform: none;
   cursor: pointer;
   line-height: 1;
   z-index: 1;
   opacity: 0;
-  transition: opacity 0.1s;
+  transition: opacity 0.1s, background 0.1s, color 0.1s;
 }
 
 .mondas .die-box:hover .die-close,
 .mondas .combat-chip:hover .die-close {
   opacity: 1;
+}
+
+.mondas .die-close:hover {
+  background: var(--paper);
+  color: var(--navy);
+  border: var(--b);
+  text-shadow: none;
 }
 
 .mondas .die-item-label {
@@ -824,7 +961,7 @@
 /* Add die button — dashed outline */
 .mondas .die-add {
   border: 2px dashed var(--navy);
-  opacity: 0.25;
+  opacity: var(--opacity-muted);
   background: transparent;
 }
 
@@ -841,6 +978,7 @@
   align-items: center;
   gap: var(--sp-2);
   padding: var(--sp-2) var(--sp-4);
+  position: relative;
   font-size: var(--fs-sm);
   font-weight: 700;
   text-transform: uppercase;
@@ -858,7 +996,7 @@
 
 /* Toggleable condition — inactive state (muted) */
 .mondas .condition-pill.condition {
-  opacity: 0.35;
+  opacity: var(--opacity-muted);
 }
 
 /* Toggleable condition — active state */
@@ -927,8 +1065,8 @@
 .mondas .take-dmg-btn:hover {
   transform: translate(-1px, -1px);
   box-shadow: 1px 1px 0 var(--paper);
-  border-color: #fff;
-  color: #fff;
+  border-color: var(--white);
+  color: var(--white);
 }
 
 /* ===================================================
@@ -941,23 +1079,6 @@
 
 .mondas .weapon-spent .card-name {
   text-decoration: line-through;
-}
-
-/* Damage dialog — condition checks layout */
-.mondas-dialog .condition-checks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-4);
-}
-.mondas-dialog .condition-checks label {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: var(--fs-sm);
-  cursor: pointer;
 }
 
 /* ===================================================

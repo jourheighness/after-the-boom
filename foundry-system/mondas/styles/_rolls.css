@@ -2,43 +2,12 @@
  * ROLL DIALOG
  * =================================================== */
 
-/* ALL mondas app window headers (sheet, roll dialog, etc.) */
-.application.mondas .window-header {
-  background: var(--navy) !important;
-  color: #fff !important;
-  border-bottom: var(--b-paper) !important;
-  font-family: 'IBM Plex Mono', monospace !important;
-  font-size: var(--fs-md);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding-left: var(--sp-6) !important;
-  margin: 0 !important;
-}
-
-.application.mondas .window-header .window-title {
-  color: #fff !important;
-  font-weight: 700;
-}
-
-/* Close button uses ::before pseudo with FA font — don't override its font */
-.application.mondas .window-header button {
-  color: var(--paper) !important;
-  background: transparent !important;
-  border: none !important;
-  padding: var(--sp-2) var(--sp-4) !important;
-  font-family: "Font Awesome 6 Pro", "Font Awesome 6 Free" !important;
-}
-
-.application.mondas .window-header button:hover {
-  color: #fff !important;
-  transform: none !important;
-  box-shadow: none !important;
-}
+/* Window header now consolidated in _reset.css */
 
 .mondas.roll-dialog {
   background: var(--paper);
   color: var(--navy);
-  font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-size: 14px;
   line-height: 1.5;
 }
@@ -54,10 +23,9 @@
 
 .mondas.roll-dialog .stat-header {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  align-items: center;
-  justify-items: center;
-  border-top: var(--b);
+  grid-template-columns: minmax(7em, 1fr) 2fr;
+  align-items: stretch;
+  justify-items: stretch;
   border-bottom: var(--b);
   margin: 0;
 }
@@ -88,6 +56,9 @@
   letter-spacing: 0.06em;
   color: var(--navy);
   padding: var(--sp-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mondas.roll-dialog .weapon-header-name {
@@ -96,9 +67,17 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--navy);
-  padding: var(--sp-4);
+  padding: var(--sp-5) var(--sp-6);
   border-right: var(--b);
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  justify-self: stretch;
+  min-height: 4em;
+  line-height: 1.3;
+  overflow: hidden;
 }
 
 .mondas.roll-dialog .modifier-row {
@@ -221,7 +200,7 @@
 }
 
 .mondas.roll-dialog .snag-pill .dismiss { font-weight: 700; }
-.mondas.roll-dialog .snag-pill .dismiss:hover { color: #fff; }
+.mondas.roll-dialog .snag-pill .dismiss:hover { color: var(--white); }
 
 /* --- Roll Warnings --- */
 
@@ -245,10 +224,6 @@
 .mondas.roll-dialog .roll-warning.warning-incapacitated {
   background-image: var(--hatch-cross-tight);
 }
-
-/* --- Gambit Drain Cost --- */
-
-.gambit-drain-cost { font-size: var(--fs-sm); color: var(--navy); font-style: italic; }
 
 .mondas.roll-dialog .pool-preview {
   display: flex;
@@ -279,7 +254,7 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   background: var(--navy);
-  color: #fff;
+  color: var(--white);
   border: var(--b);
   cursor: pointer;
   margin-top: 0;

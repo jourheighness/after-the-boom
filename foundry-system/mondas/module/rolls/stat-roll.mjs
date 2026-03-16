@@ -130,8 +130,29 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
 
     if (isWeaponOnly) {
       const rollDie = this.weapon.die.startsWith("s") ? this.weapon.die.slice(1) : this.weapon.die;
-      context.poolZero = false;
-      context.poolLabel = pool > 0 ? `${pool}d6 + ${rollDie}` : rollDie;
+      // Weapon counts as 1 base die; snags can eat it → 0d
+      const effectivePool = 1 + this.boons - totalSnags + drainBonus;
+      context.poolZero = effectivePool <= 0;
+      if (effectivePool <= 0) {
+        context.poolLabel = "2d6 take lowest";
+      } else if (effectivePool === 1) {
+        context.poolLabel = `1${rollDie}`;
+      } else {
+        context.poolLabel = `${effectivePool - 1}d6 + 1${rollDie}`;
+      }
+    } else if (this.rollType === "combat") {
+      const rawPool = statValue + this.boons - totalSnags + drainBonus;
+      const weaponSnagged = rawPool < 0;
+      const weapon = system.weaponChoices?.[this.selectedWeaponIndex] || system.weaponChoices?.[0];
+      const rollDie = weapon ? (weapon.die.startsWith("s") ? weapon.die.slice(1) : weapon.die) : null;
+      context.poolZero = pool === 0;
+      if (pool === 0 && weaponSnagged) {
+        context.poolLabel = "2d6 take lowest";
+      } else if (pool === 0) {
+        context.poolLabel = rollDie ? `2d6 take lowest + 1${rollDie}` : "2d6 take lowest";
+      } else {
+        context.poolLabel = rollDie ? `${pool}d6 + 1${rollDie}` : `${pool}d6`;
+      }
     } else {
       context.poolZero = pool === 0;
       context.poolLabel = pool === 0 ? "2d6 take lowest" : `${pool}d6`;
@@ -206,11 +227,12 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     ).length;
     const totalSnags = this.snags + activeAutoSnagCount;
     const rawPool = statValue + this.boons - totalSnags + drainBonus;
-    // Snags overflow past stat pool eats the weapon die (stat-based only)
     const hasWeapon = isWeaponOnly || (this.rollType === "combat" && system.weaponChoices?.length > 0);
-    const weaponSnagged = !isWeaponOnly && hasWeapon && rawPool < 0;
+    // Weapon-only: weapon counts as 1 base die, snags can eat it
+    const weaponOnlyEffective = isWeaponOnly ? (1 + this.boons - totalSnags + drainBonus) : null;
+    const weaponSnagged = isWeaponOnly ? (weaponOnlyEffective <= 0) : (hasWeapon && rawPool < 0);
     const pool = Math.max(0, rawPool);
-    const isZeroPool = !isWeaponOnly && pool === 0;
+    const isZeroPool = isWeaponOnly ? (weaponOnlyEffective <= 0) : (pool === 0);
 
     // Spend drain if used
     if (this.spendDrain) {
@@ -233,13 +255,29 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     if (this.boons > 0) poolParts.push(`+${this.boons} Boon${this.boons > 1 ? "s" : ""}`);
     if (totalSnags > 0) poolParts.push(`-${totalSnags} Snag${totalSnags > 1 ? "s" : ""}`);
     if (this.spendDrain) poolParts.push("+1 Drain");
-    if (weaponSnagged) poolParts.push("(weapon die snagged)");
+    if (weaponSnagged) poolParts.push(isWeaponOnly ? "(weapon snagged — 0d)" : "(weapon die snagged)");
     const poolDesc = poolParts.join(" ");
 
     let poolLabel;
     if (isWeaponOnly) {
       const rollDie = this.weapon.die.startsWith("s") ? this.weapon.die.slice(1) : this.weapon.die;
-      poolLabel = pool > 0 ? `${pool}d6 + ${rollDie}` : rollDie;
+      if (weaponSnagged) {
+        poolLabel = "2d6 take lowest";
+      } else if (weaponOnlyEffective === 1) {
+        poolLabel = `1${rollDie}`;
+      } else {
+        poolLabel = `${weaponOnlyEffective - 1}d6 + 1${rollDie}`;
+      }
+    } else if (this.rollType === "combat" && hasWeapon) {
+      const weapon = system.weaponChoices[this.selectedWeaponIndex] || system.weaponChoices[0];
+      const rollDie = weapon.die.startsWith("s") ? weapon.die.slice(1) : weapon.die;
+      if (isZeroPool && weaponSnagged) {
+        poolLabel = "2d6 take lowest";
+      } else if (isZeroPool) {
+        poolLabel = `2d6 take lowest + 1${rollDie}`;
+      } else {
+        poolLabel = `${pool}d6 + 1${rollDie}`;
+      }
     } else {
       poolLabel = isZeroPool ? "2d6 take lowest" : `${pool}d6`;
     }
@@ -250,8 +288,8 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     const dice = [];
     let nextIndex = 0;
 
-    // Weapon die first (weapon-only: always; stat-based: if not snagged)
-    if (isWeaponOnly) {
+    // Weapon die first (skip die roll if snagged, but keep weapon identity for damage label)
+    if (isWeaponOnly && !weaponSnagged) {
       const rollDie = this.weapon.die.startsWith("s") ? this.weapon.die.slice(1) : this.weapon.die;
       const weaponRoll = new Roll(`1${rollDie}`);
       await weaponRoll.evaluate();
@@ -264,7 +302,15 @@ export class MondasRollDialog extends HandlebarsApplicationMixin(ApplicationV2) 
       };
       nextIndex++;
       rolls.push(weaponRoll);
-    } else if (hasWeapon && !weaponSnagged) {
+    } else if (isWeaponOnly && weaponSnagged) {
+      // Weapon snagged — no die roll, but preserve identity for damage label
+      weaponData = {
+        name: this.weapon.name || "Weapon",
+        die: this.weapon.die,
+        properties: this.weapon.properties || [],
+        weaponIndex: -1,
+      };
+    } else if (!isWeaponOnly && hasWeapon && !weaponSnagged) {
       const weapon = system.weaponChoices[this.selectedWeaponIndex] || system.weaponChoices[0];
       const rollDie = weapon.die.startsWith("s") ? weapon.die.slice(1) : weapon.die;
       const weaponRoll = new Roll(`1${rollDie}`);

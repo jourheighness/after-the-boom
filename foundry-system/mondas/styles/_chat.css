@@ -82,13 +82,11 @@
 .mondas .die-result.gambit-eligible,
 .mondas-roll-chat .die-result.gambit-eligible {
   cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s;
 }
 
-.mondas .die-result.gambit-eligible:hover,
-.mondas-roll-chat .die-result.gambit-eligible:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 2px 2px 0 var(--navy);
+.mondas-roll-chat .die-slot:hover .die-result.gambit-eligible {
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
 }
 
 .mondas .die-result.selected,
@@ -120,6 +118,41 @@
   white-space: nowrap;
   line-height: 1.2;
   height: 1.2em;
+  transition: all 0.1s;
+}
+
+/* Die slot — stable hover container for label popup */
+.mondas-roll-chat .die-slot {
+  position: relative;
+}
+
+/* Expanded label — shown via pseudo-element so the original stays in flow */
+.mondas-roll-chat .die-slot::after {
+  content: attr(data-label);
+  display: none;
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: var(--paper);
+  border: var(--b);
+  padding: var(--sp-1) var(--sp-3);
+  font-size: 0.7em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.mondas-roll-chat .die-slot[data-label]:hover::after {
+  display: block;
+}
+
+.mondas-roll-chat .die-slot[data-label]:hover .die-label {
+  visibility: hidden;
 }
 
 /* Weapon die — diagonal hatch, same size as stat dice */
@@ -146,17 +179,17 @@
   border: 2px dashed var(--navy);
   font-style: italic;
   cursor: pointer;
-  transition: opacity 0.15s, transform 0.1s, box-shadow 0.1s;
+  transition: opacity 0.15s;
 }
 
 .mondas-roll-chat .die-setup.ghost {
-  opacity: 0.35;
+  opacity: var(--opacity-muted);
 }
 
 .mondas-roll-chat .die-setup.ghost:hover {
   opacity: 0.7;
-  transform: translate(-2px, -2px);
-  box-shadow: 2px 2px 0 var(--navy);
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
 }
 
 .mondas-roll-chat .die-setup.active {
@@ -253,7 +286,7 @@
 
 .mondas-roll-chat {
   padding: var(--sp-4);
-  font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   line-height: 1.5;
   background: var(--paper);
@@ -261,9 +294,9 @@
 
 .mondas-roll-chat .roll-header {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  align-items: center;
-  justify-items: center;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  justify-items: stretch;
   border: var(--b);
   margin-bottom: var(--sp-4);
 }
@@ -293,11 +326,17 @@
 }
 
 .mondas-roll-chat .roll-header-weapon {
-  padding: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+  min-height: 3.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .mondas-roll-chat .roll-header-weapon .stat-label {
   font-size: var(--fs-md);
+  text-align: center;
 }
 
 .mondas-roll-chat .roll-header-type {
@@ -306,6 +345,9 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   padding: var(--sp-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mondas-roll-chat .pool-desc { font-size: var(--fs-md); color: var(--navy); margin-bottom: var(--sp-4); }
@@ -367,19 +409,7 @@
 
 /* gambit-tier: now uses shared .mondas-tag-sm */
 
-.mondas-roll-chat .weapon-section {
-  margin-top: var(--sp-4);
-  padding-top: var(--sp-3);
-  border-top: var(--b);
-}
-
-.mondas-roll-chat .weapon-damage { font-weight: 700; }
-
 .chat-message:has(.mondas-roll-chat) .dice-roll { display: none; }
-
-/* --- Setup Die --- */
-
-.mondas-roll-chat .setup-die-used { font-weight: 700; }
 
 /* ===================================================
  * GAMBIT CONTROLS (Chat)
@@ -397,6 +427,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-2);
+}
+
+.mondas-roll-chat .gambit-tray:not(:empty) {
   margin-bottom: var(--sp-4);
 }
 
@@ -428,7 +461,7 @@
 }
 
 .mondas-roll-chat .gambit-pill.taken {
-  opacity: 0.25;
+  opacity: var(--opacity-muted);
   cursor: not-allowed;
   pointer-events: none;
   background-image: var(--hatch-dots);
@@ -446,7 +479,7 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   background: var(--navy);
-  color: #fff;
+  color: var(--white);
   border: var(--b);
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
@@ -458,7 +491,7 @@
   box-shadow: 2px 2px 0 var(--navy);
 }
 
-.mondas-roll-chat .gambit-confirm-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.mondas-roll-chat .gambit-confirm-btn:disabled { opacity: var(--opacity-muted); cursor: not-allowed; }
 .mondas-roll-chat .gambit-confirm-btn:disabled:hover { transform: none; box-shadow: none; }
 
 .mondas-roll-chat .gambit-skip-btn {
@@ -479,13 +512,13 @@
   box-shadow: 2px 2px 0 var(--navy);
 }
 
-.mondas-roll-chat .gambit-skip-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.mondas-roll-chat .gambit-skip-btn:disabled { opacity: var(--opacity-muted); cursor: not-allowed; }
 .mondas-roll-chat .gambit-skip-btn:disabled:hover { transform: none; box-shadow: none; }
 
 /* --- Apply Damage --- */
 
 .mondas-apply-damage {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: var(--font-mono);
   display: inline-block;
   margin-top: var(--sp-3);
   padding: var(--sp-3) var(--sp-5);
@@ -494,7 +527,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   background: var(--navy);
-  color: #fff;
+  color: var(--white);
   border: var(--b);
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
@@ -505,21 +538,13 @@
   box-shadow: 2px 2px 0 var(--navy);
 }
 
-.mondas-roll-chat .damage-forfeited {
-  display: block;
-  font-size: var(--fs-md);
-  font-style: italic;
-  color: var(--navy);
-  margin-top: var(--sp-2);
-}
-
 /* ===================================================
  * DAMAGE REPORT
  * =================================================== */
 
 .mondas-damage-report {
   padding: var(--sp-4);
-  font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   background: var(--paper);
 }
@@ -542,7 +567,7 @@
 
 .mondas-item-card {
   padding: var(--sp-4);
-  font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   line-height: 1.5;
   background: var(--paper);
@@ -584,18 +609,6 @@
   color: var(--navy);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-}
-
-.mondas-item-card .card-chat-gambit {
-  margin-top: var(--sp-2);
-  padding: var(--sp-2) var(--sp-4);
-  border-left: var(--b);
-  font-size: var(--fs-md);
-}
-
-.mondas-item-card .card-chat-gambit .gambit-icon {
-  color: var(--navy);
-  margin-right: var(--sp-1);
 }
 
 /* ===================================================
@@ -665,7 +678,7 @@
   margin: 0 0 var(--sp-3);
   font-size: var(--fs-md);
   font-weight: 700;
-  color: #fff;
+  color: var(--white);
   text-shadow: var(--halo-navy);
 }
 

@@ -11,7 +11,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
 
   static DEFAULT_OPTIONS = {
     classes: ["mondas", "character-sheet"],
-    position: { width: 680, height: 820 },
+    position: { width: 740, height: 820 },
     actions: {
       rollStat: MondasCharacterSheet.#onRollStat,
       addEdge: MondasCharacterSheet.#onAddEdge,
@@ -87,9 +87,18 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
         if (!text) return;
         tip.textContent = text;
         tip.style.display = "block";
+        tip.style.left = "0";
+        tip.style.top = "0";
         const rect = node.getBoundingClientRect();
-        tip.style.left = `${rect.left}px`;
-        tip.style.top = `${rect.bottom + 6}px`;
+        const tipRect = tip.getBoundingClientRect();
+        let left = rect.left;
+        let top = rect.bottom + 6;
+        // Clamp to viewport edges
+        if (left + tipRect.width > window.innerWidth - 8) left = window.innerWidth - tipRect.width - 8;
+        if (left < 8) left = 8;
+        if (top + tipRect.height > window.innerHeight - 8) top = rect.top - tipRect.height - 6;
+        tip.style.left = `${left}px`;
+        tip.style.top = `${top}px`;
         requestAnimationFrame(() => tip.classList.add("visible"));
       });
       node.addEventListener("pointerleave", () => {
@@ -136,7 +145,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
 
     // Any active condition or sustained-self die? Hide panel if empty
     const hasTrackedSelf = (system.trackedDice ?? []).some((d) => d.type === "sustained-self");
-    context.hasConditions = system.conditions.stunned || system.conditions.shaken || system.conditions.prone
+    context.hasConditions = system.conditions.stunned || system.conditions.shaken || system.conditions.prone || system.conditions.pinned
       || context.cracked || context.wounded || context.critical || hasTrackedSelf;
 
     // Setup die
@@ -145,29 +154,29 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     // Lists
     context.weapons = (system.weapons ?? []).map((w) => {
       const isSustained = w.die.startsWith("s");
-      const tipParts = [];
-      if (w.description) tipParts.push(w.description);
-      if (w.properties?.length) tipParts.push(w.properties.join(", "));
-      if (w.gambitName) tipParts.push(`${w.gambitName}${w.gambitDesc ? " — " + w.gambitDesc : ""}`);
+      const tipLines = [];
+      if (w.description) tipLines.push(w.description);
+      if (w.properties?.length) tipLines.push(w.properties.join(", "));
+      if (w.gambitName) tipLines.push(`\u2680 ${w.gambitName}${w.gambitDesc ? " — " + w.gambitDesc : ""}`);
       return {
         ...w,
         isThrown: (w.properties ?? []).includes("thrown"),
         isSustained,
         dieBadge: isSustained ? w.die.slice(1) : w.die,
-        tip: tipParts.join(" · "),
+        tip: tipLines.join("\n"),
       };
     });
     context.edges = (system.edges ?? []).map((e) => {
-      const tipParts = [];
-      if (e.mechanical) tipParts.push(e.mechanical);
-      if (e.gambitName) tipParts.push(`${e.gambitName}${e.gambitDesc ? " — " + e.gambitDesc : ""}`);
-      return { ...e, tip: tipParts.join(" · ") };
+      const tipLines = [];
+      if (e.mechanical) tipLines.push(e.mechanical);
+      if (e.gambitName) tipLines.push(`\u2680 ${e.gambitName}${e.gambitDesc ? " — " + e.gambitDesc : ""}`);
+      return { ...e, tip: tipLines.join("\n") };
     });
     context.equipment = (system.equipment ?? []).map((eq) => {
-      const tipParts = [];
-      if (eq.description) tipParts.push(eq.description);
-      if (eq.gambitName) tipParts.push(`${eq.gambitName}${eq.gambitDesc ? " — " + eq.gambitDesc : ""}`);
-      return { ...eq, tip: tipParts.join(" · ") };
+      const tipLines = [];
+      if (eq.description) tipLines.push(eq.description);
+      if (eq.gambitName) tipLines.push(`\u2680 ${eq.gambitName}${eq.gambitDesc ? " — " + eq.gambitDesc : ""}`);
+      return { ...eq, tip: tipLines.join("\n") };
     });
 
     // Tracked dice — split into outgoing (tracking) and incoming (on you)
@@ -293,9 +302,9 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
       "systems/mondas/templates/dialogs/add-weapon.hbs",
       {
         name: data.name || "", description: data.description || "",
-        die: data.die || "d8", properties: data.properties || [],
+        die: data.die || "d8",
+        allProperties: [...(data.properties || []), ...(data.thaumic ? ["thaumatech"] : [])],
         dieOptions: DIE_OPTIONS, propertyOptions: PROPERTY_OPTIONS,
-        thaumic: data.thaumic || false,
         quantity: data.quantity ?? 1,
         gambitName: data.gambitName || "", gambitDesc: data.gambitDesc || "",
       },
@@ -312,12 +321,13 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
           if (!form) return null;
           const fd = new FormDataExtended(form);
           const d = fd.object;
-          const properties = [];
-          form.querySelectorAll("input[name='property']:checked").forEach((cb) => properties.push(cb.value));
+          const allProps = [];
+          form.querySelectorAll("input[name='property']:checked").forEach((cb) => allProps.push(cb.value));
+          const thaumic = allProps.includes("thaumatech");
+          const properties = allProps.filter((p) => p !== "thaumatech");
           return {
             name: d.name || "", description: d.description || "",
-            die: d.die || "d8", properties,
-            thaumic: !!form.querySelector("input[name='thaumic']")?.checked,
+            die: d.die || "d8", properties, thaumic,
             quantity: Math.max(0, parseInt(d.quantity, 10) || 1),
             gambitName: d.gambitName || "", gambitDesc: d.gambitDesc || "",
           };
@@ -370,6 +380,9 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
   /* ---- Equipment dialogs ---- */
 
   static async #openEquipmentDialog(title, label, data = {}) {
+    const existingTags = data.tags || [];
+    const presetSet = new Set(EQUIPMENT_TAGS);
+    const customTags = existingTags.filter((t) => !presetSet.has(t)).join(", ");
     const content = await renderTemplate(
       "systems/mondas/templates/dialogs/add-equipment.hbs",
       {
@@ -378,7 +391,8 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
         quantity: data.quantity ?? 1,
         armorValue: data.armorValue ?? 0,
         gambitName: data.gambitName || "", gambitDesc: data.gambitDesc || "",
-        checkedTags: data.tags || [],
+        checkedTags: existingTags,
+        customTags,
       },
     );
     return foundry.applications.api.DialogV2.prompt({
@@ -395,6 +409,8 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
           const d = fd.object;
           const tags = [];
           form.querySelectorAll("input[name='tag']:checked").forEach((cb) => tags.push(cb.value));
+          const customRaw = (d.customTags || "").split(",").map((t) => t.trim().toLowerCase()).filter(Boolean);
+          for (const ct of customRaw) { if (!tags.includes(ct)) tags.push(ct); }
           return {
             name: d.name || "", description: d.description || "",
             quantity: Number(d.quantity) || 1, tags,
@@ -457,6 +473,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     let html = `<div class="card-chat-header">${w.name} <span class="card-chat-die">${w.die}</span></div>`;
     if (w.description) html += `<p class="card-chat-desc">${w.description}</p>`;
     if (w.properties?.length) html += `<div class="card-chat-tags">${w.properties.map((p) => `<span class="tag">${p}</span>`).join("")}</div>`;
+    if (w.gambitName) html += `<div class="card-chat-tags"><span class="tag"><i class="fa-solid fa-dice-four"></i> ${w.gambitName}</span></div>${w.gambitDesc ? `<p class="card-chat-desc">${w.gambitDesc}</p>` : ""}`;
     await MondasCharacterSheet.#chatCard.call(this, html);
   }
 
@@ -477,7 +494,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
     const result = await foundry.applications.api.DialogV2.prompt({
       classes: ["mondas-dialog"],
       window: { title: "Background" },
-      content: `<div class="mondas-dialog-body"><textarea name="background" rows="10" style="resize:vertical" placeholder="2-4 sentences..." autofocus>${current}</textarea></div>`,
+      content: `<div class="mondas-dialog-body"><textarea name="background" rows="10" placeholder="2-4 sentences..." autofocus>${current}</textarea></div>`,
       ok: {
         label: "Save",
         callback: (event, button) => {
@@ -526,6 +543,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
         <label class="tag-toggle"><input type="checkbox" name="stunned" ${conditions.stunned ? "checked" : ""}> Stunned</label>
         <label class="tag-toggle"><input type="checkbox" name="shaken" ${conditions.shaken ? "checked" : ""}> Shaken</label>
         <label class="tag-toggle"><input type="checkbox" name="prone" ${conditions.prone ? "checked" : ""}> Prone</label>
+        <label class="tag-toggle"><input type="checkbox" name="pinned" ${conditions.pinned ? "checked" : ""}> Pinned</label>
       </div>
       <fieldset>
         <legend>Add Sustained Die</legend>
@@ -563,6 +581,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
             stunned: !!d.stunned,
             shaken: !!d.shaken,
             prone: !!d.prone,
+            pinned: !!d.pinned,
             sustainedDie: d.sustainedDie || "",
             sustainedLabel: d.sustainedLabel || "",
           };
@@ -578,6 +597,7 @@ export class MondasCharacterSheet extends HandlebarsApplicationMixin(ActorSheetV
       "system.conditions.stunned": result.stunned,
       "system.conditions.shaken": result.shaken,
       "system.conditions.prone": result.prone,
+      "system.conditions.pinned": result.pinned,
     };
 
     // Add sustained die if selected

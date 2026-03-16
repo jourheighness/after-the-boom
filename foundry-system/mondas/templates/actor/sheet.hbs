@@ -7,21 +7,25 @@
 
 {{!-- Resource Strip: Drain | Guard | [spacer] | Arm | Hrt | Wnd | Crt --}}
 <div class="resource-strip">
-  <div class="gauge" title="Drain — spend to fuel bonus dice, thaumatech, and crits">
-    <span class="gauge-label">Drain</span>
-    <div class="gauge-boxes">
-      {{#times drain.max}}
-      <span class="gauge-box drain {{#if (lt this ../drain.value)}}filled{{/if}}" data-action="toggleDrainBox" data-index="{{this}}"></span>
-      {{/times}}
+  <div class="pool-group">
+    <div class="gauge" title="Drain — spend to fuel bonus dice, thaumatech, and crits">
+      <span class="gauge-label" data-short="Drn">Drain</span>
+      <div class="gauge-boxes">
+        {{#times drain.max}}
+        <span class="gauge-box drain {{#if (lt this ../drain.value)}}filled{{/if}}" data-action="toggleDrainBox" data-index="{{this}}"></span>
+        {{/times}}
+      </div>
+      <span class="gauge-counter">{{drainRemaining}}/{{drain.max}}</span>
     </div>
-  </div>
 
-  <div class="gauge" title="Guard — absorbs incoming damage before it reaches Harm">
-    <span class="gauge-label">Guard</span>
-    <div class="gauge-boxes">
-      {{#times guard.max}}
-      <span class="gauge-box guard {{#if (lt this ../guard.value)}}filled{{/if}}" data-action="toggleGuardBox" data-index="{{this}}"></span>
-      {{/times}}
+    <div class="gauge" title="Guard — absorbs incoming damage before it reaches Harm">
+      <span class="gauge-label" data-short="Grd">Guard</span>
+      <div class="gauge-boxes">
+        {{#times guard.max}}
+        <span class="gauge-box guard {{#if (lt this ../guard.value)}}filled{{/if}}" data-action="toggleGuardBox" data-index="{{this}}"></span>
+        {{/times}}
+      </div>
+      <span class="gauge-counter">{{guardRemaining}}/{{guard.max}}</span>
     </div>
   </div>
 
@@ -102,9 +106,9 @@
     <div class="panel-content">
       {{#if setupDie.active}}
       <div class="die-item">
-        <div class="die-box die-setup-tracked" title="Setup die — automatically added to next roll">
+        <div class="die-box die-setup-tracked" data-tip="Setup die ({{setupDie.value}}) from {{#if setupDie.source}}{{setupDie.source}}{{else}}unknown{{/if}}&#10;Click × to remove" title="">
           {{setupDie.value}}
-          <span class="die-close" data-action="clearSetupDie">×</span>
+          <span class="close-x" data-action="clearSetupDie">×</span>
         </div>
         <div class="die-item-label">{{#if setupDie.source}}{{setupDie.source}}{{else}}SETUP{{/if}}</div>
       </div>
@@ -113,7 +117,7 @@
       <div class="die-item">
         <div class="die-box die-tracked" data-action="rollTrackedDie" data-index="{{realIndex}}" title="Click to roll — sustained die on target">
           {{die}}
-          <span class="die-close" data-action="removeTrackedDie" data-index="{{realIndex}}">×</span>
+          <span class="close-x" data-action="removeTrackedDie" data-index="{{realIndex}}">×</span>
         </div>
         <div class="die-item-label">{{label}}</div>
       </div>
@@ -129,17 +133,18 @@
   <div class="panel">
     <span class="panel-label">Conditions</span>
     <div class="panel-content">
-      {{#if conditions.stunned}}<span class="condition-pill condition active" data-action="toggleCondition" data-condition="stunned" title="Stunned — lose your next action"><i class="fa-solid fa-bolt"></i> Stunned</span>{{/if}}
-      {{#if conditions.shaken}}<span class="condition-pill condition active" data-action="toggleCondition" data-condition="shaken" title="Shaken — Snag on all rolls until recovered"><i class="fa-solid fa-hand"></i> Shaken</span>{{/if}}
-      {{#if conditions.prone}}<span class="condition-pill condition active" data-action="toggleCondition" data-condition="prone" title="Prone — Snag on attacks, opponents get Boon against you"><i class="fa-solid fa-person-falling"></i> Prone</span>{{/if}}
-      {{#if cracked}}<span class="condition-pill cracked" title="Cracked — all Drain spent"><i class="fa-solid fa-heart-crack"></i> Cracked</span>{{/if}}
-      {{#if wounded}}<span class="condition-pill wounded" title="Wounded — Wound slot filled"><i class="fa-solid fa-droplet"></i> Wounded</span>{{/if}}
-      {{#if critical}}<span class="condition-pill critical" title="Critical — Crit slot filled, must spend Drain to act"><i class="fa-solid fa-skull"></i> Critical</span>{{/if}}
+      {{#if conditions.stunned}}<span class="condition-pill condition active" data-tip="Can't act — no Move, no Act, no reaction&#10;Defense at 0d (roll 2d6, take lowest)&#10;Clears end of your next turn"><i class="fa-solid fa-bolt"></i> Stunned<span class="close-x" data-action="toggleCondition" data-condition="stunned">×</span></span>{{/if}}
+      {{#if conditions.shaken}}<span class="condition-pill condition active" data-tip="Rattled, panicked, or reeling&#10;Snag on all rolls until cleared&#10;Clears end of scene or through intervention"><i class="fa-solid fa-hand"></i> Shaken<span class="close-x" data-action="toggleCondition" data-condition="shaken">×</span></span>{{/if}}
+      {{#if conditions.prone}}<span class="condition-pill condition active" data-tip="On the ground — standing costs your Move&#10;Melee against you: Boon&#10;Ranged against you: Snag&#10;Your melee attacks: Snag"><i class="fa-solid fa-person-falling"></i> Prone<span class="close-x" data-action="toggleCondition" data-condition="prone">×</span></span>{{/if}}
+      {{#if conditions.pinned}}<span class="condition-pill condition active" data-tip="Can't reposition&#10;Costs Act to escape (Strong: Act + Move)"><i class="fa-solid fa-thumbtack"></i> Pinned<span class="close-x" data-action="toggleCondition" data-condition="pinned">×</span></span>{{/if}}
+      {{#if cracked}}<span class="condition-pill cracked" data-tip="All Drain spent&#10;Snag on all rolls&#10;Clears through significant narrative moments"><i class="fa-solid fa-heart-crack"></i> Cracked</span>{{/if}}
+      {{#if wounded}}<span class="condition-pill wounded" data-tip="Wound slot filled&#10;Snag on all rolls"><i class="fa-solid fa-droplet"></i> Wounded</span>{{/if}}
+      {{#if critical}}<span class="condition-pill critical" data-tip="Crit slot filled&#10;Must spend Drain to act"><i class="fa-solid fa-skull"></i> Critical</span>{{/if}}
       {{#each trackedSelf}}
       <div class="combat-chip sustained-self-chip" data-action="rollTrackedDie" data-index="{{realIndex}}" title="Sustained damage on you — click to roll">
         <span class="chip-cell"><i class="fa-solid fa-arrows-spin"></i> Sust</span>
         <span class="chip-cell cell-die">{{die}}</span>
-        <span class="die-close" data-action="removeTrackedDie" data-index="{{realIndex}}">×</span>
+        <span class="close-x" data-action="removeTrackedDie" data-index="{{realIndex}}">×</span>
       </div>
       {{/each}}
     </div>

@@ -1,13 +1,14 @@
 /* ===================================================
  * FOUNDRY FULL RESET
  * System layer beats Foundry's elements/blocks/applications layers.
- * No !important needed — cascade layer order handles priority.
+ * !important used where needed to override Foundry's built-in styles.
  * =================================================== */
 
 /* --- Wrapper-level: window-content padding, window-app vars --- */
 .application.mondas .window-content,
 .application.mondas-dialog .window-content {
   padding: 0 !important;
+  margin: 0 !important;
   overflow: hidden auto;
 }
 
@@ -125,11 +126,47 @@
   display: none;
 }
 
+/* --- Window header (all mondas apps: sheet, roll dialog, dialogs) --- */
+.application.mondas .window-header,
+.application.mondas-dialog .window-header {
+  background: var(--navy) !important;
+  color: var(--white) !important;
+  border-bottom: none !important;
+  font-family: var(--font-mono) !important;
+  font-size: var(--fs-md);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-left: var(--sp-6) !important;
+  margin: 0 !important;
+}
+
+.application.mondas .window-header .window-title,
+.application.mondas-dialog .window-header .window-title {
+  color: var(--white) !important;
+  font-weight: 700;
+}
+
+.application.mondas .window-header button,
+.application.mondas-dialog .window-header button {
+  color: var(--paper) !important;
+  background: transparent !important;
+  border: none !important;
+  padding: var(--sp-2) var(--sp-4) !important;
+  font-family: "Font Awesome 6 Pro", "Font Awesome 6 Free" !important;
+}
+
+.application.mondas .window-header button:hover,
+.application.mondas-dialog .window-header button:hover {
+  color: var(--white) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /* Preserve Font Awesome icons everywhere */
 .mondas i[class*="fa-"],
 .application.mondas-dialog i[class*="fa-"],
 .mondas-roll-chat i[class*="fa-"] {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro" !important;
+  font-family: "Font Awesome 6 Pro", "Font Awesome 6 Free" !important;
   font-style: normal !important;
   -webkit-font-smoothing: antialiased;
 }

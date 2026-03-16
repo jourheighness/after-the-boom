@@ -20,27 +20,20 @@
   </div>
 
   <div class="form-group">
-    <label>Properties</label>
-    <div class="tag-toggles">
-      {{#each propertyOptions}}
-      <label class="tag-toggle">
-        <input type="checkbox" name="property" value="{{this}}" {{#if (includes ../properties this)}}checked{{/if}}>
-        <span>{{this}}</span>
-      </label>
-      {{/each}}
-    </div>
-  </div>
-
-  <div class="form-group">
     <label>Quantity</label>
     <input type="number" name="quantity" value="{{quantity}}" min="0">
   </div>
 
   <div class="form-group">
-    <label class="tag-toggle thaumic-toggle">
-      <input type="checkbox" name="thaumic" {{#if thaumic}}checked{{/if}}>
-      <span>Thaumatech</span>
-    </label>
+    <label>Properties</label>
+    <div class="tag-toggles">
+      {{#each propertyOptions}}
+      <label class="tag-toggle">
+        <input type="checkbox" name="property" value="{{this}}" {{#if (includes ../allProperties this)}}checked{{/if}}>
+        <span>{{this}}</span>
+      </label>
+      {{/each}}
+    </div>
   </div>
 
   <fieldset class="thaumatech-gambit-section">

@@ -10,6 +10,17 @@
 .application.mondas {
   --navy: #1c2b3a;
   --paper: #ebe7df;
+  --white: #fff;
+
+  /* Typography */
+  --font-mono: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace;
+
+  /* Overlays */
+  --overlay-light: rgba(255, 255, 255, 0.15);
+  --shadow: rgba(0, 0, 0, 0.3);
+
+  /* Opacity stops */
+  --opacity-muted: 0.3;
 
   /* Text halo for readability over patterns */
   --halo-paper:
@@ -38,6 +49,7 @@
   --sp-4: 8px;
   --sp-5: 12px;
   --sp-6: 16px;
+  --sp-7: 24px;
 
   /* Font scale — 12px floor */
   --fs-xs: 0.86em;
@@ -50,7 +62,7 @@
 
   /* Borders */
   --b: 2px solid var(--navy);
-  --b-light: 2px solid var(--navy);
+  --b-light: 1px solid var(--navy);
   --b-paper: 2px solid var(--paper);
 
   /* Raster patterns — 8-step density scale, light→dark

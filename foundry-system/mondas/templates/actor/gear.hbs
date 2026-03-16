@@ -22,10 +22,17 @@
         </div>
       </div>
       {{#if description}}<p class="card-desc">{{description}}</p>{{/if}}
+      {{#if properties.length}}
       <div class="card-tags">
         {{#each properties}}<span class="tag">{{this}}</span>{{/each}}
-        {{#if gambitName}}<span class="tag tag-gambit" {{#if gambitDesc}}data-tip="{{gambitDesc}}"{{/if}}><i class="fa-solid fa-dice-four"></i>{{gambitName}}</span>{{/if}}
       </div>
+      {{/if}}
+      {{#if gambitName}}
+      <div class="card-gambit">
+        <div class="card-gambit-name"><i class="fa-solid fa-dice-four"></i>{{gambitName}}</div>
+        {{#if gambitDesc}}<p class="card-gambit-desc">{{gambitDesc}}</p>{{/if}}
+      </div>
+      {{/if}}
     </div>
     {{/each}}
   </div>
@@ -51,10 +58,17 @@
         </div>
       </div>
       {{#if description}}<p class="card-desc">{{description}}</p>{{/if}}
+      {{#if tags.length}}
       <div class="card-tags">
         {{#each tags}}<span class="tag">{{this}}</span>{{/each}}
-        {{#if gambitName}}<span class="tag tag-gambit" {{#if gambitDesc}}data-tip="{{gambitDesc}}"{{/if}}><i class="fa-solid fa-dice-four"></i>{{gambitName}}</span>{{/if}}
       </div>
+      {{/if}}
+      {{#if gambitName}}
+      <div class="card-gambit">
+        <div class="card-gambit-name"><i class="fa-solid fa-dice-four"></i>{{gambitName}}</div>
+        {{#if gambitDesc}}<p class="card-gambit-desc">{{gambitDesc}}</p>{{/if}}
+      </div>
+      {{/if}}
     </div>
     {{/each}}
   </div>

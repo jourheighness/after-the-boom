@@ -7,7 +7,7 @@
   flex-direction: column;
   background: var(--navy);
   color: var(--navy);
-  font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', 'Monaco', monospace;
+  font-family: var(--font-mono);
   font-size: 14px;
   line-height: 1.5;
   padding: 0;
@@ -27,7 +27,7 @@
   flex-direction: column;
   gap: var(--sp-1);
   background: var(--navy);
-  color: #fff;
+  color: var(--white);
   padding: var(--sp-6) var(--sp-6) var(--sp-5);
 }
 
@@ -37,7 +37,7 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--white);
   background: transparent;
   border: none;
   border-bottom: var(--b-paper);
@@ -52,7 +52,7 @@
 }
 
 .mondas .sheet-header .char-name:focus {
-  border-bottom-color: #fff;
+  border-bottom-color: var(--white);
 }
 
 /* ===================================================
@@ -61,7 +61,7 @@
 
 .mondas .background-section {
   background: var(--navy);
-  color: #fff;
+  color: var(--white);
   padding: var(--sp-3) var(--sp-6) var(--sp-5);
 }
 
@@ -69,6 +69,12 @@
   background: transparent;
   margin: 0;
   padding: 0;
+  gap: 0;
+}
+
+.mondas .background-section .section-header::before,
+.mondas .background-section .section-header::after {
+  display: none;
 }
 
 .mondas .background-section .section-header h3 {
@@ -104,10 +110,10 @@
 }
 
 .mondas .background-add-btn:hover {
-  border-color: #fff;
-  color: #fff;
+  border-color: var(--white);
+  color: var(--white);
   transform: translate(-2px, -2px);
-  box-shadow: 2px 2px 0 #fff;
+  box-shadow: 2px 2px 0 var(--white);
 }
 
 .mondas .background-filled {
@@ -130,8 +136,8 @@
 }
 
 .mondas .background-filled .ctrl-btn:hover {
-  color: #fff;
-  border-color: #fff;
+  color: var(--white);
+  border-color: var(--white);
   transform: translate(-1px, -1px);
   box-shadow: 1px 1px 0 var(--paper);
 }
@@ -192,6 +198,7 @@
   flex: 1;
   overflow-y: auto;
   background: var(--paper);
+  container-type: inline-size;
 }
 
 /* Play tab: sections control their own spacing */
@@ -225,8 +232,8 @@
   --menu-height: 28px;
   --min-height: 200px;
   --button-text-color: var(--paper);
-  --color-control-hover: rgba(255, 255, 255, 0.15);
-  --color-form-label-hover: #fff;
+  --color-control-hover: var(--overlay-light);
+  --color-form-label-hover: var(--white);
   --button-focus-outline-color: var(--paper);
   flex: 1;
   display: flex;
@@ -265,16 +272,16 @@
 .mondas .tab-notes .prosemirror menu button:hover {
   background: transparent !important;
   border-color: var(--paper) !important;
-  color: #fff !important;
+  color: var(--white) !important;
   transform: translate(-1px, -1px);
   box-shadow: 1px 1px 0 var(--paper) !important;
 }
 
 .mondas .tab-notes prose-mirror menu button.active,
 .mondas .tab-notes .prosemirror menu button.active {
-  background: rgba(255, 255, 255, 0.15) !important;
+  background: var(--overlay-light) !important;
   border-color: var(--paper) !important;
-  color: #fff !important;
+  color: var(--white) !important;
   box-shadow: none !important;
   outline: none !important;
 }

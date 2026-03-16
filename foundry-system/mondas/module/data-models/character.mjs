@@ -41,6 +41,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         stunned: new fields.BooleanField({ initial: false }),
         shaken: new fields.BooleanField({ initial: false }),
         prone: new fields.BooleanField({ initial: false }),
+        pinned: new fields.BooleanField({ initial: false }),
       }),
 
       // Scars — array of descriptions

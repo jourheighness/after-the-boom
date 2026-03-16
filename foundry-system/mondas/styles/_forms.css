@@ -112,19 +112,12 @@
   display: none !important;
 }
 
-/* Prevent Foundry's :checked from adding position:relative */
+/* Checked: static position (kill Foundry relative) + X mark via CSS gradients */
 .mondas input[type="checkbox"]:checked,
 .mondas.roll-dialog input[type="checkbox"]:checked,
 .application.mondas-dialog input[type="checkbox"]:checked,
 .application.mondas input[type="checkbox"]:checked {
   position: static;
-}
-
-/* X mark drawn with CSS gradients directly on the element */
-.mondas input[type="checkbox"]:checked,
-.mondas.roll-dialog input[type="checkbox"]:checked,
-.application.mondas-dialog input[type="checkbox"]:checked,
-.application.mondas input[type="checkbox"]:checked {
   background-color: var(--paper);
   background-image:
     linear-gradient(
@@ -194,34 +187,19 @@
 /* --- Frame & Window --- */
 
 .application.mondas-dialog {
-  font-family: 'IBM Plex Mono', 'Fira Mono', 'Consolas', monospace !important;
+  font-family: var(--font-mono) !important;
   font-size: 14px;
   background: var(--navy) !important;
   border: var(--b) !important;
   color: var(--navy);
 }
 
-.application.mondas-dialog .window-header {
-  background: var(--navy) !important;
-  color: #fff !important;
-  border-bottom: var(--b-paper) !important;
-  font-family: 'IBM Plex Mono', monospace !important;
-  font-size: var(--fs-md);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding-left: var(--sp-6) !important;
-}
-
-.application.mondas-dialog .window-header .window-title {
-  color: #fff !important;
-  font-weight: 700;
-}
-
+/* Window header now consolidated in _reset.css */
 
 /* Preserve icon fonts inside buttons everywhere */
 .application.mondas-dialog button i,
 .application.mondas-dialog [data-action] i {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro" !important;
+  font-family: "Font Awesome 6 Pro", "Font Awesome 6 Free" !important;
   font-style: normal;
 }
 
@@ -251,7 +229,7 @@
 
 .application.mondas-dialog .form-group > label {
   display: block !important;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: var(--font-mono);
   font-size: var(--fs-sm);
   font-weight: 700;
   text-transform: uppercase;
@@ -285,7 +263,7 @@
   min-width: 0;
   padding: var(--sp-3) var(--sp-4) !important;
   border: var(--b) !important;
-  font-family: 'IBM Plex Mono', monospace !important;
+  font-family: var(--font-mono) !important;
   font-size: var(--fs-lg);
   background: var(--paper) !important;
   color: var(--navy) !important;
@@ -351,6 +329,15 @@
 }
 
 .application.mondas-dialog .tag-toggle input[type="checkbox"] { display: none; }
+.application.mondas-dialog .tag-toggle span { text-transform: uppercase; }
+
+/* Custom tag inline input */
+.application.mondas-dialog .custom-tag-input {
+  margin-top: var(--sp-2);
+  width: 100% !important;
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+}
 
 .application.mondas-dialog .tag-toggle:hover {
   transform: translate(-1px, -1px);
@@ -406,13 +393,13 @@
 .application.mondas-dialog .dialog-button,
 .application.mondas-dialog .form-footer button,
 .application.mondas-dialog [data-action] {
-  font-family: 'IBM Plex Mono', monospace !important;
+  font-family: var(--font-mono) !important;
   font-size: var(--fs-md) !important;
   font-weight: 700 !important;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   background: var(--navy) !important;
-  color: #fff !important;
+  color: var(--white) !important;
   border: var(--b) !important;
   height: 40px;
   padding: 0 var(--sp-6) !important;
@@ -431,27 +418,15 @@
   transform: translate(-2px, -2px);
   box-shadow: 2px 2px 0 var(--navy);
   background: var(--navy) !important;
-  color: #fff !important;
+  color: var(--white) !important;
 }
 
-/* Don't style header close button as a form button */
+/* Dialog close button — override aggressive dialog button base (reset is in _reset.css) */
 .application.mondas-dialog .window-header button {
-  padding: var(--sp-2) var(--sp-4) !important;
-  border: none !important;
-  background: transparent !important;
   font-size: 1em !important;
   font-weight: 400 !important;
   text-transform: none !important;
   letter-spacing: 0 !important;
-  color: var(--paper) !important;
-  font-family: "Font Awesome 6 Pro", "Font Awesome 6 Free" !important;
-}
-
-.application.mondas-dialog .window-header button:hover {
-  transform: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
-  color: #fff !important;
 }
 
 /* --- Footer --- */

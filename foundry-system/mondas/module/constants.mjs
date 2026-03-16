@@ -1,8 +1,8 @@
 /** Tags available for equipment */
-export const EQUIPMENT_TAGS = ["thaumatech", "licensed", "restricted", "prohibited", "black-market", "mundane"];
+export const EQUIPMENT_TAGS = ["thaumatech", "worn", "personal", "consumable", "tool", "concealed", "bulky", "fragile", "powered", "medical", "comms", "armor", "licensed", "restricted", "prohibited", "black-market", "mundane"];
 
-/** Weapon property options */
-export const PROPERTY_OPTIONS = ["ranged", "sidearm", "thrown", "area", "long", "loud", "brutal", "subtle", "slow"];
+/** Weapon property options (thaumatech first) */
+export const PROPERTY_OPTIONS = ["thaumatech", "ranged", "sidearm", "thrown", "area", "long", "loud", "brutal", "subtle", "slow"];
 
 /** Die options for weapons (sustained variants use "s" prefix) */
 export const DIE_OPTIONS = {
